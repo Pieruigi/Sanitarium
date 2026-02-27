@@ -26,7 +26,14 @@ namespace SNT.UI
             if(!dot.enabled) return;
 
             var pos = Input.mousePosition;
+            pos.x = Mathf.Clamp(pos.x, 0, Screen.width);
+            pos.y = Mathf.Clamp(pos.y, 0, Screen.height);
+
+            
             dot.rectTransform.position = pos;
+
+            Debug.Log("TEST - Pos:" + pos);
+            
 
             if(PlayerInteractor.Instance.IsBusy())
             {
