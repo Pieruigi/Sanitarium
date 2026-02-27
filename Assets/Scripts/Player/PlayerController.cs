@@ -9,7 +9,7 @@ namespace SNT
     {
         PlayerState state = PlayerState.None;
 
-        float interactDistance = 3f;
+        
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -61,17 +61,13 @@ namespace SNT
         {
             PlayerDot.Instance.ShowDot(true);
             ShowCursor(false);
+            // Start interactor
+            PlayerInteractor.Instance.enabled = true;
         }
 
         void UpdateNormalState()
         {
-            // Check input
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, interactDistance, LayerMask.GetMask(new string[] { "Interactable" })))
-            {
-                Debug.Log("Hit: " + hit.collider.gameObject.name);
-            }
+          
         }
 
     }
