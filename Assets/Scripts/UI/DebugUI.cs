@@ -28,7 +28,7 @@ namespace Baloon.UI
 
         private void LateUpdate()
         {
-            boilerPower.text = $"{BoilerController.Instance.Power.ToString("0.0")}";
+            boilerPower.text = $"{(BoilerController.Instance.Power/BoilerController.Instance.MaxPower).ToString("0.0")}";
             temperature.text = $"{InternalAir.Instance.TemperatureDifference.ToString("00.0")}";
             altitude.text = $"{InternalAir.Instance.transform.position.y.ToString("000.0")}";
         }

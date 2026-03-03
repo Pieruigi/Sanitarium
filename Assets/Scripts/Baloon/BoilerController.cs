@@ -6,12 +6,24 @@ namespace Baloon
     {
         [SerializeField]
         [Range(0, 1f)]
-        float power = 0;
-        public float Power => power;
+        float throttle = 0;
 
-        float[] maxPowers = new float[] { 1f, 1.5f };
+        //float power = 0;
+        public float Power 
+        {
+            get
+            {
+                return throttle * maxPowers[version];
+            }
+        }
 
-        int version = 0;
+        float[] maxPowers = new float[] { 1f, 2f };
+
+        int version = 1;
+
+        public float MaxPower => maxPowers[version];
+
+        
 
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,6 +45,7 @@ namespace Baloon
             //    power = 0;
             //}
 #endif
+            
         }
 
 
