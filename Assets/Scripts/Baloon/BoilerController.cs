@@ -4,11 +4,12 @@ namespace Baloon
 {
     public class BoilerController : Singleton<BoilerController>
     {
-
+        [SerializeField]
+        [Range(0, 1f)]
         float power = 0;
         public float Power => power;
 
-        float[] maxPowers = new float[] { .7f, 1f };
+        float[] maxPowers = new float[] { 1f, 1.5f };
 
         int version = 0;
 
@@ -23,14 +24,14 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKey(KeyCode.X))
-            {
-                power = maxPowers[version];
-            }
-            else
-            {
-                power = 0;
-            }
+            //if (Input.GetKey(KeyCode.X))
+            //{
+            //    power = maxPowers[version];
+            //}
+            //else
+            //{
+            //    power = 0;
+            //}
 #endif
         }
 

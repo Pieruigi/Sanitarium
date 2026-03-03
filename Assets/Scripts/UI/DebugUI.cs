@@ -28,10 +28,10 @@ namespace Baloon.UI
 
         private void LateUpdate()
         {
-            boilerPower.text = $"{BoilerController.Instance.Power}";
-            temperature.text = $"{InternalAir.Instance.TemperatureDifference}";
-            altitude.text = $"{InternalAir.Instance.transform.position.y}";
+            boilerPower.text = $"{BoilerController.Instance.Power.ToString("0.0")}";
+            temperature.text = $"{InternalAir.Instance.TemperatureDifference.ToString("00.0")}";
+            altitude.text = $"{InternalAir.Instance.transform.position.y.ToString("000.0")}";
         }
     }
-    }
+    
 }
