@@ -23,7 +23,8 @@ namespace Baloon
 
         float maxTemperatureDifference = 10f;
 
-        
+        bool coolerOn = false;
+
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -38,31 +39,30 @@ namespace Baloon
             if (Input.GetKey(KeyCode.C))
             {
                 decreaseSpeed = 5;
+                coolerOn = true;
             }
             else
             {
-                decreaseSpeed = .1f;
+                decreaseSpeed = .5f;
+                coolerOn = false;
             }
 #endif
 
 
             var curveValue = altitudeAirDiffCurve.Evaluate(transform.position.y / (maxAltitude * BoilerController.Instance.MaxPower));
 
-            var targetDiff = BoilerController.Instance.Power * maxTemperatureDifference * curveValue;
-            //targetDiff = Mathf.Clamp(targetDiff, 0, maxTemperatureDifference);
+            var targetDiff = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
 
 
-            var speed = decreaseSpeed;
-                
-            if(targetDiff > inExtDiff)
-                speed = increaseSpeed;
+            var transitionSpeed = targetDiff > inExtDiff ? increaseSpeed : decreaseSpeed;
 
-            inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, speed*Time.deltaTime);
+            
+            //if (targetDiff > inExtDiff)
+            //    inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, increaseSpeed * Time.deltaTime);
+            //else
+            //    inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, decreaseSpeed * Time.deltaTime); 
+            inExtDiff = Mathf.Lerp(inExtDiff, targetDiff, transitionSpeed * Time.deltaTime);
 
-            inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, increaseSpeed * Time.deltaTime);
-            inExtDiff -= decreaseSpeed * Time.deltaTime;
-
-            if (inExtDiff < 0) inExtDiff = 0;
         }
 
         

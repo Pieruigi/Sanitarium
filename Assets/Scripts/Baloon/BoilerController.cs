@@ -19,7 +19,7 @@ namespace Baloon
 
         float[] maxPowers = new float[] { 1f, 2f };
 
-        int version = 1;
+        int version = 0;
 
         public float MaxPower => maxPowers[version];
 

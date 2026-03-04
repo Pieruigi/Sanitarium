@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Baloon;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -51,8 +52,11 @@ namespace StarterAssets
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
-		// cinemachine
-		private float _cinemachineTargetPitch;
+        [SerializeField]
+        bool onBaloon = false;
+
+        // cinemachine
+        private float _cinemachineTargetPitch;
 
 		// player
 		private float _speed;
@@ -112,6 +116,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
@@ -122,6 +127,10 @@ namespace StarterAssets
 			CameraRotation();
 		}
 
+
+		
+		
+
 		private void GroundedCheck()
 		{
 			// set sphere position, with offset
@@ -131,8 +140,14 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
-			// if there is an input
-			if (_input.look.sqrMagnitude >= _threshold)
+            if (onBaloon)
+            {
+                transform.Rotate(Vector3.up * BaloonController.Instance.GetComponent<Rigidbody>().angularVelocity.y * Mathf.Rad2Deg * Time.deltaTime);
+
+            }
+
+            // if there is an input
+            if (_input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
@@ -146,10 +161,14 @@ namespace StarterAssets
 				// Update Cinemachine camera target pitch
 				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
+				
+
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
 			}
-		}
+
+            
+        }
 
 		private void Move()
 		{
@@ -196,8 +215,16 @@ namespace StarterAssets
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
 
-			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			Vector3 baloonVel = Vector3.zero;
+            if (onBaloon)
+			{
+                baloonVel = Baloon.BaloonController.Instance.GetComponent<Rigidbody>().GetPointVelocity(transform.position);
+                //baloonVel = FindFirstObjectByType<TestPlatform>().GetComponent<Rigidbody>().linearVelocity;
+				_verticalVelocity = 0.0f;
+            }
+
+            // move the player
+            _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime + baloonVel * Time.deltaTime);
 		}
 
 		private void JumpAndGravity()
