@@ -20,10 +20,10 @@ public class TestPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            flying = !flying;
-        }
+        //if(Input.GetKeyDown(KeyCode.X))
+        //{
+        //    flying = !flying;
+        //}
 
         
     }

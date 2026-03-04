@@ -25,7 +25,7 @@ namespace Baloon
         {
             player = GameObject.FindGameObjectWithTag("Player");
             Debug.Log($"TEST - playerCollider:{player.GetComponent<Collider>()}");
-            //Physics.IgnoreCollision(GetComponent<Collider>(), player.GetComponent<Collider>(), true);
+         
         }
 
         // Update is called once per frame
