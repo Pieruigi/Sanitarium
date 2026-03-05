@@ -1,3 +1,4 @@
+using StarterAssets;
 using System;
 using System.Collections;
 using TMM;
@@ -15,6 +16,9 @@ namespace Baloon
         [SerializeField]
         HoldButton starter;
 
+        [SerializeField]
+        HoldSlider throttle;
+
         GameObject player;
 
         bool started = false;
@@ -26,6 +30,8 @@ namespace Baloon
         void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+
+            ResetAndLockThrottle();
         }
 
         // Update is called once per frame
@@ -57,6 +63,7 @@ namespace Baloon
             starter.OnReleased -= HandleStarterOnReleased;
         }
 
+
         private void HandleStarterOnPushed()
         {
             if (!started)
@@ -68,12 +75,21 @@ namespace Baloon
                     yield return new WaitForSeconds(3f);
                    
                     started = true;
+
+                    throttle.Locked = false;
+
+                    player.GetComponent<FirstPersonController>().OnBaloon = true;
+                    player.transform.parent = transform;
+
                     OnStarted?.Invoke();
                 }
             }
             else
             {
                 started = false;
+                ResetAndLockThrottle();
+                player.GetComponent<FirstPersonController>().OnBaloon = false;
+                player.transform.parent = null;
                 OnStopped?.Invoke();
             }
 
@@ -86,6 +102,12 @@ namespace Baloon
                 StopCoroutine(startupCoroutine);
             }
             
+        }
+
+        void ResetAndLockThrottle()
+        {
+            throttle.ResetSlider();
+            throttle.Locked = true;
         }
     }
 }

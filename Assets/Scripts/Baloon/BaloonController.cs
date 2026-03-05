@@ -1,4 +1,5 @@
 using StarterAssets;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,14 @@ namespace Baloon
         float force = 5f;
 
         float maxSpeed = 6f;
+
+        [SerializeField] float gravity = 9.81f;
+        [SerializeField] float linearDrag = 0.5f; // Simula l'attrito dell'aria
+
+        [SerializeField] float groundCheckDistance = 1.5f; // Altezza della cesta
+        [SerializeField] LayerMask groundLayer;
+
+        float verticalVelocity = 0f;
 
         GameObject player;
 
@@ -28,34 +37,80 @@ namespace Baloon
          
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        private void FixedUpdate()
+       
+        private void Update()
         {
             var diff = InternalAir.Instance.TemperatureDifference;
 
-            if(diff > 0)
+            // 1. CALCOLO ACCELERAZIONE (La tua logica originale)
+            float acceleration = 0f;
+            if (diff > 0)
             {
-                var mul = 1f;
-                if(rb.linearVelocity.y >= 0)
+                float mul = 1f;
+                if (verticalVelocity >= 0)
                 {
-                    mul = 1 - (rb.linearVelocity.y / maxSpeed);
-                    mul = Mathf.Clamp(mul, 0, 1);
+                    mul = 1 - (verticalVelocity / maxSpeed);
+                    mul = Mathf.Clamp01(mul);
                 }
-                rb.AddForce(Vector3.up * diff * force * mul, ForceMode.Acceleration);
-
-
-                //rb.AddTorque(Vector3.up * diff * force * 0.1f, ForceMode.Acceleration);
+                // Spinta del bruciatore
+                acceleration = diff * force * mul;
             }
-                
 
-            //if(rb.linearVelocity.y > 0 && rb.linearVelocity.y > maxSpeed)
-            //    rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxSpeed, rb.linearVelocity.z);
+            // 2. APPLICAZIONE GRAVITÀ E DRAG (Quello che faceva il Rigidbody)
+            // Sottraiamo la gravità
+            acceleration -= gravity;
 
+            // Applichiamo l'accelerazione alla velocità
+            verticalVelocity += acceleration * Time.deltaTime;
+
+            // Applichiamo il Drag (l'attrito aumenta con la velocità)
+            verticalVelocity *= (1f - linearDrag * Time.deltaTime);
+
+
+            // Controllo del suolo
+            if (verticalVelocity < 0) // Controlliamo solo se stiamo scendendo
+            {
+                RaycastHit hit;
+                float startOffset = 1f;
+                if (Physics.Raycast(transform.position + Vector3.up * startOffset, Vector3.down, out hit, groundCheckDistance + startOffset, groundLayer))
+                {
+                    // Se tocchiamo il suolo, azzeriamo la velocità e posizioniamo la cesta esattamente sopra
+                    verticalVelocity = 0;
+
+                    // Opzionale: corregge la posizione per non farla compenetrare
+                    Vector3 pos = transform.position;
+                    pos.y = hit.point.y + groundCheckDistance;
+                    transform.position = pos;
+                }
+            }
+
+
+            // 3. MOVIMENTO FINALE
+            // Muoviamo il transform direttamente (niente scatti per lo slider!)
+            transform.position += Vector3.up * verticalVelocity * Time.deltaTime;
         }
+
+        //private void FixedUpdate()
+        //{
+        //    var diff = InternalAir.Instance.TemperatureDifference;
+
+        //    if(diff > 0)
+        //    {
+        //        var mul = 1f;
+        //        if(rb.linearVelocity.y >= 0)
+        //        {
+        //            mul = 1 - (rb.linearVelocity.y / maxSpeed);
+        //            mul = Mathf.Clamp(mul, 0, 1);
+        //        }
+        //        rb.AddForce(Vector3.up * diff * force * mul, ForceMode.Acceleration);
+
+
+
+        //    }
+
+
+
+
+        //}
     }
 }

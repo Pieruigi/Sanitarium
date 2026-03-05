@@ -8,7 +8,7 @@ namespace Baloon
     {
         public UnityAction OnPushed;
         public UnityAction OnReleased;
-
+        
         [SerializeField]
         Interactor interactor;
 

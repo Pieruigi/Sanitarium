@@ -935,6 +935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaloonControlPanel
   starter: {fileID: 1426756368}
+  throttle: {fileID: 1113053166}
 --- !u!136 &222710512
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1623,7 +1624,7 @@ GameObject:
   - component: {fileID: 482376717}
   - component: {fileID: 482376716}
   - component: {fileID: 482376715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2200,8 +2201,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 2
@@ -2214,7 +2215,7 @@ Transform:
   m_GameObject: {fileID: 790210121}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.10800004, z: 0}
+  m_LocalPosition: {x: 0, y: 0.038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2292,6 +2293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BoilerController
   throttle: 0
+  throttleSlider: {fileID: 1113053166}
 --- !u!114 &790210127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2304,6 +2306,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa140272809533f4fb4eaca3395c9e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonController
+  gravity: 9.81
+  linearDrag: 0.5
+  groundCheckDistance: 0.01
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &832589477
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,5 +4792,5 @@ SceneRoots:
   - {fileID: 8059081341164563396}
   - {fileID: 1751370217}
   - {fileID: 471849164}
-  - {fileID: 278106435}
   - {fileID: 10851517}
+  - {fileID: 278106435}

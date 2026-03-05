@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Baloon
@@ -7,6 +8,9 @@ namespace Baloon
         [SerializeField]
         [Range(0, 1f)]
         float throttle = 0;
+
+        [SerializeField]
+        HoldSlider throttleSlider;
 
         //float power = 0;
         public float Power 
@@ -48,7 +52,20 @@ namespace Baloon
             
         }
 
+        private void OnEnable()
+        {
+            throttleSlider.OnValueChanged += HandleOnThrottleSliderValueChanged;
+        }
 
+        private void OnDisable()
+        {
+            throttleSlider.OnValueChanged -= HandleOnThrottleSliderValueChanged;
+        }
+
+        private void HandleOnThrottleSliderValueChanged(float value)
+        {
+            throttle = value;
+        }
     }
 
 }
