@@ -72,14 +72,14 @@ namespace Baloon
 
                 IEnumerator Startup()
                 {
-                    yield return new WaitForSeconds(3f);
+                    yield return new WaitForSeconds(1f);
                    
                     started = true;
 
                     throttle.Locked = false;
 
                     player.GetComponent<FirstPersonController>().OnBaloon = true;
-                    player.transform.parent = transform;
+                    player.transform.parent = transform.parent;
 
                     OnStarted?.Invoke();
                 }

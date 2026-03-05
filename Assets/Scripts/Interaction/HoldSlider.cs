@@ -1,48 +1,143 @@
-using DG.Tweening;
 using UnityEngine;
-using static UnityEditorInternal.ReorderableList;
-
+using DG.Tweening;
+using UnityEngine.InputSystem;
 
 namespace Baloon
 {
-    using UnityEngine;
-    using UnityEngine.Events;
-
     public class HoldSlider : MonoBehaviour
     {
         public delegate void ValueChangedDelegate(float value);
         public ValueChangedDelegate OnValueChanged;
 
+        [Header("References")]
         [SerializeField] Interactor interactor;
         [SerializeField] GameObject handle;
         [SerializeField] Transform start, stop;
 
-        //[SerializeField] bool useLateUpdate = false;
+        [Header("Settings")]
+        [Range(0, 1)] public float sliderValue;
+        [SerializeField, Range(0, 1)] float lerpSpeed = 0.2f;
 
-        [Range(0, 1)]
-        public float sliderValue;
+        private float targetSliderValue;
+        private Vector3 localPath;
+        private float localPathSqMagnitude;
+        private Vector3 localStartPos;
 
-        Plane interactionPlane;
-        bool isDragging = false;
-        float offsetOnDown; // Memorizza la differenza tra mouse e posizione attuale
+        private bool isDragging = false;
+        private bool locked = false;
+        private float offsetOnDown;
 
-        bool locked = false;
-        public bool Locked
+        bool isStarting = false;
+
+        public bool Locked { get => locked; set => locked = value; }
+
+        private void Start()
         {
-            get { return locked; }
-            set { locked = value; }
+            // Inizializziamo i dati locali rispetto al "Nonno" (la cesta)
+            Transform parentTransform = start.parent;
+            localStartPos = parentTransform.InverseTransformPoint(start.position);
+            Vector3 localStopPos = parentTransform.InverseTransformPoint(stop.position);
+
+            localPath = localStopPos - localStartPos;
+            localPathSqMagnitude = localPath.sqrMagnitude;
+
+            targetSliderValue = sliderValue;
         }
 
-
-        private void Update()
+        private void FixedUpdate()
         {
-            if (isDragging) UpdateSliderPosition();
+            if (isStarting)
+            {
+                isStarting = false;
+                // RESET: Sincronizziamo il target alla posizione visiva attuale per bloccare scatti
+                targetSliderValue = sliderValue;
+
+                // Calcoliamo dove si trova il mouse RISPETTO alla manetta in questo istante
+                float tMouseAtClick = GetMouseTValue();
+
+                // Salviamo la differenza (offset) per "ancorare" il mouse alla manetta
+                offsetOnDown = tMouseAtClick - targetSliderValue;
+                Debug.Log("TEST - OffsetOnDown:" + offsetOnDown);
+
+                isDragging = true;
+            }
+
+            if (isDragging)
+            {
+                UpdateSliderPosition();
+            }
+
+            // Il Lerp assorbe il "Noise" della camera e rende il movimento fluido
+            sliderValue = Mathf.Lerp(sliderValue, targetSliderValue, lerpSpeed);
+            handle.transform.localPosition = Vector3.Lerp(start.localPosition, stop.localPosition, sliderValue);
         }
 
-        //private void LateUpdate()
-        //{
-        //    if (isDragging && useLateUpdate) UpdateSliderPosition();
-        //}
+        protected virtual void Push(Interactor interactor)
+        {
+            if (this.interactor != interactor) return;
+
+            if (!locked)
+            {
+                handle.transform.DOKill();
+
+                isStarting = true;
+
+                //// RESET: Sincronizziamo il target alla posizione visiva attuale per bloccare scatti
+                //targetSliderValue = sliderValue;
+                                
+                //// Calcoliamo dove si trova il mouse RISPETTO alla manetta in questo istante
+                //float tMouseAtClick = GetMouseTValue();
+
+                //// Salviamo la differenza (offset) per "ancorare" il mouse alla manetta
+                //offsetOnDown = tMouseAtClick - targetSliderValue;
+                //Debug.Log("TEST - OffsetOnDown:" + offsetOnDown);
+
+                //isDragging = true;
+            }
+            else
+            {
+                handle.transform.DOKill();
+                handle.transform.DOShakePosition(0.2f, new Vector3(0, 0, 0.005f), 20, 90);
+            }
+        }
+
+        private void UpdateSliderPosition()
+        {
+            float tMouseCurrent = GetMouseTValue();
+
+            // Applichiamo il nuovo valore mantenendo l'ancoraggio iniziale
+            targetSliderValue = Mathf.Clamp01(tMouseCurrent - offsetOnDown);
+
+            OnValueChanged?.Invoke(targetSliderValue);
+        }
+
+        private float GetMouseTValue()
+        {
+            // Creiamo un piano virtuale sulla manetta rivolto alla camera
+            // Questo piano "viaggia" con la mongolfiera perché centrato su handle.transform.position
+            Plane interactionPlane = new Plane(-Camera.main.transform.forward, handle.transform.position);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (interactionPlane.Raycast(ray, out float enter))
+            {
+                Vector3 worldHitPoint = ray.GetPoint(enter);
+
+                // Convertiamo il punto d'impatto mondiale in coordinate locali della cesta
+                Vector3 localMousePos = start.parent.InverseTransformPoint(worldHitPoint);
+                Vector3 mouseFromStart = localMousePos - localStartPos;
+
+                // Proiezione del punto sulla linea dello slider (Risultato tra 0 e 1)
+                return Vector3.Dot(mouseFromStart, localPath) / localPathSqMagnitude;
+            }
+
+            return targetSliderValue;
+        }
+
+        protected virtual void Release(Interactor interactor)
+        {
+            if (this.interactor != interactor) return;
+            isDragging = false;
+        }
 
         protected virtual void OnEnable()
         {
@@ -56,84 +151,13 @@ namespace Baloon
             Interactor.OnInteractionStopped -= Release;
         }
 
-        protected virtual void Release(Interactor interactor)
-        {
-            if (this.interactor != interactor) return;
-            isDragging = false;
-        }
-
-        protected virtual void Push(Interactor interactor)
-        {
-            if (this.interactor != interactor) return;
-
-            if (!locked)
-            {
-                // Creiamo il piano di interazione
-                interactionPlane = new Plane(-Camera.main.transform.forward, transform.position);
-
-                // Calcoliamo dove si trova il mouse rispetto allo 0-1 nel momento del click
-                float tMouse = GetMouseTValue();
-
-                // Salviamo l'offset rispetto al valore attuale dello slider
-                offsetOnDown = tMouse - sliderValue;
-
-                isDragging = true;
-            }
-            else
-            {
-                isDragging = false;
-                handle.transform.DOKill();
-                handle.transform.DOShakePosition(0.2f, new Vector3(0, 0, 0.005f), 20, 90, false, true)
-        .       OnComplete(() => {
-                    UpdateSliderPosition();
-                });
-            }
-
-            
-        }
-
-        void UpdateSliderPosition()
-        {
-            interactionPlane = new Plane(-Camera.main.transform.forward, transform.position);
-
-            float tMouse = GetMouseTValue();
-
-            // Applichiamo il valore del mouse compensando l'offset iniziale
-            sliderValue = Mathf.Clamp01(tMouse - offsetOnDown);
-
-            // Aggiorniamo la posizione (Usando Vector3.Lerp per gestire tutti gli assi locali)
-            handle.transform.localPosition = Vector3.Lerp(start.localPosition, stop.localPosition, sliderValue);
-
-            OnValueChanged?.Invoke(sliderValue);
-        }
-
-        // Metodo helper per proiettare il mouse sulla retta start-stop
-        float GetMouseTValue()
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (interactionPlane.Raycast(ray, out float enter))
-            {
-                Vector3 mouseWorldPos = ray.GetPoint(enter);
-
-                // Calcolo in coordinate locali o globali? 
-                // Usiamo le globali per il calcolo del Dot, ma i punti start/stop devono essere coerenti
-                Vector3 fullPath = stop.position - start.position;
-                Vector3 mouseFromStart = mouseWorldPos - start.position;
-
-                return Vector3.Dot(mouseFromStart, fullPath) / fullPath.sqrMagnitude;
-            }
-            return sliderValue;
-        }
-
         public void ResetSlider()
         {
-           
             isDragging = false;
+            targetSliderValue = 0;
             sliderValue = 0;
             handle.transform.DOKill();
             handle.transform.DOLocalMove(start.localPosition, .1f).SetEase(Ease.OutBack);
-
             OnValueChanged?.Invoke(sliderValue);
         }
     }

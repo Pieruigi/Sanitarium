@@ -37,6 +37,9 @@ namespace Baloon
 
         bool interacting = false;
 
+        [SerializeField]
+        bool _test = false;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -49,14 +52,22 @@ namespace Baloon
             bool stopInteracting = false;
             if (inside)
             {
+                if(_test)
+                    Debug.Log($"TEST - Diff:{transform.position - Camera.main.transform.position}");
+
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
+
+                Physics.SyncTransforms();
                 
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, InteractionDistance, mask))
                 {
+                    if(_test)
+                        Debug.Log($"TEST - Point:{hit.collider.transform.InverseTransformPoint(hit.point)}");
 
                     if (hit.collider == interactionCollider)
                     {
+                        
                         // Show message if any
                         showMessage = true;
                         // Check interaction
