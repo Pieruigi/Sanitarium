@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.UI;
 
 namespace Baloon
 {
@@ -97,7 +98,7 @@ namespace Baloon
             else
             {
                 handle.transform.DOKill();
-                handle.transform.DOShakePosition(0.2f, new Vector3(0, 0, 0.005f), 20, 90);
+                handle.transform.DOShakePosition(0.2f, new Vector3(0, 0, 0.005f), 20, 90).OnComplete(() => { handle.transform.localPosition = start.localPosition; });
             }
         }
 

@@ -55,16 +55,10 @@ namespace StarterAssets
 
         [SerializeField]
         bool onBaloon = false;
-		public bool OnBaloon
-		{
-			get { return onBaloon; }
-			set 
-			{ 
-				onBaloon = value;
-				_controller.enabled = !onBaloon;
-			
-			}
-		}
+		
+		float baloonGround = 0f;
+		
+		
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -203,7 +197,7 @@ namespace StarterAssets
 			// a reference to the players current horizontal velocity
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
-			float speedOffset = 0.1f;
+			//float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
 			// accelerate or decelerate to target speed
@@ -245,12 +239,17 @@ namespace StarterAssets
 				_verticalVelocity = 0.0f;
 
 			// move the player
-			if (!onBaloon)
+			//if (!onBaloon || true)
 				_controller.Move(ComputeVelocity() * Time.deltaTime);// + baloonVel * Time.deltaTime);
-			else
-				transform.position += ComputeVelocity() * Time.deltaTime;
-			//_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);// + baloonVel * Time.deltaTime);
-
+																	 //else
+																	 //	transform.position += ComputeVelocity() * Time.deltaTime;
+																	 //_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);// + baloonVel * Time.deltaTime);
+			if (onBaloon)
+			{
+				var pos = transform.localPosition;
+				pos.y = baloonGround;
+				transform.localPosition = pos;
+			}
 
         }
 
@@ -379,6 +378,20 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+
+		public void EnterBaloon(Transform baloon)
+		{
+			transform.parent = baloon;
+			baloonGround = transform.localPosition.y;
+			onBaloon = true;
+		}
+
+		public void ExitBaloon()
+		{
+			transform.parent = null;
+			onBaloon = false;
 		}
 	}
 }

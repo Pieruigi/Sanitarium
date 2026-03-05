@@ -78,9 +78,9 @@ namespace Baloon
 
                     throttle.Locked = false;
 
-                    player.GetComponent<FirstPersonController>().OnBaloon = true;
-                    player.transform.parent = transform.parent;
-
+                    player.GetComponent<FirstPersonController>().EnterBaloon(GetComponentInParent<BaloonController>().transform);
+                    //player.transform.parent = transform.parent;
+                    
                     OnStarted?.Invoke();
                 }
             }
@@ -88,7 +88,7 @@ namespace Baloon
             {
                 started = false;
                 ResetAndLockThrottle();
-                player.GetComponent<FirstPersonController>().OnBaloon = false;
+                player.GetComponent<FirstPersonController>().ExitBaloon();
                 player.transform.parent = null;
                 OnStopped?.Invoke();
             }
