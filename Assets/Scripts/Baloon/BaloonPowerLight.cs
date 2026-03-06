@@ -7,11 +7,9 @@ namespace Baloon
     public class BaloonPowerLight : MonoBehaviour
     {
         [SerializeField]
-        LightController greenLight;
+        LightController light;
 
-        [SerializeField]
-        LightController redLight;
-
+        
         private void OnEnable()
         {
             BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
@@ -26,14 +24,12 @@ namespace Baloon
 
         private void HandleOnBaloonStarted()
         {
-            redLight.SetOn(false);
-            greenLight.SetOn(true);
+            light.SwitchData(2);
         }
 
         private void HandleOnBaloonStopped()
         {
-            redLight.SetOn(true);
-            greenLight.SetOn(false);
+            light.SwitchData(0);
         }
     }
 }
