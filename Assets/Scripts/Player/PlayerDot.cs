@@ -32,26 +32,24 @@ namespace SNT.UI
             
             dot.rectTransform.position = pos;
 
-            Debug.Log("TEST - Pos:" + pos);
-            
 
-            if(PlayerInteractor.Instance.IsBusy())
-            {
-                dot.color = new Color(0,0,0,0);
-            }
+            //if(PlayerInteractor.Instance.IsBusy())
+            //{
+            //    dot.color = new Color(0,0,0,0);
+            //}
             
         }
 
         private void OnEnable()
         {
-            PlayerInteractor.OnMouseEnter += HandleOnMouseEnter;
-            PlayerInteractor.OnMouseExit += HandleOnMouseExit;
+            //PlayerInteractor.OnMouseEnter += HandleOnMouseEnter;
+            //PlayerInteractor.OnMouseExit += HandleOnMouseExit;
         }
 
         private void OnDisable()
         {
-            PlayerInteractor.OnMouseEnter -= HandleOnMouseEnter;
-            PlayerInteractor.OnMouseExit -= HandleOnMouseExit;
+            //PlayerInteractor.OnMouseEnter -= HandleOnMouseEnter;
+            //PlayerInteractor.OnMouseExit -= HandleOnMouseExit;
         }
 
         private void HandleOnMouseEnter(IInteractable interactable)

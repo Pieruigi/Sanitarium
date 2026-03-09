@@ -13,7 +13,10 @@ namespace Baloon
         Interactor interactor;
 
         [SerializeField]
-        float yOffset = .1f;
+        float yOffset = .05f;
+
+        //[SerializeField]
+        //bool callDelegateBeforeTween = false;
 
         float defaultY;
         float pushY;
@@ -44,17 +47,23 @@ namespace Baloon
         {
             if (this.interactor != interactor) return;
 
+            //if (callDelegateBeforeTween)
+            OnReleased?.Invoke();
+
             transform.DOKill();
-            transform.DOLocalMoveY(defaultY, .1f).SetEase(Ease.OutBack).OnComplete(() => { OnReleased(); });
+            transform.DOLocalMoveY(defaultY, .1f).SetEase(Ease.OutBack);//.OnComplete(() => { if(!callDelegateBeforeTween) OnReleased?.Invoke(); });
         }
 
         protected virtual void Push(Interactor interactor)
         {
             if (this.interactor != interactor) return;
 
+            //if (callDelegateBeforeTween) 
+            OnPushed?.Invoke();
+
             transform.DOKill();
 
-            transform.DOLocalMoveY(pushY, .1f).SetEase(Ease.OutBack).OnComplete(() => { OnPushed(); });
+            transform.DOLocalMoveY(pushY, .1f).SetEase(Ease.OutBack);//.OnComplete(() => { if(!callDelegateBeforeTween) OnPushed?.Invoke(); });
         }
     }
 }

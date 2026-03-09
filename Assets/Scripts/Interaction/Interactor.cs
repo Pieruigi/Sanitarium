@@ -14,7 +14,7 @@ namespace Baloon
         public delegate void InteractionStoppedDelegate(Interactor interactor);
         public static InteractionStoppedDelegate OnInteractionStopped;
 
-        public const float InteractionDistance = 1.5f;
+        public const float InteractionDistance = 10f;
 
         [SerializeField]
         ActivationTrigger activationTrigger;
@@ -31,15 +31,16 @@ namespace Baloon
         [SerializeField]
         KeyCode key = KeyCode.None;
 
+        [SerializeField]
+        bool usePointer = false;
+
         bool inside = false;
 
         bool showMessage = false;
 
         bool interacting = false;
 
-        [SerializeField]
-        bool _test = false;
-
+       
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -52,19 +53,20 @@ namespace Baloon
             bool stopInteracting = false;
             if (inside)
             {
-                if(_test)
-                    Debug.Log($"TEST - Diff:{transform.position - Camera.main.transform.position}");
-
+               
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
 
                 Physics.SyncTransforms();
-                
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, InteractionDistance, mask))
-                {
-                    if(_test)
-                        Debug.Log($"TEST - Point:{hit.collider.transform.InverseTransformPoint(hit.point)}");
 
+                var ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+                if(usePointer)
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+             
+                if (Physics.Raycast(ray, out hit, InteractionDistance, mask))
+                {
+                   
                     if (hit.collider == interactionCollider)
                     {
                         

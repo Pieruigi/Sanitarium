@@ -8,6 +8,6 @@ namespace SNT.Interfaces
 
         void StopInteraction();
 
-        bool IsInteractable();
+        bool IsInteracting();
     }
 }

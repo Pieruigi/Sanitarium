@@ -61,8 +61,7 @@ namespace SNT
         {
             PlayerDot.Instance.ShowDot(true);
             ShowCursor(false);
-            // Start interactor
-            PlayerInteractor.Instance.enabled = true;
+            
         }
 
         void UpdateNormalState()

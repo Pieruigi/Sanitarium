@@ -9,16 +9,10 @@ namespace SNT
         [SerializeField]
         GameObject target;
 
-        TriggerButton trigger;
 
         bool isOff = false;
 
-        private void Awake()
-        {
-            trigger = GetComponent<TriggerButton>();
-          
-        }
-
+    
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -30,19 +24,10 @@ namespace SNT
         {
 
         }
-        private void OnEnable()
+      
+        private void SwitchOnOff()
         {
-            TriggerButton.OnTriggered += SwitchOnOff;
-        }
-
-        private void OnDisable()
-        {
-            TriggerButton.OnTriggered -= SwitchOnOff;
-        }
-
-        private void SwitchOnOff(TriggerButton triggerButton)
-        {
-            if (triggerButton != this.trigger) return;
+            
             
             isOff = !isOff;
             if(isOff)
