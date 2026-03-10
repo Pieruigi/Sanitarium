@@ -2550,6 +2550,7 @@ GameObject:
   - component: {fileID: 790210126}
   - component: {fileID: 790210125}
   - component: {fileID: 790210127}
+  - component: {fileID: 790210128}
   m_Layer: 0
   m_Name: Baloon
   m_TagString: Untagged
@@ -2658,11 +2659,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonController
   gravity: 9.81
-  linearDrag: 0.5
+  linearDrag: 2
   groundCheckDistance: 0.01
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!54 &790210128
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790210121}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 2
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &827654003
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,8 +3431,9 @@ MonoBehaviour:
   activationTrigger: {fileID: 216244867}
   interactionCollider: {fileID: 368001261}
   stopOnKeyUpOnly: 1
-  mouseButton0: 1
+  mouseButton0: 0
   key: 0
+  inputAction: {fileID: 2510734124118449829, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
   _test: 0
 --- !u!114 &1113053166
 MonoBehaviour:
@@ -4100,8 +4129,9 @@ MonoBehaviour:
   activationTrigger: {fileID: 216244867}
   interactionCollider: {fileID: 1426756364}
   stopOnKeyUpOnly: 0
-  mouseButton0: 1
+  mouseButton0: 0
   key: 0
+  inputAction: {fileID: 2510734124118449829, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
   _test: 0
 --- !u!114 &1426756368
 MonoBehaviour:

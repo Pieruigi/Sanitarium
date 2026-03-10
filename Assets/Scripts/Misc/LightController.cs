@@ -72,13 +72,13 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-            {
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
 
-                SwitchData(1);
-                //SetOn(IsOn ? false : true);
+            //    SwitchData(1);
+            //    //SetOn(IsOn ? false : true);
 
-            }
+            //}
 #endif
 
         }

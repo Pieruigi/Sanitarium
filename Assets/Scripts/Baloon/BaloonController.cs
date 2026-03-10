@@ -23,10 +23,13 @@ namespace Baloon
 
         GameObject player;
 
+        bool useRB = false;
+
         protected override void Awake()
         {
             base.Awake();
             rb = GetComponent<Rigidbody>();
+            if (!useRB) Destroy(rb);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,6 +43,7 @@ namespace Baloon
        
         private void Update()
         {
+            if (useRB) return;
             var diff = InternalAir.Instance.TemperatureDifference;
 
             // 1. CALCOLO ACCELERAZIONE (La tua logica originale)
@@ -90,27 +94,29 @@ namespace Baloon
             transform.position += Vector3.up * verticalVelocity * Time.deltaTime;
         }
 
-        //private void FixedUpdate()
-        //{
-        //    var diff = InternalAir.Instance.TemperatureDifference;
+        private void FixedUpdate()
+        {
+            if (!useRB) return;
 
-        //    if(diff > 0)
-        //    {
-        //        var mul = 1f;
-        //        if(rb.linearVelocity.y >= 0)
-        //        {
-        //            mul = 1 - (rb.linearVelocity.y / maxSpeed);
-        //            mul = Mathf.Clamp(mul, 0, 1);
-        //        }
-        //        rb.AddForce(Vector3.up * diff * force * mul, ForceMode.Acceleration);
+            var diff = InternalAir.Instance.TemperatureDifference;
 
-
-
-        //    }
+            if (diff > 0)
+            {
+                var mul = 1f;
+                if (rb.linearVelocity.y >= 0)
+                {
+                    mul = 1 - (rb.linearVelocity.y / maxSpeed);
+                    mul = Mathf.Clamp(mul, 0, 1);
+                }
+                rb.AddForce(Vector3.up * diff * force * mul, ForceMode.Acceleration);
 
 
 
+            }
 
-        //}
+
+
+
+        }
     }
 }

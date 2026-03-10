@@ -1,4 +1,5 @@
 using StarterAssets;
+using System;
 using System.ComponentModel;
 using TMM;
 using UnityEngine;
@@ -31,12 +32,17 @@ namespace Baloon
         [SerializeField]
         KeyCode key = KeyCode.None;
 
+        [SerializeField]
+        InputActionReference inputAction;
+
         bool inside = false;
 
         bool showMessage = false;
 
         bool interacting = false;
 
+        bool oldInputIsPressed = false;
+        
         [SerializeField]
         bool _test = false;
 
@@ -50,9 +56,21 @@ namespace Baloon
         void Update()
         {
             bool stopInteracting = false;
+
+            var actionWasPressed = oldInputIsPressed;
+            var actionIsPressed = false;
+            if (inputAction)
+            {
+                actionIsPressed = inputAction.action.IsPressed();
+                oldInputIsPressed = actionIsPressed;
+            }
+
             if (inside)
             {
-                if(_test)
+               
+                //if (inputAction.action.IsPressed()) Debug.Log("TEST - PPPPPPPPPPPPPPPPPPPPPPPPPPP");
+
+                if (_test)
                     Debug.Log($"TEST - Diff:{transform.position - Camera.main.transform.position}");
 
                 RaycastHit hit;
@@ -71,7 +89,7 @@ namespace Baloon
                         // Show message if any
                         showMessage = true;
                         // Check interaction
-                        if ((mouseButton0 && Input.GetMouseButtonDown(0)) || Input.GetKeyDown(key))
+                        if ((mouseButton0 && Input.GetMouseButtonDown(0)) || Input.GetKeyDown(key) || (actionIsPressed && !actionWasPressed))
                         {
                             interacting = true;
                             OnInteractionStarted?.Invoke(this);
@@ -96,7 +114,7 @@ namespace Baloon
                 }
             }
 
-            if ((mouseButton0 && Input.GetMouseButtonUp(0)) || Input.GetKeyUp(key))
+            if ((mouseButton0 && Input.GetMouseButtonUp(0)) || Input.GetKeyUp(key) || (!actionIsPressed && actionWasPressed))
             {
                 if (interacting)
                     stopInteracting = true;
@@ -115,13 +133,19 @@ namespace Baloon
         {
             activationTrigger.OnEnter += HandleOnEnter;
             activationTrigger.OnExit += HandleOnExit;
+
+           
         }
 
         void OnDisable()
         {
             activationTrigger.OnEnter -= HandleOnEnter;
             activationTrigger.OnExit -= HandleOnExit;
+
+      
         }
+
+
 
         private void HandleOnEnter(Collider other)
         {
