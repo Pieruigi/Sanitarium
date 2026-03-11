@@ -37,13 +37,35 @@ namespace Baloon
             var requiredAltitude = AltitudeManager.Instance.Altitude;
             var range = AltitudeManager.Instance.Range;
 
-            if(currentAltitude < requiredAltitude + range * .5f && currentAltitude > requiredAltitude - range * .5f)
+            if(currentAltitude < requiredAltitude + range * .25f && currentAltitude > requiredAltitude - range * .25f)
             {
                 middleLight.SwitchData(1);
+                SetTopLightOffAll();
+                SetBottomLightOffAll();
+                
             }
             else
             {
                 middleLight.SwitchData(0);
+
+                if (currentAltitude < requiredAltitude)
+                {
+                    SetBottomLightOffAll();
+
+                    if(currentAltitude < requiredAltitude - range * .5f)
+                        topLights[0].SetOn(true);
+                }
+                else
+                {
+                    SetTopLightOffAll();
+
+                    if(currentAltitude > requiredAltitude + range * .5f)
+                        bottomLights[0].SetOn(true);
+                }
+                    
+
+
+
             }
         }
 
@@ -84,6 +106,18 @@ namespace Baloon
                 bottomLights[i].SetOn(false);
             }
             
+        }
+
+        void SetTopLightOffAll()
+        {
+            foreach (LightController light in topLights)
+                light.SetOn(false);
+        }
+
+        void SetBottomLightOffAll()
+        {
+            foreach (LightController light in bottomLights)
+                light.SetOn(false);
         }
     }
 }
