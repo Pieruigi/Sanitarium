@@ -86,11 +86,19 @@ namespace Baloon
             }
             else
             {
-                started = false;
-                ResetAndLockThrottle();
-                player.GetComponent<FirstPersonController>().ExitBaloon();
-                player.transform.parent = null;
-                OnStopped?.Invoke();
+                if(BasePlatform.CurrentPlatform && throttle.sliderValue == 0)
+                {
+                    started = false;
+                    ResetAndLockThrottle();
+                    player.GetComponent<FirstPersonController>().ExitBaloon();
+                    player.transform.parent = null;
+                    OnStopped?.Invoke();
+                }
+                else
+                {
+                    // Button stuck
+                }
+                
             }
 
         }

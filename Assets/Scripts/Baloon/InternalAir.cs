@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,8 +23,14 @@ namespace Baloon
         float maxAltitude = 350;
 
         float maxTemperatureDifference = 10f;
+        public float MaxTemperatureDifference => maxTemperatureDifference;
+
+        float targetTemperatureDifference = 0f;
+        public float TargetTemperatureDifference => targetTemperatureDifference;
 
         bool coolerOn = false;
+
+
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,17 +58,17 @@ namespace Baloon
 
             var curveValue = altitudeAirDiffCurve.Evaluate(transform.position.y / (maxAltitude * BoilerController.Instance.MaxPower));
 
-            var targetDiff = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
+            targetTemperatureDifference = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
 
 
-            var transitionSpeed = targetDiff > inExtDiff ? increaseSpeed : decreaseSpeed;
+            var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed;
 
             
             //if (targetDiff > inExtDiff)
             //    inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, increaseSpeed * Time.deltaTime);
             //else
             //    inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, decreaseSpeed * Time.deltaTime); 
-            inExtDiff = Mathf.Lerp(inExtDiff, targetDiff, transitionSpeed * Time.deltaTime);
+            inExtDiff = Mathf.Lerp(inExtDiff, targetTemperatureDifference, transitionSpeed * Time.deltaTime);
 
         }
 

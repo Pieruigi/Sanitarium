@@ -70,6 +70,9 @@ namespace Baloon
 
             // Il Lerp assorbe il "Noise" della camera e rende il movimento fluido
             sliderValue = Mathf.Lerp(sliderValue, targetSliderValue, lerpSpeed);
+            float delta = 0.0001f;
+            if (sliderValue < delta) sliderValue = 0f;
+            else if (sliderValue > 1f - delta) sliderValue = 1f;
             handle.transform.localPosition = Vector3.Lerp(start.localPosition, stop.localPosition, sliderValue);
         }
 
