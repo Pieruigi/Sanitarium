@@ -7,6 +7,8 @@ namespace Baloon
 {
     public class BaloonController : Singleton<BaloonController>
     {
+        public float Altitude => transform.position.y;
+
         Rigidbody rb;
 
         float force = 5f;
@@ -113,10 +115,8 @@ namespace Baloon
 
 
             }
-
-
-
-
         }
+
+       
     }
 }
