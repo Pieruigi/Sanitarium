@@ -6,13 +6,12 @@ namespace Baloon
     {
 
         [SerializeField]
-        float altitude = 50;
-        public float Altitude => altitude;
-        
-        [SerializeField]
-        float range = 20f;
-        public float Range => range;
+        float minAltitude = 20;
+        public float MinAltitude => minAltitude;
 
+        [SerializeField]
+        float maxAltitude = 80;
+        public float MaxAltitude => maxAltitude;    
         
 
         // Instead of having a specific time, we set a sort of difficulty level to better handle it

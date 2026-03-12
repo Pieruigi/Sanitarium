@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace Baloon
@@ -6,6 +7,9 @@ namespace Baloon
     {
         [SerializeField]
         Transform arrow, targetArrow;
+
+        [SerializeField]
+        TMP_Text currentValue, targetValue;
 
 
         float minAngle = 0f;
@@ -36,6 +40,9 @@ namespace Baloon
 
             targetAngle = Mathf.Lerp(minAngle, maxAngle, diff / maxDiff);
             arrow.localEulerAngles = Vector3.down * targetAngle;
+
+            targetValue.text = targetDiff.ToString("00.00");
+            currentValue.text = diff.ToString("00.00");
 
         }
     }

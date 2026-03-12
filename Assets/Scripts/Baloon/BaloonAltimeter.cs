@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Baloon
@@ -7,20 +8,22 @@ namespace Baloon
     public class BaloonAltimeter : MonoBehaviour
     {
         [SerializeField]
-        LightController middleLight;
+        TMP_Text minValue, maxValue, currentValue;
+
+
 
         [SerializeField]
-        List<LightController> topLights;
-
-        [SerializeField]
-        List<LightController> bottomLights;
+        List<LightController> lights;
 
         bool activated = false;
+
+        int redIndex = 0, yellowIndex = 1, greenIndex = 2;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            SetLightOffAll();
+            ResetAltitudeValueAll();
         }
 
         // Update is called once per frame
@@ -34,38 +37,38 @@ namespace Baloon
             if (!activated) return;
 
             var currentAltitude = BaloonController.Instance.Altitude;
-            var requiredAltitude = AltitudeManager.Instance.Altitude;
-            var range = AltitudeManager.Instance.Range;
+            var minAltitude = AltitudeManager.Instance.MinAltitude;
+            var maxAltitude = AltitudeManager.Instance.MaxAltitude;
+            var middleAltitude = (maxAltitude + minAltitude) / 2f;
+            var range = (maxAltitude - minAltitude);
+            var greenAmount = range * .4f;
+            var greenMax = middleAltitude + greenAmount / 2f;
+            var greenMin = middleAltitude - greenAmount / 2f;
 
-            if(currentAltitude < requiredAltitude + range * .25f && currentAltitude > requiredAltitude - range * .25f)
+            Debug.Log("TEST - GreenMin:" + greenMin);
+            Debug.Log("TEST - GreenMax:" + greenMax);
+
+
+            // Set altitude fields
+            minValue.text = minAltitude.ToString("000");
+            maxValue.text = maxAltitude.ToString("000");
+            currentValue.text = currentAltitude.ToString("000.00");
+
+
+            if (currentAltitude < minAltitude || currentAltitude > maxAltitude) // Out of range
             {
-                middleLight.SwitchData(1);
-                SetTopLightOffAll();
-                SetBottomLightOffAll();
-                
+                SwitchLightDataAll(redIndex);
             }
-            else
+            else // In range
             {
-                middleLight.SwitchData(0);
-
-                if (currentAltitude < requiredAltitude)
+                if(currentAltitude < greenMin || currentAltitude > greenMax)
                 {
-                    SetBottomLightOffAll();
-
-                    if(currentAltitude < requiredAltitude - range * .5f)
-                        topLights[0].SetOn(true);
+                    SwitchLightDataAll(yellowIndex);
                 }
                 else
                 {
-                    SetTopLightOffAll();
-
-                    if(currentAltitude > requiredAltitude + range * .5f)
-                        bottomLights[0].SetOn(true);
+                    SwitchLightDataAll(greenIndex);
                 }
-                    
-
-
-
             }
         }
 
@@ -85,8 +88,7 @@ namespace Baloon
         {
             activated = true;
 
-            middleLight.SwitchData(0);
-            middleLight.SetOn(true);
+            SetLightOnAll(redIndex);
         }
 
         private void HandleOnBaloonStopped()
@@ -95,29 +97,40 @@ namespace Baloon
 
             // Lights off
             SetLightOffAll();
+            ResetAltitudeValueAll();
         }
+
+        
 
         void SetLightOffAll()
         {
-            middleLight.SetOn(false);
-            for (int i = 0; i < topLights.Count; i++)
+            foreach (LightController light in lights)
+                light.SetOn(false);
+        }
+
+        void SetLightOnAll(int dataIndex)
+        {
+            foreach (LightController light in lights)
             {
-                topLights[i].SetOn(false);
-                bottomLights[i].SetOn(false);
+                light.SwitchData(dataIndex);
+                light.SetOn(true);
             }
-            
+                
         }
 
-        void SetTopLightOffAll()
+        void SwitchLightDataAll(int dataIndex)
         {
-            foreach (LightController light in topLights)
-                light.SetOn(false);
+            foreach (LightController light in lights)
+            {
+                light.SwitchData(dataIndex);
+            }
         }
 
-        void SetBottomLightOffAll()
+        void ResetAltitudeValueAll()
         {
-            foreach (LightController light in bottomLights)
-                light.SetOn(false);
+            string s = "--";
+            minValue.text = maxValue.text = currentValue.text = s;
+
         }
     }
 }

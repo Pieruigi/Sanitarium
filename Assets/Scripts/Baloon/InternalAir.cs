@@ -31,7 +31,7 @@ namespace Baloon
         bool coolerOn = false;
 
 
-
+        bool _test = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -53,13 +53,18 @@ namespace Baloon
                 decreaseSpeed = .5f;
                 coolerOn = false;
             }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                _test = true;
+            }
 #endif
 
 
             var curveValue = altitudeAirDiffCurve.Evaluate(transform.position.y / (maxAltitude * BoilerController.Instance.MaxPower));
 
             targetTemperatureDifference = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
-
+            if (_test) targetTemperatureDifference = 2.05f;
 
             var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed;
 
