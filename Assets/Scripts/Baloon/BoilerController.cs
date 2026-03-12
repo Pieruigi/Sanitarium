@@ -12,6 +12,9 @@ namespace Baloon
         [SerializeField]
         HoldSlider throttleSlider;
 
+        [SerializeField]
+        HoldButton decreaseButton, increaseButton;
+
         //float power = 0;
         public float Power 
         {
@@ -55,11 +58,39 @@ namespace Baloon
         private void OnEnable()
         {
             throttleSlider.OnValueChanged += HandleOnThrottleSliderValueChanged;
+            decreaseButton.OnPushed += HandleOnDecreasePushed;
+            decreaseButton.OnReleased += HandleOnDecreaseReleased;
+            increaseButton.OnPushed += HandleOnIncreasePushed;
+            increaseButton.OnReleased += HandleOnIncreaseReleased;
         }
 
         private void OnDisable()
         {
             throttleSlider.OnValueChanged -= HandleOnThrottleSliderValueChanged;
+            decreaseButton.OnPushed -= HandleOnDecreasePushed;
+            decreaseButton.OnReleased -= HandleOnDecreaseReleased;
+            increaseButton.OnPushed -= HandleOnIncreasePushed;
+            increaseButton.OnReleased -= HandleOnIncreaseReleased;
+        }
+
+        private void HandleOnIncreasePushed()
+        {
+            throttle = Mathf.Clamp01(throttle+.01f);
+        }
+
+        private void HandleOnIncreaseReleased()
+        {
+            
+        }
+
+        private void HandleOnDecreasePushed()
+        {
+            throttle = Mathf.Clamp01(throttle - .01f);
+        }
+
+        private void HandleOnDecreaseReleased()
+        {
+            
         }
 
         private void HandleOnThrottleSliderValueChanged(float value)

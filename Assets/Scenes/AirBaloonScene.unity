@@ -1030,8 +1030,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1453a5eb6cb381478767598fcfe6adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.AltitudeManager
-  minAltitude: 20
-  maxAltitude: 80
+  minAltitude: 40
+  maxAltitude: 60
 --- !u!4 &388631476
 Transform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ namespace Baloon
         [Header("Settings")]
         [Range(0, 1)] public float sliderValue;
         [SerializeField, Range(0, 1)] float lerpSpeed = 0.2f;
+        
 
         private float targetSliderValue;
         private Vector3 localPath;
@@ -32,8 +33,12 @@ namespace Baloon
 
         public bool Locked { get => locked; set => locked = value; }
 
+        
+
         private void Start()
         {
+        
+
             // Inizializziamo i dati locali rispetto al "Nonno" (la cesta)
             Transform parentTransform = start.parent;
             localStartPos = parentTransform.InverseTransformPoint(start.position);
@@ -70,12 +75,13 @@ namespace Baloon
 
             // Il Lerp assorbe il "Noise" della camera e rende il movimento fluido
             sliderValue = Mathf.Lerp(sliderValue, targetSliderValue, lerpSpeed);
-
+           
             float delta = 0.0001f;
             if (sliderValue < delta) sliderValue = 0f;
             else if (sliderValue > 1f - delta) sliderValue = 1f;
             handle.transform.localPosition = Vector3.Lerp(start.localPosition, stop.localPosition, sliderValue);
-            
+
+            //OnValueChanged?.Invoke(sliderValue);
         }
 
         protected virtual void Push(Interactor interactor)
@@ -88,17 +94,7 @@ namespace Baloon
 
                 isStarting = true;
 
-                //// RESET: Sincronizziamo il target alla posizione visiva attuale per bloccare scatti
-                //targetSliderValue = sliderValue;
-                                
-                //// Calcoliamo dove si trova il mouse RISPETTO alla manetta in questo istante
-                //float tMouseAtClick = GetMouseTValue();
-
-                //// Salviamo la differenza (offset) per "ancorare" il mouse alla manetta
-                //offsetOnDown = tMouseAtClick - targetSliderValue;
-                //Debug.Log("TEST - OffsetOnDown:" + offsetOnDown);
-
-                //isDragging = true;
+              
             }
             else
             {
@@ -113,6 +109,9 @@ namespace Baloon
 
             // Applichiamo il nuovo valore mantenendo l'ancoraggio iniziale
             targetSliderValue = Mathf.Clamp01(tMouseCurrent - offsetOnDown);
+            
+            //targetSliderValue = Mathf.Round(targetSliderValue * 100f) / 100f;
+                
 
             OnValueChanged?.Invoke(targetSliderValue);
         }

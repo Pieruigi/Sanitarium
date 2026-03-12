@@ -19,6 +19,9 @@ namespace Baloon
         [SerializeField]
         HoldSlider throttle;
 
+        [SerializeField]
+        HoldButton coldButton, warmButton;
+
         GameObject player;
 
         bool started = false;
@@ -32,6 +35,8 @@ namespace Baloon
             player = GameObject.FindGameObjectWithTag("Player");
 
             ResetAndLockThrottle();
+            coldButton.Locked = true;
+            warmButton.Locked = true;
         }
 
         // Update is called once per frame
@@ -77,6 +82,8 @@ namespace Baloon
                     started = true;
 
                     throttle.Locked = false;
+                    coldButton.Locked = false;
+                    warmButton.Locked = false;
 
                     player.GetComponent<FirstPersonController>().EnterBaloon(GetComponentInParent<BaloonController>().transform);
                     //player.transform.parent = transform.parent;
@@ -90,6 +97,8 @@ namespace Baloon
                 {
                     started = false;
                     ResetAndLockThrottle();
+                    coldButton.Locked = true;
+                    warmButton.Locked = true;
                     player.GetComponent<FirstPersonController>().ExitBaloon();
                     player.transform.parent = null;
                     OnStopped?.Invoke();

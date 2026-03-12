@@ -64,6 +64,7 @@ namespace Baloon
             var curveValue = altitudeAirDiffCurve.Evaluate(transform.position.y / (maxAltitude * BoilerController.Instance.MaxPower));
 
             targetTemperatureDifference = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
+            targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 10f) / 10f;
             if (_test) targetTemperatureDifference = 2.05f;
 
             var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed;
@@ -74,7 +75,7 @@ namespace Baloon
             //else
             //    inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, decreaseSpeed * Time.deltaTime); 
             inExtDiff = Mathf.Lerp(inExtDiff, targetTemperatureDifference, transitionSpeed * Time.deltaTime);
-
+            //inExtDiff = Mathf.Round(inExtDiff * 10f) / 10f;
         }
 
         
