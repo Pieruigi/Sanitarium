@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -11,9 +12,17 @@ namespace Baloon
         [SerializeField]
         TMP_Text currentValue, targetValue;
 
+        [SerializeField]
+        Transform leftArrow, rightArrow;
+
+        [SerializeField]
+        Transform leftStart, leftStop, rightStart, rightStop;
+
 
         float minAngle = 0f;
         float maxAngle = 90f;
+
+        Vector3 leftVelocity;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,6 +52,12 @@ namespace Baloon
 
             targetValue.text = targetDiff.ToString("00.00");
             currentValue.text = diff.ToString("00.00");
+
+            // Arrows
+
+            var lPos = Vector3.Lerp(leftStart.localPosition, leftStop.localPosition, targetDiff / maxDiff);
+            leftArrow.localPosition = Vector3.SmoothDamp(leftArrow.localPosition, lPos, ref leftVelocity, .125f);
+            
 
         }
     }

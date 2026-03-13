@@ -33,7 +33,7 @@ namespace Baloon
 
         public bool Locked { get => locked; set => locked = value; }
 
-        
+        Vector3 handleVelocity;
 
         private void Start()
         {
@@ -79,7 +79,9 @@ namespace Baloon
             float delta = 0.0001f;
             if (sliderValue < delta) sliderValue = 0f;
             else if (sliderValue > 1f - delta) sliderValue = 1f;
-            handle.transform.localPosition = Vector3.Lerp(start.localPosition, stop.localPosition, sliderValue);
+
+            var lPos = Vector3.Lerp(start.localPosition, stop.localPosition, sliderValue);
+            handle.transform.localPosition = Vector3.SmoothDamp(handle.transform.localPosition, lPos, ref handleVelocity, .05f);
 
             //OnValueChanged?.Invoke(sliderValue);
         }
