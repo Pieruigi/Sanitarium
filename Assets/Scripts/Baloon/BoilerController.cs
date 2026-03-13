@@ -24,11 +24,24 @@ namespace Baloon
             }
         }
 
-        float[] maxPowers = new float[] { 1f, 2f };
+        float[] maxPowers = new float[] { 1f, 1.5f };
 
         int version = 0;
 
         public float MaxPower => maxPowers[version];
+
+        float step = 0.01f;
+
+        float speed = 0;
+        float pushElapsed = 0f;
+
+        float speed1 = 2f;
+        float speed2 = 8f;
+        float speed3 = 32f;
+
+        float speedElapsed = 0f;
+
+        int dir = 0;
 
         
 
@@ -53,6 +66,32 @@ namespace Baloon
             //}
 #endif
 
+            if (dir == 0) return;
+
+            pushElapsed += Time.deltaTime;
+            var pushTime = 1f;
+            if(pushElapsed > pushTime)
+            {
+                if(speed < speed2)
+                    speed = speed2;
+                else if(speed < speed3)
+                    speed = speed3;
+
+                pushElapsed -= pushTime;
+            }
+
+            speedElapsed += Time.deltaTime;
+            float speedTime = 1f / speed;
+            if(speedElapsed > speedTime)
+            {
+                speedElapsed -= speedTime;
+                throttle += step * dir;
+                throttle = Mathf.Clamp01(throttle);
+            }
+
+            
+
+
         }
 
         private void OnEnable()
@@ -75,22 +114,30 @@ namespace Baloon
 
         private void HandleOnIncreasePushed()
         {
+            pushElapsed = 0;
+            speedElapsed = 0;
+            speed = speed1;
+            dir = 1;
             throttle = Mathf.Clamp01(throttle+.01f);
         }
 
         private void HandleOnIncreaseReleased()
         {
-            
+            dir = 0;
         }
 
         private void HandleOnDecreasePushed()
         {
+            pushElapsed = 0;
+            speedElapsed = 0;
+            speed = speed1;
+            dir = -1;
             throttle = Mathf.Clamp01(throttle - .01f);
         }
 
         private void HandleOnDecreaseReleased()
         {
-            
+            dir = 0;
         }
 
         private void HandleOnThrottleSliderValueChanged(float value)

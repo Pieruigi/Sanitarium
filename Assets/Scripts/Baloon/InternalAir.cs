@@ -20,7 +20,7 @@ namespace Baloon
         float increaseSpeed = .5f;
 
         
-        float maxAltitude = 350;
+        float maxAltitude = 350 * 2; // 647 actually
 
         float maxTemperatureDifference = 10f;
         public float MaxTemperatureDifference => maxTemperatureDifference;
@@ -64,7 +64,10 @@ namespace Baloon
             var curveValue = altitudeAirDiffCurve.Evaluate(transform.position.y / (maxAltitude * BoilerController.Instance.MaxPower));
 
             targetTemperatureDifference = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
-            targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 10f) / 10f;
+            //targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 10f) / 10f;
+
+            targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 2f) / 2f;
+
             if (_test) targetTemperatureDifference = 2.05f;
 
             var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed;
