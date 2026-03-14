@@ -17,7 +17,7 @@ namespace Baloon
 
         float decreaseSpeed = 1f;
 
-        float increaseSpeed = .5f;
+        float increaseSpeed = .25f;
 
         
         float maxAltitude = 350 * 2; // 647 actually
@@ -31,7 +31,7 @@ namespace Baloon
         bool coolerOn = false;
 
 
-        bool _test = false;
+        //bool _test = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -45,19 +45,19 @@ namespace Baloon
 #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.C))
             {
-                decreaseSpeed = 5;
+                decreaseSpeed = 1;
                 coolerOn = true;
             }
             else
             {
-                decreaseSpeed = .5f;
+                decreaseSpeed = .25f;
                 coolerOn = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                _test = true;
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    _test = true;
+            //}
 #endif
 
 
@@ -67,7 +67,7 @@ namespace Baloon
          
             //targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 10f) / 10f;
 
-            if (_test) targetTemperatureDifference = 2.05f;
+            //if (_test) targetTemperatureDifference = 2.05f;
 
             var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed;
 
