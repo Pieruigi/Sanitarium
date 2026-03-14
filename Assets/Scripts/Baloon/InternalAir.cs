@@ -65,7 +65,7 @@ namespace Baloon
 
             targetTemperatureDifference = !coolerOn ? BoilerController.Instance.Power * maxTemperatureDifference * curveValue : 0;
          
-            //targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 4f) / 4f;
+            //targetTemperatureDifference = Mathf.Round(targetTemperatureDifference * 10f) / 10f;
 
             if (_test) targetTemperatureDifference = 2.05f;
 

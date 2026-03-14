@@ -48,7 +48,8 @@ namespace Baloon
             if (useRB) return;
             var diff = InternalAir.Instance.TemperatureDifference;
 
-            if (diff > 1.5 && diff < 2.5) diff = 2f;
+            //if (diff > 1.5 && diff < 2.5) diff = 2f;
+            diff = Mathf.Round(diff * 4f) / 4f;
 
             // 1. CALCOLO ACCELERAZIONE (La tua logica originale)
             float acceleration = 0f;

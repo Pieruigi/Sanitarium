@@ -112,7 +112,7 @@ namespace Baloon
             // Applichiamo il nuovo valore mantenendo l'ancoraggio iniziale
             targetSliderValue = Mathf.Clamp01(tMouseCurrent - offsetOnDown);
 
-            //targetSliderValue = Mathf.Round(targetSliderValue * 40f) / 40f;
+            //targetSliderValue = Mathf.Round(targetSliderValue * 100f) / 100f;
 
 
             OnValueChanged?.Invoke(targetSliderValue);
