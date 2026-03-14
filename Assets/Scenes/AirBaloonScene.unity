@@ -1256,30 +1256,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &584681805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4398096410824695167, guid: 7829edb7c76b26b45a4958836aa8a270, type: 3}
-  m_PrefabInstance: {fileID: 783916094614901754}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &584681812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584681805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a4c9842925a4c94fa2924e9f9acaff4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Baloon.VerticalWind
-  startHeight: 10
-  rampUpDistance: 10
-  windSpeed: 0.5
-  baseWindStrength: 0.2
-  globalWindMaxStrength: 1.5
-  windMapScale: 0.005
-  windEvolutionSpeed: 0.1
 --- !u!1 &717348616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,10 +2560,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4398096410824695167, guid: 7829edb7c76b26b45a4958836aa8a270, type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 584681812}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7829edb7c76b26b45a4958836aa8a270, type: 3}
 --- !u!1001 &3303984342154478641
 PrefabInstance:

@@ -2797,6 +2797,7 @@ GameObject:
   - component: {fileID: 1884925018222972662}
   - component: {fileID: 6634405810607186959}
   - component: {fileID: 8915882542736898192}
+  - component: {fileID: 1891109049728332485}
   - component: {fileID: 7424206517004481423}
   m_Layer: 0
   m_Name: Baloon
@@ -2913,6 +2914,25 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &1891109049728332485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398096410824695167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4c9842925a4c94fa2924e9f9acaff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.VerticalWind
+  startHeight: 10
+  rampUpDistance: 10
+  windSpeed: 0.5
+  baseWindStrength: 0.2
+  globalWindMaxStrength: 1.5
+  windMapScale: 0.005
+  windEvolutionSpeed: 0.1
 --- !u!54 &7424206517004481423
 Rigidbody:
   m_ObjectHideFlags: 0
