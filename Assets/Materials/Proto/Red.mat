@@ -29,7 +29,7 @@ Material:
   - _FILTERMODE_POINT
   - _LIGHTMODE_TEXELLIT
   - _RECEIVESHADOWSMODE_ON
-  - _SNAPMODE_OFF
+  - _SNAPMODE_OBJECT
   m_InvalidKeywords:
   - _USE_VERTEX_COLORS_OFF
   m_LightmapFlags: 4
@@ -129,12 +129,12 @@ Material:
     - _RGBPixelSize: 4
     - _ReceiveShadowsMode: 0
     - _ResolutionLimit: 64
-    - _SnapMode: 3
-    - _SnapsPerUnit: 128
+    - _SnapMode: 0
+    - _SnapsPerUnit: 64
     m_Floats:
     - _AberrationStrength: 0.5
     - _AddPrecomputedVelocity: 0
-    - _AffineTextureStrength: 1
+    - _AffineTextureStrength: 0.027
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AmbientLight: 0.02
