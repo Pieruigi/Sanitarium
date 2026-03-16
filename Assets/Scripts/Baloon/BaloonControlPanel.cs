@@ -26,6 +26,7 @@ namespace Baloon
 
         bool started = false;
 
+        float dragFov = 40f;
     
         Coroutine startupCoroutine;
 
@@ -60,14 +61,29 @@ namespace Baloon
         {
             starter.OnPushed += HandleStarterOnPushed;
             starter.OnReleased += HandleStarterOnReleased;
+
+            throttle.OnDragStarted += HandleOnThrottleDragStarted;
+            throttle.OnDragStopped += HandleOnThrottleDragStopped;
         }
 
         private void OnDisable()
         {
             starter.OnPushed -= HandleStarterOnPushed;
             starter.OnReleased -= HandleStarterOnReleased;
+
+            throttle.OnDragStarted -= HandleOnThrottleDragStarted;
+            throttle.OnDragStopped -= HandleOnThrottleDragStopped;
         }
 
+        private void HandleOnThrottleDragStarted()
+        {
+            FOVController.Instance.SetFOV(dragFov);
+        }
+
+        private void HandleOnThrottleDragStopped()
+        {
+            FOVController.Instance.ResetFOV();
+        }
 
         private void HandleStarterOnPushed()
         {

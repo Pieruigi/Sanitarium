@@ -2,11 +2,15 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.UI;
+using UnityEngine.Events;
 
 namespace Baloon
 {
     public class HoldSlider : MonoBehaviour
     {
+        public UnityAction OnDragStarted;
+        public UnityAction OnDragStopped;
+
         public delegate void ValueChangedDelegate(float value);
         public ValueChangedDelegate OnValueChanged;
 
@@ -96,7 +100,7 @@ namespace Baloon
 
                 isStarting = true;
 
-              
+                OnDragStarted?.Invoke();
             }
             else
             {
@@ -143,7 +147,16 @@ namespace Baloon
         protected virtual void Release(Interactor interactor)
         {
             if (this.interactor != interactor) return;
-            isDragging = false;
+
+            isStarting = false;
+
+            if (isDragging)
+            {
+                isDragging = false;
+                OnDragStopped?.Invoke();
+            }
+
+            
         }
 
         protected virtual void OnEnable()

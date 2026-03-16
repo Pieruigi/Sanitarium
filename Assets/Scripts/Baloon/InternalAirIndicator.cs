@@ -23,6 +23,7 @@ namespace Baloon
         float maxAngle = 90f;
 
         Vector3 leftVelocity;
+        Vector3 rightVelocity;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,7 +58,8 @@ namespace Baloon
 
             var lPos = Vector3.Lerp(leftStart.localPosition, leftStop.localPosition, targetDiff / maxDiff);
             leftArrow.localPosition = Vector3.SmoothDamp(leftArrow.localPosition, lPos, ref leftVelocity, .125f);
-            
+            lPos = Vector3.Lerp(rightStart.localPosition, rightStop.localPosition, diff / maxDiff);
+            rightArrow.localPosition = Vector3.SmoothDamp(rightArrow.localPosition, lPos, ref rightVelocity, .125f);
 
         }
     }

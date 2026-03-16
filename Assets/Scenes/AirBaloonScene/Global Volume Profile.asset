@@ -47,20 +47,20 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0.015
   colorRampMode:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 19
   colorRampTex:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: 2899b63b2376bef4ab300146c22d1b78, type: 3}
+    m_Value: {fileID: 2800000, guid: 802c411310783d341b01c0b61f1e2b24, type: 3}
     dimension: 1
   redValues:
-    m_OverrideState: 1
-    m_Value: 32
+    m_OverrideState: 0
+    m_Value: 28
   greenValues:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 32
   blueValues:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 32
   useDithering:
     m_OverrideState: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 0.29803923}
   brightness:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   contrast:
     m_OverrideState: 1
     m_Value: 1
@@ -164,10 +164,10 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.74
   intensity:
     m_OverrideState: 1
-    m_Value: 1.73
+    m_Value: 2.24
   scatter:
     m_OverrideState: 1
     m_Value: 0.7
