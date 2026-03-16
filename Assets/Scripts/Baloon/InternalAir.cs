@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,6 +10,9 @@ namespace Baloon
         [SerializeField]
         AnimationCurve altitudeAirDiffCurve;
 
+        [SerializeField]
+        HoldButton coolerButton;
+
         /// <summary>
         /// The difference between the internal air and the external air.
         /// </summary>
@@ -17,7 +21,7 @@ namespace Baloon
 
         float decreaseSpeed = 1f;
 
-        float increaseSpeed = .25f;
+        float increaseSpeed = .375f;
 
         
         float maxAltitude = 350 * 2; // 647 actually
@@ -29,9 +33,10 @@ namespace Baloon
         public float TargetTemperatureDifference => targetTemperatureDifference;
 
         bool coolerOn = false;
+        float coolerSpeedMul = 4f;
 
+        
 
-        //bool _test = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -43,16 +48,16 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKey(KeyCode.C))
-            {
-                decreaseSpeed = 1;
-                coolerOn = true;
-            }
-            else
-            {
-                decreaseSpeed = .25f;
-                coolerOn = false;
-            }
+            //if (Input.GetKey(KeyCode.C))
+            //{
+            //    decreaseSpeed = 1.5f;
+            //    coolerOn = true;
+            //}
+            //else
+            //{
+            //    decreaseSpeed = .375f;
+            //    coolerOn = false;
+            //}
 
             //if (Input.GetKeyDown(KeyCode.X))
             //{
@@ -69,7 +74,7 @@ namespace Baloon
 
             //if (_test) targetTemperatureDifference = 2.05f;
 
-            var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed;
+            var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed * (coolerOn ? coolerSpeedMul : 1f);
 
             
             //if (targetDiff > inExtDiff)
@@ -80,6 +85,27 @@ namespace Baloon
             //inExtDiff = Mathf.Round(inExtDiff * 10f) / 10f;
         }
 
-        
+        private void OnEnable()
+        {
+            coolerButton.OnPushed += HandleOnCoolerPused;
+            coolerButton.OnReleased += HandleOnCoolerReleased;
+        }
+
+        private void OnDisable()
+        {
+            coolerButton.OnPushed -= HandleOnCoolerPused;
+            coolerButton.OnReleased -= HandleOnCoolerReleased;
+        }
+
+        private void HandleOnCoolerPused()
+        {
+
+            coolerOn = true;
+        }
+
+        private void HandleOnCoolerReleased()
+        {
+            coolerOn = false;
+        }
     }
 }
