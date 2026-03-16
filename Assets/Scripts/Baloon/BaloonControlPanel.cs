@@ -9,6 +9,7 @@ namespace Baloon
 {
     public class BaloonControlPanel : MonoBehaviour
     {
+        public const float DragFov = 40f;
 
         public static UnityAction OnStarted;
         public static UnityAction OnStopped;
@@ -26,7 +27,7 @@ namespace Baloon
 
         bool started = false;
 
-        float dragFov = 40f;
+        
     
         Coroutine startupCoroutine;
 
@@ -77,7 +78,7 @@ namespace Baloon
 
         private void HandleOnThrottleDragStarted()
         {
-            FOVController.Instance.SetFOV(dragFov);
+            FOVController.Instance.SetFOV(DragFov);
         }
 
         private void HandleOnThrottleDragStopped()

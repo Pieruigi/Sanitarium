@@ -16,7 +16,7 @@ Material:
   - _FILTERMODE_POINT
   - _LIGHTMODE_TEXELLIT
   - _RECEIVESHADOWSMODE_ON
-  - _SNAPMODE_OFF
+  - _SNAPMODE_VIEW
   m_InvalidKeywords:
   - _EMISSION
   - _ENVIRONMENTREFLECTIONS_OFF
@@ -101,8 +101,8 @@ Material:
     - _LightMode: 1
     - _ReceiveShadowsMode: 0
     - _ResolutionLimit: 256
-    - _SnapMode: 3
-    - _SnapsPerUnit: 64
+    - _SnapMode: 2
+    - _SnapsPerUnit: 256
     m_Floats:
     - _AddPrecomputedVelocity: 0
     - _AffineTextureStrength: 0

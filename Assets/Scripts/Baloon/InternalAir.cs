@@ -99,12 +99,13 @@ namespace Baloon
 
         private void HandleOnCoolerPused()
         {
-
+            FOVController.Instance.SetFOV(BaloonControlPanel.DragFov);
             coolerOn = true;
         }
 
         private void HandleOnCoolerReleased()
         {
+            FOVController.Instance.ResetFOV();
             coolerOn = false;
         }
     }

@@ -50,16 +50,22 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: V1_HotAirBalloon_Livery_5
-  m_Shader: {fileID: -6465566751694194690, guid: a4093026609f0d0469988ad15d1e1162, type: 3}
+  m_Shader: {fileID: 4800000, guid: 71a090e9b5b488349913abe716bb7bc6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _DITHERMODE_SCREEN
+  - _FILTERMODE_POINT
+  - _LIGHTMODE_TEXELLIT
+  - _RECEIVESHADOWSMODE_ON
+  - _SNAPMODE_VIEW
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
+  - _USE_VERTEX_COLORS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses:
   - TransparentDepthPrepass
@@ -72,7 +78,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2ea91da5ad94ab64f9a74cb6b42ccc19, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -123,6 +129,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReflectionCubemap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -139,14 +149,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
+    m_Ints:
+    - _ColorBitDepth: 256
+    - _DitherMode: 0
+    - _FilterMode: 1
+    - _LightMode: 1
+    - _ReceiveShadowsMode: 0
+    - _ResolutionLimit: 256
+    - _SnapMode: 2
+    - _SnapsPerUnit: 256
     m_Floats:
     - _AddPrecomputedVelocity: 0
+    - _AffineTextureStrength: 0.046
     - _AlphaClip: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
+    - _AmbientLight: 0.02
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _Blend: 0
@@ -155,7 +175,9 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorBitDepthOffset: 0
     - _ConservativeDepthOffsetEnable: 0
+    - _CubemapRotation: 0
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
@@ -239,6 +261,11 @@ Material:
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
+    - _USE_AMBIENT_OVERRIDE: 0
+    - _USE_FLAT_SHADING: 0
+    - _USE_REFLECTION_CUBEMAP: 0
+    - _USE_SPECULAR_LIGHT: 0
+    - _USE_VERTEX_COLORS: 0
     - _UseShadowThreshold: 0
     - _WorkflowMode: 1
     - _ZTestDepthEqualForOpaque: 3
@@ -248,6 +275,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CubemapColor: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Layer1NewColor1: {r: 1, g: 1, b: 1, a: 0}
