@@ -123,13 +123,13 @@ MonoBehaviour:
     dimension: 1
   redValues:
     m_OverrideState: 1
-    m_Value: 256
+    m_Value: 207
   greenValues:
     m_OverrideState: 1
-    m_Value: 256
+    m_Value: 206
   blueValues:
     m_OverrideState: 1
-    m_Value: 256
+    m_Value: 206
   useDithering:
     m_OverrideState: 1
     m_Value: 1
