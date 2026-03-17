@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Baloon
 
         private void LateUpdate()
         {
-            if (!activated) return;
+            //if (!activated) return;
 
             var currentAltitude = BaloonController.Instance.Altitude;
             var minAltitude = AltitudeManager.Instance.MinAltitude;
@@ -50,9 +51,9 @@ namespace Baloon
 
 
             // Set altitude fields
-            minValue.text = minAltitude.ToString("000");
-            maxValue.text = maxAltitude.ToString("000");
-            currentValue.text = currentAltitude.ToString("000.00");
+            minValue.text = minAltitude.ToString("000", CultureInfo.InvariantCulture);
+            maxValue.text = maxAltitude.ToString("000", CultureInfo.InvariantCulture);
+            currentValue.text = currentAltitude.ToString("000.00", CultureInfo.InvariantCulture);
 
 
             if (currentAltitude < minAltitude || currentAltitude > maxAltitude) // Out of range

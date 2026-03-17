@@ -23,9 +23,15 @@ namespace Baloon
         [SerializeField]
         HoldButton coldButton, warmButton;
 
+        [SerializeField]
+        AudioSource startAudioSource, runAudioSource, stopAudioSource;
+
+        float runAudioPitchMin = 1f, runAudioPitchMax = 1.4f;
+      
         GameObject player;
 
         bool started = false;
+        
 
         
     
@@ -65,6 +71,7 @@ namespace Baloon
 
             throttle.OnDragStarted += HandleOnThrottleDragStarted;
             throttle.OnDragStopped += HandleOnThrottleDragStopped;
+            throttle.OnValueChanged += HandleOnThrottleValueChanged;
         }
 
         private void OnDisable()
@@ -74,6 +81,14 @@ namespace Baloon
 
             throttle.OnDragStarted -= HandleOnThrottleDragStarted;
             throttle.OnDragStopped -= HandleOnThrottleDragStopped;
+            throttle.OnValueChanged -= HandleOnThrottleValueChanged;
+        }
+
+        private void HandleOnThrottleValueChanged(float value)
+        {
+            if (!started) return;
+
+            runAudioSource.pitch = Mathf.Lerp(runAudioPitchMin, runAudioPitchMax, value);
         }
 
         private void HandleOnThrottleDragStarted()
@@ -94,17 +109,23 @@ namespace Baloon
 
                 IEnumerator Startup()
                 {
+                    // Play starting audio
+                    startAudioSource.Play();
+
                     yield return new WaitForSeconds(1f);
                    
                     started = true;
 
-                    throttle.Locked = false;
+                    //throttle.Locked = false;
                     coldButton.Locked = false;
                     warmButton.Locked = false;
 
                     player.GetComponent<FirstPersonController>().EnterBaloon(GetComponentInParent<BaloonController>().transform);
                     //player.transform.parent = transform.parent;
                     
+                    // Play running audio
+                    runAudioSource.Play();
+
                     OnStarted?.Invoke();
                 }
             }
@@ -112,6 +133,11 @@ namespace Baloon
             {
                 if(BasePlatform.CurrentPlatform && throttle.sliderValue == 0)
                 {
+                    // Stop running audio
+                    runAudioSource.Stop();
+                    // Play stopping audio
+                    stopAudioSource.Play();
+
                     started = false;
                     ResetAndLockThrottle();
                     coldButton.Locked = true;
@@ -133,6 +159,10 @@ namespace Baloon
         {
             if (!started)
             {
+                // Stop starting audio
+                startAudioSource.Stop();
+
+                // Stop starting coroutine
                 StopCoroutine(startupCoroutine);
             }
             
@@ -141,7 +171,9 @@ namespace Baloon
         void ResetAndLockThrottle()
         {
             throttle.ResetSlider();
-            throttle.Locked = true;
+            //throttle.Locked = true;
         }
+
+        
     }
 }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -51,8 +52,8 @@ namespace Baloon
             targetAngle = Mathf.Lerp(minAngle, maxAngle, diff / maxDiff);
             arrow.localEulerAngles = Vector3.down * targetAngle;
 
-            targetValue.text = targetDiff.ToString("00.00");
-            currentValue.text = diff.ToString("00.00");
+            targetValue.text = targetDiff.ToString("00.00", CultureInfo.InvariantCulture);
+            currentValue.text = diff.ToString("00.00", CultureInfo.InvariantCulture);
 
             // Arrows
 

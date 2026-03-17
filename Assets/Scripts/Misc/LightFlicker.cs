@@ -36,7 +36,7 @@ public class LightFlicker : MonoBehaviour
         //}
     }
 
-    void StartFlicker()
+    public void StartFlickering()
     {
         // Generate a random intensity and duration to avoid a predictable pattern
         float targetIntensity = Random.Range(minIntensity, maxIntensity);
@@ -45,7 +45,7 @@ public class LightFlicker : MonoBehaviour
         // Perform the flicker using DOTween
         _light.DOIntensity(targetIntensity, randomDuration)
             .SetEase(Ease.InOutSine)
-            .OnComplete(StartFlicker)
+            .OnComplete(StartFlickering)
             .SetId(this); // Assign an ID to safely kill the tween later
 
         // Range
@@ -67,7 +67,7 @@ public class LightFlicker : MonoBehaviour
     {
         if (_light != null)
         {
-            StartFlicker();
+            StartFlickering();
         }
         
     }
@@ -75,7 +75,12 @@ public class LightFlicker : MonoBehaviour
     public void ToggleLight(bool state)
     {
         _light.enabled = state;
-        if (state) StartFlicker();
+        if (state) StartFlickering();
         else DOTween.Kill(this);
+    }
+
+    public void StopFlickering()
+    {
+        DOTween.Kill(this);
     }
 }

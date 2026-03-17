@@ -15,6 +15,8 @@ namespace Baloon
         [SerializeField]
         HoldButton decreaseButton, increaseButton;
 
+        
+
         //float power = 0;
         public float Power 
         {
@@ -43,13 +45,17 @@ namespace Baloon
 
         int dir = 0;
 
-        
+
+        bool running = false;
+
 
         
+        
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+          
         }
 
         // Update is called once per frame
@@ -101,6 +107,8 @@ namespace Baloon
             decreaseButton.OnReleased += HandleOnDecreaseReleased;
             increaseButton.OnPushed += HandleOnIncreasePushed;
             increaseButton.OnReleased += HandleOnIncreaseReleased;
+            BaloonControlPanel.OnStarted += HandleOnPanelControlStarted;
+            BaloonControlPanel.OnStopped += HandleOnPanelControlStopped;
         }
 
         private void OnDisable()
@@ -110,6 +118,19 @@ namespace Baloon
             decreaseButton.OnReleased -= HandleOnDecreaseReleased;
             increaseButton.OnPushed -= HandleOnIncreasePushed;
             increaseButton.OnReleased -= HandleOnIncreaseReleased;
+            BaloonControlPanel.OnStarted -= HandleOnPanelControlStarted;
+            BaloonControlPanel.OnStopped -= HandleOnPanelControlStopped;
+        }
+
+        private void HandleOnPanelControlStarted()
+        {
+            running = true;
+        }
+
+        private void HandleOnPanelControlStopped()
+        {
+            running = false;
+            throttle = 0;
         }
 
         private void HandleOnIncreasePushed()
@@ -142,7 +163,7 @@ namespace Baloon
 
         private void HandleOnThrottleSliderValueChanged(float value)
         {
-            throttle = value;
+            if(running) throttle = value;
         }
     }
 
