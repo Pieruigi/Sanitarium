@@ -40,34 +40,29 @@ namespace Baloon
             var currentAltitude = BaloonController.Instance.Altitude;
             var minAltitude = AltitudeManager.Instance.MinAltitude;
             var maxAltitude = AltitudeManager.Instance.MaxAltitude;
-            var middleAltitude = (maxAltitude + minAltitude) / 2f;
-            var range = (maxAltitude - minAltitude);
-            var greenAmount = range * .4f;
-            var greenMax = middleAltitude + greenAmount / 2f;
-            var greenMin = middleAltitude - greenAmount / 2f;
-
+            
            
             // Set altitude fields
             minValue.text = minAltitude.ToString("000", CultureInfo.InvariantCulture);
             maxValue.text = maxAltitude.ToString("000", CultureInfo.InvariantCulture);
             currentValue.text = currentAltitude.ToString("000.00", CultureInfo.InvariantCulture);
 
-
-            if (currentAltitude < minAltitude || currentAltitude > maxAltitude) // Out of range
+            AltitudeRange currentRange = AltitudeManager.Instance.GetCurrentRange();
+            
+            switch (currentRange)
             {
-                SwitchLightDataAll(redIndex);
-            }
-            else // In range
-            {
-                if(currentAltitude < greenMin || currentAltitude > greenMax)
-                {
+                case AltitudeRange.Red:
+                    SwitchLightDataAll(redIndex);
+                    break;
+                case AltitudeRange.Yellow:
                     SwitchLightDataAll(yellowIndex);
-                }
-                else
-                {
+                    break;
+                case AltitudeRange.Green:
                     SwitchLightDataAll(greenIndex);
-                }
+                    break;
             }
+
+            
         }
 
         private void OnEnable()
