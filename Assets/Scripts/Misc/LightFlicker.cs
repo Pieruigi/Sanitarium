@@ -48,12 +48,12 @@ public class LightFlicker : MonoBehaviour
             .OnComplete(StartFlickering)
             .SetId(this); // Assign an ID to safely kill the tween later
 
-        // Range
-        float intensityPercentage = targetIntensity / maxIntensity;
-        float targetRange = _baseRange * intensityPercentage;
-        DOTween.To(() => _light.range, x => _light.range = x, targetRange, randomDuration)
-        .SetEase(Ease.InOutSine)
-        .SetId(this);
+        //// Range
+        //float intensityPercentage = targetIntensity / maxIntensity;
+        //float targetRange = _baseRange * intensityPercentage;
+        //DOTween.To(() => _light.range, x => _light.range = x, targetRange, randomDuration)
+        //.SetEase(Ease.InOutSine)
+        //.SetId(this);
 
     }
 

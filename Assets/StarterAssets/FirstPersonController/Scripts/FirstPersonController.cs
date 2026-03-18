@@ -83,6 +83,7 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -119,10 +120,16 @@ namespace StarterAssets
 			_fallTimeoutDelta = FallTimeout;
 		}
 
+
+
 		private void Update()
 		{
-			
-                JumpAndGravity();
+#if UNITY_EDITOR
+			if (Input.GetKeyDown(KeyCode.P))
+				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+#endif
+
+			JumpAndGravity();
                 GroundedCheck();
                 Move();
             
@@ -149,6 +156,7 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
+			if (Time.timeScale == 0) return;
             //if (onBaloon)
             //{
             //    transform.Rotate(Vector3.up * BaloonController.Instance.GetComponent<Rigidbody>().angularVelocity.y * Mathf.Rad2Deg * Time.deltaTime);
