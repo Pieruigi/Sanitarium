@@ -46,10 +46,7 @@ namespace Baloon
             var greenMax = middleAltitude + greenAmount / 2f;
             var greenMin = middleAltitude - greenAmount / 2f;
 
-            Debug.Log("TEST - GreenMin:" + greenMin);
-            Debug.Log("TEST - GreenMax:" + greenMax);
-
-
+           
             // Set altitude fields
             minValue.text = minAltitude.ToString("000", CultureInfo.InvariantCulture);
             maxValue.text = maxAltitude.ToString("000", CultureInfo.InvariantCulture);

@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a074ec59f6e910b4e8c49f57e56cf95a, type: 3}
   m_Name: VolumetricFogVolumeComponent
   m_EditorClassIdentifier: com.cqf.urpvolumetricfog.runtime::VolumetricFogVolumeComponent
-  active: 0
+  active: 1
   distance:
     m_OverrideState: 1
-    m_Value: 97
+    m_Value: 512
   baseHeight:
     m_OverrideState: 1
     m_Value: 0
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 500
+    m_Value: 150
   enableGround:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   groundHeight:
     m_OverrideState: 1
     m_Value: 0
   density:
     m_OverrideState: 1
-    m_Value: 0.329
+    m_Value: 0.191
   attenuationDistance:
     m_OverrideState: 1
-    m_Value: 9.4
+    m_Value: 8.36
   enableAPVContribution:
     m_OverrideState: 1
     m_Value: 0
@@ -45,10 +45,10 @@ MonoBehaviour:
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: 0.116
+    m_Value: 0.09
   scattering:
     m_OverrideState: 1
-    m_Value: 0.708
+    m_Value: 0.63
   tint:
     m_OverrideState: 1
     m_Value: {r: 0.93767667, g: 1, b: 0.740566, a: 1}
@@ -115,7 +115,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0.015
   colorRampMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 19
   colorRampTex:
     m_OverrideState: 1

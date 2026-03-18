@@ -378,7 +378,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 0.97617775, b: 0.8443396, a: 1}
   m_Intensity: 1
-  m_Range: 20
+  m_Range: 14
   m_SpotAngle: 69.885895
   m_InnerSpotAngle: 25.209286
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -487,8 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f566648bae7ae4fb32dc2271a2d6d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightFlicker
-  minIntensity: 0.85
-  maxIntensity: 1.05
+  minIntensity: 2.8
+  maxIntensity: 3.2
   speed: 0.3
 --- !u!1 &8150617947076694247
 GameObject:
