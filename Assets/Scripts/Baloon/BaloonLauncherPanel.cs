@@ -1,3 +1,4 @@
+using Baloon;
 using DG.Tweening;
 using System;
 using TMM;
@@ -11,28 +12,40 @@ public class BaloonLauncherPanel : MonoBehaviour
     [SerializeField]
     Transform root;
 
+    [SerializeField]
+    Transform pivot;
+
     bool activated = false;
     public bool Activated => activated;
 
-    float ySpeed = 25f;
+    float rootSpeed = 50f;
 
     GameObject player;
 
-    float yDefault;
+    float yRootDefault;
 
     bool inside = false;
 
     float currentOffset = 0;
 
+    float yPivotDefault = 0;
+
+    BaloonController baloon;
+
+    Vector3 rootPositionDefault = Vector3.zero;
+
     private void Awake()
     {
-        yDefault = root.position.y;
+        yRootDefault = root.position.y;
+        yPivotDefault = pivot.localPosition.y;
+        rootPositionDefault = root.position;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        baloon = FindFirstObjectByType<BaloonController>();
 
     }
 
@@ -44,27 +57,49 @@ public class BaloonLauncherPanel : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(inside && !activated)
+        int action = 0; // 0:nothing; 1:activate; -1:deactivate
+        var range = AltitudeManager.Instance.GetCurrentRange();
+
+        if (inside && range == AltitudeRange.Green && !activated)
+            action = 1;
+        else if (inside && range != AltitudeRange.Green && activated)
+            action = -1;
+
+        if (action == 0 && !activated) return;
+        
+
+        if (action > 0)
         {
             activated = true;
+
+            currentOffset = player.transform.position.y - yRootDefault;
+
             root.DOKill();
-            currentOffset = player.transform.position.y - yDefault;
+            
+            // Move pivot
+            pivot.DOKill();
+            pivot.DOLocalMoveY(1.24f, 1f).SetEase(Ease.OutSine);
+
+
         }
-        else if(!inside && activated)
+        else if(action < 0) 
         {
             activated = false;
             root.DOKill();
-
-            root.DOMoveY(yDefault, .5f).SetEase(Ease.InBounce);
+            
+            // Reset pivot
+            pivot.DOKill();
+            pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => { root.DOMove(rootPositionDefault, .5f); });
+            
         }
 
         if (activated)
         {
             var rootPos = root.position;
-            var yTarget = player.transform.position.y;// - currentOffset;
+            var target = baloon.transform.position;// - currentOffset;
 
-            rootPos.y = Mathf.Lerp(rootPos.y, yTarget, ySpeed * Time.deltaTime);
-
+            rootPos = Vector3.Lerp(rootPos, target, rootSpeed * Time.deltaTime);
+            
             root.position = rootPos;
         }
 
