@@ -1,137 +1,152 @@
-using Baloon;
+
 using DG.Tweening;
 using System;
 using TMM;
 using UnityEngine;
 
-public class BaloonLauncherPanel : MonoBehaviour
+namespace Baloon
 {
-    [SerializeField]
-    ActivationTrigger activator;
 
-    [SerializeField]
-    Transform root;
-
-    [SerializeField]
-    Transform pivot;
-
-    bool activated = false;
-    public bool Activated => activated;
-
-    float rootSpeed = 50f;
-
-    GameObject player;
-
-    float yRootDefault;
-
-    bool inside = false;
-
-    float currentOffset = 0;
-
-    float yPivotDefault = 0;
-
-    BaloonController baloon;
-
-    Vector3 rootPositionDefault = Vector3.zero;
-
-    private void Awake()
+    public class BaloonLauncherPanel : MonoBehaviour
     {
-        yRootDefault = root.position.y;
-        yPivotDefault = pivot.localPosition.y;
-        rootPositionDefault = root.position;
-    }
+        [SerializeField]
+        ActivationTrigger activator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        baloon = FindFirstObjectByType<BaloonController>();
+        [SerializeField]
+        Transform root;
 
-    }
+        [SerializeField]
+        Transform pivot;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        [SerializeField]
+        HoldButton switchButton;
 
-    private void LateUpdate()
-    {
-        int action = 0; // 0:nothing; 1:activate; -1:deactivate
-        var range = AltitudeManager.Instance.GetCurrentRange();
+        bool activated = false;
+        public bool Activated => activated;
 
-        if (inside && range == AltitudeRange.Green && !activated)
-            action = 1;
-        else if (inside && range != AltitudeRange.Green && activated)
-            action = -1;
+        float rootSpeed = 50f;
 
-        if (action == 0 && !activated) return;
-        
+        GameObject player;
 
-        if (action > 0)
+        float yRootDefault;
+
+        bool inside = false;
+
+        float currentOffset = 0;
+
+        float yPivotDefault = 0;
+
+        BaloonController baloon;
+
+        Vector3 rootPositionDefault = Vector3.zero;
+
+        BaloonLauncher baloonLauncher;
+
+        private void Awake()
         {
-            activated = true;
+            yRootDefault = root.position.y;
+            yPivotDefault = pivot.localPosition.y;
+            rootPositionDefault = root.position;
+            baloonLauncher = GetComponentInParent<BaloonLauncher>();
+        }
 
-            currentOffset = player.transform.position.y - yRootDefault;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            baloon = FindFirstObjectByType<BaloonController>();
 
-            root.DOKill();
-            
-            // Move pivot
-            pivot.DOKill();
-            pivot.DOLocalMoveY(1.24f, 1f).SetEase(Ease.OutSine);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        private void LateUpdate()
+        {
+            int action = 0; // 0:nothing; 1:activate; -1:deactivate
+            var range = AltitudeManager.Instance.GetCurrentRange();
+
+            if (inside && range == AltitudeRange.Green && !activated)
+                action = 1;
+            else if (inside && range != AltitudeRange.Green && activated)
+                action = -1;
+
+            if (action == 0 && !activated) return;
+
+
+            if (action > 0)
+            {
+                activated = true;
+
+                currentOffset = player.transform.position.y - yRootDefault;
+
+                root.DOKill();
+
+                // Move pivot
+                pivot.DOKill();
+                pivot.DOLocalMoveY(1.5f, 1f).SetEase(Ease.OutSine);
+
+
+            }
+            else if (action < 0)
+            {
+                activated = false;
+                root.DOKill();
+
+                // Reset pivot
+                pivot.DOKill();
+                pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => { root.DOMove(rootPositionDefault, .5f); });
+
+            }
+
+            if (activated)
+            {
+                var rootPos = root.position;
+                var target = baloon.transform.position;// - currentOffset;
+
+                rootPos = Vector3.Lerp(rootPos, target, rootSpeed * Time.deltaTime);
+
+                root.position = rootPos;
+            }
+
+
+
 
 
         }
-        else if(action < 0) 
+
+        private void OnEnable()
         {
-            activated = false;
-            root.DOKill();
-            
-            // Reset pivot
-            pivot.DOKill();
-            pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => { root.DOMove(rootPositionDefault, .5f); });
+            activator.OnEnter += HandleOnEnter;
+            activator.OnExit += HandleOnExit;
+            switchButton.OnPushed += HandleOnSwitchPushed;
             
         }
 
-        if (activated)
+        private void OnDisable()
         {
-            var rootPos = root.position;
-            var target = baloon.transform.position;// - currentOffset;
-
-            rootPos = Vector3.Lerp(rootPos, target, rootSpeed * Time.deltaTime);
-            
-            root.position = rootPos;
+            activator.OnEnter -= HandleOnEnter;
+            activator.OnExit -= HandleOnExit;
+            switchButton.OnPushed -= HandleOnSwitchPushed;
         }
 
+        private void HandleOnSwitchPushed()
+        {
+            baloonLauncher.TrySwitchDirection();
+        }
 
+        private void HandleOnEnter(Collider other)
+        {
+            inside = true;
+        }
 
-        
+        private void HandleOnExit(Collider other)
+        {
+            inside = false;
+        }
 
     }
-
-    private void OnEnable()
-    {
-        activator.OnEnter += HandleOnEnter;
-        activator.OnExit += HandleOnExit;
-    }
-
-    private void OnDisable()
-    {
-        activator.OnEnter -= HandleOnEnter;
-        activator.OnExit -= HandleOnExit;
-    }
-
-    private void HandleOnEnter(Collider other)
-    {
-        inside = true;
-    }
-
-    private void HandleOnExit(Collider other)
-    {
-        inside = false;
-    }
-
-   
-
-  
 }
