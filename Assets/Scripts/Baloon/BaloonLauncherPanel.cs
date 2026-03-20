@@ -135,7 +135,7 @@ namespace Baloon
 
         private void HandleOnSwitchPushed()
         {
-            baloonLauncher.TrySwitchDirection();
+            baloonLauncher.SwitchDirection();
         }
 
         private void HandleOnEnter(Collider other)
