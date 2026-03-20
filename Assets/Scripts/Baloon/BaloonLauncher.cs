@@ -75,6 +75,7 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathSet += HandleOnPathSet;
         BaloonPathManager.OnPathLocked += HandleOnPathLocked;
         BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
     }
 
     private void UnregisterPathManagerEvents()
@@ -82,6 +83,13 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathSet -= HandleOnPathSet;
         BaloonPathManager.OnPathLocked -= HandleOnPathLocked;
         BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
+    }
+
+    private void HandleOnPathUnknown()
+    {
+        UnregisterPathManagerEvents();
+        Debug.Log("TEST - OnPathUnknown");
     }
 
     private void HandleOnPathSet()
@@ -107,23 +115,26 @@ public class BaloonLauncher : MonoBehaviour
     public void SwitchDirection()
     {
         Debug.Log("Switching direction");     
-        int length = internalDirections.Length;
+        //int length = internalDirections.Length;
         
-        for(int i=1; i<length; i++)
-        {
-            int next = (currentDirection + i) % length;
+        //for(int i=1; i<length; i++)
+        //{
+        //    int next = (currentDirection + i) % length;
 
-            if (internalDirections[next] >= 0)
-            {
-                currentDirection = next;
-                Debug.Log("New direction " + currentDirection);
-                OnDirectionChanged?.Invoke(this);
-                return;
-            }
+        //    if (internalDirections[next] >= 0)
+        //    {
+        //        currentDirection = next;
+        //        Debug.Log("New direction " + currentDirection);
+        //        OnDirectionChanged?.Invoke(this);
+        //        return;
+        //    }
         
-        }
+        //}
 
-        
+        currentDirection = (currentDirection + 1) % internalDirections.Length;
+
+        OnDirectionChanged?.Invoke(this);
+
     }
 
     public void SetPathFromCurrentDirection()

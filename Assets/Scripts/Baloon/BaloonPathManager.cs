@@ -10,6 +10,7 @@ namespace Baloon
         public static UnityAction OnPathLocked;
         public static UnityAction OnPathSet;
         public static UnityAction OnPathCleared;
+        public static UnityAction OnPathUnknown;
 
         [SerializeField]
         List<BaloonPath> paths;
@@ -37,6 +38,12 @@ namespace Baloon
 
         public void SetPath(int pathIndex)
         {
+            if(pathIndex < 0)
+            {
+                OnPathUnknown?.Invoke();
+                return;
+            }
+
             if (paths[pathIndex].IsLocked)
             {
                 OnPathLocked?.Invoke();

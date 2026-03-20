@@ -326,35 +326,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9080296}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &9217150 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7951530934397575482, guid: e8972559033c6934a9a62db5ecf89d06, type: 3}
-  m_PrefabInstance: {fileID: 3303984342154478641}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9217151 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3569326267049545633, guid: e8972559033c6934a9a62db5ecf89d06, type: 3}
-  m_PrefabInstance: {fileID: 3303984342154478641}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9217150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94ae4d7dca5e3154caffa6a2ffab62e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TMM.ActivationTrigger
---- !u!114 &9217154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9217150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8156bf997a750c8408ce4dec663b46a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Baloon.BasePlatform
-  trigger: {fileID: 9217151}
 --- !u!1 &10851513
 GameObject:
   m_ObjectHideFlags: 0
@@ -6713,23 +6684,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97583478}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &98875297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8762286023885395077, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
-  m_PrefabInstance: {fileID: 1516176601}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &98875300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98875297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1ec0311276bad49be394305944b17e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Baloon.FOVController
 --- !u!1 &99292687
 GameObject:
   m_ObjectHideFlags: 0
@@ -85679,10 +85633,6 @@ PrefabInstance:
       value: PlayerFollowCamera
       objectReference: {fileID: 0}
     - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8762286023885395322, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 338
       objectReference: {fileID: 0}
@@ -85726,18 +85676,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 4135013735548341835}
-    - target: {fileID: 8762286023885395323, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
-      propertyPath: m_Lens.FieldOfView
-      value: 50
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8762286024517199035, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8762286023885395077, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 98875300}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
 --- !u!1 &1516576093
 GameObject:
@@ -120793,10 +120735,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3601536769471387902, guid: 7829edb7c76b26b45a4958836aa8a270, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4398096410824695167, guid: 7829edb7c76b26b45a4958836aa8a270, type: 3}
       propertyPath: m_Name
       value: Baloon
@@ -120911,10 +120849,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3696021074284332343, guid: e8972559033c6934a9a62db5ecf89d06, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7951530934397575482, guid: e8972559033c6934a9a62db5ecf89d06, type: 3}
       propertyPath: m_Name
       value: BasePlatform
@@ -120922,10 +120856,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7951530934397575482, guid: e8972559033c6934a9a62db5ecf89d06, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9217154}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8972559033c6934a9a62db5ecf89d06, type: 3}
 --- !u!1001 &3727869825081067001
 PrefabInstance:
@@ -120938,22 +120869,6 @@ PrefabInstance:
     - target: {fileID: 4687057051084073507, guid: 5d46a2bcf70b19e478cb07d111f6574b, type: 3}
       propertyPath: m_Name
       value: PathManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4977971610189164157, guid: 5d46a2bcf70b19e478cb07d111f6574b, type: 3}
-      propertyPath: paths.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4977971610189164157, guid: 5d46a2bcf70b19e478cb07d111f6574b, type: 3}
-      propertyPath: paths.Array.data[1].isLocked
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4977971610189164157, guid: 5d46a2bcf70b19e478cb07d111f6574b, type: 3}
-      propertyPath: paths.Array.data[0].waypoints.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4977971610189164157, guid: 5d46a2bcf70b19e478cb07d111f6574b, type: 3}
-      propertyPath: paths.Array.data[1].waypoints.Array.size
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4977971610189164157, guid: 5d46a2bcf70b19e478cb07d111f6574b, type: 3}
       propertyPath: 'paths.Array.data[0].waypoints.Array.data[0]'

@@ -44,3 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb32c0644b4ed44db44da3e83e14686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonPathManager
+  paths:
+  - waypoints:
+    - {fileID: 0}
+    - {fileID: 0}
+    isReversed: 0
+    isLocked: 0
+  - waypoints:
+    - {fileID: 0}
+    - {fileID: 0}
+    isReversed: 0
+    isLocked: 1
