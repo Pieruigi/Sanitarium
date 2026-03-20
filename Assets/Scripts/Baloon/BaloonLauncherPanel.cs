@@ -21,6 +21,9 @@ namespace Baloon
         [SerializeField]
         HoldButton switchButton;
 
+        [SerializeField]
+        HoldButton launchButton;
+
         bool activated = false;
         public bool Activated => activated;
 
@@ -123,7 +126,7 @@ namespace Baloon
             activator.OnEnter += HandleOnEnter;
             activator.OnExit += HandleOnExit;
             switchButton.OnPushed += HandleOnSwitchPushed;
-            
+            launchButton.OnPushed += HandleOnLaunchPushed;
         }
 
         private void OnDisable()
@@ -131,6 +134,12 @@ namespace Baloon
             activator.OnEnter -= HandleOnEnter;
             activator.OnExit -= HandleOnExit;
             switchButton.OnPushed -= HandleOnSwitchPushed;
+            launchButton.OnPushed -= HandleOnLaunchPushed;
+        }
+
+        private void HandleOnLaunchPushed()
+        {
+            baloonLauncher.SetPathFromCurrentDirection();
         }
 
         private void HandleOnSwitchPushed()

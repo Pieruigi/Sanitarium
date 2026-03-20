@@ -121073,10 +121073,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaloonLauncher
       objectReference: {fileID: 0}
-    - target: {fileID: 9067096444593548866, guid: 016d27f23b21c6243b7bca79a0e7dc97, type: 3}
-      propertyPath: initialDirection
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
