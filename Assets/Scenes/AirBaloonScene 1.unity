@@ -50581,6 +50581,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a2b523995c12942add443bba6cc3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonWaypoint
+  horizontalForce: 3
+  minAltitude: 30
+  maxAltitude: 50
 --- !u!4 &863388856
 Transform:
   m_ObjectHideFlags: 0

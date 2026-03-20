@@ -21,8 +21,6 @@ public class VolumetricFogAltitude : MonoBehaviour
     {
         if(globalVolume.profile.TryGet<VolumetricFogVolumeComponent>(out fog))
         {
-            Debug.Log("BASEHeight:" + fog.baseHeight);
-            Debug.Log("Max:" + fog.maximumHeight);
             offset = fog.maximumHeight.value; 
         }
 

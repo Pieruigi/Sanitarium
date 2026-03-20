@@ -33,7 +33,6 @@ namespace TMM
 			if (disabled) return;
 			if (other.CompareTag("Player"))
 			{
-                Debug.Log("OnEnter");
                 OnEnter?.Invoke(other);
             }
 				
@@ -44,7 +43,6 @@ namespace TMM
             if(disabled) return;
             if (other.CompareTag("Player"))
 			{
-                Debug.Log("OnExit");
                 OnExit?.Invoke(other);
             }
 				

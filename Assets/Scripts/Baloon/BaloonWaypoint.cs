@@ -4,6 +4,16 @@ namespace Baloon
 {
     public class BaloonWaypoint : MonoBehaviour
     {
+        [SerializeField]
+        float horizontalForce;
+        public float HorizontalForce => horizontalForce;
+
+        [SerializeField]
+        float minAltitude, maxAltitude;
+        public float MinAltitude => minAltitude;
+        public float MaxAltitude => maxAltitude;
+
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

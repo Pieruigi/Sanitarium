@@ -11,14 +11,14 @@ namespace Baloon
 
         BaloonWaypoint waypointA, waypointB;
 
-        
-        float speed = DefaultSpeed;
+
+        BaloonController baloonController;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            baloonController = FindFirstObjectByType<BaloonController>();
         }
 
         // Update is called once per frame
@@ -46,12 +46,19 @@ namespace Baloon
 
         private void HandleOnPathSet()
         {
+            Debug.Log("TEST - Setting path");
             currentPath = BaloonPathManager.Instance.CurrentPath;
             
-            
+
+            // Set waypoints A and B 
             waypointA = !currentPath.IsReversed ? currentPath.Waypoints[0] : currentPath.Waypoints[currentPath.Waypoints.Count-1];
             waypointB = !currentPath.IsReversed ? currentPath.Waypoints[1] : currentPath.Waypoints[currentPath.Waypoints.Count - 2];
 
+            Debug.Log("TEST - HorizontalForce:" + waypointA.HorizontalForce);
+            // Set wind force
+            baloonController.HorizontalForce = waypointA.HorizontalForce;
+            // Set target altitude
+            AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
 
         }
     }

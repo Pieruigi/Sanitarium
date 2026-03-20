@@ -14,6 +14,15 @@ namespace Baloon
         float verticalForce = 5f;
         //[SerializeField]
         float horizontalForce = 0; // For accelerating (6 to reach speed 3)
+        public float HorizontalForce
+        {
+            get { return horizontalForce; }
+            set 
+            {
+                horizontalForce = value; 
+                if (horizontalForce == 0)  currentVelocity.x = currentVelocity.z = 0f;  
+            }
+        }
 
         float maxVerticalSpeed = 6f;
         float maxHorizontalSpeed = 3; 
@@ -26,6 +35,8 @@ namespace Baloon
 
         //float verticalSpeed = 0f;
         Vector3 currentVelocity = Vector3.zero;
+
+        Vector2 horizontalDirection = Vector2.zero;
         
         GameObject player;
 
@@ -128,9 +139,11 @@ namespace Baloon
 
         void UpdateHorizontalVelocity()
         {
+            if (horizontalForce == 0) return;
+
             // 1. Calculate acceleration (F = m * a, assuming mass = 1)
             // We start with the base force applied to the balloon
-            Vector3 acceleration = transform.right * horizontalForce;
+            Vector3 acceleration = horizontalDirection * horizontalForce;
             Vector3 horizontalVelocity = currentVelocity;
             horizontalVelocity.y = acceleration.y = 0f;
            
@@ -149,8 +162,7 @@ namespace Baloon
                 horizontalVelocity = horizontalVelocity.normalized * maxHorizontalSpeed;
             }
 
-            Debug.Log("TEST - HSpeed:"+horizontalVelocity.magnitude);
-
+           
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
            
@@ -181,5 +193,7 @@ namespace Baloon
         {
 
         }
+
+        
     }
 }

@@ -420,6 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaloonLauncher
   directions: {x: 0, y: 1, z: -1, w: -1}
   initialDirection: 0
+  launchForce: 3
 --- !u!114 &5772641981431648291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a2b523995c12942add443bba6cc3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonWaypoint
+  horizontalForce: 3
+  minAltitude: 30
+  maxAltitude: 50
 --- !u!1 &1841330035161614825
 GameObject:
   m_ObjectHideFlags: 0

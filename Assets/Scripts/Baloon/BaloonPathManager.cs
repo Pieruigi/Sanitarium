@@ -38,6 +38,7 @@ namespace Baloon
 
         public void SetPath(int pathIndex)
         {
+            Debug.Log("TEST - Setting path:" + pathIndex);
             if(pathIndex < 0)
             {
                 OnPathUnknown?.Invoke();
@@ -51,6 +52,7 @@ namespace Baloon
             }
 
             currentPath = paths[pathIndex];
+            Debug.Log("TEST - OnPathSet");
             OnPathSet?.Invoke();
         }
 

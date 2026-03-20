@@ -87,12 +87,12 @@ namespace SNT
 
         private void OnEnable()
         {
-            Debug.Log("TEST - Interactor enabled");
+            
         }
 
         private void OnDisable()
         {
-            Debug.Log("TEST - Interactor disabled");
+            
         }
 
         public bool IsBusy()

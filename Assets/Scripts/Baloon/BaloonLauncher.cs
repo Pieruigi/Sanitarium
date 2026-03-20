@@ -44,6 +44,9 @@ public class BaloonLauncher : MonoBehaviour
     [SerializeField]
     int initialDirection = 0;
 
+    [SerializeField]
+    float launchForce = 3f;
+
     int currentDirection;
     public int CurrentDirection => currentDirection;
 
@@ -72,18 +75,18 @@ public class BaloonLauncher : MonoBehaviour
 
     private void RegisterPathManagerEvents()
     {
-        BaloonPathManager.OnPathSet += HandleOnPathSet;
-        BaloonPathManager.OnPathLocked += HandleOnPathLocked;
-        BaloonPathManager.OnPathCleared += HandleOnPathCleared;
-        BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
+        //BaloonPathManager.OnPathSet += HandleOnPathSet;
+        //BaloonPathManager.OnPathLocked += HandleOnPathLocked;
+        //BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        //BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
     }
 
     private void UnregisterPathManagerEvents()
     {
-        BaloonPathManager.OnPathSet -= HandleOnPathSet;
-        BaloonPathManager.OnPathLocked -= HandleOnPathLocked;
-        BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
-        BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
+        //BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        //BaloonPathManager.OnPathLocked -= HandleOnPathLocked;
+        //BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        //BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
     }
 
     private void HandleOnPathUnknown()

@@ -75,7 +75,7 @@ public class BaloonLauncherFan : MonoBehaviour
     private void HandleOnLaunched()
     {
         if(!inside) return;
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void HandleOnDirectionChanged(BaloonLauncher baloonLauncher)
@@ -113,7 +113,7 @@ public class BaloonLauncherFan : MonoBehaviour
         var duration = Mathf.Abs(currentY - targetY) / 90f;
         //duration *= .5f;
 
-        Debug.Log("Direction switched");
+        
         pivot.DOKill();
         pivot.transform.DORotate(new Vector3(0, targetY, 0), duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1.2f);
     }
