@@ -9,7 +9,7 @@ namespace Baloon
     {
         public float Altitude => transform.position.y;
 
-        Rigidbody rb;
+        //Rigidbody rb;
 
         float verticalForce = 5f;
         //[SerializeField]
@@ -35,24 +35,35 @@ namespace Baloon
 
         //float verticalSpeed = 0f;
         Vector3 currentVelocity = Vector3.zero;
+        public Vector3 CurrentVelocity => currentVelocity;
 
         Vector2 horizontalDirection = Vector2.zero;
+        public Vector2 HorizontalDirection
+        {
+            get { return horizontalDirection; }
+            set { horizontalDirection = value.normalized; }
+        }
         
         GameObject player;
+        CharacterController characterController;
+        FirstPersonController firstPersonController;
+        
 
-        bool useRB = false;
+        //bool useRB = false;
 
         protected override void Awake()
         {
             base.Awake();
-            rb = GetComponent<Rigidbody>();
-            if (!useRB) Destroy(rb);
+            //rb = GetComponent<Rigidbody>();
+            //if (!useRB) Destroy(rb);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            characterController = player.GetComponent<CharacterController>();
+            firstPersonController = player.GetComponent<FirstPersonController>();
             Debug.Log($"TEST - playerCollider:{player.GetComponent<Collider>()}");
          
         }
@@ -60,21 +71,24 @@ namespace Baloon
        
         private void Update()
         {
-            if (useRB) return;
+            //if (useRB) return;
             
             UpdateVerticalVelocity();
             UpdateHorizontalVelocity();
 
             transform.position += currentVelocity * Time.deltaTime;
+
         }
 
-        private void FixedUpdate()
-        {
-            if (!useRB) return;
+        //private void FixedUpdate()
+        //{
+        //    if (!useRB) return;
 
-            UpdateVerticalVelocityRB();
-            UpdateHorizontalVelocityRB();
-        }
+        //    UpdateVerticalVelocityRB();
+        //    UpdateHorizontalVelocityRB();
+        //}
+
+       
 
         void UpdateVerticalVelocity()
         {
@@ -141,9 +155,12 @@ namespace Baloon
         {
             if (horizontalForce == 0) return;
 
+            //horizontalDirection = Vector3.forward;
             // 1. Calculate acceleration (F = m * a, assuming mass = 1)
             // We start with the base force applied to the balloon
-            Vector3 acceleration = horizontalDirection * horizontalForce;
+            Debug.Log("TEST - horizontal direction:" + horizontalDirection);
+            Vector3 acceleration = new Vector3(horizontalDirection.x, 0f, horizontalDirection.y)  * horizontalForce;
+            
             Vector3 horizontalVelocity = currentVelocity;
             horizontalVelocity.y = acceleration.y = 0f;
            
@@ -170,29 +187,29 @@ namespace Baloon
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;
         }
 
-        void UpdateVerticalVelocityRB()
-        {
-            var diff = InternalAir.Instance.TemperatureDifference;
+        //void UpdateVerticalVelocityRB()
+        //{
+        //    var diff = InternalAir.Instance.TemperatureDifference;
 
-            if (diff > 0)
-            {
-                var mul = 1f;
-                if (rb.linearVelocity.y >= 0)
-                {
-                    mul = 1 - (rb.linearVelocity.y / maxVerticalSpeed);
-                    mul = Mathf.Clamp(mul, 0, 1);
-                }
-                rb.AddForce(Vector3.up * diff * verticalForce * mul, ForceMode.Acceleration);
+        //    if (diff > 0)
+        //    {
+        //        var mul = 1f;
+        //        if (rb.linearVelocity.y >= 0)
+        //        {
+        //            mul = 1 - (rb.linearVelocity.y / maxVerticalSpeed);
+        //            mul = Mathf.Clamp(mul, 0, 1);
+        //        }
+        //        rb.AddForce(Vector3.up * diff * verticalForce * mul, ForceMode.Acceleration);
 
 
 
-            }
-        }
+        //    }
+        //}
 
-        void UpdateHorizontalVelocityRB()
-        {
+        //void UpdateHorizontalVelocityRB()
+        //{
 
-        }
+        //}
 
         
     }

@@ -55,6 +55,7 @@ namespace StarterAssets
 
         [SerializeField]
         bool onBaloon = false;
+		//public bool OnBaloon => onBaloon;
 		
 		float baloonGround = 0f;
 		
@@ -130,23 +131,33 @@ namespace StarterAssets
 #endif
 
 			JumpAndGravity();
-                GroundedCheck();
-                Move();
+            GroundedCheck();
+            Move();
             
 			
 		}
 
 		private void LateUpdate()
 		{
-			
+            if (onBaloon) AdjustOnBaloon();
 
-			CameraRotation();
+            CameraRotation();
            
         }
 
+        private void FixedUpdate()
+        {
+           
+        }
 
+		void AdjustOnBaloon()
+		{
+            _controller.Move(new Vector3(BaloonController.Instance.CurrentVelocity.x, 0f, BaloonController.Instance.CurrentVelocity.z) * Time.deltaTime);
+            var pos = transform.localPosition;
+            pos.y = baloonGround;
+            transform.localPosition = pos;
+        }
 
-        
         private void GroundedCheck()
 		{
 			// set sphere position, with offset
@@ -243,23 +254,29 @@ namespace StarterAssets
 			//             //baloonVel = FindFirstObjectByType<TestPlatform>().GetComponent<Rigidbody>().linearVelocity;
 			//	_verticalVelocity = 0.0f;
 			//         }
-			if (onBaloon)
-				_verticalVelocity = 0.0f;
+			if (onBaloon) _verticalVelocity = 0.0f;
 
 			// move the player
 			//if (!onBaloon || true)
-				_controller.Move(ComputeVelocity() * Time.deltaTime);// + baloonVel * Time.deltaTime);
-																	 //else
-																	 //	transform.position += ComputeVelocity() * Time.deltaTime;
-																	 //_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);// + baloonVel * Time.deltaTime);
-			if (onBaloon)
-			{
-				var pos = transform.localPosition;
-				pos.y = baloonGround;
-				transform.localPosition = pos;
-			}
+			var velocity = ComputeVelocity();
+            //if (onBaloon)
+            //{
+            //    velocity += new Vector3(BaloonController.Instance.CurrentVelocity.x, 0f, BaloonController.Instance.CurrentVelocity.z);
+                
+            //}
 
-        }
+            _controller.Move(velocity * Time.deltaTime );// + baloonVel * Time.deltaTime);
+														 //else
+														 //	transform.position += ComputeVelocity() * Time.deltaTime;
+														 //_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);// + baloonVel * Time.deltaTime);
+			//if (onBaloon)
+			//{
+			//	var pos = transform.localPosition;
+			//	pos.y = baloonGround;
+			//	transform.localPosition = pos;
+			//}
+
+		}
 
 		Vector3 ComputeVelocity()
 		{
@@ -306,15 +323,11 @@ namespace StarterAssets
                 inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
             }
 
-            //Vector3 baloonVel = Vector3.zero;
-            //         if (onBaloon)
-            //{
-            //             baloonVel = Baloon.BaloonController.Instance.GetComponent<Rigidbody>().GetPointVelocity(transform.position);
-            //             //baloonVel = FindFirstObjectByType<TestPlatform>().GetComponent<Rigidbody>().linearVelocity;
-            //	_verticalVelocity = 0.0f;
-            //         }
-            if (onBaloon)
-                _verticalVelocity = 0.0f;
+          
+            if (onBaloon) _verticalVelocity = 0.0f;
+	        
+                
+
 
 			return inputDirection.normalized * _speed + new Vector3(0.0f, _verticalVelocity, 0.0f);
         }

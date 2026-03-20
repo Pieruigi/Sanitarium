@@ -57,6 +57,10 @@ namespace Baloon
             Debug.Log("TEST - HorizontalForce:" + waypointA.HorizontalForce);
             // Set wind force
             baloonController.HorizontalForce = waypointA.HorizontalForce;
+            // Set wind direction
+            var direction = Vector3.ProjectOnPlane(waypointB.transform.position - waypointA.transform.position, Vector3.up);
+            baloonController.HorizontalDirection = new Vector2(direction.x, direction.z).normalized;
+
             // Set target altitude
             AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
 
