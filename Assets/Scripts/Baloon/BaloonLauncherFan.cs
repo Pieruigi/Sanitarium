@@ -61,6 +61,7 @@ public class BaloonLauncherFan : MonoBehaviour
         activator.OnEnter += HandleOnEnter;
         activator.OnExit += HandleOnExit;
         BaloonLauncher.OnDirectionChanged += HandleOnDirectionChanged;
+        BaloonPathManager.OnPathSet += HandleOnLaunched;
     }
 
     private void OnDisable()
@@ -68,6 +69,13 @@ public class BaloonLauncherFan : MonoBehaviour
         activator.OnEnter -= HandleOnEnter;
         activator.OnExit -= HandleOnExit;
         BaloonLauncher.OnDirectionChanged -= HandleOnDirectionChanged;
+        BaloonPathManager.OnPathSet -= HandleOnLaunched;
+    }
+
+    private void HandleOnLaunched()
+    {
+        if(!inside) return;
+        throw new NotImplementedException();
     }
 
     private void HandleOnDirectionChanged(BaloonLauncher baloonLauncher)

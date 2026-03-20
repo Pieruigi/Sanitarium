@@ -35,8 +35,7 @@ namespace Baloon
 
         bool inside = false;
 
-        float currentOffset = 0;
-
+        
         float yPivotDefault = 0;
 
         BaloonController baloon;
@@ -44,6 +43,8 @@ namespace Baloon
         Vector3 rootPositionDefault = Vector3.zero;
 
         BaloonLauncher baloonLauncher;
+
+        bool unavailable = false;
 
         private void Awake()
         {
@@ -69,6 +70,8 @@ namespace Baloon
 
         private void LateUpdate()
         {
+            if(unavailable) return;
+
             int action = 0; // 0:nothing; 1:activate; -1:deactivate
             var range = AltitudeManager.Instance.GetCurrentRange();
 
@@ -84,7 +87,7 @@ namespace Baloon
             {
                 activated = true;
 
-                currentOffset = player.transform.position.y - yRootDefault;
+                //currentOffset = player.transform.position.y - yRootDefault;
 
                 root.DOKill();
 
@@ -127,6 +130,7 @@ namespace Baloon
             activator.OnExit += HandleOnExit;
             switchButton.OnPushed += HandleOnSwitchPushed;
             launchButton.OnPushed += HandleOnLaunchPushed;
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
         }
 
         private void OnDisable()
@@ -135,6 +139,25 @@ namespace Baloon
             activator.OnExit -= HandleOnExit;
             switchButton.OnPushed -= HandleOnSwitchPushed;
             launchButton.OnPushed -= HandleOnLaunchPushed;
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        }
+
+        private void HandleOnPathSet()
+        {
+            activated = false;
+            unavailable = true;
+
+            // Clear old tween if any
+            root.DOKill();
+            pivot.DOKill();
+
+            // Deactivate panel
+            Sequence seq = DOTween.Sequence();
+            seq.Append(pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine));
+            seq.Append(root.DOMove(rootPositionDefault, .5f));
+            seq.AppendInterval(30);
+            seq.AppendCallback(() => { unavailable = false; });
+
         }
 
         private void HandleOnLaunchPushed()
