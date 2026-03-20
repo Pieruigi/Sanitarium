@@ -11,9 +11,12 @@ namespace Baloon
 
         Rigidbody rb;
 
-        float force = 5f;
+        float verticalForce = 5f;
+        //[SerializeField]
+        float horizontalForce = 0; // For accelerating (6 to reach speed 3)
 
-        float maxSpeed = 6f;
+        float maxVerticalSpeed = 6f;
+        float maxHorizontalSpeed = 3; 
 
         [SerializeField] float gravity = 9.81f;
         [SerializeField] float linearDrag = 0.5f; // Simula l'attrito dell'aria
@@ -21,8 +24,9 @@ namespace Baloon
         [SerializeField] float groundCheckDistance = 1.5f; // Altezza della cesta
         [SerializeField] LayerMask groundLayer;
 
-        float verticalVelocity = 0f;
-
+        //float verticalSpeed = 0f;
+        Vector3 currentVelocity = Vector3.zero;
+        
         GameObject player;
 
         bool useRB = false;
@@ -46,6 +50,23 @@ namespace Baloon
         private void Update()
         {
             if (useRB) return;
+            
+            UpdateVerticalVelocity();
+            UpdateHorizontalVelocity();
+
+            transform.position += currentVelocity * Time.deltaTime;
+        }
+
+        private void FixedUpdate()
+        {
+            if (!useRB) return;
+
+            UpdateVerticalVelocityRB();
+            UpdateHorizontalVelocityRB();
+        }
+
+        void UpdateVerticalVelocity()
+        {
             var diff = InternalAir.Instance.TemperatureDifference;
 
             //if (diff > 1.5 && diff < 2.5) diff = 2f;
@@ -53,19 +74,20 @@ namespace Baloon
             if (diff > 1.75f && diff < 2.25f)
                 diff = 2f;
 
+            float verticalSpeed = currentVelocity.y;
 
             // 1. CALCOLO ACCELERAZIONE (La tua logica originale)
             float acceleration = 0f;
             if (diff > 0)
             {
                 float mul = 1f;
-                if (verticalVelocity >= 0)
+                if (verticalSpeed >= 0)
                 {
-                    mul = 1 - (verticalVelocity / maxSpeed);
+                    mul = 1 - (verticalSpeed / maxVerticalSpeed);
                     mul = Mathf.Clamp01(mul);
                 }
                 // Spinta del bruciatore
-                acceleration = diff * force * mul;
+                acceleration = diff * verticalForce * mul;
             }
 
             // 2. APPLICAZIONE GRAVITÀ E DRAG (Quello che faceva il Rigidbody)
@@ -73,21 +95,21 @@ namespace Baloon
             acceleration -= gravity;
 
             // Applichiamo l'accelerazione alla velocità
-            verticalVelocity += acceleration * Time.deltaTime;
+            verticalSpeed += acceleration * Time.deltaTime;
 
             // Applichiamo il Drag (l'attrito aumenta con la velocità)
-            verticalVelocity *= (1f - linearDrag * Time.deltaTime);
+            verticalSpeed *= (1f - linearDrag * Time.deltaTime);
 
 
             // Controllo del suolo
-            if (verticalVelocity < 0) // Controlliamo solo se stiamo scendendo
+            if (verticalSpeed < 0) // Controlliamo solo se stiamo scendendo
             {
                 RaycastHit hit;
                 float startOffset = 1f;
                 if (Physics.Raycast(transform.position + Vector3.up * startOffset, Vector3.down, out hit, groundCheckDistance + startOffset, groundLayer))
                 {
                     // Se tocchiamo il suolo, azzeriamo la velocità e posizioniamo la cesta esattamente sopra
-                    verticalVelocity = 0;
+                    verticalSpeed = 0;
 
                     // Opzionale: corregge la posizione per non farla compenetrare
                     Vector3 pos = transform.position;
@@ -96,16 +118,48 @@ namespace Baloon
                 }
             }
 
+            currentVelocity.y = verticalSpeed;
 
             // 3. MOVIMENTO FINALE
             // Muoviamo il transform direttamente (niente scatti per lo slider!)
-            transform.position += Vector3.up * verticalVelocity * Time.deltaTime;
+            //transform.position += Vector3.up * currentVelocity.y * Time.deltaTime;
+            
         }
 
-        private void FixedUpdate()
+        void UpdateHorizontalVelocity()
         {
-            if (!useRB) return;
+            // 1. Calculate acceleration (F = m * a, assuming mass = 1)
+            // We start with the base force applied to the balloon
+            Vector3 acceleration = transform.right * horizontalForce;
+            Vector3 horizontalVelocity = currentVelocity;
+            horizontalVelocity.y = acceleration.y = 0f;
+           
 
+            // 2. Apply Linear Drag (Air Resistance)
+            // Resistance increases proportionally to current velocity
+            acceleration -= horizontalVelocity * linearDrag;
+            
+
+            // 3. Integrate acceleration into velocity (v = a * dt)
+            horizontalVelocity += acceleration * Time.deltaTime;
+
+            // 4. Safety Clamp (The physics math naturally stabilizes, but this is a fail-safe)
+            if (horizontalVelocity.magnitude > maxHorizontalSpeed)
+            {
+                horizontalVelocity = horizontalVelocity.normalized * maxHorizontalSpeed;
+            }
+
+            Debug.Log("TEST - HSpeed:"+horizontalVelocity.magnitude);
+
+            currentVelocity.x = horizontalVelocity.x;
+            currentVelocity.z = horizontalVelocity.z;
+           
+            // 5. Update Transform position (p = v * dt)
+            //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;
+        }
+
+        void UpdateVerticalVelocityRB()
+        {
             var diff = InternalAir.Instance.TemperatureDifference;
 
             if (diff > 0)
@@ -113,16 +167,19 @@ namespace Baloon
                 var mul = 1f;
                 if (rb.linearVelocity.y >= 0)
                 {
-                    mul = 1 - (rb.linearVelocity.y / maxSpeed);
+                    mul = 1 - (rb.linearVelocity.y / maxVerticalSpeed);
                     mul = Mathf.Clamp(mul, 0, 1);
                 }
-                rb.AddForce(Vector3.up * diff * force * mul, ForceMode.Acceleration);
+                rb.AddForce(Vector3.up * diff * verticalForce * mul, ForceMode.Acceleration);
 
 
 
             }
         }
 
-       
+        void UpdateHorizontalVelocityRB()
+        {
+
+        }
     }
 }

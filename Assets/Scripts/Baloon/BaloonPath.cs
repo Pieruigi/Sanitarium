@@ -9,9 +9,11 @@ namespace Baloon
     {
         [SerializeField]
         List<BaloonWaypoint> waypoints;
+        public IList<BaloonWaypoint> Waypoints => waypoints.AsReadOnly();
 
         [SerializeField]
         bool isReversed = false;
+        public bool IsReversed => isReversed;
 
         [SerializeField]
         bool isLocked = false;
@@ -33,6 +35,8 @@ namespace Baloon
         {
 
         }
+
+
 
         
     }
