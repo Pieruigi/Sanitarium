@@ -6,6 +6,12 @@ namespace Baloon
 {
     public class BasePlatform : MonoBehaviour
     {
+        public delegate void LandingDelegate(BasePlatform platform);
+        public static LandingDelegate OnLanding;
+
+        public delegate void TakeOffDelegate(BasePlatform platform);
+        public static TakeOffDelegate OnTakeOff;
+
         public static BasePlatform CurrentPlatform { get; private set; }
 
         [SerializeField]
@@ -41,6 +47,8 @@ namespace Baloon
         {
             inside = true;
             CurrentPlatform = this;
+
+            OnLanding?.Invoke(this);
         }
 
         private void HandleOnExit(Collider other)
@@ -48,6 +56,7 @@ namespace Baloon
             inside = false;
             CurrentPlatform = null;
                 
+            OnTakeOff?.Invoke(this);
         }
     }
 }

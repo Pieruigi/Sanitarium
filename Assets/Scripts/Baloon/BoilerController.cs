@@ -12,9 +12,14 @@ namespace Baloon
         [SerializeField]
         HoldSlider throttleSlider;
 
-        [SerializeField]
-        HoldButton decreaseButton, increaseButton;
+        //[SerializeField]
+        //HoldButton decreaseButton, increaseButton;
 
+        [SerializeField]
+        [Range (0, 1f)]
+        float gasLeft;
+        public float GasLeft => gasLeft;
+        
         
 
         //float power = 0;
@@ -32,24 +37,24 @@ namespace Baloon
 
         public float MaxPower => maxPowers[version];
 
-        float step = 0.01f;
+        //float step = 0.01f;
 
-        float speed = 0;
-        float pushElapsed = 0f;
+        //float speed = 0;
+        //float pushElapsed = 0f;
 
-        float speed1 = 2f;
-        float speed2 = 8f;
-        float speed3 = 32f;
+        //float speed1 = 2f;
+        //float speed2 = 8f;
+        //float speed3 = 32f;
 
-        float speedElapsed = 0f;
+        //float speedElapsed = 0f;
 
-        int dir = 0;
+        //int dir = 0;
 
 
         bool running = false;
 
 
-        
+        float gasDepleteMaxSpeed = .005f;
         
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -72,41 +77,45 @@ namespace Baloon
             //}
 #endif
 
-            if (dir == 0) return;
+            // Only if you use buttons rather than handle
+            //if (dir == 0) return;
 
-            pushElapsed += Time.deltaTime;
-            var pushTime = 1f;
-            if(pushElapsed > pushTime)
-            {
-                if(speed < speed2)
-                    speed = speed2;
-                else if(speed < speed3)
-                    speed = speed3;
+            //pushElapsed += Time.deltaTime;
+            //var pushTime = 1f;
+            //if(pushElapsed > pushTime)
+            //{
+            //    if(speed < speed2)
+            //        speed = speed2;
+            //    else if(speed < speed3)
+            //        speed = speed3;
 
-                pushElapsed -= pushTime;
-            }
+            //    pushElapsed -= pushTime;
+            //}
 
-            speedElapsed += Time.deltaTime;
-            float speedTime = 1f / speed;
-            if(speedElapsed > speedTime)
-            {
-                speedElapsed -= speedTime;
-                throttle += step * dir;
-                throttle = Mathf.Clamp01(throttle);
-            }
+            //speedElapsed += Time.deltaTime;
+            //float speedTime = 1f / speed;
+            //if(speedElapsed > speedTime)
+            //{
+            //    speedElapsed -= speedTime;
+            //    throttle += step * dir;
+            //    throttle = Mathf.Clamp01(throttle);
+            //}
 
-            
+            // The amount of gas you are using depends of the throttle
+            var amount = throttle * gasDepleteMaxSpeed * Time.deltaTime;
+            gasLeft -= amount;
+            if(gasLeft < 0) gasLeft = 0;
 
-
+            if (gasLeft == 0) throttle = 0;
         }
 
         private void OnEnable()
         {
             throttleSlider.OnValueChanged += HandleOnThrottleSliderValueChanged;
-            decreaseButton.OnPushed += HandleOnDecreasePushed;
-            decreaseButton.OnReleased += HandleOnDecreaseReleased;
-            increaseButton.OnPushed += HandleOnIncreasePushed;
-            increaseButton.OnReleased += HandleOnIncreaseReleased;
+            //decreaseButton.OnPushed += HandleOnDecreasePushed;
+            //decreaseButton.OnReleased += HandleOnDecreaseReleased;
+            //increaseButton.OnPushed += HandleOnIncreasePushed;
+            //increaseButton.OnReleased += HandleOnIncreaseReleased;
             BaloonControlPanel.OnStarted += HandleOnPanelControlStarted;
             BaloonControlPanel.OnStopped += HandleOnPanelControlStopped;
         }
@@ -114,10 +123,10 @@ namespace Baloon
         private void OnDisable()
         {
             throttleSlider.OnValueChanged -= HandleOnThrottleSliderValueChanged;
-            decreaseButton.OnPushed -= HandleOnDecreasePushed;
-            decreaseButton.OnReleased -= HandleOnDecreaseReleased;
-            increaseButton.OnPushed -= HandleOnIncreasePushed;
-            increaseButton.OnReleased -= HandleOnIncreaseReleased;
+            //decreaseButton.OnPushed -= HandleOnDecreasePushed;
+            //decreaseButton.OnReleased -= HandleOnDecreaseReleased;
+            //increaseButton.OnPushed -= HandleOnIncreasePushed;
+            //increaseButton.OnReleased -= HandleOnIncreaseReleased;
             BaloonControlPanel.OnStarted -= HandleOnPanelControlStarted;
             BaloonControlPanel.OnStopped -= HandleOnPanelControlStopped;
         }
@@ -133,37 +142,37 @@ namespace Baloon
             throttle = 0;
         }
 
-        private void HandleOnIncreasePushed()
-        {
-            pushElapsed = 0;
-            speedElapsed = 0;
-            speed = speed1;
-            dir = 1;
-            throttle = Mathf.Clamp01(throttle+.01f);
-        }
+        //private void HandleOnIncreasePushed()
+        //{
+        //    pushElapsed = 0;
+        //    speedElapsed = 0;
+        //    speed = speed1;
+        //    dir = 1;
+        //    throttle = Mathf.Clamp01(throttle+.01f);
+        //}
 
-        private void HandleOnIncreaseReleased()
-        {
-            dir = 0;
-        }
+        //private void HandleOnIncreaseReleased()
+        //{
+        //    dir = 0;
+        //}
 
-        private void HandleOnDecreasePushed()
-        {
-            pushElapsed = 0;
-            speedElapsed = 0;
-            speed = speed1;
-            dir = -1;
-            throttle = Mathf.Clamp01(throttle - .01f);
-        }
+        //private void HandleOnDecreasePushed()
+        //{
+        //    pushElapsed = 0;
+        //    speedElapsed = 0;
+        //    speed = speed1;
+        //    dir = -1;
+        //    throttle = Mathf.Clamp01(throttle - .01f);
+        //}
 
-        private void HandleOnDecreaseReleased()
-        {
-            dir = 0;
-        }
+        //private void HandleOnDecreaseReleased()
+        //{
+        //    dir = 0;
+        //}
 
         private void HandleOnThrottleSliderValueChanged(float value)
         {
-            if(running) throttle = value;
+            if(running && gasLeft > 0) throttle = value;
         }
     }
 

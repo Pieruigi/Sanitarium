@@ -31,8 +31,8 @@ namespace Baloon
         GameObject player;
 
         bool started = false;
-        
 
+        bool releasePlayerOnLanding = false;
         
     
         Coroutine startupCoroutine;
@@ -51,10 +51,27 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-           
+
 #endif
+            if(BoilerController.Instance.GasLeft == 0)
+            {
+                if(started)
+                {
+                    // Stop running audio
+                    runAudioSource.Stop();
+                    // Play stopping audio
+                    stopAudioSource.Play();
 
+                    started = false;
+                    
 
+                    releasePlayerOnLanding = true;
+
+                    OnStopped?.Invoke();
+                }
+                
+            }
+            
         }
 
         private void LateUpdate()
@@ -72,6 +89,8 @@ namespace Baloon
             throttle.OnDragStarted += HandleOnThrottleDragStarted;
             throttle.OnDragStopped += HandleOnThrottleDragStopped;
             throttle.OnValueChanged += HandleOnThrottleValueChanged;
+
+            BasePlatform.OnLanding += HandleOnLanding;
         }
 
         private void OnDisable()
@@ -82,6 +101,19 @@ namespace Baloon
             throttle.OnDragStarted -= HandleOnThrottleDragStarted;
             throttle.OnDragStopped -= HandleOnThrottleDragStopped;
             throttle.OnValueChanged -= HandleOnThrottleValueChanged;
+
+            BasePlatform.OnLanding -= HandleOnLanding;
+        }
+
+        private void HandleOnLanding(BasePlatform platform)
+        {
+            if (releasePlayerOnLanding)
+            {
+                releasePlayerOnLanding = false;
+                player.GetComponent<FirstPersonController>().ExitBaloon();
+                ResetAndLockThrottle();
+                //player.transform.parent = null;
+            }
         }
 
         private void HandleOnThrottleValueChanged(float value)
@@ -105,29 +137,37 @@ namespace Baloon
         {
             if (!started)
             {
-                startupCoroutine = StartCoroutine(Startup());  
-
-                IEnumerator Startup()
+                if(BoilerController.Instance.GasLeft > 0)
                 {
-                    // Play starting audio
-                    startAudioSource.Play();
+                    startupCoroutine = StartCoroutine(Startup());
 
-                    yield return new WaitForSeconds(1f);
-                   
-                    started = true;
+                    IEnumerator Startup()
+                    {
+                        // Play starting audio
+                        startAudioSource.Play();
 
-                    //throttle.Locked = false;
-                    coldButton.Locked = false;
-                    warmButton.Locked = false;
+                        yield return new WaitForSeconds(1f);
 
-                    player.GetComponent<FirstPersonController>().EnterBaloon(GetComponentInParent<BaloonController>().transform);
-                    //player.transform.parent = transform.parent;
-                    
-                    // Play running audio
-                    runAudioSource.Play();
+                        started = true;
 
-                    OnStarted?.Invoke();
+                        //throttle.Locked = false;
+                        coldButton.Locked = false;
+                        warmButton.Locked = false;
+
+                        player.GetComponent<FirstPersonController>().EnterBaloon(GetComponentInParent<BaloonController>().transform);
+                        //player.transform.parent = transform.parent;
+
+                        // Play running audio
+                        runAudioSource.Play();
+
+                        OnStarted?.Invoke();
+                    }
                 }
+                else // No gas
+                {
+                    startAudioSource.Play();
+                }
+               
             }
             else
             {
@@ -143,7 +183,7 @@ namespace Baloon
                     coldButton.Locked = true;
                     warmButton.Locked = true;
                     player.GetComponent<FirstPersonController>().ExitBaloon();
-                    player.transform.parent = null;
+                    //player.transform.parent = null;
                     OnStopped?.Invoke();
                 }
                 else
