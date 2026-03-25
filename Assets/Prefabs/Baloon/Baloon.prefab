@@ -3629,7 +3629,7 @@ GameObject:
   - component: {fileID: 1891109049728332485}
   m_Layer: 0
   m_Name: Baloon
-  m_TagString: Untagged
+  m_TagString: Baloon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3925,8 +3925,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaloonControlPanel
   starter: {fileID: 6224747815735147433}
   throttle: {fileID: 2313357452475681705}
-  coldButton: {fileID: 8913463744825503051}
-  warmButton: {fileID: 7201114675350950558}
   startAudioSource: {fileID: 4241521668106353415}
   runAudioSource: {fileID: 5549140990482013106}
   stopAudioSource: {fileID: 2891846546682537805}

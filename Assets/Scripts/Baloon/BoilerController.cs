@@ -55,6 +55,7 @@ namespace Baloon
 
 
         float gasDepleteMaxSpeed = .005f;
+        float gasDepleteMinSpeed = 0.001f;
         
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -102,7 +103,9 @@ namespace Baloon
             //}
 
             // The amount of gas you are using depends of the throttle
-            var amount = throttle * gasDepleteMaxSpeed * Time.deltaTime;
+            if (!running) return;
+
+            var amount = (throttle * gasDepleteMaxSpeed + gasDepleteMinSpeed) * Time.deltaTime;
             gasLeft -= amount;
             if(gasLeft < 0) gasLeft = 0;
 

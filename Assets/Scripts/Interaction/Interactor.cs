@@ -75,8 +75,6 @@ namespace Baloon
 
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
-
-                Physics.SyncTransforms();
                 
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, InteractionDistance, mask))
                 {

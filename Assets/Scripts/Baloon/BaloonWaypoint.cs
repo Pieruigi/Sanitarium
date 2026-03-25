@@ -1,9 +1,15 @@
+using StarterAssets;
+using System;
+using System.Linq;
+using TMM;
 using UnityEngine;
 
 namespace Baloon
 {
     public class BaloonWaypoint : MonoBehaviour
     {
+        //public readonly float HorizontalRange = 3f;
+
         [SerializeField]
         float horizontalForce;
         public float HorizontalForce => horizontalForce;
@@ -13,17 +19,89 @@ namespace Baloon
         public float MinAltitude => minAltitude;
         public float MaxAltitude => maxAltitude;
 
-
+        
+        bool isActive = false;
+        bool isOrigin = false;
+        bool isDestination = false;
+      
+        FirstPersonController player;
+                
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            player = FindFirstObjectByType<FirstPersonController>();
         }
 
         // Update is called once per frame
         void Update()
         {
 
+        }
+
+        private void LateUpdate()
+        {
+            if (!isActive) return;
+
+            // Adjust y depending on the player
+            var pos = transform.position;
+            pos.y = player.transform.position.y;
+            transform.position = pos;
+        }
+
+        private void OnEnable()
+        {
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
+            BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        }
+
+        private void OnDisable()
+        {
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+            BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        }
+
+        private void HandleOnPathSet()
+        {
+            var currentPath = BaloonPathManager.Instance.CurrentPath;
+            var waypoints = currentPath.Waypoints;
+            // Check if it's a waypoint of the current path
+            if (waypoints.Contains(this)) isActive = true;
+
+            if (isActive)
+            {
+                if ((!currentPath.IsReversed && waypoints.Last() == this) || (currentPath.IsReversed && waypoints.First() == this))
+                    isDestination = true;
+                else if ((!currentPath.IsReversed && waypoints.First() == this) || (currentPath.IsReversed && waypoints.Last() == this))
+                    isOrigin = true;
+
+              
+            }
+                
+
+
+            Debug.Log($"TEST - {gameObject.name} - isActive:{isActive}, isDestination:{isDestination}");
+
+
+        }
+
+        private void HandleOnPathCleared()
+        {
+            isActive = false;
+            isDestination = false;  
+            isOrigin = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!isActive || !other.CompareTag("Player")) return;
+
+            if (NavigationSystem.Instance.WaypointB == this)
+                NavigationSystem.Instance.ReportWaypointReached(this);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!isActive || !other.CompareTag("Player")) return;
         }
     }
 }

@@ -33,6 +33,7 @@ namespace TMM
 			if (disabled) return;
 			if (other.CompareTag("Player"))
 			{
+				
                 OnEnter?.Invoke(other);
             }
 				
