@@ -11,13 +11,13 @@ namespace Baloon
         List<BaloonWaypoint> waypoints;
         public IList<BaloonWaypoint> Waypoints => waypoints.AsReadOnly();
 
-        [SerializeField]
-        bool isReversed = false;
-        public bool IsReversed => isReversed;
+        //[SerializeField]
+        //bool isReversed = false;
+        //public bool IsReversed => isReversed;
 
-        [SerializeField]
-        bool isLocked = false;
-        public bool IsLocked => isLocked;
+        //[SerializeField]
+        //bool isLocked = false;
+        //public bool IsLocked => isLocked;
 
         private void Awake()
         {

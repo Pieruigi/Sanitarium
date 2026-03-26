@@ -25,6 +25,28 @@ using UnityEngine.Events;
 //    }
 //}
 
+
+[System.Serializable]
+public class BaloonLaunchData
+{
+    [SerializeField]
+    int pathIndex = -1;
+    public int PathIndex => pathIndex;
+
+    [SerializeField]
+    bool locked;
+    public bool Locked => locked;
+
+    [SerializeField]
+    bool reversed;
+    public bool Reversed => reversed;
+
+}
+
+
+
+
+
 public class BaloonLauncher : MonoBehaviour
 {
     public delegate void DirectionChangedDelegate(BaloonLauncher baloonLauncher);
@@ -36,10 +58,11 @@ public class BaloonLauncher : MonoBehaviour
     ///// </summary>
     //[SerializeField]
     //BaloonLauncherDirections directions;
-
-    
     [SerializeField]
-    Vector4 directions = Vector4.one * -1;
+    BaloonLaunchData[] directions = new BaloonLaunchData[4];
+
+    //[SerializeField]
+    //Vector4 directions = Vector4.one * -1;
 
     [SerializeField]
     int initialDirection = 0;
@@ -50,11 +73,11 @@ public class BaloonLauncher : MonoBehaviour
     int currentDirection;
     public int CurrentDirection => currentDirection;
 
-    int[] internalDirections;
+    //int[] internalDirections;
 
     private void Awake()
     {
-        internalDirections = new int[] { (int)directions.x, (int)directions.y, (int)directions.z, (int)directions.w };
+        //internalDirections = new int[] { (int)directions.x, (int)directions.y, (int)directions.z, (int)directions.w };
         currentDirection = initialDirection;
     }
 
@@ -134,7 +157,7 @@ public class BaloonLauncher : MonoBehaviour
         
         //}
 
-        currentDirection = (currentDirection + 1) % internalDirections.Length;
+        currentDirection = (currentDirection + 1) % directions.Length;
 
         OnDirectionChanged?.Invoke(this);
 
@@ -143,7 +166,8 @@ public class BaloonLauncher : MonoBehaviour
     public void SetPathFromCurrentDirection()
     {
         RegisterPathManagerEvents();
-        BaloonPathManager.Instance.SetPath(internalDirections[currentDirection]);
+        BaloonLaunchData data = directions[currentDirection];
+        BaloonPathManager.Instance.SetPath(data.PathIndex, data.Reversed, data.Locked);
     }
    
 }

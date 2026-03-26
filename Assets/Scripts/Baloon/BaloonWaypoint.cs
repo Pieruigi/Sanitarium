@@ -64,14 +64,15 @@ namespace Baloon
         {
             var currentPath = BaloonPathManager.Instance.CurrentPath;
             var waypoints = currentPath.Waypoints;
+            bool isReversed = BaloonPathManager.Instance.IsPathReversed;
             // Check if it's a waypoint of the current path
             if (waypoints.Contains(this)) isActive = true;
 
             if (isActive)
             {
-                if ((!currentPath.IsReversed && waypoints.Last() == this) || (currentPath.IsReversed && waypoints.First() == this))
+                if ((!isReversed && waypoints.Last() == this) || (isReversed && waypoints.First() == this))
                     isDestination = true;
-                else if ((!currentPath.IsReversed && waypoints.First() == this) || (currentPath.IsReversed && waypoints.Last() == this))
+                else if ((!isReversed && waypoints.First() == this) || (isReversed && waypoints.Last() == this))
                     isOrigin = true;
 
               

@@ -107,11 +107,13 @@ public class BaloonLauncherFan : MonoBehaviour
         var currentY = pivot.eulerAngles.y;
         float targetY = 0;
 
-        targetY = direction * 90f;
+        targetY = direction * -90f;
+
+        targetY = (targetY % 360 + 360) % 360;
 
         // Keep clockwise
-        while (targetY <= currentY)
-            targetY += 360f;
+        while (targetY >= currentY)
+            targetY -= 360f;
 
         var duration = Mathf.Abs(currentY - targetY) / 90f;
         //duration *= .5f;

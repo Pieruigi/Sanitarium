@@ -14,14 +14,13 @@ namespace Baloon
         public const float DefaultSpeed = 3f;
 
         BaloonPath currentPath;
+        bool isPathReversed;
 
         BaloonWaypoint waypointA, waypointB;
         public BaloonWaypoint WaypointA => waypointA;
         public BaloonWaypoint WaypointB => waypointB;
 
-
-        //BaloonController baloonController;
-
+   
         Vector2 horizontalDirectionTarget = Vector2.zero;
 
         GameObject player;
@@ -71,11 +70,12 @@ namespace Baloon
         {
             Debug.Log("TEST - Setting path");
             currentPath = BaloonPathManager.Instance.CurrentPath;
-            
+
+            isPathReversed = BaloonPathManager.Instance.IsPathReversed;
 
             // Set waypoints A and B 
-            waypointA = !currentPath.IsReversed ? currentPath.Waypoints[0] : currentPath.Waypoints[currentPath.Waypoints.Count - 1];
-            waypointB = !currentPath.IsReversed ? currentPath.Waypoints[1] : currentPath.Waypoints[currentPath.Waypoints.Count - 2];
+            waypointA = !isPathReversed ? currentPath.Waypoints[0] : currentPath.Waypoints[currentPath.Waypoints.Count - 1];
+            waypointB = !isPathReversed ? currentPath.Waypoints[1] : currentPath.Waypoints[currentPath.Waypoints.Count - 2];
 
 
             StartCoroutine(StartMovingDelayed(1.5f));
@@ -96,14 +96,14 @@ namespace Baloon
 
         public void ReportWaypointReached(BaloonWaypoint waypoint)
         {
-            var destination = !currentPath.IsReversed ? currentPath.Waypoints.Last() : currentPath.Waypoints.First();
+            var destination = !isPathReversed ? currentPath.Waypoints.Last() : currentPath.Waypoints.First();
 
             if(waypoint != destination) // Keep going
             {
                 // Update A and B
                 waypointA = waypoint;
                 int index = currentPath.Waypoints.IndexOf(waypoint);
-                waypointB = !currentPath.IsReversed ? currentPath.Waypoints[index+1] : currentPath.Waypoints[index-1];
+                waypointB = !isPathReversed ? currentPath.Waypoints[index+1] : currentPath.Waypoints[index-1];
 
                 // Set target altitude
                 AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
@@ -120,6 +120,9 @@ namespace Baloon
                 
                 // Clear baloon path
                 BaloonPathManager.Instance.ClearPath();
+
+                // Reset baloon horizontal direction
+                BaloonController.Instance.HorizontalDirection = Vector2.zero;
 
                 // Store horizontal volocity
                 var currentHorizontalVelocity = new Vector2(BaloonController.Instance.CurrentVelocity.x, BaloonController.Instance.CurrentVelocity.z);

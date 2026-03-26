@@ -18,6 +18,9 @@ namespace Baloon
         BaloonPath currentPath = null;
         public BaloonPath CurrentPath => currentPath;
 
+        bool isPathReversed = false;
+        public bool IsPathReversed => isPathReversed;
+
        
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -36,7 +39,7 @@ namespace Baloon
             return currentPath != null;
         }
 
-        public void SetPath(int pathIndex)
+        public void SetPath(int pathIndex, bool reversed, bool locked)
         {
             Debug.Log("TEST - Setting path:" + pathIndex);
             if(pathIndex < 0)
@@ -45,13 +48,14 @@ namespace Baloon
                 return;
             }
 
-            if (paths[pathIndex].IsLocked)
+            if (locked)
             {
                 OnPathLocked?.Invoke();
                 return;
             }
 
             currentPath = paths[pathIndex];
+            isPathReversed = reversed;
             Debug.Log("TEST - OnPathSet");
             OnPathSet?.Invoke();
         }

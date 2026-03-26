@@ -418,7 +418,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4a8a3f02b3e2149b342115f8613df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaloonLauncher
-  directions: {x: 0, y: 1, z: -1, w: -1}
+  directions:
+  - pathIndex: -1
+    locked: 0
+    reversed: 0
+  - pathIndex: -1
+    locked: 0
+    reversed: 0
+  - pathIndex: -1
+    locked: 0
+    reversed: 0
+  - pathIndex: -1
+    locked: 0
+    reversed: 0
   initialDirection: 0
   launchForce: 3
 --- !u!1 &1841330035161614825
@@ -570,6 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8433400099784214002}
   - component: {fileID: 4918180132800874336}
+  - component: {fileID: 1338315053499346403}
   m_Layer: 0
   m_Name: Waypoint
   m_TagString: Untagged
@@ -607,6 +620,27 @@ MonoBehaviour:
   horizontalForce: 6
   minAltitude: 30
   maxAltitude: 50
+--- !u!135 &1338315053499346403
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437516714273096198}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3845358519740679787
 GameObject:
   m_ObjectHideFlags: 0
