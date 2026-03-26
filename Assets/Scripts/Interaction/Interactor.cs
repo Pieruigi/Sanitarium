@@ -54,7 +54,7 @@ namespace Baloon
         }
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
             bool stopInteracting = false;
 

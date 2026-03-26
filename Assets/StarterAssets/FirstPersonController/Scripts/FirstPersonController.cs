@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 #endif
 
 namespace StarterAssets
@@ -125,12 +126,18 @@ namespace StarterAssets
 
 		private void Update()
 		{
+            
+            
+
 #if UNITY_EDITOR
-			if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.P))
 				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 #endif
 
-			JumpAndGravity();
+            if (onBaloon)
+                Physics.SyncTransforms();
+            
+            JumpAndGravity();
             GroundedCheck();
             Move();
             
@@ -142,7 +149,6 @@ namespace StarterAssets
             if (onBaloon) AdjustOnBaloon();
 
             CameraRotation();
-           
         }
 
         private void FixedUpdate()
@@ -152,11 +158,11 @@ namespace StarterAssets
 
 		void AdjustOnBaloon()
 		{
-            _controller.Move(new Vector3(BaloonController.Instance.CurrentVelocity.x, 0f, BaloonController.Instance.CurrentVelocity.z) * Time.deltaTime);
+		    _controller.Move(new Vector3(BaloonController.Instance.CurrentVelocity.x, 0f, BaloonController.Instance.CurrentVelocity.z) * Time.deltaTime);
             var pos = transform.localPosition;
             pos.y = baloonGround;
             transform.localPosition = pos;
-        }
+	    }
 
         private void GroundedCheck()
 		{
@@ -247,34 +253,14 @@ namespace StarterAssets
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
 
-			//Vector3 baloonVel = Vector3.zero;
-			//         if (onBaloon)
-			//{
-			//             baloonVel = Baloon.BaloonController.Instance.GetComponent<Rigidbody>().GetPointVelocity(transform.position);
-			//             //baloonVel = FindFirstObjectByType<TestPlatform>().GetComponent<Rigidbody>().linearVelocity;
-			//	_verticalVelocity = 0.0f;
-			//         }
-			if (onBaloon) _verticalVelocity = 0.0f;
+			if (onBaloon)
+			{
+                _verticalVelocity = 0.0f;
+			}
 
-			// move the player
-			//if (!onBaloon || true)
+			// move player
 			var velocity = ComputeVelocity();
-            //if (onBaloon)
-            //{
-            //    velocity += new Vector3(BaloonController.Instance.CurrentVelocity.x, 0f, BaloonController.Instance.CurrentVelocity.z);
-                
-            //}
-
-            _controller.Move(velocity * Time.deltaTime );// + baloonVel * Time.deltaTime);
-														 //else
-														 //	transform.position += ComputeVelocity() * Time.deltaTime;
-														 //_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);// + baloonVel * Time.deltaTime);
-			//if (onBaloon)
-			//{
-			//	var pos = transform.localPosition;
-			//	pos.y = baloonGround;
-			//	transform.localPosition = pos;
-			//}
+            _controller.Move(velocity * Time.deltaTime );
 
 		}
 

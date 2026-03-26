@@ -78,11 +78,9 @@ namespace Baloon
 
             transform.position += currentVelocity * Time.deltaTime;
 
-            //Physics.SyncTransforms();
-            
         }
 
-      
+        
 
         //private void FixedUpdate()
         //{
