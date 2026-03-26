@@ -414,5 +414,12 @@ namespace StarterAssets
 			transform.parent = null;
 			onBaloon = false;
 		}
+
+		public void ForcePosition(Vector3 position)
+		{
+			_controller.enabled = false;
+			transform.position = position;
+			_controller.enabled = true;
+		}
 	}
 }

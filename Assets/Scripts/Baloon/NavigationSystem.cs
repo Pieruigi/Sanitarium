@@ -1,7 +1,11 @@
+using DG.Tweening;
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Baloon
 {
@@ -16,19 +20,32 @@ namespace Baloon
         public BaloonWaypoint WaypointB => waypointB;
 
 
-        BaloonController baloonController;
+        //BaloonController baloonController;
 
+        Vector2 horizontalDirectionTarget = Vector2.zero;
+
+        GameObject player;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            baloonController = FindFirstObjectByType<BaloonController>();
+            //baloonController = FindFirstObjectByType<BaloonController>();
+            player = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(currentPath != null)
+            {
+                var baloonController = BaloonController.Instance;
 
+                var direction = Vector3.ProjectOnPlane(waypointB.transform.position - baloonController.transform.position, Vector3.up);
+                
+                var hTargetDir = new Vector2(direction.x, direction.z).normalized;
+
+                baloonController.HorizontalDirection =  Vector2.Lerp(baloonController.HorizontalDirection, hTargetDir, Time.deltaTime);
+            }
         }
 
         private void OnEnable()
@@ -46,6 +63,8 @@ namespace Baloon
         private void HandleOnPathCleared()
         {
             currentPath = null;
+            waypointA = null;
+            waypointB = null;
         }
 
         private void HandleOnPathSet()
@@ -68,10 +87,7 @@ namespace Baloon
 
                 Debug.Log("TEST - HorizontalForce:" + waypointA.HorizontalForce);
                 // Set wind force
-                baloonController.HorizontalForce = waypointA.HorizontalForce;
-                // Set wind direction
-                var direction = Vector3.ProjectOnPlane(waypointB.transform.position - waypointA.transform.position, Vector3.up);
-                baloonController.HorizontalDirection = new Vector2(direction.x, direction.z).normalized;
+                DOTween.To(()=>BaloonController.Instance.HorizontalForce, x=>BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
 
                 // Set target altitude
                 AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
@@ -82,15 +98,76 @@ namespace Baloon
         {
             var destination = !currentPath.IsReversed ? currentPath.Waypoints.Last() : currentPath.Waypoints.First();
 
-            if(waypoint != destination)
+            if(waypoint != destination) // Keep going
             {
                 // Update A and B
                 waypointA = waypoint;
                 int index = currentPath.Waypoints.IndexOf(waypoint);
                 waypointB = !currentPath.IsReversed ? currentPath.Waypoints[index+1] : currentPath.Waypoints[index-1];
 
-                var direction = Vector3.ProjectOnPlane(waypointB.transform.position - waypointA.transform.position, Vector3.up);
-                baloonController.HorizontalDirection = new Vector2(direction.x, direction.z).normalized;
+                // Set target altitude
+                AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
+
+                // Adjust horizontal force
+                DOTween.To(() => BaloonController.Instance.HorizontalForce, x => BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
+
+            }
+            else // Destination reached
+            {
+                // Store the destination waypoint
+                var target = waypointB.transform;
+
+                
+                // Clear baloon path
+                BaloonPathManager.Instance.ClearPath();
+
+                // Store horizontal volocity
+                var currentHorizontalVelocity = new Vector2(BaloonController.Instance.CurrentVelocity.x, BaloonController.Instance.CurrentVelocity.z);
+                // Remove horizontal force
+                BaloonController.Instance.HorizontalForce = 0f;
+                // Reset the baloon horizontal velocity 
+                BaloonController.Instance.ResetHorizontalVelocity();
+                // Now compute the horizontal direction between target and baloon
+                var direction = Vector3.ProjectOnPlane(target.position - BaloonController.Instance.transform.position, Vector3.up);
+                // How much time it will take to cover that distance at the current velocity
+                var t = (currentHorizontalVelocity.magnitude > .1f) ? ( 2f * direction.magnitude / currentHorizontalVelocity.magnitude ) : 1.5f;
+
+
+                var baloon = BaloonController.Instance.transform;
+
+                var tweenSpeed = currentHorizontalVelocity.magnitude;
+
+                DOTween.To(() => tweenSpeed, x => tweenSpeed = x, 0f, t)
+                    .SetEase(Ease.OutQuad)
+                    .OnUpdate(() =>
+                    {
+                        // Creiamo il vettore velocità basato sulla velocità calata dal tween
+                        Vector3 newVelocity = direction.normalized * tweenSpeed;
+
+                        // Lo passiamo al controller (che a sua volta trascinerà il player)
+                        BaloonController.Instance.SetHorizontalVelocity(new Vector2(newVelocity.x, newVelocity.z));
+
+                        // English comment: Safety snap to target if we are extremely close
+                        if (Vector3.Distance(transform.position, target.position) < 0.05f)
+                        {
+                            BaloonController.Instance.ResetHorizontalVelocity();
+                        }
+                    })
+                    .OnComplete(() => {
+                        BaloonController.Instance.ResetHorizontalVelocity();
+                        // Snap finale della posizione per precisione millimetrica
+                        var pos = new Vector3(target.position.x, baloon.position.y, target.position.z);
+                        var cc = player.GetComponent<CharacterController>();
+                        cc.enabled = false;
+                        baloon.position = pos;
+                        cc.enabled = true;
+                        
+                    });
+
+
+
+
+
             }
         }
 

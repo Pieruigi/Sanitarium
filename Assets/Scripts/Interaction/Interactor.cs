@@ -35,6 +35,7 @@ namespace Baloon
         [SerializeField]
         InputActionReference inputAction;
 
+        
         bool inside = false;
 
         bool showMessage = false;
@@ -75,7 +76,9 @@ namespace Baloon
 
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
+
                 
+
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, InteractionDistance, mask))
                 {
                     if(_test)

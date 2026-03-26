@@ -78,7 +78,11 @@ namespace Baloon
 
             transform.position += currentVelocity * Time.deltaTime;
 
+            //Physics.SyncTransforms();
+            
         }
+
+      
 
         //private void FixedUpdate()
         //{
@@ -88,7 +92,7 @@ namespace Baloon
         //    UpdateHorizontalVelocityRB();
         //}
 
-       
+
 
         void UpdateVerticalVelocity()
         {
@@ -185,6 +189,17 @@ namespace Baloon
            
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;
+        }
+
+        public void ResetHorizontalVelocity()
+        {
+            currentVelocity.x = currentVelocity.z = 0f;
+        }
+
+        public void SetHorizontalVelocity(Vector2 velocity)
+        {
+            currentVelocity.x = velocity.x;
+            currentVelocity.z = velocity.y;
         }
 
         //void UpdateVerticalVelocityRB()
