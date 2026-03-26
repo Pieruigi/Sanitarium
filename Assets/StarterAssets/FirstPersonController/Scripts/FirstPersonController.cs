@@ -134,20 +134,18 @@ namespace StarterAssets
 				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 #endif
 
-            if (onBaloon)
-                Physics.SyncTransforms();
-            
-            JumpAndGravity();
+			//if (onBaloon)
+			//	Physics.SyncTransforms();
+
+			JumpAndGravity();
             GroundedCheck();
             Move();
-            
-			
-		}
+
+            if (onBaloon) AdjustOnBaloon();
+        }
 
 		private void LateUpdate()
 		{
-            if (onBaloon) AdjustOnBaloon();
-
             CameraRotation();
         }
 

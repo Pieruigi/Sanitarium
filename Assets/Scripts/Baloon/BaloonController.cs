@@ -71,6 +71,8 @@ namespace Baloon
        
         private void Update()
         {
+           
+
             //if (useRB) return;
             
             UpdateVerticalVelocity();
@@ -80,7 +82,10 @@ namespace Baloon
 
         }
 
-        
+        private void LateUpdate()
+        {
+            Physics.SyncTransforms();
+        }
 
         //private void FixedUpdate()
         //{

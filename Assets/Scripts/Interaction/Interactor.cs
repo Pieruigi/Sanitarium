@@ -54,7 +54,7 @@ namespace Baloon
         }
 
         // Update is called once per frame
-        void LateUpdate()
+        void Update()
         {
             bool stopInteracting = false;
 
@@ -77,8 +77,8 @@ namespace Baloon
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
 
+                //Physics.SyncTransforms();
                 
-
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, InteractionDistance, mask))
                 {
                     if(_test)
