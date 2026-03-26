@@ -65,6 +65,11 @@ namespace Baloon
             currentPath = null;
             OnPathCleared?.Invoke();
         }
+
+        public int GetIndex(BaloonPath path)
+        {
+            return paths.IndexOf(path);
+        }
         
     }
 }

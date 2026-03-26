@@ -1,5 +1,6 @@
 using Baloon;
 using System;
+using System.Linq;
 using TMM;
 using UnityEngine;
 using UnityEngine.Events;
@@ -96,43 +97,61 @@ public class BaloonLauncher : MonoBehaviour
 #endif
     }
 
-    private void RegisterPathManagerEvents()
+    private void OnEnable()
     {
-        //BaloonPathManager.OnPathSet += HandleOnPathSet;
-        //BaloonPathManager.OnPathLocked += HandleOnPathLocked;
-        //BaloonPathManager.OnPathCleared += HandleOnPathCleared;
-        //BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
+        BaloonPathManager.OnPathSet += HandleOnPathSet;
+        BaloonPathManager.OnPathLocked += HandleOnPathLocked;
+        BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
     }
 
-    private void UnregisterPathManagerEvents()
+    private void OnDisable()
     {
-        //BaloonPathManager.OnPathSet -= HandleOnPathSet;
-        //BaloonPathManager.OnPathLocked -= HandleOnPathLocked;
-        //BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
-        //BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
+        BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        BaloonPathManager.OnPathLocked -= HandleOnPathLocked;
+        BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
     }
 
     private void HandleOnPathUnknown()
     {
-        UnregisterPathManagerEvents();
+        
         Debug.Log("TEST - OnPathUnknown");
     }
 
     private void HandleOnPathSet()
     {
-        UnregisterPathManagerEvents();
+     
+        var currentPath = BaloonPathManager.Instance.CurrentPath;
+        var reversed = BaloonPathManager.Instance.IsPathReversed;
+
+        // Get internal waypoint
+        var waypoint = GetComponentInChildren<BaloonWaypoint>();
+
+        if((reversed && currentPath.Waypoints.First() == waypoint) || (!reversed && currentPath.Waypoints.Last() == waypoint))
+        {
+            // is the destination
+            // get the path index
+            var pathIndex = BaloonPathManager.Instance.GetIndex(currentPath);
+            // Get the corresponding path index in the launch data
+            var direction = directions.ToList().FindIndex(d => d.PathIndex == pathIndex);
+
+            currentDirection = direction;
+            OnDirectionChanged?.Invoke(this);
+        }
+
         Debug.Log("TEST - OnPathSet");
     }
 
     private void HandleOnPathLocked()
     {
-        UnregisterPathManagerEvents();
+        
         Debug.Log("TEST - OnPathLocked");
     }
 
     private void HandleOnPathCleared()
     {
-        UnregisterPathManagerEvents();
+        
         Debug.Log("TEST - OnPathCleared");
     }
 
@@ -165,7 +184,7 @@ public class BaloonLauncher : MonoBehaviour
 
     public void SetPathFromCurrentDirection()
     {
-        RegisterPathManagerEvents();
+     
         BaloonLaunchData data = directions[currentDirection];
         BaloonPathManager.Instance.SetPath(data.PathIndex, data.Reversed, data.Locked);
     }
