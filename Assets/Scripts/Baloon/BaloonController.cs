@@ -165,7 +165,7 @@ namespace Baloon
             //horizontalDirection = Vector3.forward;
             // 1. Calculate acceleration (F = m * a, assuming mass = 1)
             // We start with the base force applied to the balloon
-            Debug.Log("TEST - horizontal direction:" + horizontalDirection);
+            
             Vector3 acceleration = new Vector3(horizontalDirection.x, 0f, horizontalDirection.y)  * horizontalForce;
             
             Vector3 horizontalVelocity = currentVelocity;
@@ -189,7 +189,9 @@ namespace Baloon
            
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
-           
+
+            Debug.Log("TEST - horizontal speed:" + horizontalVelocity.magnitude); 
+
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;
         }

@@ -30,6 +30,12 @@ namespace Baloon
         private void Awake()
         {
             heightDefault = transform.position.y;
+
+            var pos = root.position;
+            pos.x = directPathPoint.position.x;
+            pos.z = directPathPoint.position.z;
+            root.position = pos;
+            root.rotation = directPathPoint.rotation;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
