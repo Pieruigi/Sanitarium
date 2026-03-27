@@ -200,7 +200,7 @@ namespace Baloon
             if (!started)
             {
                 // Stop starting audio
-                startAudioSource.Stop();
+                //startAudioSource.Stop();
 
                 // Stop starting coroutine
                 StopCoroutine(startupCoroutine);

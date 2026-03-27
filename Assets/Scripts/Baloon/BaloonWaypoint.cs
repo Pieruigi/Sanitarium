@@ -8,6 +8,12 @@ namespace Baloon
 {
     public class BaloonWaypoint : MonoBehaviour
     {
+        public delegate void ReachedDelegate(BaloonWaypoint waypoint);
+        public static ReachedDelegate OnReached;
+
+        public delegate void LeftDelegate(BaloonWaypoint waypoint);
+        public static LeftDelegate OnLeft;
+
         //public readonly float HorizontalRange = 3f;
 
         [SerializeField]
@@ -96,13 +102,19 @@ namespace Baloon
         {
             if (!isActive || !other.CompareTag("Player")) return;
 
-            if (NavigationSystem.Instance.WaypointB == this)
-                NavigationSystem.Instance.ReportWaypointReached(this);
+            //if (NavigationSystem.Instance.WaypointB == this)
+            //{
+            //    NavigationSystem.Instance.ReportWaypointReached(this);
+            //}
+            
+            OnReached?.Invoke(this);
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (!isActive || !other.CompareTag("Player")) return;
+
+            OnLeft?.Invoke(this);
         }
     }
 }

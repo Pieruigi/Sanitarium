@@ -24,6 +24,8 @@ public class BaloonLauncherFan : MonoBehaviour
 
     BaloonLauncher baloonLauncher;
 
+    bool playing = false;
+
     private void Awake()
     {
         baloonLauncher = GetComponentInParent<BaloonLauncher>();
@@ -62,6 +64,8 @@ public class BaloonLauncherFan : MonoBehaviour
         activator.OnExit += HandleOnExit;
         BaloonLauncher.OnDirectionChanged += HandleOnDirectionChanged;
         BaloonPathManager.OnPathSet += HandleOnLaunched;
+        BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        BaloonWaypoint.OnReached += HandleOnWaypointReached;
     }
 
     private void OnDisable()
@@ -70,11 +74,33 @@ public class BaloonLauncherFan : MonoBehaviour
         activator.OnExit -= HandleOnExit;
         BaloonLauncher.OnDirectionChanged -= HandleOnDirectionChanged;
         BaloonPathManager.OnPathSet -= HandleOnLaunched;
+        BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        BaloonWaypoint.OnReached -= HandleOnWaypointReached;
+    }
+
+    private void HandleOnWaypointReached(BaloonWaypoint waypoint)
+    {
+        // Any waypoint
+        if (playing)
+        {
+            transform.DOKill();
+            transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            .SetEase(Ease.OutBack);
+        }
+            
+
+    }
+
+    private void HandleOnPathCleared()
+    {
+        playing = false;
+        transform.DOKill(); 
     }
 
     private void HandleOnLaunched()
     {
         if (!inside) return;
+        playing = true;
         transform.DOKill();
         transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Incremental)

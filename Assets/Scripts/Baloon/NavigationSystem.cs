@@ -51,12 +51,14 @@ namespace Baloon
         {
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+            BaloonWaypoint.OnReached += ReportWaypointReached;
         }
 
         private void OnDisable()
         {
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+            BaloonWaypoint.OnReached -= ReportWaypointReached;
         }
 
         private void HandleOnPathCleared()
@@ -96,6 +98,8 @@ namespace Baloon
 
         public void ReportWaypointReached(BaloonWaypoint waypoint)
         {
+            if (waypointB != waypoint) return;
+
             var destination = !isPathReversed ? currentPath.Waypoints.Last() : currentPath.Waypoints.First();
 
             if(waypoint != destination) // Keep going
