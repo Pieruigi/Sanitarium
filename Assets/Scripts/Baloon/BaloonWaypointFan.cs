@@ -7,11 +7,9 @@ namespace Baloon
     /// <summary>
     /// Unlike the launch fan this fan only works on waypoints
     /// </summary>
-    public class BaloonPathFan : MonoBehaviour
+    public class BaloonWaypointFan : MonoBehaviour
     {
-        [SerializeField]
-        int pathindex = -1;
-
+    
         [SerializeField]
         BaloonWaypoint waypoint;
 
@@ -27,6 +25,7 @@ namespace Baloon
 
         float heightDefault;
 
+        bool isPlaying = false;
 
         private void Awake()
         {
@@ -74,23 +73,26 @@ namespace Baloon
         private void HandleOnWaypointReached(BaloonWaypoint newWaypoint)
         {
             //if(waypoint == NavigationSystem.Instance.WaypointB)
-            if(waypoint == NavigationSystem.Instance.WaypointA)
+            if(waypoint != newWaypoint)
             {
-                // Shut down this fan
-                transform.DOKill();
-                transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-                    .SetEase(Ease.OutBack);
+                if (isPlaying)
+                {
+                    isPlaying = false;
+                    // Shut down this fan
+                    transform.DOKill();
+                    transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+                        .SetEase(Ease.OutBack);
+                }
+                
             }
             else
             {
-                if(waypoint == newWaypoint)
-                {
-                    // Start rotating
-                    transform.DOKill();
-                    transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-                        .SetLoops(-1, LoopType.Incremental)
-                        .SetEase(Ease.InQuad);
-                }
+                isPlaying = true;
+                // Start rotating
+                transform.DOKill();
+                transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+                    .SetLoops(-1, LoopType.Incremental)
+                    .SetEase(Ease.InQuad);
             }
         }
 
@@ -100,10 +102,13 @@ namespace Baloon
             //if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathindex)
             if(BaloonPathManager.Instance.CurrentPath.Waypoints.Contains(waypoint))
             {
+                isActive = true;
+
                 var target = directPathPoint;
                 if(BaloonPathManager.Instance.IsPathReversed)
                     target = reversedPathPoint;
 
+                
 
                 if (sequence != null) sequence.Kill();
                 root.DOKill();
@@ -120,6 +125,7 @@ namespace Baloon
 
         private void HandleOnPathCleared()
         {
+            isActive = false;
             if (sequence != null) sequence.Kill();
             root.DOKill();
             root.DOMoveY(heightDefault, 1f).SetEase(Ease.OutBack);

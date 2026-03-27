@@ -11,10 +11,10 @@ namespace Baloon
         [SerializeField]
         TMP_Text minValue, maxValue, currentValue;
 
-
-
         [SerializeField]
         List<LightController> lights;
+
+
 
         bool activated = false;
 
