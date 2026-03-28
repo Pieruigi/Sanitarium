@@ -6,14 +6,11 @@ namespace Baloon
     public class BaloonBoilerHealthVfx : MonoBehaviour
     {
         [SerializeField]
-        List<Transform> leaks;
+        List<GameObject> leaks;
 
         [SerializeField]
         ParticleSystem leakParticlePrefab;
 
-        
-        
-        List<Transform> usedLeaks = new List<Transform>();
 
         float step = .2f;
 
@@ -50,14 +47,7 @@ namespace Baloon
                 var leak = leaks[index];
                 leaks.Remove(leak);
 
-                // Instantiate new particle
-                var p = Instantiate(leakParticlePrefab, leak);
-                p.transform.localPosition = Vector3.zero;
-                p.transform.localRotation = Quaternion.identity;
-
-                // Explosion
-                leak.Find("1").GetComponent<AudioSource>().Play();
-                leak.Find("2").GetComponent<AudioSource>().Play();
+                leak.GetComponent<BaloonBoilerLeak>().StartLeaking();
 
                 diff -= step;
 
