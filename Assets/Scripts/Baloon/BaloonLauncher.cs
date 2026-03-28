@@ -92,8 +92,8 @@ public class BaloonLauncher : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.X))
-            SetPathFromCurrentDirection();
+        //if (Input.GetKeyDown(KeyCode.X))
+        //    SetPathFromCurrentDirection();
 #endif
     }
 

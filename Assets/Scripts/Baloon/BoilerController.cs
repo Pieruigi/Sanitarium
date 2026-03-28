@@ -27,15 +27,17 @@ namespace Baloon
         {
             get
             {
-                return throttle * maxPowers[version];
+                return throttle * maxPower;
             }
         }
 
-        float[] maxPowers = new float[] { 1f, 1.5f };
+        float maxPower = 1f;
+
+        //float[] maxPowers = new float[] { 1f, 1.5f };
 
         int version = 0;
 
-        public float MaxPower => maxPowers[version];
+        public float MaxPower => maxPower;
 
         //float step = 0.01f;
 
@@ -67,16 +69,7 @@ namespace Baloon
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            //if (Input.GetKey(KeyCode.X))
-            //{
-            //    power = maxPowers[version];
-            //}
-            //else
-            //{
-            //    power = 0;
-            //}
-#endif
+
 
             // Only if you use buttons rather than handle
             //if (dir == 0) return;
@@ -121,6 +114,8 @@ namespace Baloon
             //increaseButton.OnReleased += HandleOnIncreaseReleased;
             BaloonControlPanel.OnStarted += HandleOnPanelControlStarted;
             BaloonControlPanel.OnStopped += HandleOnPanelControlStopped;
+            BaloonBoilerHealth.OnDamageTaken += HandleOnDamageTaken;
+            BaloonBoilerHealth.OnRepaired += HandleOnRepaired;
         }
 
         private void OnDisable()
@@ -132,6 +127,18 @@ namespace Baloon
             //increaseButton.OnReleased -= HandleOnIncreaseReleased;
             BaloonControlPanel.OnStarted -= HandleOnPanelControlStarted;
             BaloonControlPanel.OnStopped -= HandleOnPanelControlStopped;
+            BaloonBoilerHealth.OnDamageTaken -= HandleOnDamageTaken;
+            BaloonBoilerHealth.OnRepaired -= HandleOnRepaired;
+        }
+
+        private void HandleOnDamageTaken(float oldHealth, float newHealth)
+        {
+            maxPower = newHealth;
+        }
+
+        private void HandleOnRepaired(float oldHealth, float newHealth)
+        {
+            maxPower = newHealth;
         }
 
         private void HandleOnPanelControlStarted()
