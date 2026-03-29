@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Baloon
@@ -6,7 +7,7 @@ namespace Baloon
     public class BaloonBoilerHealthVfx : MonoBehaviour
     {
         [SerializeField]
-        List<GameObject> leaks;
+        List<BaloonBoilerLeak> leaks;
 
         [SerializeField]
         ParticleSystem leakParticlePrefab;
@@ -43,11 +44,12 @@ namespace Baloon
             var diff = oldHealth - newHealth;   
             while(diff >= 0)
             {
-                int index = Random.Range(0, leaks.Count);
-                var leak = leaks[index];
-                leaks.Remove(leak);
-
-                leak.GetComponent<BaloonBoilerLeak>().StartLeaking();
+                Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:"+leaks.Count);
+                var list = leaks.Where(l => l.Damaged == false).ToList();
+                int index = Random.Range(0, list.Count);
+                var leak = list[index];
+                
+                leak.StartLeaking();
 
                 diff -= step;
 

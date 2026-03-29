@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Baloon
 {
-    public class BaloonBoilerHealth : MonoBehaviour
+    public class BaloonBoilerHealth : Singleton<BaloonBoilerHealth>
     {
         public delegate void DamageTakenDelegate(float oldHealth, float newHealth);
         public static DamageTakenDelegate OnDamageTaken;

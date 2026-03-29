@@ -1,4 +1,5 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Baloon
@@ -12,17 +13,32 @@ namespace Baloon
         AudioSource runningAudioSource;
 
         [SerializeField]
+        AudioSource hitAudioSource;
+
+        [SerializeField]
+        List<AudioClip> hitAudioClips;
+
+        [SerializeField]
         GameObject bolt;
 
         [SerializeField]
         ParticleSystem particlePrefab;
 
         [SerializeField]
+        ParticleSystem sparksPrefab;
+
+        
+
+
+        [SerializeField]
         Interactor interactor;
+
+        
 
         ParticleSystem particle;
 
         bool damaged = false;
+        public bool Damaged => damaged;
 
         int hit = 3;
 
@@ -61,12 +77,27 @@ namespace Baloon
         {
             Interactor.OnInteractionStarted += HandleOnInteractionStarted;
             Interactor.OnInteractionStopped += HandleOnInteractionStopped;
+            RepairToolEventListener.OnHit += HandleOnAnimationHit;
         }
 
         private void OnDisable()
         {
             Interactor.OnInteractionStarted -= HandleOnInteractionStarted;
             Interactor.OnInteractionStopped -= HandleOnInteractionStopped;
+            RepairToolEventListener.OnHit -= HandleOnAnimationHit;
+        }
+
+        private void HandleOnAnimationHit()
+        {
+            if (!repairing) return;
+
+            var sparkles = Instantiate(sparksPrefab, transform);
+            sparkles.transform.localPosition = Vector3.zero;
+            sparkles.transform.localRotation = Quaternion.identity;
+
+            PlayHitAudio();
+            
+            Destroy(sparkles.gameObject, 3f);
         }
 
         private void HandleOnInteractionStarted(Interactor interactor)
@@ -77,6 +108,8 @@ namespace Baloon
 
             if (!damaged) return;
 
+            RepairToolController.Instance.StartRepairAnimation();
+
             repairing = true;
             repairElapsed = 0;
         }
@@ -86,6 +119,8 @@ namespace Baloon
             if (this.interactor != interactor) return;
 
             repairing = false;
+
+            RepairToolController.Instance.StopRepairAnimation();
         }
 
         public void StartLeaking()
@@ -106,17 +141,36 @@ namespace Baloon
 
         void StopLeaking()
         {
-            damaged = false;
-            repairing = false;
-
-            bolt.SetActive(true);
-
-            particle.Stop();
-
-            runningAudioSource.Play();
-
-            Destroy(particle.gameObject, 2f);
             
+
+            StartCoroutine(DoRepair());
+
+            IEnumerator DoRepair()
+            {
+                yield return new WaitForSeconds(.25f);
+
+                damaged = false;
+                repairing = false;
+
+                bolt.SetActive(true);
+
+                particle.Stop();
+
+                runningAudioSource.Stop();
+
+                Destroy(particle.gameObject, 2f);
+
+                BaloonBoilerHealth.Instance.Repair(.2f);
+            }
+
+            
+            
+        }
+
+        void PlayHitAudio()
+        {
+            hitAudioSource.clip = hitAudioClips[Random.Range(0, hitAudioClips.Count)];
+            hitAudioSource.Play();
         }
 
         public void Hit()
