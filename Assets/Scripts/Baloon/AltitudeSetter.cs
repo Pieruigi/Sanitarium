@@ -9,7 +9,10 @@ namespace Baloon
     public class AltitudeSetter : MonoBehaviour
     {
         [SerializeField]
-        float minAltitude, maxAltitude;
+        BaloonWaypoint waypoint;
+
+        //[SerializeField]
+        //float minAltitude, maxAltitude;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,7 +30,7 @@ namespace Baloon
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
-            AltitudeManager.Instance.SetAltitude(minAltitude, maxAltitude);
+            AltitudeManager.Instance.SetAltitude(waypoint.MinAltitude, waypoint.MaxAltitude);
         }
 
         

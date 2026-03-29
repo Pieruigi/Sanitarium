@@ -36995,6 +36995,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7698966346642698615, guid: e96b0aae643be8b40bcba228739035a9, type: 3}
+      propertyPath: waypoint
+      value: 
+      objectReference: {fileID: 1707803637}
+    - target: {fileID: 7698966346642698615, guid: e96b0aae643be8b40bcba228739035a9, type: 3}
       propertyPath: maxAltitude
       value: 60
       objectReference: {fileID: 0}
@@ -122042,6 +122046,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7698966346642698615, guid: e96b0aae643be8b40bcba228739035a9, type: 3}
+      propertyPath: waypoint
+      value: 
+      objectReference: {fileID: 5360652914968982234}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
