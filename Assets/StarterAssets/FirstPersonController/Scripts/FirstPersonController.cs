@@ -56,7 +56,7 @@ namespace StarterAssets
 
         [SerializeField]
         bool onBaloon = false;
-		//public bool OnBaloon => onBaloon;
+		public bool OnBaloon => onBaloon;
 		
 		float baloonGround = 0f;
 		
@@ -84,6 +84,10 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
+
+		public bool IsRunning => _input.sprint;
+
+		public bool IsCrouching => false;
 
 		
 		private bool IsCurrentDeviceMouse
@@ -404,6 +408,11 @@ namespace StarterAssets
 			_controller.enabled = false;
 			transform.position = position;
 			_controller.enabled = true;
+		}
+
+		public float GetSpeed()
+		{
+			return _speed;
 		}
 	}
 }

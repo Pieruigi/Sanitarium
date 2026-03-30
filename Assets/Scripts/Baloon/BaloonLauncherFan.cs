@@ -80,6 +80,7 @@ public class BaloonLauncherFan : MonoBehaviour
 
     private void HandleOnWaypointReached(BaloonWaypoint waypoint)
     {
+        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA reached " + waypoint.transform.root.gameObject.name);
         // Any waypoint
         if (playing)
         {

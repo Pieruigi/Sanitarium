@@ -47,11 +47,20 @@ namespace Baloon
             }
             else
             {
-                picked = false;
-                wrench.SetActive(true);
-                RepairToolController.Instance.ReportPutBack();
+                //picked = false;
+                //wrench.SetActive(true);
+                //RepairToolController.Instance.ReportPutBack();
+                PutBack();
             }
 
+        }
+
+        public void PutBack()
+        {
+            if (!picked) return;
+            picked = false;
+            wrench.SetActive(true);
+            RepairToolController.Instance.ReportPutBack();
         }
     }
 }

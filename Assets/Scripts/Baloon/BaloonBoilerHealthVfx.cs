@@ -44,7 +44,6 @@ namespace Baloon
             var diff = oldHealth - newHealth;   
             while(diff >= 0)
             {
-                Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:"+leaks.Count);
                 var list = leaks.Where(l => l.Damaged == false).ToList();
                 int index = Random.Range(0, list.Count);
                 var leak = list[index];

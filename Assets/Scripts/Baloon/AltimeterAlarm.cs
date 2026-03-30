@@ -50,14 +50,28 @@ public class AltimeterAlarm : MonoBehaviour
 
     private void OnEnable()
     {
-        BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
-        BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+        //BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
+        //BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+        BasePlatform.OnLanding += HandleOnLanding;
+        BasePlatform.OnTakeOff += HandleOnTakeOff;
     }
 
     private void OnDisable()
     {
-        BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
-        BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
+        //BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
+        //BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
+        BasePlatform.OnLanding -= HandleOnLanding;
+        BasePlatform.OnTakeOff -= HandleOnTakeOff;
+    }
+
+    private void HandleOnLanding(BasePlatform platform)
+    {
+        HandleOnBaloonStopped();
+    }
+
+    private void HandleOnTakeOff(BasePlatform platform)
+    {
+        HandleOnBaloonStarted();
     }
 
     private void HandleOnBaloonStarted()

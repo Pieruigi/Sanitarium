@@ -78,6 +78,8 @@ namespace Baloon
             Interactor.OnInteractionStarted += HandleOnInteractionStarted;
             Interactor.OnInteractionStopped += HandleOnInteractionStopped;
             RepairToolEventListener.OnHit += HandleOnAnimationHit;
+            BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
+            BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
         }
 
         private void OnDisable()
@@ -85,6 +87,28 @@ namespace Baloon
             Interactor.OnInteractionStarted -= HandleOnInteractionStarted;
             Interactor.OnInteractionStopped -= HandleOnInteractionStopped;
             RepairToolEventListener.OnHit -= HandleOnAnimationHit;
+            BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
+            BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+        }
+
+        private void HandleOnBaloonStarted()
+        {
+            //throw new System.NotImplementedException();
+
+            if (damaged)
+            {
+                if (particle) particle.Play();
+                runningAudioSource.Play();
+            }
+        }
+
+        private void HandleOnBaloonStopped()
+        {
+            if (damaged)
+            {
+                if(particle) particle.Stop();
+                runningAudioSource.Stop();
+            }
         }
 
         private void HandleOnAnimationHit()
@@ -96,6 +120,9 @@ namespace Baloon
             sparkles.transform.localRotation = Quaternion.identity;
 
             PlayHitAudio();
+
+            // Shake camera
+            CameraShake.Instance.PlayWrenchHit();
             
             Destroy(sparkles.gameObject, 3f);
         }
