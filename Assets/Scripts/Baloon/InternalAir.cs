@@ -24,7 +24,7 @@ namespace Baloon
         float increaseSpeed = .375f;
 
 
-        float maxAltitude = 250f;// 350 * 2; // 647 actually
+        float maxAltitude = 150f;// 350 * 2; // 647 actually
 
         float maxTemperatureDifference = 10f;
         public float MaxTemperatureDifference => maxTemperatureDifference;

@@ -16,6 +16,9 @@ public class BaloonLauncherFan : MonoBehaviour
     [SerializeField]
     Transform pivot;
 
+    [SerializeField]
+    BaloonWaypoint waypoint;
+
     bool inside = false;
 
     float followSpeed = 10;
@@ -82,7 +85,7 @@ public class BaloonLauncherFan : MonoBehaviour
     {
         Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA reached " + waypoint.transform.root.gameObject.name);
         // Any waypoint
-        if (playing)
+        if (playing && this.waypoint != waypoint)
         {
             playing = false;
             transform.DOKill();
