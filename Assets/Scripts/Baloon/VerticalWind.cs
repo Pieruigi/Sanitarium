@@ -3,7 +3,7 @@ using UnityEngine;
 public class VerticalWind : MonoBehaviour
 {
     [Header("Attivazione per Altezza")]
-    public float startHeight = 20f;
+    public float startHeight = 0f;
     public float rampUpDistance = 10f;
 
     [Header("Parametri Oscillazione")]
@@ -30,7 +30,7 @@ public class VerticalWind : MonoBehaviour
 
         float heightIntensity = Mathf.Clamp01((h - startHeight) / rampUpDistance);
 
-        if (heightIntensity <= 0)
+        if (heightIntensity <= 0 || Baloon.BasePlatform.CurrentPlatform)
         {
             ResetOscillation();
             return;

@@ -136,10 +136,13 @@ namespace Baloon
             // Controllo del suolo
             if (verticalSpeed < 0) // Controlliamo solo se stiamo scendendo
             {
+                Debug.Log("TEST - Vspeed <0");
                 RaycastHit hit;
                 float startOffset = 1f;
                 if (Physics.Raycast(transform.position + Vector3.up * startOffset, Vector3.down, out hit, groundCheckDistance + startOffset, groundLayer))
                 {
+                    Debug.Log("TEST - Hit:"+hit.collider.gameObject.name);
+
                     // Se tocchiamo il suolo, azzeriamo la velocità e posizioniamo la cesta esattamente sopra
                     verticalSpeed = 0;
 
@@ -149,8 +152,12 @@ namespace Baloon
                     transform.position = pos;
                 }
             }
+            else
+            {
+                Debug.Log("TEST - Vspeed:"+verticalSpeed);
+            }
 
-            currentVelocity.y = verticalSpeed;
+                currentVelocity.y = verticalSpeed;
 
             // 3. MOVIMENTO FINALE
             // Muoviamo il transform direttamente (niente scatti per lo slider!)
