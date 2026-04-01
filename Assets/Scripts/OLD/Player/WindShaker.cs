@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Baloon
@@ -38,6 +39,7 @@ namespace Baloon
                     case AltitudeRange.Green:
                     case AltitudeRange.Yellow:
                         CameraShake.Instance.PlayWindShakeLight();
+                        YawBalloonLight();
                         if(range == AltitudeRange.Yellow) shakeTime *= .8f;
                         break;
                     case AltitudeRange.Red:
@@ -72,6 +74,15 @@ namespace Baloon
         private void HandleOnPathCleared()
         {
             running = false;
+        }
+
+        private void YawBalloonLight()
+        {
+            var balloon = BaloonController.Instance.transform;
+            var angle = Random.Range(20f, 45f);
+            var duration = Random.Range(3.2f, 4f);
+            balloon.DOLocalRotate(new Vector3(0, angle, 0), duration)
+                .SetEase(Ease.InOutSine);
         }
 
         void Shake()

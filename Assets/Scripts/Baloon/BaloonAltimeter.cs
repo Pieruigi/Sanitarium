@@ -9,7 +9,7 @@ namespace Baloon
     public class BaloonAltimeter : MonoBehaviour
     {
         [SerializeField]
-        TMP_Text minValue, maxValue, currentValue;
+        TMP_Text minValue, maxValue, currentValue, targetValue;
 
         [SerializeField]
         List<LightController> lights;
@@ -43,12 +43,14 @@ namespace Baloon
             var currentAltitude = BaloonController.Instance.Altitude;
             var minAltitude = AltitudeManager.Instance.MinAltitude;
             var maxAltitude = AltitudeManager.Instance.MaxAltitude;
-            
+            var targetAltitude = (maxAltitude - minAltitude) * .5f + minAltitude;
            
             // Set altitude fields
             minValue.text = minAltitude.ToString("000", CultureInfo.InvariantCulture);
             maxValue.text = maxAltitude.ToString("000", CultureInfo.InvariantCulture);
+            targetValue.text = targetAltitude.ToString("000.00", CultureInfo.InvariantCulture);
             currentValue.text = currentAltitude.ToString("000.00", CultureInfo.InvariantCulture);
+
 
             if (landing) return;
 
@@ -147,6 +149,7 @@ namespace Baloon
             
             minValue.text = "---";
             maxValue.text = "---";
+            targetValue.text = "---.--";
             currentValue.text = "---.--";
             
         }
