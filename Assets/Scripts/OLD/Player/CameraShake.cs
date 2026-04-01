@@ -43,7 +43,7 @@ public class CameraShake : Singleton<CameraShake>
     /// Stato VERDE: Altezza perfetta. 
     /// Un dondolio leggero quasi impercettibile, per dare vita all'ambiente.
     /// </summary>
-    public void PlayWindShakeLight(System.Action onComplete = null)
+    public void PlayWindShakeLight(System.Action onComplete = null, System.Action onKill = null)
     {
         float randDuration = Random.Range(3.2f, 4.0f);
         float randPos = Random.Range(0.012f, 0.018f);
@@ -62,7 +62,7 @@ public class CameraShake : Singleton<CameraShake>
 
  
 
-    public void PlayWindShakeStrong(System.Action onComplete = null)
+    public void PlayWindShakeStrong(System.Action onComplete = null, System.Action onKill = null)
     {
         float randDuration = Random.Range(3.2f, 4.0f);
         float randPos = Random.Range(0.02f, 0.03f);
@@ -135,7 +135,7 @@ public class CameraShake : Singleton<CameraShake>
         float rotStrength,
         int vibratoPos,
         int vibratoRot,
-        System.Action onComplete = null)
+        System.Action onComplete = null, System.Action onKill = null)
     {
         // Ferma shake precedenti
         shakeTween?.Kill();
@@ -165,5 +165,14 @@ public class CameraShake : Singleton<CameraShake>
             transform.localEulerAngles = originalRot;
             onComplete?.Invoke();
         };
+
+        rotTween.onKill += () =>
+        {
+            transform.localPosition = originalPos;
+            transform.localEulerAngles = originalRot;
+            onKill?.Invoke();
+        };
+
+
     }
 }
