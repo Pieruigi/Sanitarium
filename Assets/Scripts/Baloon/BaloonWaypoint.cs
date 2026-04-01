@@ -2,12 +2,15 @@ using StarterAssets;
 using System;
 using System.Linq;
 using TMM;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Baloon
 {
     public class BaloonWaypoint : MonoBehaviour
     {
+        enum AltitudeType { Self, Parent, MinMax}
+
         public delegate void ReachedDelegate(BaloonWaypoint waypoint);
         public static ReachedDelegate OnReached;
 
@@ -15,6 +18,8 @@ namespace Baloon
         public static LeftDelegate OnLeft;
 
         //public readonly float HorizontalRange = 3f;
+        [SerializeField]
+        AltitudeType altitudeType;
 
         [SerializeField]
         float horizontalForce;
@@ -31,7 +36,28 @@ namespace Baloon
         bool isDestination = false;
       
         FirstPersonController player;
-                
+
+        private void Awake()
+        {
+            float offset = 10;
+            switch (altitudeType)
+            {
+                case AltitudeType.Self:
+                    var h = transform.position.y;
+                    minAltitude = h - offset;
+                    maxAltitude = h + offset;
+                    break;
+                case AltitudeType.Parent:
+                    h = transform.parent.position.y;
+                    minAltitude = h - offset;
+                    maxAltitude = h + offset;
+                    break;
+                case AltitudeType.MinMax:
+
+                    break;
+            }
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

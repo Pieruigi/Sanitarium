@@ -19,7 +19,14 @@ namespace Baloon
             get { return horizontalForce; }
             set 
             {
-                horizontalForce = value; 
+
+                horizontalForce = value
+#if UNITY_EDITOR
+                    * 4f
+#endif
+                    ;
+
+
                 if (horizontalForce == 0)  currentVelocity.x = currentVelocity.z = 0f;  
             }
         }
