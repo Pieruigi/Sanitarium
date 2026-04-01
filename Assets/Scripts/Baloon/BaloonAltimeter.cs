@@ -18,8 +18,11 @@ namespace Baloon
 
         bool activated = false;
 
+        bool landing = false;
+
         int redIndex = 0, yellowIndex = 1, greenIndex = 2;
 
+      
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -35,7 +38,7 @@ namespace Baloon
 
         private void LateUpdate()
         {
-            //if (!activated) return;
+            if (!activated) return;
 
             var currentAltitude = BaloonController.Instance.Altitude;
             var minAltitude = AltitudeManager.Instance.MinAltitude;
@@ -46,6 +49,8 @@ namespace Baloon
             minValue.text = minAltitude.ToString("000", CultureInfo.InvariantCulture);
             maxValue.text = maxAltitude.ToString("000", CultureInfo.InvariantCulture);
             currentValue.text = currentAltitude.ToString("000.00", CultureInfo.InvariantCulture);
+
+            if (landing) return;
 
             AltitudeRange currentRange = AltitudeManager.Instance.GetCurrentRange();
             
@@ -67,43 +72,47 @@ namespace Baloon
 
         private void OnEnable()
         {
-            //BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
-            //BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+            BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
+            BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
             BasePlatform.OnLanding += HandleOnLanding;
             BasePlatform.OnTakeOff += HandleOnTakeOff;
         }
 
         private void OnDisable()
         {
-            //BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
-            //BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
+            BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
+            BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
             BasePlatform.OnLanding -= HandleOnLanding;
             BasePlatform.OnTakeOff -= HandleOnTakeOff;
         }
 
         private void HandleOnLanding(BasePlatform platform)
         {
-            HandleOnBaloonStopped();
+            landing = true;
+
+            // Lights off
+            SetLightOffAll();
+            ResetAltitudeValueAll();
         }
 
         private void HandleOnTakeOff(BasePlatform platform)
         {
-            HandleOnBaloonStarted();
+            landing = false;
+
+            SetLightOnAll(redIndex);
+
+            
         }
 
         private void HandleOnBaloonStarted()
         {
-            activated = true;
-
-            SetLightOnAll(redIndex);
+           activated = true;
         }
 
         private void HandleOnBaloonStopped()
         {
             activated = false;
 
-            // Lights off
-            SetLightOffAll();
             ResetAltitudeValueAll();
         }
 
@@ -135,9 +144,11 @@ namespace Baloon
 
         void ResetAltitudeValueAll()
         {
-            string s = "--";
-            minValue.text = maxValue.text = currentValue.text = s;
-
+            
+            minValue.text = "---";
+            maxValue.text = "---";
+            currentValue.text = "---.--";
+            
         }
     }
 }

@@ -14,8 +14,8 @@ namespace Baloon
 
         public static BasePlatform CurrentPlatform { get; private set; }
 
-        [SerializeField]
-        ActivationTrigger trigger;
+        //[SerializeField]
+        //ActivationTrigger trigger;
 
         bool inside;
 
@@ -31,20 +31,34 @@ namespace Baloon
                         
         }
 
-        private void OnEnable()
+        //private void OnEnable()
+        //{
+        //    trigger.OnEnter += HandleOnEnter;
+        //    trigger.OnExit += HandleOnExit;
+        //}
+
+        //private void OnDisable()
+        //{
+        //    trigger.OnEnter -= HandleOnEnter;
+        //    trigger.OnExit -= HandleOnExit;
+        //}
+
+        private void OnTriggerEnter(Collider other)
         {
-            trigger.OnEnter += HandleOnEnter;
-            trigger.OnExit += HandleOnExit;
+            if (!other.CompareTag("Baloon")) return;
+            HandleOnEnter(other);
         }
 
-        private void OnDisable()
+        private void OnTriggerExit(Collider other)
         {
-            trigger.OnEnter -= HandleOnEnter;
-            trigger.OnExit -= HandleOnExit;
+            if (!other.CompareTag("Baloon")) return;
+            HandleOnExit(other);
         }
 
         private void HandleOnEnter(Collider other)
         {
+         
+
             inside = true;
             CurrentPlatform = this;
 
@@ -53,6 +67,8 @@ namespace Baloon
 
         private void HandleOnExit(Collider other)
         {
+            
+
             inside = false;
             CurrentPlatform = null;
                 

@@ -1,5 +1,7 @@
 using DG.Tweening;
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Baloon
@@ -10,6 +12,8 @@ namespace Baloon
     public class BaloonWaypointFan : MonoBehaviour
     {
     
+        public static List<BaloonWaypointFan> fans = new List<BaloonWaypointFan>();
+
         [SerializeField]
         BaloonWaypoint waypoint;
 
@@ -26,6 +30,7 @@ namespace Baloon
         float heightDefault;
 
         bool isPlaying = false;
+
 
         private void Awake()
         {
@@ -64,25 +69,38 @@ namespace Baloon
 
         private void OnEnable()
         {
+            // Add to static list
+            fans.Add(this);
+
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
             BaloonWaypoint.OnReached += HandleOnWaypointReached;
+
+
         }
 
         private void OnDisable()
         {
+            // Remove from static list
+            fans.Remove(this);
+
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             BaloonWaypoint.OnReached -= HandleOnWaypointReached;
         }
 
+
+
         private void HandleOnWaypointReached(BaloonWaypoint newWaypoint)
         {
+
+
             //if(waypoint == NavigationSystem.Instance.WaypointB)
             if(waypoint != newWaypoint)
             {
-                if (isPlaying)
+                if (isPlaying && BaloonWaypointFan.HasFan(newWaypoint))
                 {
+                    
                     isPlaying = false;
                     // Shut down this fan
                     transform.DOKill();
@@ -136,6 +154,11 @@ namespace Baloon
             root.DOKill();
             root.DOMoveY(heightDefault, 1f).SetEase(Ease.OutBack);
             transform.DOKill();
+        }
+
+        public static bool HasFan(BaloonWaypoint waypoint)
+        {
+            return fans.Exists(f => f.waypoint == waypoint);
         }
     }
 }

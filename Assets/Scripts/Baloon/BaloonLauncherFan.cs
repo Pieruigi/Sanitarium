@@ -2,6 +2,7 @@ using Baloon;
 using DG.Tweening;
 using System;
 using TMM;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -38,6 +39,8 @@ public class BaloonLauncherFan : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        pivot.localEulerAngles = Vector3.up * 90f * baloonLauncher.CurrentDirection;
     }
 
     // Update is called once per frame
@@ -83,10 +86,12 @@ public class BaloonLauncherFan : MonoBehaviour
 
     private void HandleOnWaypointReached(BaloonWaypoint waypoint)
     {
-        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA reached " + waypoint.transform.root.gameObject.name);
+        if (!playing) return;
+        if (this.waypoint != waypoint && !BaloonWaypointFan.HasFan(waypoint)) return;
         // Any waypoint
         if (playing && this.waypoint != waypoint)
         {
+
             playing = false;
             transform.DOKill();
             transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
@@ -138,13 +143,13 @@ public class BaloonLauncherFan : MonoBehaviour
         var currentY = pivot.eulerAngles.y;
         float targetY = 0;
 
-        targetY = direction * -90f;
+        targetY = direction * 90f;
 
         targetY = (targetY % 360 + 360) % 360;
 
         // Keep clockwise
-        while (targetY >= currentY)
-            targetY -= 360f;
+        while (targetY <= currentY)
+            targetY += 360f;
 
         var duration = Mathf.Abs(currentY - targetY) / 90f;
         //duration *= .5f;

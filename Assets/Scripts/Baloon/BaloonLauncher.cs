@@ -68,8 +68,8 @@ public class BaloonLauncher : MonoBehaviour
     [SerializeField]
     int initialDirection = 0;
 
-    [SerializeField]
-    float launchForce = 3f;
+    //[SerializeField]
+    //float launchForce = 3f;
 
     int currentDirection;
     public int CurrentDirection => currentDirection;
