@@ -74,6 +74,9 @@ public class BaloonLauncher : MonoBehaviour
     int currentDirection;
     public int CurrentDirection => currentDirection;
 
+    [SerializeField]
+    BaloonWaypoint waypoint;
+
     //int[] internalDirections;
 
     private void Awake()
@@ -126,7 +129,7 @@ public class BaloonLauncher : MonoBehaviour
         var reversed = BaloonPathManager.Instance.IsPathReversed;
 
         // Get internal waypoint
-        var waypoint = GetComponentInChildren<BaloonWaypoint>();
+        //var waypoint = GetComponentInChildren<BaloonWaypoint>();
 
         if((reversed && currentPath.Waypoints.First() == waypoint) || (!reversed && currentPath.Waypoints.Last() == waypoint))
         {
