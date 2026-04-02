@@ -1,16 +1,21 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.ShaderGraph.Internal; // To make the gust feel physical
+using UnityEditor.ShaderGraph.Internal;
+using System.Collections; // To make the gust feel physical
 
 namespace Baloon
 {
     public class BadWindTrigger : MonoBehaviour
     {
+        enum VerticalWindDirection { Random, Up, Down}
+
         [Header("Gust Settings")]
         [SerializeField] private float gustStrength = 10f;
         [SerializeField] private float gustDuration = 1.5f;
 
         [SerializeField] int pathIndex = 0;
+
+        [SerializeField] VerticalWindDirection direction;
 
         private bool disabled = false;
         bool follow = false;
@@ -70,22 +75,29 @@ namespace Baloon
             var balloon = BaloonController.Instance.transform;
             var altitudeManager = AltitudeManager.Instance;
 
-            int windDirection = 0; // 1: Up, -1: Down
+            int windDirection; // 1: Up, -1: Down
             var range = altitudeManager.GetCurrentRange();
 
-            if (range != AltitudeRange.Red)
+            if (direction == VerticalWindDirection.Random)
             {
-                // Safe/Warning zone: random chaos
-                windDirection = Random.Range(0, 2) == 0 ? -1 : 1;
+                if (range != AltitudeRange.Red)
+                {
+                    // Safe/Warning zone: random chaos
+                    windDirection = Random.Range(0, 2) == 0 ? -1 : 1;
+                }
+                else
+                {
+                    // Red Zone: Punishment logic
+                    // Compare current height with the target ideal height
+                    if (balloon.position.y < altitudeManager.TargetAltitude)
+                        windDirection = -1; // Already too low? Push further down!
+                    else
+                        windDirection = 1;  // Already too high? Push further up!
+                }
             }
             else
             {
-                // Red Zone: Punishment logic
-                // Compare current height with the target ideal height
-                if (balloon.position.y < altitudeManager.TargetAltitude)
-                    windDirection = -1; // Already too low? Push further down!
-                else
-                    windDirection = 1;  // Already too high? Push further up!
+                windDirection = direction == VerticalWindDirection.Up ? 1 : -1;
             }
 
             ApplyPowerfulGust(balloon, windDirection);
@@ -114,6 +126,11 @@ namespace Baloon
             // Rotate baloon
             YawBalloonHeavy(duration);
 
+            // Apply audio
+            WindAudio.Instance.FadeGustVolume(duration);
+
+            StartCoroutine(ApplyDamage(duration));
+
             // 3. Audio Hook (Example)
             // AudioSource.PlayClipAtPoint(windGustClip, target.position);
 
@@ -123,6 +140,13 @@ namespace Baloon
             {
                 WindShaker.Instance.Running = true;
                 VerticalWind.Instance.Running = true;
+            }
+
+            IEnumerator ApplyDamage(float duration)
+            {
+                yield return new WaitForSeconds(duration * 1.5f);
+
+                BaloonBoilerHealth.Instance.TakeSingleDamage();
             }
         }
 

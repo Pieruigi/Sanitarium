@@ -47,6 +47,16 @@ namespace Baloon
             OnDamageTaken?.Invoke(oldHealth, health);
         }
 
+        public void TakeSingleDamage()
+        {
+            TakeDamage(.2f);
+        }
+
+        public void TakeDoubleDamage()
+        {
+            TakeDamage(.4f);
+        }
+
         public void Repair(float amount)
         {
             var oldHealth = health;

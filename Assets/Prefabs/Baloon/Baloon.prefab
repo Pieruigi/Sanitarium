@@ -5848,6 +5848,7 @@ GameObject:
   - component: {fileID: 8915882542736898192}
   - component: {fileID: 1891109049728332485}
   - component: {fileID: 5171047061297543162}
+  - component: {fileID: 3032312325384337769}
   m_Layer: 0
   m_Name: Baloon
   m_TagString: Baloon
@@ -5909,7 +5910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BoilerController
   throttle: 0
   throttleSlider: {fileID: 2313357452475681705}
-  gasLeft: 1
+  gasLeft: 0.6
 --- !u!114 &6634405810607186959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5961,7 +5962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonController
   gravity: 10
   linearDrag: 2
-  groundCheckDistance: 0.01
+  groundCheckDistance: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -5977,14 +5978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4c9842925a4c94fa2924e9f9acaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.VerticalWind
-  startHeight: 2000
-  rampUpDistance: 10
-  windSpeed: 0.5
-  baseWindStrength: 0.2
-  globalWindMaxStrength: 1.5
-  windMapScale: 0.005
-  windEvolutionSpeed: 0.1
-  lerpSpeed: 2
+  windStrength: 0.5
+  changeSpeed: 0.2
+  currentVerticalForce: 0
 --- !u!114 &5171047061297543162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5998,6 +5994,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonBoilerHealth
   health: 1
+--- !u!54 &3032312325384337769
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398096410824695167}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &4400750644925849848
 GameObject:
   m_ObjectHideFlags: 0
