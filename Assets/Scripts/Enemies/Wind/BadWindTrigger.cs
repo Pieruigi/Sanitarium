@@ -1,34 +1,159 @@
 using UnityEngine;
+using DG.Tweening;
+using UnityEditor.ShaderGraph.Internal; // To make the gust feel physical
 
 namespace Baloon
 {
-    
     public class BadWindTrigger : MonoBehaviour
     {
-        int level = 1;
+        [Header("Gust Settings")]
+        [SerializeField] private float gustStrength = 10f;
+        [SerializeField] private float gustDuration = 1.5f;
 
-        bool inside = false;
+        [SerializeField] int pathIndex = 0;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        private bool disabled = false;
+        bool follow = false;
+
+
+#if UNITY_EDITOR
+        private void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                ApplyPowerfulGust(BaloonController.Instance.transform, 1);
+            }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
+#endif
 
+        private void LateUpdate()
+        {
+            if (!follow || disabled) return;
+
+            var pos = transform.position;
+            pos.y = BaloonController.Instance.transform.position.y;
+            transform.position = pos;
+        }
+
+        private void OnEnable()
+        {
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
+            BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        }
+
+        private void OnDisable()
+        {
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+            BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        }
+
+        private void HandleOnPathSet()
+        {
+            if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex)
+                    follow = true;
+        }
+
+        private void HandleOnPathCleared()
+        {
+            follow = false;
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            // Using your tag 'Baloon' as per your setup
             if (!other.CompareTag("Baloon")) return;
+            if (disabled) return;
+
+            disabled = true;
+
+            var balloon = BaloonController.Instance.transform;
+            var altitudeManager = AltitudeManager.Instance;
+
+            int windDirection = 0; // 1: Up, -1: Down
+            var range = altitudeManager.GetCurrentRange();
+
+            if (range != AltitudeRange.Red)
+            {
+                // Safe/Warning zone: random chaos
+                windDirection = Random.Range(0, 2) == 0 ? -1 : 1;
+            }
+            else
+            {
+                // Red Zone: Punishment logic
+                // Compare current height with the target ideal height
+                if (balloon.position.y < altitudeManager.TargetAltitude)
+                    windDirection = -1; // Already too low? Push further down!
+                else
+                    windDirection = 1;  // Already too high? Push further up!
+            }
+
+            ApplyPowerfulGust(balloon, windDirection);
         }
 
-        private void OnTriggerExit(Collider other)
+        private void ApplyPowerfulGust(Transform target, int direction)
         {
-            if (!other.CompareTag("Baloon")) return;
+            var duration = Random.Range(gustDuration * .9f, gustDuration * 1.1f);
+            var strength = Random.Range(gustStrength * .9f, gustStrength * 1.1f);
+
+            // Calculate displacement
+            float targetY = target.position.y + (direction * strength);
+
+            // Stop the wind shaker
+            WindShaker.Instance.Running = false;
+
+            // Stop the constante vertical wind
+            VerticalWind.Instance.Running = false;
+
+            // 2. Move the balloon violently (Ease.OutQuad starts fast and then slows down)
+            target.DOMoveY(targetY, duration).SetEase(Ease.OutQuad);
+
+            // Play camera shake
+            CameraShake.Instance.PlayWindGustShake(duration, Reset, Reset);
+
+            // Rotate baloon
+            YawBalloonHeavy(duration);
+
+            // 3. Audio Hook (Example)
+            // AudioSource.PlayClipAtPoint(windGustClip, target.position);
+
+            Debug.Log($"<color=cyan>[WindTrigger]</color> Gust applied! Direction: {direction}");
+
+            void Reset()
+            {
+                WindShaker.Instance.Running = true;
+                VerticalWind.Instance.Running = true;
+            }
+        }
+
+        private void YawBalloonHeavy(float duration)
+        {
+            var balloon = BaloonController.Instance.transform;
+            var angleY = Random.Range(30f, 55f);
+            var angleX = Random.Range(5f, 8f);
+            var angleZ = Random.Range(5f, 8f);
+            
+            balloon.DOLocalRotate(new Vector3(0f, angleY, 0f), duration);
+
+            balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
+                .SetEase(Ease.InOutSine)
+                .SetLoops(2, LoopType.Yoyo)
+                .OnComplete(() =>
+                {
+                    ResetAngles();
+
+                })
+                .OnKill(() =>
+                {
+                    ResetAngles();
+                });
+
+            void ResetAngles()
+            {
+                var r = balloon.localEulerAngles;
+                r.x = r.z = 0f;
+                balloon.localEulerAngles = r;
+            }
         }
     }
 }

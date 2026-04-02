@@ -1,12 +1,9 @@
-#if NEW_VERTICAL_WIND
-
-#else
 using DG.Tweening;
 using UnityEngine;
 
 namespace Baloon
 {
-    public class WindShaker : MonoBehaviour
+    public class WindShaker : Singleton<WindShaker>
     {
         bool shaking = false;
 
@@ -17,6 +14,12 @@ namespace Baloon
         float shakeTime = 0;
 
         bool running = false;
+
+        public bool Running 
+        { 
+            get { return running; } 
+            set { running = value; ResetShakeTime(); }
+        }
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -149,4 +152,3 @@ namespace Baloon
         
     }
 }
-#endif

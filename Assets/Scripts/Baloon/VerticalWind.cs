@@ -3,7 +3,7 @@
 using Baloon;
 using UnityEngine;
 
-public class VerticalWind : MonoBehaviour
+public class VerticalWind : Singleton<VerticalWind>
 {
     [Header("Wind Settings")]
     [Tooltip("General strength of the vertical wind")]
@@ -16,7 +16,13 @@ public class VerticalWind : MonoBehaviour
     [SerializeField] private float currentVerticalForce;
     private float seed;
 
+    bool running = false;
 
+    public bool Running
+    {
+        get { return running; }
+        set { running = value; }
+    }
 
     void Start()
     {
@@ -26,8 +32,31 @@ public class VerticalWind : MonoBehaviour
 
     void Update()
     {
-        if (BasePlatform.CurrentPlatform) return;
+        if (!running) return;
+
         ApplyVerticalWind();
+    }
+
+    private void OnEnable()
+    {
+        BasePlatform.OnLanding += HandleOnLanding;
+        BasePlatform.OnTakeOff += HandleOnTakeOf;
+    }
+
+    private void OnDisable()
+    {
+        BasePlatform.OnLanding -= HandleOnLanding;
+        BasePlatform.OnTakeOff -= HandleOnTakeOf;
+    }
+
+    private void HandleOnLanding(BasePlatform platform)
+    {
+        running = false;
+    }
+
+    private void HandleOnTakeOf(BasePlatform platform)
+    {
+        running = true;
     }
 
     private void ApplyVerticalWind()

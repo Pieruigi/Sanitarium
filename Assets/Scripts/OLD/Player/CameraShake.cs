@@ -20,18 +20,15 @@ public class CameraShake : Singleton<CameraShake>
 #if UNITY_EDITOR
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PlayWindShakeLight();
-        }
-        //if (Input.GetKeyDown(KeyCode.C))
+        //if (Input.GetKeyDown(KeyCode.X))
         //{
-        //    PlayWindShakeMedium();
+        //    PlayWindShakeLight();
         //}
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            PlayWindShakeStrong();
-        }
+    
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    PlayWindShakeStrong();
+        //}
     }
 #endif
 
@@ -75,11 +72,29 @@ public class CameraShake : Singleton<CameraShake>
             rotStrength: randRot,
             vibratoPos: 1,
             vibratoRot: 1,
-            onComplete
+            onComplete, 
+            onKill
         );
     }
 
-   
+    public void PlayWindGustShake(float duration, System.Action onComplete = null, System.Action onKill = null)
+    {
+        Debug.Log("TEST - Wind gust shake");
+
+        float randPos = Random.Range(0.03f, 0.04f);
+        float randRot = Random.Range(1.5f, 2.5f);
+        // Qui il vento "schiaffeggia" la mongolfiera. 
+        // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
+        PlayShake(
+            duration: duration,
+            posStrength: randPos,
+            rotStrength: randRot,
+            vibratoPos: 1,
+            vibratoRot: 1,
+            onComplete, 
+            onKill
+        );
+    }
 
     public void PlayJumpscare()
     {

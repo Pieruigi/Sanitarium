@@ -14,6 +14,8 @@ namespace Baloon
         [SerializeField]
         float maxAltitude = 50;
         public float MaxAltitude => maxAltitude;    
+
+        public float TargetAltitude => (MaxAltitude - MinAltitude) / 2f + MinAltitude;
         
 
         // Instead of having a specific time, we set a sort of difficulty level to better handle it
