@@ -1,4 +1,7 @@
 ﻿using Baloon;
+using Mono.Cecil;
+using TMPro;
+using Unity.Jobs;
 using Unity.VisualScripting;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
@@ -102,13 +105,22 @@ namespace StarterAssets
 			}
 		}
 
-		private void Awake()
+        [Header("In-Basket Movement")]
+        [SerializeField] private float acceleration = 8f; // How fast you reach max speed
+        [SerializeField] private float wallDetectionDistance = 0.4f;
+        [SerializeField] private LayerMask wallLayer;
+		[SerializeField] private Collider onBasketCollider;
+        private Vector3 currentLocalVelocity;
+
+        private void Awake()
 		{
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
+
+			onBasketCollider.enabled = false;
 		}
 
 		private void Start()
@@ -140,12 +152,20 @@ namespace StarterAssets
 
 			//if (onBaloon)
 			//	Physics.SyncTransforms();
+			if (!onBaloon)
+			{
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
+			else
+			{
+				MoveOnBalloon();
 
-			JumpAndGravity();
-            GroundedCheck();
-            Move();
+            }
+			
 
-            if (onBaloon) AdjustOnBaloon();
+            //if (onBaloon) AdjustOnBaloon();
         }
 
 		private void LateUpdate()
@@ -158,7 +178,70 @@ namespace StarterAssets
            
         }
 
-		void AdjustOnBaloon()
+        private void MoveOnBalloon()
+        {
+
+			// 2. Smoothly update velocity
+			float targetSpeed = 0;
+			if (_input.move.magnitude > 0) targetSpeed = MoveSpeed;
+
+			if(_speed != targetSpeed)
+			{
+				if(targetSpeed > 0)
+					_speed = Mathf.Min(MoveSpeed, _speed + acceleration * Time.deltaTime);
+				else
+                    _speed = Mathf.Max(0, _speed - acceleration * Time.deltaTime);
+            }
+
+			var direction = transform.right * _input.move.x + transform.forward * _input.move.y;
+			direction = Vector3.ProjectOnPlane(direction, transform.up).normalized;
+
+			var velocity = direction * _speed;
+			
+			if(_speed > 0)
+			{
+                // Collisions
+                float sphereRadius = _controller.radius;
+                Vector3 origin = transform.position + Vector3.up * 0.4f;
+                Vector3 castDirection = velocity.normalized;
+				// La distanza del cast deve coprire lo spostamento di questo frame + un piccolo margine
+				float castDistance = (_speed * Time.deltaTime) + 0.005f;
+
+
+                // Prendiamo TUTTE le collisioni davanti a noi in questo frame
+                RaycastHit[] hits = Physics.SphereCastAll(origin, sphereRadius, castDirection, castDistance, wallLayer);
+
+                if (hits.Length > 0)
+                {
+                    foreach (var hit in hits)
+                    {
+						var normal = Vector3.ProjectOnPlane(hit.normal, transform.up).normalized;
+						//normal.y = 0;
+                        float dot = Vector3.Dot(velocity, normal);
+
+                        // Se stiamo spingendo contro questa specifica faccia
+                        if (dot < 0)
+                        {
+                            // Sottraiamo la componente normale di QUESTO urto
+                            Vector3 normalComponent = dot * normal;
+                            velocity -= normalComponent;
+                        }
+                    }
+
+                    // Dopo aver "pulito" la velocity contro tutti i muri trovati, aggiorniamo la speed
+                    //_speed = velocity.magnitude;
+                }
+
+            }
+
+			transform.position += velocity * Time.deltaTime;
+
+
+           
+        }
+
+
+        void AdjustOnBaloon()
 		{
 		    _controller.Move(new Vector3(BaloonController.Instance.CurrentVelocity.x, 0f, BaloonController.Instance.CurrentVelocity.z) * Time.deltaTime);
             var pos = transform.localPosition;
@@ -241,11 +324,14 @@ namespace StarterAssets
 			//{
 			//	_speed = targetSpeed;
 			//}
-			_speed = targetSpeed;
+
+			
 			
 
-            // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+
+
+			// normalise input direction
+			Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
@@ -297,7 +383,20 @@ namespace StarterAssets
             //{
             //	_speed = targetSpeed;
             //}
-            _speed = targetSpeed;
+            if (_speed != targetSpeed)
+            {
+                if (targetSpeed > 0f)
+                {
+                    _speed += acceleration * Time.deltaTime;
+                    if (_speed > targetSpeed) _speed = targetSpeed;
+                }
+                else
+                {
+                    _speed -= acceleration * Time.deltaTime;
+                    if (_speed < targetSpeed) _speed = targetSpeed;
+                }
+            }
+            //_speed = targetSpeed;
 
 
             // normalise input direction
@@ -395,13 +494,19 @@ namespace StarterAssets
 			transform.parent = baloon;
 			baloonGround = transform.localPosition.y;
 			onBaloon = true;
-		}
+			_controller.enabled = false;
+			onBasketCollider.enabled = true;
+            _speed = 0;
+        }
 
 		public void ExitBaloon()
 		{
 			transform.parent = null;
 			onBaloon = false;
-		}
+			_controller.enabled = true;
+            onBasketCollider.enabled = false;
+			_speed = 0;
+        }
 
 		public void ForcePosition(Vector3 position)
 		{
