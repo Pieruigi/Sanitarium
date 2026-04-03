@@ -1,5 +1,8 @@
 using DG.Tweening;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.InputManagerEntry;
 
 namespace Baloon
 {
@@ -94,9 +97,31 @@ namespace Baloon
         {
             var balloon = BaloonController.Instance.transform;
             var angle = Random.Range(20f, 45f);
+            var angleX = Random.Range(1f, 2f);
+            var angleZ = Random.Range(1f, 2f);
             var duration = Random.Range(3.2f, 4f);
             balloon.DOLocalRotate(new Vector3(0, angle, 0), duration)
                 .SetEase(Ease.InOutSine);
+
+            balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
+              .SetEase(Ease.InOutSine)
+              .SetLoops(2, LoopType.Yoyo)
+              .OnComplete(() =>
+              {
+                  ResetAngles();
+
+              })
+              .OnKill(() =>
+              {
+                  ResetAngles();
+              });
+
+            void ResetAngles()
+            {
+                var r = balloon.localEulerAngles;
+                r.x = r.z = 0f;
+                balloon.localEulerAngles = r;
+            }
         }
 
         private void YawBalloonHeavy()
@@ -130,24 +155,7 @@ namespace Baloon
             }
         }
 
-        void Shake()
-        {
-            // Get altitude
-            var range = AltitudeManager.Instance.GetCurrentRange();
-
-            switch (range)
-            {
-                case AltitudeRange.Green:
-
-                    break;
-                case AltitudeRange.Yellow:
-
-                    break;
-                case AltitudeRange.Red:
-
-                    break;
-            }
-        }
+       
 
         
     }

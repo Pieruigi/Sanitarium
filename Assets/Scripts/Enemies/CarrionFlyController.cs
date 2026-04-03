@@ -25,36 +25,36 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            return;
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                // Trigger the animation and start the movement
-                //if (animator != null) animator.SetBool("Flying", true);
+           
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    // Trigger the animation and start the movement
+            //    //if (animator != null) animator.SetBool("Flying", true);
                 
 
-                StartCoroutine(Hit());
+            //    StartCoroutine(Hit());
 
                
 
                 
 
-                AudioManager.Instance.PlayJumpscare();
-            }
+            //    AudioManager.Instance.PlayJumpscare();
+            //}
 
-            if (isJumpscaring)
-            {
-                // Move the fly towards the camera frame by frame
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, jumpScareSpeed * Time.deltaTime);
+            //if (isJumpscaring)
+            //{
+            //    // Move the fly towards the camera frame by frame
+            //    transform.position = Vector3.MoveTowards(transform.position, targetPosition, jumpScareSpeed * Time.deltaTime);
 
-                // Optional: Make the fly look at the player while attacking
-                transform.LookAt(targetPosition);
+            //    // Optional: Make the fly look at the player while attacking
+            //    transform.LookAt(targetPosition);
 
-                // Stop moving if it reaches the camera (or very close)
-                if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-                {
-                    isJumpscaring = false;
-                }
-            }
+            //    // Stop moving if it reaches the camera (or very close)
+            //    if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            //    {
+            //        isJumpscaring = false;
+            //    }
+            //}
 #endif
         }
 
