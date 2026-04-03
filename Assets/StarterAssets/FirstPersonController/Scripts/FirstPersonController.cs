@@ -1,9 +1,12 @@
 ﻿using Baloon;
 using Mono.Cecil;
+using System.Collections;
 using TMPro;
 using Unity.Jobs;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -11,12 +14,20 @@ using UnityEngine.InputSystem.XR;
 
 namespace StarterAssets
 {
-	[RequireComponent(typeof(CharacterController))]
+
+    public enum PlayerDeadType { KillerWind }
+
+    [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
 	[RequireComponent(typeof(PlayerInput))]
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
+		
+
+		public delegate void DeadDelegate(PlayerDeadType deadType);
+		public static DeadDelegate OnDead;
+
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
@@ -110,7 +121,10 @@ namespace StarterAssets
         [SerializeField] private float wallDetectionDistance = 0.4f;
         [SerializeField] private LayerMask wallLayer;
 		[SerializeField] private Collider onBasketCollider;
+		[SerializeField] private Transform playerTarget;
         private Vector3 currentLocalVelocity;
+
+		bool dead = false;
 
         private void Awake()
 		{
@@ -150,6 +164,8 @@ namespace StarterAssets
 				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 #endif
 
+			if (dead) return;
+
 			//if (onBaloon)
 			//	Physics.SyncTransforms();
 			if (!onBaloon)
@@ -170,6 +186,8 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
+            if (dead) return;
+
             CameraRotation();
         }
 
@@ -491,7 +509,7 @@ namespace StarterAssets
 
 		public void EnterBaloon(Transform baloon)
 		{
-			transform.parent = baloon;
+			transform.parent = playerTarget;
 			baloonGround = transform.localPosition.y;
 			onBaloon = true;
 			_controller.enabled = false;
@@ -519,5 +537,48 @@ namespace StarterAssets
 		{
 			return _speed;
 		}
+
+		public void Die(PlayerDeadType deadType)
+		{
+
+			switch (deadType)
+			{
+				case PlayerDeadType.KillerWind:
+                    StartCoroutine(DoKillerWindDead());
+                    break;
+			}
+
+			IEnumerator DoKillerWindDead()
+			{
+				
+				yield return new WaitForSeconds(3f);
+
+                dead = true;
+
+                // Free parenting
+                transform.parent = null;
+                // Set non kinematic rigidbody
+                var rb = GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.useGravity = true;
+
+                // Remove collision
+                onBasketCollider.enabled = false;
+
+                // Get a random direction
+                var dir = Vector3.right * Random.Range(1f, 2f) + Vector3.forward * Random.Range(1f, 2f) + Vector3.up * Random.Range(1f, 2f);
+                if (Random.Range(0, 2) == 0) dir.x *= -1;
+                if (Random.Range(0, 2) == 0) dir.z *= -1;
+
+                // Apply a force to the rigidbody
+                rb.AddForce(dir * 3f, ForceMode.VelocityChange);
+                rb.AddTorque(dir * 1f, ForceMode.VelocityChange);
+
+                OnDead?.Invoke(deadType);
+            
+            }
+
+			
+        }
 	}
 }

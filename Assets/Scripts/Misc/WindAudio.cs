@@ -12,10 +12,10 @@ namespace Baloon
         AudioSource windAudioSource;
 
         float volumeDefault;
-        float lightVolume, heavyVolume, gustVolume;
+        float lightVolume, heavyVolume, gustVolume, killerVolume;
 
         float pitchDefault;
-        float lightPitch, heavyPitch, gustPitch;
+        float lightPitch, heavyPitch, gustPitch, killerPitch;
 
         Sequence volumeSequence;
 
@@ -26,12 +26,14 @@ namespace Baloon
             lightVolume = volumeDefault * 2;
             heavyVolume = volumeDefault * 3;
             gustVolume = volumeDefault * 4;
+            killerVolume = volumeDefault * 6;
 
-            
+
             pitchDefault = windAudioSource.pitch;
             lightPitch = pitchDefault * 1.2f;
             heavyPitch = pitchDefault * 1.4f;
             gustPitch = pitchDefault * 1.5f;
+            killerPitch = pitchDefault * 1.65f;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -113,6 +115,27 @@ namespace Baloon
             volumeSequence.Append(windAudioSource.DOFade(gustVolume, .5f));
             volumeSequence.Join(windAudioSource.DOPitch(gustPitch, .5f));
             volumeSequence.AppendInterval(duration);
+            volumeSequence.Append(windAudioSource.DOFade(volumeDefault, .5f));
+            volumeSequence.Join(windAudioSource.DOPitch(pitchDefault, .5f));
+        }
+
+        public void FadeKillerVolume(float duration)
+        {
+            if (volumeSequence != null) volumeSequence.Kill();
+
+            if (!windAudioSource.isPlaying) windAudioSource.Play();
+
+            volumeSequence = DOTween.Sequence();
+            volumeSequence.Append(windAudioSource.DOFade(killerVolume, duration));
+            volumeSequence.Join(windAudioSource.DOPitch(killerPitch, duration));
+            //volumeSequence.AppendInterval(duration);
+            //volumeSequence.Append(windAudioSource.DOFade(volumeDefault, .5f));
+            //volumeSequence.Join(windAudioSource.DOPitch(pitchDefault, .5f));
+        }
+
+        public void FadeReset()
+        {
+            if (volumeSequence != null) volumeSequence.Kill();
             volumeSequence.Append(windAudioSource.DOFade(volumeDefault, .5f));
             volumeSequence.Join(windAudioSource.DOPitch(pitchDefault, .5f));
         }

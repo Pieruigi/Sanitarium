@@ -1,4 +1,6 @@
+using StarterAssets;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,23 +10,33 @@ namespace Baloon
     {
         public static UnityAction OnWarningStarted;
         public static UnityAction OnWarningStopped;
+        
 
         [SerializeField]
         float safeZoneKillTime; // How much time in red range before wind kills you
 
         [SerializeField]
         float travelZoneKillTime;
-        
+
+        [SerializeField]
+        AudioSource hauntingAudioSource;
+
+        [SerializeField]
+        AudioSource bangingAudioSource;
+
         float killElapsed = 0;
 
         float killTime;
 
         bool running = false;
 
-        float warningTimeLeft = 7f;
+        float warningTimeLeft = 1.5f;
         bool warning = false;
 
         bool killing = false;
+
+        FirstPersonController player;
+        BaloonDestroyer balloonDestroyer;
 
         protected override void Awake()
         {
@@ -36,13 +48,18 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            player = FindFirstObjectByType<FirstPersonController>();
         }
 
         // Update is called once per frame
         void Update()
         {
+#if UNITY_EDITOR
+          
 
+            //if (Input.GetKeyDown(KeyCode.C))
+            //    StopWarningShake();
+#endif
         }
 
         private void LateUpdate()
@@ -57,15 +74,16 @@ namespace Baloon
             {
                 case AltitudeRange.Green:
                 case AltitudeRange.Yellow:
-                    killElapsed = 0;
-                    StopWarning();
+                    if(!warning)
+                        killElapsed = 0;
+                    //StopWarning();
                     break;
                 case AltitudeRange.Red:
                     killElapsed += Time.deltaTime;
 
-                    if(killElapsed > warningTimeLeft)
+                    if(killElapsed > killTime - warningTimeLeft)
                     {
-                        StartWarning();
+                        //StartWarning();
                     }
 
                     if (killElapsed > killTime)
@@ -127,18 +145,45 @@ namespace Baloon
         {
             if (warning) return;
             warning = true;
+
+            // Start shaking the balloon
+            BaloonShaker.Instance.StartWarningShake();
+            WindAudio.Instance.FadeKillerVolume(warningTimeLeft);
+
+            OnWarningStarted?.Invoke();
         }
 
         void StopWarning()
         {
             if (!warning) return;
             warning = false;
+
+            BaloonShaker.Instance.StopWarningShake();
+            WindAudio.Instance.FadeReset();
+
+            OnWarningStopped?.Invoke();
         }
 
         void StartKilling()
         {
             if (killing) return;
             killing = true;
+
+            StartCoroutine(DoKill());
+            
+            IEnumerator DoKill()
+            {
+                hauntingAudioSource.Play();
+
+                yield return new WaitForSeconds(2.5f);
+
+                BaloonShaker.Instance.StartWarningShake();
+
+                bangingAudioSource.Play();
+                
+                player.Die(PlayerDeadType.KillerWind);
+            }
+
         }
     }
 }

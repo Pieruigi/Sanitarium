@@ -48,12 +48,12 @@ namespace Baloon
                     case AltitudeRange.Green:
                     case AltitudeRange.Yellow:
                         CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
-                        YawBalloonLight();
+                        BaloonShaker.Instance.ShakeLight();
                         WindAudio.Instance.FadeLightVolume(Random.Range(3.2f, 4f));
                         break;
                     case AltitudeRange.Red:
                         CameraShake.Instance.PlayWindShakeStrong(ResetShakeTime, ResetShakeTime);
-                        YawBalloonHeavy();
+                        BaloonShaker.Instance.ShakeHeavy();
                         WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
                         break;
                 }
@@ -66,12 +66,26 @@ namespace Baloon
         {
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+            KillerWind.OnWarningStarted += HandleOnKillerWindWarningStarted;
+            KillerWind.OnWarningStopped += HandleOnKillerWindWarningStopped;
         }
 
         private void OnDisable()
         {
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+            KillerWind.OnWarningStarted -= HandleOnKillerWindWarningStarted;
+            KillerWind.OnWarningStopped -= HandleOnKillerWindWarningStopped;
+        }
+
+        private void HandleOnKillerWindWarningStarted()
+        {
+            running = false;
+        }
+
+        private void HandleOnKillerWindWarningStopped()
+        {
+            if (BaloonPathManager.Instance.CurrentPath != null) running = true;
         }
 
         void ResetShakeTime()
@@ -93,70 +107,7 @@ namespace Baloon
             running = false;
         }
 
-        private void YawBalloonLight()
-        {
-            var balloon = BaloonController.Instance.transform;
-            var angle = Random.Range(20f, 45f);
-            var angleX = Random.Range(1f, 2f);
-            var angleZ = Random.Range(1f, 2f);
-            var duration = Random.Range(3.2f, 4f);
-            balloon.DOLocalRotate(new Vector3(0, angle, 0), duration)
-                .SetEase(Ease.InOutSine);
-
-            balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
-              .SetEase(Ease.InOutSine)
-              .SetLoops(2, LoopType.Yoyo)
-              .OnComplete(() =>
-              {
-                  ResetAngles();
-
-              })
-              .OnKill(() =>
-              {
-                  ResetAngles();
-              });
-
-            void ResetAngles()
-            {
-                var r = balloon.localEulerAngles;
-                r.x = r.z = 0f;
-                balloon.localEulerAngles = r;
-            }
-        }
-
-        private void YawBalloonHeavy()
-        {
-            var balloon = BaloonController.Instance.transform;
-            var angleY = Random.Range(20f, 45f);
-            var angleX = Random.Range(3f, 6f);
-            var angleZ = Random.Range(3f, 6f);
-            var duration = Random.Range(3.2f, 4f);
-
-            balloon.DOLocalRotate(new Vector3(0f, angleY, 0f), duration);
-
-            balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
-                .SetEase(Ease.InOutSine)
-                .SetLoops(2, LoopType.Yoyo)
-                .OnComplete(() =>
-                {
-                    ResetAngles();
-
-                })
-                .OnKill(() =>
-                {
-                    ResetAngles();
-                });
-
-            void ResetAngles()
-            {
-                var r = balloon.localEulerAngles;
-                r.x = r.z = 0f;
-                balloon.localEulerAngles = r;
-            }
-        }
-
-       
-
+      
         
     }
 }

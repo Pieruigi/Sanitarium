@@ -1,7 +1,7 @@
-using UnityEngine;
 using DG.Tweening;
-using UnityEditor.ShaderGraph.Internal;
 using System.Collections; // To make the gust feel physical
+using UnityEditor.ShaderGraph.Internal;
+using UnityEngine;
 
 namespace Baloon
 {
@@ -17,8 +17,9 @@ namespace Baloon
 
         [SerializeField] VerticalWindDirection direction;
 
-        private bool disabled = false;
         bool follow = false;
+
+        bool triggered = false;
 
 
 #if UNITY_EDITOR
@@ -34,7 +35,7 @@ namespace Baloon
 
         private void LateUpdate()
         {
-            if (!follow || disabled) return;
+            if (!follow || triggered) return;
 
             var pos = transform.position;
             pos.y = BaloonController.Instance.transform.position.y;
@@ -45,22 +46,40 @@ namespace Baloon
         {
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+            KillerWind.OnWarningStarted += HandleOnKillerWindWarningStarted;
+            KillerWind.OnWarningStopped += HandleOnKillerWindWarningStopped;
         }
 
         private void OnDisable()
         {
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+            KillerWind.OnWarningStarted -= HandleOnKillerWindWarningStarted;
+            KillerWind.OnWarningStopped -= HandleOnKillerWindWarningStopped;
+        }
+
+        private void HandleOnKillerWindWarningStarted()
+        {
+            HandleOnPathCleared();
+        }
+
+        private void HandleOnKillerWindWarningStopped()
+        {
+            HandleOnPathSet();
         }
 
         private void HandleOnPathSet()
         {
             if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex)
-                    follow = true;
+            {
+                if (!triggered) follow = true;
+            }
+                    
         }
 
         private void HandleOnPathCleared()
         {
+
             follow = false;
         }
 
@@ -68,9 +87,10 @@ namespace Baloon
         {
             // Using your tag 'Baloon' as per your setup
             if (!other.CompareTag("Baloon")) return;
-            if (disabled) return;
+            if (!follow) return;
+            if (triggered) return;
 
-            disabled = true;
+            triggered = true;
 
             var balloon = BaloonController.Instance.transform;
             var altitudeManager = AltitudeManager.Instance;
@@ -124,7 +144,7 @@ namespace Baloon
             CameraShake.Instance.PlayWindGustShake(duration, Reset, Reset);
 
             // Rotate baloon
-            YawBalloonHeavy(duration);
+            BaloonShaker.Instance.ShakeHeavyForWindGust(duration);
 
             // Apply audio
             WindAudio.Instance.FadeGustVolume(duration);
@@ -150,34 +170,6 @@ namespace Baloon
             }
         }
 
-        private void YawBalloonHeavy(float duration)
-        {
-            var balloon = BaloonController.Instance.transform;
-            var angleY = Random.Range(30f, 55f);
-            var angleX = Random.Range(5f, 8f);
-            var angleZ = Random.Range(5f, 8f);
-            
-            balloon.DOLocalRotate(new Vector3(0f, angleY, 0f), duration);
 
-            balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
-                .SetEase(Ease.InOutSine)
-                .SetLoops(2, LoopType.Yoyo)
-                .OnComplete(() =>
-                {
-                    ResetAngles();
-
-                })
-                .OnKill(() =>
-                {
-                    ResetAngles();
-                });
-
-            void ResetAngles()
-            {
-                var r = balloon.localEulerAngles;
-                r.x = r.z = 0f;
-                balloon.localEulerAngles = r;
-            }
-        }
     }
 }
