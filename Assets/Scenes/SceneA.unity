@@ -149891,6 +149891,7 @@ MonoBehaviour:
   travelZoneKillTime: 8
   hauntingAudioSource: {fileID: 1214075721}
   bangingAudioSource: {fileID: 681627097}
+  tentaclesPrefab: {fileID: 5224807631570125662, guid: 37db1abcb8948d54a88499e50910dbd2, type: 3}
 --- !u!1 &529748905
 GameObject:
   m_ObjectHideFlags: 0

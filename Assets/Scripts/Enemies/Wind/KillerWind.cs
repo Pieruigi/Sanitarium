@@ -24,6 +24,9 @@ namespace Baloon
         [SerializeField]
         AudioSource bangingAudioSource;
 
+        [SerializeField]
+        GameObject tentaclesPrefab;
+
         float killElapsed = 0;
 
         float killTime;
@@ -169,6 +172,7 @@ namespace Baloon
             if (killing) return;
             killing = true;
 
+            StartCoroutine(SpawnTentacles());
             StartCoroutine(DoKill());
             
             IEnumerator DoKill()
@@ -184,6 +188,14 @@ namespace Baloon
                 player.Die(PlayerDeadType.KillerWind);
             }
 
+            IEnumerator SpawnTentacles()
+            {
+                yield return new WaitForSeconds(1f);
+
+                Instantiate(tentaclesPrefab);
+            }
         }
+
+        
     }
 }
