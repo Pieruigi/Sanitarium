@@ -66,26 +66,21 @@ namespace Baloon
         {
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
-            KillerWind.OnWarningStarted += HandleOnKillerWindWarningStarted;
-            KillerWind.OnWarningStopped += HandleOnKillerWindWarningStopped;
+            KillerWind.OnKilling += HandleOnKillerWindWarningStarted;
+           
         }
 
         private void OnDisable()
         {
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
-            KillerWind.OnWarningStarted -= HandleOnKillerWindWarningStarted;
-            KillerWind.OnWarningStopped -= HandleOnKillerWindWarningStopped;
+            KillerWind.OnKilling -= HandleOnKillerWindWarningStarted;
+           
         }
 
         private void HandleOnKillerWindWarningStarted()
         {
             running = false;
-        }
-
-        private void HandleOnKillerWindWarningStopped()
-        {
-            if (BaloonPathManager.Instance.CurrentPath != null) running = true;
         }
 
         void ResetShakeTime()

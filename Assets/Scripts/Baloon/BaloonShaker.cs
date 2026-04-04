@@ -147,13 +147,13 @@ namespace Baloon
             //}
         }
 
-        public void StartWarningShake()
+        public void StartWarningShake(float duration)
         {
             if (shakeSequence != null) shakeSequence.Kill();
 
             shakeSequence = DOTween.Sequence();
 
-            shakeSequence.Append(transform.DOShakeRotation(4f, 2.5f, 20, fadeOut: false));
+            shakeSequence.Append(transform.DOShakeRotation(duration, 2.5f, 20, fadeOut: false));
 
             //float duration = 1f;
             //float strength = 1f;

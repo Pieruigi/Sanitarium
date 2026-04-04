@@ -52,6 +52,7 @@ namespace Baloon
         {
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+
         }
 
         private void OnDisable()

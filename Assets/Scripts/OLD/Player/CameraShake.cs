@@ -96,6 +96,22 @@ public class CameraShake : Singleton<CameraShake>
         );
     }
 
+    public void PlayKillerWindShake(float duration)
+    {
+        float randPos = Random.Range(0.3f, 0.4f);
+        float randRot = Random.Range(2f, 2.85f);
+        // Qui il vento "schiaffeggia" la mongolfiera. 
+        // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
+        PlayShake(
+            duration: duration,
+            posStrength: randPos,
+            rotStrength: randRot,
+            vibratoPos: 10,
+            vibratoRot: 10
+            
+        );
+    }
+
     public void PlayJumpscare()
     {
         //var fpc = FindFirstObjectByType<FirstPersonController>();

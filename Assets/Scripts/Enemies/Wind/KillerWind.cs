@@ -1,15 +1,18 @@
+using DG.Tweening;
 using StarterAssets;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 namespace Baloon
 {
     public class KillerWind : Singleton<KillerWind>
     {
-        public static UnityAction OnWarningStarted;
-        public static UnityAction OnWarningStopped;
+        public static UnityAction OnKilling;
+        
         
 
         [SerializeField]
@@ -25,16 +28,22 @@ namespace Baloon
         AudioSource bangingAudioSource;
 
         [SerializeField]
+        AudioSource breakingAudioSource;
+
+        [SerializeField]
         GameObject tentaclesPrefab;
 
+        [SerializeField]
+        Volume globalVolume;
+
+        VolumetricFogVolumeComponent fog;
+
+        
         float killElapsed = 0;
 
         float killTime;
 
         bool running = false;
-
-        float warningTimeLeft = 1.5f;
-        bool warning = false;
 
         bool killing = false;
 
@@ -52,6 +61,9 @@ namespace Baloon
         void Start()
         {
             player = FindFirstObjectByType<FirstPersonController>();
+
+            globalVolume.profile.TryGet<VolumetricFogVolumeComponent>(out fog);
+            
         }
 
         // Update is called once per frame
@@ -77,17 +89,12 @@ namespace Baloon
             {
                 case AltitudeRange.Green:
                 case AltitudeRange.Yellow:
-                    if(!warning)
+                    if(!killing)
                         killElapsed = 0;
                     //StopWarning();
                     break;
                 case AltitudeRange.Red:
                     killElapsed += Time.deltaTime;
-
-                    if(killElapsed > killTime - warningTimeLeft)
-                    {
-                        //StartWarning();
-                    }
 
                     if (killElapsed > killTime)
                     {
@@ -119,13 +126,13 @@ namespace Baloon
         private void HandleOnPathSet()
         {
             killTime = travelZoneKillTime;
-            warning = false;
+          
         }
 
         private void HandleOnPathCleared()
         {
             killTime = safeZoneKillTime;
-            warning = false;
+        
         }
 
         private void HandleOnLanding(BasePlatform platform)
@@ -133,7 +140,6 @@ namespace Baloon
             running = false;
             killTime = safeZoneKillTime;
             killElapsed = 0;
-            warning = false;
         }
 
         private void HandleOnTakeOff(BasePlatform platform)
@@ -141,30 +147,6 @@ namespace Baloon
             running = true;
             killTime = safeZoneKillTime;
             killElapsed = 0;
-            warning = false;
-        }
-
-        void StartWarning()
-        {
-            if (warning) return;
-            warning = true;
-
-            // Start shaking the balloon
-            BaloonShaker.Instance.StartWarningShake();
-            WindAudio.Instance.FadeKillerVolume(warningTimeLeft);
-
-            OnWarningStarted?.Invoke();
-        }
-
-        void StopWarning()
-        {
-            if (!warning) return;
-            warning = false;
-
-            BaloonShaker.Instance.StopWarningShake();
-            WindAudio.Instance.FadeReset();
-
-            OnWarningStopped?.Invoke();
         }
 
         void StartKilling()
@@ -172,28 +154,36 @@ namespace Baloon
             if (killing) return;
             killing = true;
 
-            StartCoroutine(SpawnTentacles());
+            //StartCoroutine(SpawnTentacles());
             StartCoroutine(DoKill());
+
+            OnKilling?.Invoke();
+            
             
             IEnumerator DoKill()
             {
+                WindAudio.Instance.FadeReset();
+
                 hauntingAudioSource.Play();
 
-                yield return new WaitForSeconds(2.5f);
+                DOTween.To(() => fog.density.value, x => fog.density.value = x, .6f, 2f);
+                DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, 5, 2f);
 
-                BaloonShaker.Instance.StartWarningShake();
+                yield return new WaitForSeconds(1f);
+
+                Instantiate(tentaclesPrefab);
+
+                yield return new WaitForSeconds(1.5f);
+
+                BaloonShaker.Instance.StartWarningShake(4f);
+                CameraShake.Instance.PlayKillerWindShake(4f);
 
                 bangingAudioSource.Play();
+                breakingAudioSource.PlayDelayed(2.5f);
                 
                 player.Die(PlayerDeadType.KillerWind);
             }
 
-            IEnumerator SpawnTentacles()
-            {
-                yield return new WaitForSeconds(1f);
-
-                Instantiate(tentaclesPrefab);
-            }
         }
 
         
