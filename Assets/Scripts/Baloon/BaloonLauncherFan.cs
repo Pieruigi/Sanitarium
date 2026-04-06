@@ -138,23 +138,42 @@ public class BaloonLauncherFan : MonoBehaviour
         inside = false;
     }
 
+    //void RotateToDirection(int direction)
+    //{
+    //    var currentY = pivot.eulerAngles.y;
+    //    float targetY = 0;
+
+    //    targetY = direction * 90f;
+
+    //    targetY = (targetY % 360 + 360) % 360;
+
+    //    // Keep clockwise
+    //    while (targetY <= currentY)
+    //        targetY += 360f;
+
+    //    var duration = Mathf.Abs(currentY - targetY) / 90f;
+    //    //duration *= .5f;
+
+        
+    //    pivot.DOKill();
+    //    pivot.transform.DORotate(new Vector3(0, targetY, 0), duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1.2f);
+    //}
+
     void RotateToDirection(int direction)
     {
         var currentY = pivot.eulerAngles.y;
-        float targetY = 0;
-
-        targetY = direction * 90f;
+        float targetY = direction * 90f;
 
         targetY = (targetY % 360 + 360) % 360;
 
-        // Keep clockwise
-        while (targetY <= currentY)
-            targetY += 360f;
+        float angleDiff = Mathf.DeltaAngle(currentY, targetY);
 
-        var duration = Mathf.Abs(currentY - targetY) / 90f;
-        //duration *= .5f;
+        // Calculate a dynamic duration based on the actual distance to travel
+        // Using 90 degrees as the baseline for 1 second of duration
+        float duration = 1f;// Mathf.Abs(angleDiff) / 90f;
 
-        
+       
+
         pivot.DOKill();
         pivot.transform.DORotate(new Vector3(0, targetY, 0), duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1.2f);
     }

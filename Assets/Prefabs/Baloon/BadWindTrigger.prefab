@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8af3ebf84b79624daf4c96bae8f43ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BadWindTrigger
-  gustStrength: 15
+  gustStrength: 10
   gustDuration: 2.5
   pathIndex: 0
+  direction: 0

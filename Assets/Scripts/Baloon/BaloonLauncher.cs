@@ -179,10 +179,19 @@ public class BaloonLauncher : MonoBehaviour
         
         //}
 
+        
         currentDirection = (currentDirection + 1) % directions.Length;
 
         OnDirectionChanged?.Invoke(this);
 
+    }
+
+    public void SwitchDirection(int newDirection)
+    {
+        if(currentDirection == newDirection) return;    
+
+        currentDirection = newDirection;
+        OnDirectionChanged?.Invoke(this);
     }
 
     public void SetPathFromCurrentDirection()
@@ -190,6 +199,11 @@ public class BaloonLauncher : MonoBehaviour
      
         BaloonLaunchData data = directions[currentDirection];
         BaloonPathManager.Instance.SetPath(data.PathIndex, data.Reversed, data.Locked);
+    }
+
+    public bool IsPathAvailable(int direction)
+    {
+        return directions[direction].PathIndex >= 0;
     }
    
 }

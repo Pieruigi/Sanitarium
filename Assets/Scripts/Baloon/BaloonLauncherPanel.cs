@@ -1,6 +1,9 @@
 
 using DG.Tweening;
+using NUnit.Framework;
 using System;
+using System.Collections;
+using System.Linq;
 using TMM;
 using UnityEngine;
 
@@ -46,12 +49,25 @@ namespace Baloon
 
         bool unavailable = false;
 
+        int panelIndex = -1;
+
         private void Awake()
         {
+            baloonLauncher = GetComponentInParent<BaloonLauncher>();
+
+            // Get index
+            panelIndex = transform.parent.GetComponentsInChildren<BaloonLauncherPanel>().ToList().IndexOf(this);
+            if(!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             yRootDefault = root.position.y;
             yPivotDefault = pivot.localPosition.y;
             rootPositionDefault = root.position;
-            baloonLauncher = GetComponentInParent<BaloonLauncher>();
+            
+
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -130,7 +146,7 @@ namespace Baloon
             activator.OnExit += HandleOnExit;
             switchButton.OnPushed += HandleOnSwitchPushed;
             launchButton.OnPushed += HandleOnLaunchPushed;
-            BaloonPathManager.OnPathSet += HandleOnPathSet;
+            //BaloonPathManager.OnPathSet += HandleOnPathSet;
         }
 
         private void OnDisable()
@@ -139,7 +155,7 @@ namespace Baloon
             activator.OnExit -= HandleOnExit;
             switchButton.OnPushed -= HandleOnSwitchPushed;
             launchButton.OnPushed -= HandleOnLaunchPushed;
-            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+            //BaloonPathManager.OnPathSet -= HandleOnPathSet;
         }
 
         private void HandleOnPathSet()
@@ -162,7 +178,20 @@ namespace Baloon
 
         private void HandleOnLaunchPushed()
         {
-            baloonLauncher.SetPathFromCurrentDirection();
+            StartCoroutine(DoLauch());
+
+            //baloonLauncher.SetPathFromCurrentDirection();
+
+            IEnumerator DoLauch()
+            {
+                HandleOnPathSet();
+
+                baloonLauncher.SwitchDirection(panelIndex);
+
+                yield return new WaitForSeconds(1f);
+
+                baloonLauncher.SetPathFromCurrentDirection();
+            }
         }
 
         private void HandleOnSwitchPushed()
