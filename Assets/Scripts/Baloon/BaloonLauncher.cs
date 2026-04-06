@@ -77,6 +77,7 @@ public class BaloonLauncher : MonoBehaviour
     [SerializeField]
     BaloonWaypoint waypoint;
 
+    
     //int[] internalDirections;
 
     private void Awake()
@@ -204,6 +205,11 @@ public class BaloonLauncher : MonoBehaviour
     public bool IsPathAvailable(int direction)
     {
         return directions[direction].PathIndex >= 0;
+    }
+
+    public bool HasPath(int pathIndex, bool reversed)
+    {
+        return directions.ToList().Exists(p=>p.PathIndex == pathIndex && p.Reversed == reversed);
     }
    
 }
