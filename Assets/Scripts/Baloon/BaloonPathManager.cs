@@ -16,6 +16,10 @@ namespace Baloon
         [SerializeField]
         List<BaloonPath> paths;
 
+        [SerializeField]
+        List<Transform> roots;
+
+
         BaloonPath currentPath = null;
         public BaloonPath CurrentPath => currentPath;
 
@@ -26,7 +30,22 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            if(roots != null && roots.Count > 0)
+            {
+                if(paths == null) paths = new List<BaloonPath>();
+                paths.Clear();
 
+                foreach (Transform root in roots)
+                {
+                    var waypoints = root.GetComponentsInChildren<BaloonWaypoint>();
+                    BaloonPath bp = new BaloonPath();
+                    foreach(BaloonWaypoint waypoint in waypoints)
+                    {
+                        bp.AddWaypoint(waypoint);
+                    }
+                    paths.Add(bp);
+                }
+            }
         }
 
         // Update is called once per frame

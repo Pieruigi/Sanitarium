@@ -32,8 +32,8 @@ namespace Baloon
 
         
         bool isActive = false;
-        bool isOrigin = false;
-        bool isDestination = false;
+        //bool isOrigin = false;
+        //bool isDestination = false;
       
         FirstPersonController player;
 
@@ -100,19 +100,19 @@ namespace Baloon
             // Check if it's a waypoint of the current path
             if (waypoints.Contains(this)) isActive = true;
 
-            if (isActive)
-            {
-                if ((!isReversed && waypoints.Last() == this) || (isReversed && waypoints.First() == this))
-                    isDestination = true;
-                else if ((!isReversed && waypoints.First() == this) || (isReversed && waypoints.Last() == this))
-                    isOrigin = true;
+            //if (isActive)
+            //{
+            //    if ((!isReversed && waypoints.Last() == this) || (isReversed && waypoints.First() == this))
+            //        isDestination = true;
+            //    else if ((!isReversed && waypoints.First() == this) || (isReversed && waypoints.Last() == this))
+            //        isOrigin = true;
 
               
-            }
+            //}
                 
 
 
-            Debug.Log($"TEST - {gameObject.name} - isActive:{isActive}, isDestination:{isDestination}");
+            //Debug.Log($"TEST - {gameObject.name} - isActive:{isActive}, isDestination:{isDestination}");
 
 
         }
@@ -120,8 +120,8 @@ namespace Baloon
         private void HandleOnPathCleared()
         {
             isActive = false;
-            isDestination = false;  
-            isOrigin = false;
+            //isDestination = false;  
+            //isOrigin = false;
         }
 
         private void OnTriggerEnter(Collider other)

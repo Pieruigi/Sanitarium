@@ -76,6 +76,7 @@ namespace Baloon
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
             BaloonWaypoint.OnReached += HandleOnWaypointReached;
+            BaloonPathManager.OnPathReversed += HandleOnPathReversed;
 
             SceneManager.sceneUnloaded += HandleSceneUnloaded;
         }
@@ -88,8 +89,22 @@ namespace Baloon
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             BaloonWaypoint.OnReached -= HandleOnWaypointReached;
+            BaloonPathManager.OnPathReversed -= HandleOnPathReversed;
 
             SceneManager.sceneUnloaded -= HandleSceneUnloaded;
+        }
+
+        private void HandleOnPathReversed()
+        {
+            if(!isActive) return; // Mean we are on a different path
+
+            //var target = directPathPoint;
+            //if (BaloonPathManager.Instance.IsPathReversed)
+            //    target = reversedPathPoint;
+
+            AdjustOrientation();
+
+            //if()
         }
 
         private void HandleSceneUnloaded(Scene arg0)
@@ -101,29 +116,29 @@ namespace Baloon
         {
 
 
-            //if(waypoint == NavigationSystem.Instance.WaypointB)
-            if(waypoint != newWaypoint)
-            {
-                if (isPlaying && BaloonWaypointFan.HasFan(newWaypoint))
-                {
+            ////if(waypoint == NavigationSystem.Instance.WaypointB)
+            //if(waypoint != newWaypoint)
+            //{
+            //    if (isPlaying && BaloonWaypointFan.HasFan(newWaypoint))
+            //    {
                     
-                    isPlaying = false;
-                    // Shut down this fan
-                    transform.DOKill();
-                    transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-                        .SetEase(Ease.OutBack);
-                }
+            //        isPlaying = false;
+            //        // Shut down this fan
+            //        transform.DOKill();
+            //        transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            //            .SetEase(Ease.OutBack);
+            //    }
                 
-            }
-            else
-            {
-                isPlaying = true;
-                // Start rotating
-                transform.DOKill();
-                transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-                    .SetLoops(-1, LoopType.Incremental)
-                    .SetEase(Ease.InQuad);
-            }
+            //}
+            //else
+            //{
+            //    isPlaying = true;
+            //    // Start rotating
+            //    transform.DOKill();
+            //    transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            //        .SetLoops(-1, LoopType.Incremental)
+            //        .SetEase(Ease.InQuad);
+            //}
         }
 
         private void HandleOnPathSet()
@@ -134,21 +149,9 @@ namespace Baloon
             {
                 isActive = true;
 
-                var target = directPathPoint;
-                if(BaloonPathManager.Instance.IsPathReversed)
-                    target = reversedPathPoint;
-
-                
-
-                if (sequence != null) sequence.Kill();
-                root.DOKill();
-                transform.DOKill();
-
-                sequence = DOTween.Sequence();
-                sequence.Append(root.DOMoveX(target.position.x, 1f).SetEase(Ease.OutBack));
-                sequence.Join(root.DOMoveZ(target.position.z, 1f).SetEase(Ease.OutBack));
-                sequence.Join(root.DORotateQuaternion(target.rotation, 1f).SetEase(Ease.OutBack));
-
+                AdjustOrientation();
+                StartRotating();
+               
                 
             }
         }
@@ -162,9 +165,34 @@ namespace Baloon
             transform.DOKill();
         }
 
+        void StartRotating()
+        {
+            if (isPlaying) return;
+            isPlaying = true;
+            // Start rotating
+            transform.DOKill();
+            transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+                .SetLoops(-1, LoopType.Incremental)
+                .SetEase(Ease.InQuad);
+        }
 
+        void AdjustOrientation()
+        {
+            var target = directPathPoint;
+            if (BaloonPathManager.Instance.IsPathReversed)
+                target = reversedPathPoint;
 
-        public static bool HasFan(BaloonWaypoint waypoint)
+            if (sequence != null) sequence.Kill();
+                root.DOKill();
+                //transform.DOKill();
+
+                sequence = DOTween.Sequence();
+                sequence.Append(root.DOMoveX(target.position.x, 1f).SetEase(Ease.OutBack));
+                sequence.Join(root.DOMoveZ(target.position.z, 1f).SetEase(Ease.OutBack));
+                sequence.Join(root.DORotateQuaternion(target.rotation, 1f).SetEase(Ease.OutBack));
+        }
+
+        public static bool IsWaypointConnected(BaloonWaypoint waypoint)
         {
             return fans.Exists(f => f.waypoint == waypoint);
         }

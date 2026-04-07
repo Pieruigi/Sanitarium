@@ -97,45 +97,53 @@ public class BaloonLauncherFan : MonoBehaviour
         var orig = !reversed ? waypoints.First() : waypoints.Last();
 
         if (waypoint == dest)
+        {
             StopRotating();
+        }
         else
-            StartRotating();
+        {
+            // Get the current waypoints
+            var a = NavigationSystem.Instance.WaypointA;
+            var b = NavigationSystem.Instance.WaypointB;
 
-        //// Get the current waypoints
-        //var a = NavigationSystem.Instance.WaypointA;
-        //var b = NavigationSystem.Instance.WaypointB;
+
+            // Check if navigation system has already been updated
+            //if (NavigationSystem.Instance.IsPathReversed != BaloonPathManager.Instance.IsPathReversed)
+            //{
+            //    // Switch waypoints
+            //    var t = a;
+            //    a = b;
+            //    b = a;
+            //}
+
+            if(waypoint == a) 
+                StartRotating();
+        }
 
 
-        //// Check if navigation system has already been updated
-        //if (NavigationSystem.Instance.IsPathReversed != BaloonPathManager.Instance.IsPathReversed)
-        //{
-        //    // Switch waypoints
-        //    var t = a;
-        //    a = b;
-        //    b = a;
-        //}
+
 
         //// Stop waypoint B fan is any
         //var w = waypoint;
 
-        
+
 
 
     }
 
     private void HandleOnWaypointReached(BaloonWaypoint waypoint)
     {
-        if (!playing) return;
-        if (this.waypoint != waypoint && !BaloonWaypointFan.HasFan(waypoint)) return;
-        // Any waypoint
-        if (playing && this.waypoint != waypoint)
-        {
-            StopRotating();
-            //playing = false;
-            //transform.DOKill();
-            //transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-            //.SetEase(Ease.OutBack);
-        }
+        //if (!playing) return;
+        //if (this.waypoint != waypoint && !BaloonWaypointFan.HasFan(waypoint)) return;
+        //// Any waypoint
+        //if (playing && this.waypoint != waypoint)
+        //{
+        //    StopRotating();
+        //    //playing = false;
+        //    //transform.DOKill();
+        //    //transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+        //    //.SetEase(Ease.OutBack);
+        //}
 
 
     }

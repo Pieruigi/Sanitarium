@@ -20,19 +20,17 @@ namespace Baloon
             set 
             {
 
-                horizontalForce = value
-#if UNITY_EDITOR
-                    * 4f
-#endif
-                    ;
+                horizontalForce = value * horizontalForceScale;
 
 
                 if (horizontalForce == 0)  currentVelocity.x = currentVelocity.z = 0f;  
             }
         }
 
+        float horizontalForceScale = 2f;
+
         float maxVerticalSpeed = 6f;
-        float maxHorizontalSpeed = 3; 
+        float maxHorizontalSpeed = 2.5f; 
 
         [SerializeField] float gravity = 9.81f;
         [SerializeField] float linearDrag = 0.5f; // Simula l'attrito dell'aria
@@ -200,7 +198,7 @@ namespace Baloon
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
 
-            //Debug.Log("TEST - horizontal speed:" + horizontalVelocity.magnitude); 
+            Debug.Log("TEST - horizontal speed:" + horizontalVelocity.magnitude); 
 
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;

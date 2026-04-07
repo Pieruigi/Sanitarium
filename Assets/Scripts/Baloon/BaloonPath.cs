@@ -19,24 +19,12 @@ namespace Baloon
         //bool isLocked = false;
         //public bool IsLocked => isLocked;
 
-        private void Awake()
+        public BaloonPath() { waypoints = new List<BaloonWaypoint>(); }
+
+        public void AddWaypoint(BaloonWaypoint waypoint)
         {
-            //waypoints = GetComponentsInChildren<BaloonWaypoint>().ToList();
+            waypoints.Add(waypoint);
         }
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-
 
         
     }

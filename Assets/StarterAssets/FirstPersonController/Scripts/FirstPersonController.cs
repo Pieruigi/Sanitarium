@@ -223,7 +223,7 @@ namespace StarterAssets
                 Vector3 origin = transform.position + Vector3.up * 0.4f;
                 Vector3 castDirection = velocity.normalized;
 				// La distanza del cast deve coprire lo spostamento di questo frame + un piccolo margine
-				float castDistance = (_speed * Time.deltaTime) + 0.005f;
+				float castDistance = (_speed * Time.deltaTime) + wallDetectionDistance;
 
 
                 // Prendiamo TUTTE le collisioni davanti a noi in questo frame
