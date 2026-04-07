@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public readonly int GameSceneIndex = 1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

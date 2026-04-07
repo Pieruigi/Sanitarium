@@ -11,6 +11,7 @@ namespace Baloon
         public static UnityAction OnPathSet;
         public static UnityAction OnPathCleared;
         public static UnityAction OnPathUnknown;
+        public static UnityAction OnPathReversed;
 
         [SerializeField]
         List<BaloonPath> paths;
@@ -37,6 +38,11 @@ namespace Baloon
         public bool HasPath()
         {
             return currentPath != null;
+        }
+
+        public void SetPath(BaloonPath path, bool reversed, bool islocked)
+        {
+            SetPath(paths.IndexOf(path), reversed, islocked);
         }
 
         public void SetPath(int pathIndex, bool reversed, bool locked)
@@ -71,7 +77,15 @@ namespace Baloon
             return paths.IndexOf(path);
         }
 
-       
+        public void ReversePath()
+        {
+
+            if (currentPath == null) return;
+
+            isPathReversed = !isPathReversed;
+
+            OnPathReversed?.Invoke();
+        }
         
     }
 }

@@ -220,16 +220,7 @@ namespace Baloon
 
         void FlyBack()
         {
-            var path = BaloonPathManager.Instance.CurrentPath;
-            if (path == null) return;
-
-            // Find the other launcher
-            var pathIndex = BaloonPathManager.Instance.GetIndex(path);
-            var reversed = !BaloonPathManager.Instance.IsPathReversed;
-
-            //BaloonPathManager.Instance.
-            var launcher = FindObjectsByType<BaloonLauncher>(FindObjectsSortMode.None).ToList().First(l=>l.HasPath(pathIndex, reversed));
-            Debug.Log("TEST - Found launcher:" + launcher.transform.parent.gameObject.name);
+            BaloonPathManager.Instance.ReversePath();
         }
     }
 }

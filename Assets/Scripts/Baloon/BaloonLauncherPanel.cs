@@ -171,7 +171,7 @@ namespace Baloon
             Sequence seq = DOTween.Sequence();
             seq.Append(pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine));
             seq.Append(root.DOMove(rootPositionDefault, .5f));
-            seq.AppendInterval(30);
+            seq.AppendInterval(10);
             seq.AppendCallback(() => { unavailable = false; });
 
         }

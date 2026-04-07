@@ -1,6 +1,7 @@
 using Baloon;
 using DG.Tweening;
 using System;
+using System.Linq;
 using TMM;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -72,6 +73,7 @@ public class BaloonLauncherFan : MonoBehaviour
         BaloonPathManager.OnPathSet += HandleOnLaunched;
         BaloonPathManager.OnPathCleared += HandleOnPathCleared;
         BaloonWaypoint.OnReached += HandleOnWaypointReached;
+        BaloonPathManager.OnPathReversed += HandleOnPathReversed;
     }
 
     private void OnDisable()
@@ -82,6 +84,43 @@ public class BaloonLauncherFan : MonoBehaviour
         BaloonPathManager.OnPathSet -= HandleOnLaunched;
         BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
         BaloonWaypoint.OnReached -= HandleOnWaypointReached;
+        BaloonPathManager.OnPathReversed -= HandleOnPathReversed;
+    }
+
+    private void HandleOnPathReversed()
+    {
+        var path = BaloonPathManager.Instance.CurrentPath;
+        var reversed = BaloonPathManager.Instance.IsPathReversed;
+        var waypoints = BaloonPathManager.Instance.CurrentPath.Waypoints;
+
+        var dest = !reversed ? waypoints.Last() : waypoints.First();
+        var orig = !reversed ? waypoints.First() : waypoints.Last();
+
+        if (waypoint == dest)
+            StopRotating();
+        else
+            StartRotating();
+
+        //// Get the current waypoints
+        //var a = NavigationSystem.Instance.WaypointA;
+        //var b = NavigationSystem.Instance.WaypointB;
+
+
+        //// Check if navigation system has already been updated
+        //if (NavigationSystem.Instance.IsPathReversed != BaloonPathManager.Instance.IsPathReversed)
+        //{
+        //    // Switch waypoints
+        //    var t = a;
+        //    a = b;
+        //    b = a;
+        //}
+
+        //// Stop waypoint B fan is any
+        //var w = waypoint;
+
+        
+
+
     }
 
     private void HandleOnWaypointReached(BaloonWaypoint waypoint)
@@ -91,11 +130,11 @@ public class BaloonLauncherFan : MonoBehaviour
         // Any waypoint
         if (playing && this.waypoint != waypoint)
         {
-
-            playing = false;
-            transform.DOKill();
-            transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-            .SetEase(Ease.OutBack);
+            StopRotating();
+            //playing = false;
+            //transform.DOKill();
+            //transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            //.SetEase(Ease.OutBack);
         }
 
 
@@ -110,11 +149,12 @@ public class BaloonLauncherFan : MonoBehaviour
     private void HandleOnLaunched()
     {
         if (!inside) return;
-        playing = true;
-        transform.DOKill();
-        transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-            .SetLoops(-1, LoopType.Incremental)
-            .SetEase(Ease.InQuad);
+        StartRotating(); 
+        //playing = true;
+        //transform.DOKill();
+        //transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+        //    .SetLoops(-1, LoopType.Incremental)
+        //    .SetEase(Ease.InQuad);
     }
 
     private void HandleOnDirectionChanged(BaloonLauncher baloonLauncher)
@@ -136,6 +176,25 @@ public class BaloonLauncherFan : MonoBehaviour
     private void HandleOnExit(Collider other)
     {
         inside = false;
+    }
+
+    void StopRotating()
+    {
+        if (!playing) return;
+        playing = false;
+        transform.DOKill();
+        transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+        .SetEase(Ease.OutBack);
+    }
+
+    void StartRotating()
+    {
+        if (playing) return;
+        playing = true;
+        transform.DOKill();
+        transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            .SetLoops(-1, LoopType.Incremental)
+            .SetEase(Ease.InQuad);
     }
 
     //void RotateToDirection(int direction)

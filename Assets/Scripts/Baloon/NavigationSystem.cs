@@ -15,6 +15,7 @@ namespace Baloon
 
         BaloonPath currentPath;
         bool isPathReversed;
+        public bool IsPathReversed => isPathReversed;
 
         BaloonWaypoint waypointA, waypointB;
         public BaloonWaypoint WaypointA => waypointA;
@@ -24,6 +25,11 @@ namespace Baloon
         Vector2 horizontalDirectionTarget = Vector2.zero;
 
         GameObject player;
+
+        Tween horizontalForceTween;
+
+
+        
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -42,6 +48,7 @@ namespace Baloon
                 var direction = Vector3.ProjectOnPlane(waypointB.transform.position - baloonController.transform.position, Vector3.up);
                 
                 var hTargetDir = new Vector2(direction.x, direction.z).normalized;
+                Debug.Log("TEST - target direction:" + hTargetDir);
 
                 baloonController.HorizontalDirection =  Vector2.Lerp(baloonController.HorizontalDirection, hTargetDir, Time.deltaTime);
             }
@@ -52,6 +59,7 @@ namespace Baloon
             BaloonPathManager.OnPathSet += HandleOnPathSet;
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
             BaloonWaypoint.OnReached += ReportWaypointReached;
+            BaloonPathManager.OnPathReversed += HandleOnPathReversed;
         }
 
         private void OnDisable()
@@ -59,6 +67,7 @@ namespace Baloon
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             BaloonWaypoint.OnReached -= ReportWaypointReached;
+            BaloonPathManager.OnPathReversed -= HandleOnPathReversed;
         }
 
         private void HandleOnPathCleared()
@@ -88,12 +97,44 @@ namespace Baloon
                 yield return new WaitForSeconds(delay);
 
                 Debug.Log("TEST - HorizontalForce:" + waypointA.HorizontalForce);
+
+                if (horizontalForceTween != null) horizontalForceTween.Kill();
+
                 // Set wind force
-                DOTween.To(()=>BaloonController.Instance.HorizontalForce, x=>BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
+                horizontalForceTween = DOTween.To(()=>BaloonController.Instance.HorizontalForce, x=>BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
 
                 // Set target altitude
                 AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
             }
+        }
+
+
+        void HandleOnPathReversed()
+        {
+            // Current path doesn't change and we already know we must reverse the path
+            isPathReversed = !isPathReversed;
+
+         
+            // Reverse waypoints
+            var tmp = waypointA;
+            waypointA = waypointB;
+            waypointB = tmp;
+
+         
+            // Set target altitude
+            AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
+
+            // Adjust horizontal force 
+            if (horizontalForceTween != null) horizontalForceTween.Kill();
+            horizontalForceTween = DOTween.To(() => BaloonController.Instance.HorizontalForce, x => BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
+
+            // Inverse direction
+            var direction = BaloonController.Instance.HorizontalDirection;
+            direction *= -1;
+            direction.y = 0; // To be sure
+
+            DOTween.To(() => BaloonController.Instance.HorizontalDirection, x => BaloonController.Instance.HorizontalDirection = x, direction, 2f);
+
         }
 
         public void ReportWaypointReached(BaloonWaypoint waypoint)
@@ -113,7 +154,8 @@ namespace Baloon
                 AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
 
                 // Adjust horizontal force
-                DOTween.To(() => BaloonController.Instance.HorizontalForce, x => BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
+                if (horizontalForceTween != null) horizontalForceTween.Kill();
+                horizontalForceTween = DOTween.To(() => BaloonController.Instance.HorizontalForce, x => BaloonController.Instance.HorizontalForce = x, waypointA.HorizontalForce, 2f);
 
             }
             else // Destination reached
@@ -177,6 +219,7 @@ namespace Baloon
 
             }
         }
+
 
         
     }

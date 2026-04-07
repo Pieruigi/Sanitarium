@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Baloon
 {
@@ -16,7 +17,7 @@ namespace Baloon
 
         [SerializeField]
         BaloonWaypoint waypoint;
-
+        
         [SerializeField]
         Transform root;
  
@@ -76,7 +77,7 @@ namespace Baloon
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
             BaloonWaypoint.OnReached += HandleOnWaypointReached;
 
-
+            SceneManager.sceneUnloaded += HandleSceneUnloaded;
         }
 
         private void OnDisable()
@@ -87,9 +88,14 @@ namespace Baloon
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             BaloonWaypoint.OnReached -= HandleOnWaypointReached;
+
+            SceneManager.sceneUnloaded -= HandleSceneUnloaded;
         }
 
-
+        private void HandleSceneUnloaded(Scene arg0)
+        {
+            fans.Clear();
+        }
 
         private void HandleOnWaypointReached(BaloonWaypoint newWaypoint)
         {
@@ -156,9 +162,14 @@ namespace Baloon
             transform.DOKill();
         }
 
+
+
         public static bool HasFan(BaloonWaypoint waypoint)
         {
             return fans.Exists(f => f.waypoint == waypoint);
         }
+
+
+        
     }
 }
