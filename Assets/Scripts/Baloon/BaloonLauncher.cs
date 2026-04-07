@@ -76,7 +76,7 @@ public class BaloonLauncher : MonoBehaviour
 
     [SerializeField]
     BaloonWaypoint waypoint;
-
+    public BaloonWaypoint Waypoint => waypoint;
     
     //int[] internalDirections;
 

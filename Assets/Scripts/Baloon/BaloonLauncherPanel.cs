@@ -56,8 +56,9 @@ namespace Baloon
             baloonLauncher = GetComponentInParent<BaloonLauncher>();
 
             // Get index
-            panelIndex = transform.parent.GetComponentsInChildren<BaloonLauncherPanel>().ToList().IndexOf(this);
-            if(!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
+            Debug.Log($"TEST - {transform.root.gameObject.name} - Launcher controller count {transform.parent.GetComponentsInChildren<BaloonLauncherPanel>().ToList().Count()}");
+            panelIndex = transform.parent.GetComponentsInChildren<BaloonLauncherPanel>(true).ToList().IndexOf(this);
+            if (!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
             {
                 gameObject.SetActive(false);
                 return;
@@ -76,6 +77,8 @@ namespace Baloon
             player = GameObject.FindGameObjectWithTag("Player");
             baloon = FindFirstObjectByType<BaloonController>();
 
+            
+
         }
 
         // Update is called once per frame
@@ -87,6 +90,8 @@ namespace Baloon
         private void LateUpdate()
         {
             if(unavailable) return;
+
+            if (BaloonPathManager.Instance.CurrentPath != null) return;
 
             int action = 0; // 0:nothing; 1:activate; -1:deactivate
             var range = AltitudeManager.Instance.GetCurrentRange();

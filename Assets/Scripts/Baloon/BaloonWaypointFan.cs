@@ -159,6 +159,7 @@ namespace Baloon
         private void HandleOnPathCleared()
         {
             isActive = false;
+            isPlaying = false;
             if (sequence != null) sequence.Kill();
             root.DOKill();
             root.DOMoveY(heightDefault, 1f).SetEase(Ease.OutBack);

@@ -34,6 +34,7 @@ public class BaloonLauncherFan : MonoBehaviour
     private void Awake()
     {
         baloonLauncher = GetComponentInParent<BaloonLauncher>();
+        waypoint = baloonLauncher.Waypoint;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
