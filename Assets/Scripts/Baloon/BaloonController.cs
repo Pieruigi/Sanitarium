@@ -22,6 +22,10 @@ namespace Baloon
 
                 horizontalForce = value * horizontalForceScale;
 
+#if UNITY_EDITOR
+                //if (horizontalForce > 0) horizontalForce = 10;
+#endif
+
 
                 if (horizontalForce == 0)  currentVelocity.x = currentVelocity.z = 0f;  
             }
@@ -30,7 +34,11 @@ namespace Baloon
         float horizontalForceScale = 2f;
 
         float maxVerticalSpeed = 6f;
+#if UNITY_EDITOR
+        float maxHorizontalSpeed = 1.5f;//10f;
+#else
         float maxHorizontalSpeed = 2.5f; 
+#endif
 
         [SerializeField] float gravity = 9.81f;
         [SerializeField] float linearDrag = 0.5f; // Simula l'attrito dell'aria
