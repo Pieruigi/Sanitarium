@@ -23,7 +23,7 @@ namespace Baloon
                 horizontalForce = value * horizontalForceScale;
 
 #if UNITY_EDITOR
-                //if (horizontalForce > 0) horizontalForce = 10;
+                if (horizontalForce > 0) horizontalForce = 10;
 #endif
 
 
@@ -35,7 +35,7 @@ namespace Baloon
 
         float maxVerticalSpeed = 6f;
 #if UNITY_EDITOR
-        float maxHorizontalSpeed = 1.5f;//10f;
+        float maxHorizontalSpeed = 10f;
 #else
         float maxHorizontalSpeed = 2.5f; 
 #endif
