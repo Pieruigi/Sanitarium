@@ -56,9 +56,9 @@ namespace Baloon
         bool running = false;
 
 
-        float gasDepleteMaxSpeed = .00625f;
-        float gasDepleteMinSpeed = 0.00125f;
-        
+        float gasDepleteMaxSpeed = .0055f;//0.00625f;
+        float gasDepleteMinSpeed = 0.001f;//0.00125f
+
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
