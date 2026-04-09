@@ -25,6 +25,7 @@ namespace Baloon
             set { running = value; ResetShakeTime(); }
         }
 
+        //public bool _testBalloonShaker = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -32,6 +33,16 @@ namespace Baloon
         
 
         }
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            //if(Input.GetKeyDown(KeyCode.X))            
+            //    ShakeLight();
+            //if (Input.GetKeyDown(KeyCode.C))
+            //    ShakeHeavy();
+        }
+#endif
 
         void LateUpdate()
         {
@@ -96,6 +107,7 @@ namespace Baloon
         void ShakeLight()
         {
             CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
+            //if(_testBalloonShaker)
             BaloonShaker.Instance.ShakeLight();
             WindAudio.Instance.FadeLightVolume(Random.Range(3.2f, 4f));
         }
@@ -103,6 +115,7 @@ namespace Baloon
         void ShakeHeavy()
         {
             CameraShake.Instance.PlayWindShakeStrong(()=> { ResetShakeTime(); StartCoroutine(ApplyDamage()); }, ResetShakeTime);
+            //if (_testBalloonShaker)
             BaloonShaker.Instance.ShakeHeavy();
             WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
 

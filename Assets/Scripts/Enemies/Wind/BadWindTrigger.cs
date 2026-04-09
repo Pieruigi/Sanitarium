@@ -23,13 +23,13 @@ namespace Baloon
 
 
 #if UNITY_EDITOR
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.X))
-        //    {
-        //        ApplyPowerfulGust(BaloonController.Instance.transform, 1);
-        //    }
-        //}
+        private void Update()
+        {
+            //if (Input.GetKeyDown(KeyCode.V))
+            //{
+            //    ApplyPowerfulGust(BaloonController.Instance.transform, 1);
+            //}
+        }
 
 #endif
 

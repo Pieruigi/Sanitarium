@@ -20,15 +20,7 @@ public class CameraShake : Singleton<CameraShake>
 #if UNITY_EDITOR
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    PlayWindShakeLight();
-        //}
-    
-        //if (Input.GetKeyDown(KeyCode.V))
-        //{
-        //    PlayWindShakeStrong();
-        //}
+      
     }
 #endif
 
@@ -62,16 +54,16 @@ public class CameraShake : Singleton<CameraShake>
     public void PlayWindShakeStrong(System.Action onComplete = null, System.Action onKill = null)
     {
         float randDuration = Random.Range(3.2f, 4.0f);
-        float randPos = Random.Range(0.04f, 0.06f);
-        float randRot = Random.Range(2.4f, 4.0f);
+        float randPos = Random.Range(0.024f, 0.036f);
+        float randRot = Random.Range(0.8f, 1.6f);
         // Qui il vento "schiaffeggia" la mongolfiera. 
         // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
         PlayShake(
             duration: randDuration,
             posStrength: randPos,
             rotStrength: randRot,
-            vibratoPos: 3,
-            vibratoRot: 3,
+            vibratoPos: 2,
+            vibratoRot: 2,
             onComplete, 
             onKill
         );
@@ -81,16 +73,16 @@ public class CameraShake : Singleton<CameraShake>
     {
         Debug.Log("TEST - Wind gust shake");
 
-        float randPos = Random.Range(0.06f, 0.08f);
-        float randRot = Random.Range(3f, 5f);
+        float randPos = Random.Range(0.03f, 0.04f);
+        float randRot = Random.Range(1.5f, 2.5f);
         // Qui il vento "schiaffeggia" la mongolfiera. 
         // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
         PlayShake(
             duration: duration,
             posStrength: randPos,
             rotStrength: randRot,
-            vibratoPos: 6,
-            vibratoRot: 6,
+            vibratoPos: 4,
+            vibratoRot: 4,
             onComplete, 
             onKill
         );

@@ -54,8 +54,8 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-                FlyBack();
+            //if (Input.GetKeyDown(KeyCode.X))
+            //    FlyBack();
 #endif
             if(BoilerController.Instance.GasLeft == 0)
             {
