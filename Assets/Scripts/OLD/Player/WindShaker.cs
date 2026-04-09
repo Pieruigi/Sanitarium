@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -43,21 +44,35 @@ namespace Baloon
                 // Get altitude range
                 var range = AltitudeManager.Instance.GetCurrentRange();
 
+                bool heavy = false;
+
                 switch (range)
                 {
                     case AltitudeRange.Green:
+                        ShakeLight();
+                        break;
                     case AltitudeRange.Yellow:
-                        CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
-                        BaloonShaker.Instance.ShakeLight();
-                        WindAudio.Instance.FadeLightVolume(Random.Range(3.2f, 4f));
+                        if(Random.Range(0, 5) == 0) // 20% heavy wind
+                            heavy = true;
+                        
+                        //CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
+                        //BaloonShaker.Instance.ShakeLight();
+                        //WindAudio.Instance.FadeLightVolume(Random.Range(3.2f, 4f));
                         break;
                     case AltitudeRange.Red:
-                        CameraShake.Instance.PlayWindShakeStrong(ResetShakeTime, ResetShakeTime);
-                        BaloonShaker.Instance.ShakeHeavy();
-                        WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
+                        heavy = true;
+                        //CameraShake.Instance.PlayWindShakeStrong(ResetShakeTime, ResetShakeTime);
+                        //BaloonShaker.Instance.ShakeHeavy();
+                        //WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
                         break;
                 }
 
+                // Shake
+                if (heavy)
+                    ShakeHeavy();
+                else
+                    ShakeLight();
+                
 
             }
         }
@@ -76,6 +91,30 @@ namespace Baloon
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             KillerWind.OnKilling -= HandleOnKillerWindWarningStarted;
            
+        }
+
+        void ShakeLight()
+        {
+            CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
+            BaloonShaker.Instance.ShakeLight();
+            WindAudio.Instance.FadeLightVolume(Random.Range(3.2f, 4f));
+        }
+
+        void ShakeHeavy()
+        {
+            CameraShake.Instance.PlayWindShakeStrong(()=> { ResetShakeTime(); StartCoroutine(ApplyDamage()); }, ResetShakeTime);
+            BaloonShaker.Instance.ShakeHeavy();
+            WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
+
+            IEnumerator ApplyDamage()
+            {
+                if (Random.Range(0, 2) == 0) yield break; // 50% we take damage
+
+                yield return new WaitForSeconds(.5f);
+
+                if(BaloonBoilerHealth.Instance.TryTakeSingleDamage())
+                    CameraShake.Instance.PlayJumpscare(1f);
+            }
         }
 
         private void HandleOnKillerWindWarningStarted()

@@ -111,8 +111,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.07, y: 10, z: 21.26}
-  m_Center: {x: -29.127045, y: 0, z: 0}
+  m_Size: {x: 16, y: 16, z: 16}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &115007719163247916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,5 +127,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BadWindTrigger
   gustStrength: 10
   gustDuration: 2.5
-  pathIndex: 0
+  pathIndex: 28
   direction: 0

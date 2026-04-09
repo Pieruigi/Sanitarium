@@ -188,6 +188,14 @@ namespace StarterAssets
 		{
             if (dead) return;
 
+			if (onBaloon)
+			{
+				var pos = transform.localPosition;
+				pos.y = baloonGround;
+				transform.localPosition = pos;
+
+            }
+
             CameraRotation();
         }
 

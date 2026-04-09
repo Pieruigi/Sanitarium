@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Baloon
@@ -13,6 +14,8 @@ namespace Baloon
         [SerializeField]
         [Range(0f,1f)]
         float health;
+
+        //public float Health => health;
 
         
 
@@ -40,6 +43,8 @@ namespace Baloon
 
         public void TakeDamage(float amount)
         {
+            if (health <= 0f) return;
+
             var oldHealth = health;
             health -= amount;
             if(health < 0f) health = 0f;
@@ -47,15 +52,14 @@ namespace Baloon
             OnDamageTaken?.Invoke(oldHealth, health);
         }
 
-        public void TakeSingleDamage()
+        public bool TryTakeSingleDamage()
         {
+            if (health <= 0f) return false;
             TakeDamage(.2f);
+            return true;
         }
 
-        public void TakeDoubleDamage()
-        {
-            TakeDamage(.4f);
-        }
+        
 
         public void Repair(float amount)
         {
