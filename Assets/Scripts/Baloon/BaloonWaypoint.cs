@@ -62,6 +62,8 @@ namespace Baloon
         void Start()
         {
             player = FindFirstObjectByType<FirstPersonController>();
+
+            transform.GetChild(0).gameObject.SetActive(false);
         }
 
         // Update is called once per frame
