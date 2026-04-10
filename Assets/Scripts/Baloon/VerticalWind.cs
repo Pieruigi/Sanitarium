@@ -8,6 +8,9 @@ public class VerticalWind : Singleton<VerticalWind>
     [Header("Wind Settings")]
     [Tooltip("General strength of the vertical wind")]
     public float windStrength = 0.5f;
+
+    [SerializeField]
+    public float windStrengthMax = 1.5f;
     
     [Tooltip("How fast the wind changes intensity and direction")]
     public float changeSpeed = 0.2f;
@@ -18,10 +21,19 @@ public class VerticalWind : Singleton<VerticalWind>
 
     bool running = false;
 
+    float baseStrength;
+
     public bool Running
     {
         get { return running; }
         set { running = value; }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        baseStrength = windStrength;
     }
 
     void Start()
@@ -61,6 +73,7 @@ public class VerticalWind : Singleton<VerticalWind>
 
     private void ApplyVerticalWind()
     {
+        AdjustWindStrength(BaloonController.Instance.Altitude);
 
         // We use PerlinNoise to get a value between 0 and 1
         // Multiplying Time.time by changeSpeed dictates how fast the "curve" moves
@@ -77,11 +90,31 @@ public class VerticalWind : Singleton<VerticalWind>
         transform.Translate(Vector3.up * currentVerticalForce * Time.deltaTime);
     }
 
+    void AdjustWindStrength(float currentAltitude)
+    {
+        const float minH = 20f;
+        const float maxH = 120f;
+        float minW = baseStrength;
+        float maxW = windStrengthMax;
+        // 1. Calculate the rate of change (Wind units per Meter)
+        // In this case: (1.5 - 0.5) / (120 - 30) = 1.0 / 90 = ~0.011
+        float windPerMeter = (maxW - minW) / (maxH - minH);
+
+        // 2. Apply the slope starting from the base point (30m, 0.5W)
+        // This works for 10m, 200m, or any value.
+        windStrength = minW + (currentAltitude - minH) * windPerMeter;
+
+        // Optional: Safety check to avoid negative wind if altitude goes below zero
+        if (windStrength < 0) windStrength = 0;
+    }
+
     // Public method to check the wind force from other scripts (like the Manifold/Throttle)
     public float GetCurrentWindForce()
     {
         return currentVerticalForce;
     }
+
+
 }
 #else
 using UnityEngine;
