@@ -99,6 +99,11 @@ namespace Baloon
             if (!running) return;
 
             var amount = (throttle * gasDepleteMaxSpeed + gasDepleteMinSpeed) * Time.deltaTime;
+
+#if UNITY_EDITOR
+            return;
+#endif
+
             gasLeft -= amount;
             if(gasLeft < 0) gasLeft = 0;
 
