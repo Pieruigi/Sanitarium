@@ -101,7 +101,7 @@ namespace Baloon
             var amount = (throttle * gasDepleteMaxSpeed + gasDepleteMinSpeed) * Time.deltaTime;
 
 #if UNITY_EDITOR
-            return;
+            //return;
 #endif
 
             gasLeft -= amount;
@@ -138,12 +138,19 @@ namespace Baloon
 
         private void HandleOnDamageTaken(float oldHealth, float newHealth)
         {
-            maxPower = newHealth;
+            //maxPower = newHealth;
+            AdjustPowerByHealth(newHealth);
         }
 
         private void HandleOnRepaired(float oldHealth, float newHealth)
         {
-            maxPower = newHealth;
+            //maxPower = newHealth;
+            AdjustPowerByHealth(newHealth);
+        }
+
+        void AdjustPowerByHealth(float health)
+        {
+            maxPower = Mathf.Lerp(.4f, 1f, health);
         }
 
         private void HandleOnPanelControlStarted()

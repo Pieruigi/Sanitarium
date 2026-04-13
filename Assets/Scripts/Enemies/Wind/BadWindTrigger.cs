@@ -118,10 +118,33 @@ namespace Baloon
             ApplyPowerfulGust(balloon, windDirection);
         }
 
+        float ComputeWindStrength(float currentAltitude)
+        {
+            const float minH = 20f;
+            const float maxH = 120f;
+            float minW = gustStrength;
+            float maxW = gustStrength * 1.5f;
+            // 1. Calculate the rate of change (Wind units per Meter)
+            // In this case: (1.5 - 0.5) / (120 - 30) = 1.0 / 90 = ~0.011
+            float windPerMeter = (maxW - minW) / (maxH - minH);
+
+            // 2. Apply the slope starting from the base point (30m, 0.5W)
+            // This works for 10m, 200m, or any value.
+            var windStrength = minW + (currentAltitude - minH) * windPerMeter;
+
+            // Optional: Safety check to avoid negative wind if altitude goes below zero
+            if (windStrength < 0) windStrength = 0;
+
+            return windStrength;
+        }
+
         private void ApplyPowerfulGust(Transform target, int direction)
         {
             var duration = Random.Range(gustDuration * .9f, gustDuration * 1.1f);
             var strength = Random.Range(gustStrength * .9f, gustStrength * 1.1f);
+
+            strength = ComputeWindStrength(BaloonController.Instance.Altitude);
+            Debug.Log("TEST - Gust strength:" + strength);
 
             // Calculate displacement
             float targetY = target.position.y + (direction * strength);
