@@ -31,6 +31,7 @@ Material:
   - _RECEIVESHADOWSMODE_ON
   - _SNAPMODE_VIEW
   m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   - _USE_VERTEX_COLORS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -40,11 +41,16 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 01113ed993a7d254186d3034c034d178, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Texture:
         m_Texture: {fileID: 2800000, guid: 01113ed993a7d254186d3034c034d178, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -118,20 +124,25 @@ Material:
     - _AffineTextureStrength: 0.069
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _Alpha_Clip_Threshold: 0.519
     - _AmbientLight: 0.02
+    - _Ambient_Light: 0.02
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ColorBitDepthOffset: 0
+    - _Color_Bit_Depth: 64
+    - _Color_Bit_Depth_Offset: 0
     - _CubemapRotation: 0
     - _Cull: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
-    - _DstBlendAlpha: 0
+    - _DstBlendAlpha: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -140,10 +151,13 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Resolution_Limit: 64
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
+    - _Snaps_Per_Unit: 64
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
@@ -156,9 +170,12 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
+    - _ZTest: 4
     - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CubemapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
