@@ -236,13 +236,19 @@ public class BaloonLauncherFan : MonoBehaviour
 
         float angleDiff = Mathf.DeltaAngle(currentY, targetY);
 
+        // Move up
+        var seq = DOTween.Sequence();
+        seq.Append(pivot.DOLocalMoveY(20f, 1f).SetEase(Ease.InBack));
+        seq.AppendCallback(()=> { pivot.transform.eulerAngles = Vector3.up * targetY; });
+        seq.Append(pivot.DOLocalMoveY(0f, 1f).SetEase(Ease.OutBack));
+
         // Calculate a dynamic duration based on the actual distance to travel
         // Using 90 degrees as the baseline for 1 second of duration
-        float duration = 1f;// Mathf.Abs(angleDiff) / 90f;
+        //float duration = 1f;// Mathf.Abs(angleDiff) / 90f;
 
-       
+        
 
-        pivot.DOKill();
-        pivot.transform.DORotate(new Vector3(0, targetY, 0), duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1.2f);
+        //pivot.DOKill();
+        //pivot.transform.DORotate(new Vector3(0, targetY, 0), duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1.2f);
     }
 }
