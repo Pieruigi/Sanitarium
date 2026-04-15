@@ -6332,6 +6332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pf_vfx-inf_psys_demo_loop_fire2
       objectReference: {fileID: 0}
+    - target: {fileID: 195014, guid: f4c80a56683211e4cbb677eef4aa8a07, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 440768, guid: f4c80a56683211e4cbb677eef4aa8a07, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.099975586

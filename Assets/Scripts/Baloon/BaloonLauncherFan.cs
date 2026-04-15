@@ -7,8 +7,10 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
-public class BaloonLauncherFan : MonoBehaviour
+public class BaloonLauncherFan : MonoBehaviour, IWaypointFan
 {
+
+
     [SerializeField]
     ActivationTrigger activator;
 
@@ -21,6 +23,8 @@ public class BaloonLauncherFan : MonoBehaviour
     [SerializeField]
     BaloonWaypoint waypoint;
 
+    
+    
     bool inside = false;
 
     float followSpeed = 10;
@@ -212,6 +216,8 @@ public class BaloonLauncherFan : MonoBehaviour
 
         pivot.DOLocalMoveY(deactivatedY, 1f);
         pivot.DOScale(Vector3.zero, 1f).OnComplete(() => { pivot.gameObject.SetActive(false); });
+
+        IWaypointFan.OnStopped?.Invoke(this);
     }
 
     void StartRotating()
@@ -230,6 +236,9 @@ public class BaloonLauncherFan : MonoBehaviour
         transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Incremental)
             .SetEase(Ease.InQuad);
+
+        IWaypointFan.OnStarted?.Invoke(this);
+
     }
 
     //void RotateToDirection(int direction)

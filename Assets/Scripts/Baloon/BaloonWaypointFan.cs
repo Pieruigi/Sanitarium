@@ -11,7 +11,7 @@ namespace Baloon
     /// <summary>
     /// Unlike the launch fan this fan only works on waypoints
     /// </summary>
-    public class BaloonWaypointFan : MonoBehaviour
+    public class BaloonWaypointFan : MonoBehaviour, IWaypointFan
     {
     
         public static List<BaloonWaypointFan> fans = new List<BaloonWaypointFan>();
@@ -181,6 +181,8 @@ namespace Baloon
             // Move up
             pivot.DOLocalMoveY(deactivatedY, 1f);
             pivot.DOScale(Vector3.zero, 1f).OnComplete(() => { pivot.gameObject.SetActive(false); });
+
+            IWaypointFan.OnStopped?.Invoke(this);
         }
 
         void StartRotating()
@@ -200,7 +202,7 @@ namespace Baloon
                 .SetLoops(-1, LoopType.Incremental)
                 .SetEase(Ease.InQuad);
 
-
+            IWaypointFan.OnStarted?.Invoke(this);
         }
 
         void AdjustOrientation()
