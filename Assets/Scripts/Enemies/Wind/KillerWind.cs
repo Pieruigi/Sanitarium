@@ -149,7 +149,7 @@ namespace Baloon
             killElapsed = 0;
         }
 
-        void StartKilling()
+        public void StartKilling()
         {
             if (killing) return;
             killing = true;
