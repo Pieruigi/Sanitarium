@@ -31,10 +31,16 @@ public class BaloonLauncherFan : MonoBehaviour
 
     bool playing = false;
 
+    float deactivatedY = 100f;
+
     private void Awake()
     {
+        RegisterHandler();
+
         baloonLauncher = GetComponentInParent<BaloonLauncher>();
         waypoint = baloonLauncher.Waypoint;
+
+      
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,6 +49,9 @@ public class BaloonLauncherFan : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         pivot.localEulerAngles = Vector3.up * 90f * baloonLauncher.CurrentDirection;
+
+        pivot.transform.localPosition = Vector3.up * deactivatedY;
+        pivot.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -66,7 +75,12 @@ public class BaloonLauncherFan : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void OnDestroy()
+    {
+        UnregisterHandler();
+    }
+
+    private void RegisterHandler()
     {
         activator.OnEnter += HandleOnEnter;
         activator.OnExit += HandleOnExit;
@@ -77,7 +91,7 @@ public class BaloonLauncherFan : MonoBehaviour
         BaloonPathManager.OnPathReversed += HandleOnPathReversed;
     }
 
-    private void OnDisable()
+    private void UnregisterHandler()
     {
         activator.OnEnter -= HandleOnEnter;
         activator.OnExit -= HandleOnExit;
@@ -151,8 +165,9 @@ public class BaloonLauncherFan : MonoBehaviour
 
     private void HandleOnPathCleared()
     {
-        playing = false;
-        transform.DOKill(); 
+        //playing = false;
+        //transform.DOKill(); 
+        StopRotating();
     }
 
     private void HandleOnLaunched()
@@ -194,12 +209,23 @@ public class BaloonLauncherFan : MonoBehaviour
         transform.DOKill();
         transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
         .SetEase(Ease.OutBack);
+
+        pivot.DOLocalMoveY(deactivatedY, 1f);
+        pivot.DOScale(Vector3.zero, 1f).OnComplete(() => { pivot.gameObject.SetActive(false); });
     }
 
     void StartRotating()
     {
+        if (!inside) return;
         if (playing) return;
         playing = true;
+
+        // Move down
+        pivot.gameObject.SetActive(true);
+        pivot.DOKill();
+        pivot.DOScale(Vector3.one, 1f);
+        pivot.DOLocalMoveY(0, 1f).SetEase(Ease.OutBack);
+
         transform.DOKill();
         transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Incremental)

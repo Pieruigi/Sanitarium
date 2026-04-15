@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Baloon
 {
@@ -20,6 +21,9 @@ namespace Baloon
         
         [SerializeField]
         Transform root;
+
+        [SerializeField]
+        Transform pivot;
  
         [SerializeField]
         Transform directPathPoint, reversedPathPoint;
@@ -32,9 +36,12 @@ namespace Baloon
 
         bool isPlaying = false;
 
+        float deactivatedY = 100f;
+
 
         private void Awake()
         {
+            RegisterHandlers();
             heightDefault = transform.position.y;
 
             var pos = root.position;
@@ -47,7 +54,8 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            pivot.transform.localPosition = Vector3.up * deactivatedY;
+            pivot.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -68,7 +76,12 @@ namespace Baloon
 
         }
 
-        private void OnEnable()
+        private void OnDestroy()
+        {
+            UnregisterHandlers();
+        }
+
+        private void RegisterHandlers()
         {
             // Add to static list
             fans.Add(this);
@@ -81,7 +94,7 @@ namespace Baloon
             SceneManager.sceneUnloaded += HandleSceneUnloaded;
         }
 
-        private void OnDisable()
+        private void UnregisterHandlers()
         {
             // Remove from static list
             fans.Remove(this);
@@ -164,17 +177,30 @@ namespace Baloon
             root.DOKill();
             root.DOMoveY(heightDefault, 1f).SetEase(Ease.OutBack);
             transform.DOKill();
+
+            // Move up
+            pivot.DOLocalMoveY(deactivatedY, 1f);
+            pivot.DOScale(Vector3.zero, 1f).OnComplete(() => { pivot.gameObject.SetActive(false); });
         }
 
         void StartRotating()
         {
             if (isPlaying) return;
             isPlaying = true;
+
+            // Move down
+            pivot.gameObject.SetActive(true);
+            pivot.DOKill();
+            pivot.DOScale(Vector3.one, 1f);
+            pivot.DOLocalMoveY(0, 1f).SetEase(Ease.OutBack);
+
             // Start rotating
             transform.DOKill();
             transform.DOLocalRotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Incremental)
                 .SetEase(Ease.InQuad);
+
+
         }
 
         void AdjustOrientation()
