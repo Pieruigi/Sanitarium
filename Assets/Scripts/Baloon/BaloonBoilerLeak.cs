@@ -168,6 +168,9 @@ namespace Baloon
             explosionAudioSource.Play();
             runningAudioSource.Play();
 
+            // Shake camera
+            CameraShake.Instance.PlayWrenchHit();
+
         }
 
         void StopLeaking()
