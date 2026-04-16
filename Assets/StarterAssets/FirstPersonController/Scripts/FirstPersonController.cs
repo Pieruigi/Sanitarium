@@ -126,6 +126,10 @@ namespace StarterAssets
 
 		bool dead = false;
 
+		// Set true if something is going to kill the player in order to avoid any other killer routine (set true as soon as the routine start);
+		// For example when killer wind destroy the balloon, before the player actually dies, tentacles start shaking the balloon, and then we must call Doomed = true at that moment.
+		public bool Doomed { get; set; }
+
         private void Awake()
 		{
 			// get a reference to our main camera

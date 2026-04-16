@@ -8,6 +8,11 @@ namespace Baloon
         [SerializeField]
         Rigidbody rbBasket, rbBoiler, rbBalloon;
 
+        bool destroyed = false;
+
+        Vector3 forceDir;
+        Vector3 torqueDir;
+
         private void Awake()
         {
             rbBasket.isKinematic = true;
@@ -31,6 +36,14 @@ namespace Baloon
 
         }
 
+        private void FixedUpdate()
+        {
+            if (!destroyed) return;
+
+            rbBalloon.AddForce(forceDir * 30, ForceMode.Acceleration);
+            rbBalloon.AddTorque(torqueDir * 10, ForceMode.VelocityChange);
+        }
+
         private void OnEnable()
         {
             FirstPersonController.OnDead += HandleOnDead;
@@ -42,30 +55,39 @@ namespace Baloon
 
         private void HandleOnDead(PlayerDeadType deadType)
         {
+            Debug.Log("TEST - DDDDDDDDDDDDDDDDDDDDDD");
+            switch (deadType)
+            {
+                case PlayerDeadType.KillerWind:
+                    destroyed = true;
 
-            if (deadType != PlayerDeadType.KillerWind) return;
+                    transform.root.GetComponent<Collider>().enabled = false;
+
+                    // Destroy the balloon
+                    // Activate all rigidbodies
+                    rbBasket.isKinematic = false;
+                    rbBoiler.isKinematic = false;
+                    rbBalloon.isKinematic = false;
+                    rbBalloon.useGravity = true;
+                    rbBoiler.useGravity = true;
+                    rbBasket.useGravity = true;
+
+                    //Vector3 dir = GetRandomDir();
+
+                    //rbBasket.AddForce(dir * 3, ForceMode.VelocityChange);
+                    rbBasket.AddTorque(GetRandomDir(), ForceMode.VelocityChange);
+
+                    //dir = GetRandomDir();
+                    //rbBoiler.AddForce(dir * 3, ForceMode.VelocityChange);
+                    //rbBoiler.AddTorque(dir, ForceMode.VelocityChange);
+
+                    forceDir = Vector3.up;
+                    torqueDir = GetRandomDir();
+                    
+                    break;
+            }
             
-            // Destroy the balloon
-            // Activate all rigidbodies
-            rbBasket.isKinematic = false;
-            rbBoiler.isKinematic = false;
-            rbBalloon.isKinematic = false;
-            rbBalloon.useGravity = true;
-            rbBoiler.useGravity = true;
-            rbBasket.useGravity = true;
-
-            Vector3 dir = GetRandomDir();
-
-            rbBasket.AddForce(dir * 3, ForceMode.VelocityChange);
-            rbBasket.AddTorque(dir, ForceMode.VelocityChange);
-
-            dir = GetRandomDir();
-            rbBoiler.AddForce(dir * 3, ForceMode.VelocityChange);
-            rbBoiler.AddTorque(dir, ForceMode.VelocityChange);
-
-            dir = GetRandomDir();
-            rbBalloon.AddForce(dir * 3, ForceMode.VelocityChange);
-            rbBalloon.AddTorque(dir, ForceMode.VelocityChange);
+            
         }
 
         Vector3 GetRandomDir()

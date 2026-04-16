@@ -70,10 +70,10 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-          
 
-            //if (Input.GetKeyDown(KeyCode.C))
-            //    StopWarningShake();
+
+            if (Input.GetKeyDown(KeyCode.C))
+                StartKilling();
 #endif
         }
 
@@ -151,8 +151,9 @@ namespace Baloon
 
         public void StartKilling()
         {
-            if (killing) return;
+            if (killing || player.Doomed) return;
             killing = true;
+            player.Doomed = true;
 
             //StartCoroutine(SpawnTentacles());
             StartCoroutine(DoKill());
@@ -172,6 +173,7 @@ namespace Baloon
                 yield return new WaitForSeconds(1f);
 
                 Instantiate(tentaclesPrefab);
+                
 
                 yield return new WaitForSeconds(1.5f);
 
@@ -183,6 +185,8 @@ namespace Baloon
                 
                 player.Die(PlayerDeadType.KillerWind);
             }
+
+          
 
         }
 
