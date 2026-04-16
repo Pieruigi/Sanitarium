@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -154,7 +155,9 @@ namespace Baloon
         {
             damaged = true;
             hit = 3;
-            bolt.SetActive(false);
+
+            bolt.transform.DOLocalMoveZ(5f, 1f).SetDelay(.2f).OnComplete(() => { bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false); });
+            
 
             // Instantiate new particle
             particle = Instantiate(particlePrefab, transform);
@@ -164,6 +167,7 @@ namespace Baloon
             // Audio
             explosionAudioSource.Play();
             runningAudioSource.Play();
+
         }
 
         void StopLeaking()
@@ -187,7 +191,8 @@ namespace Baloon
 
                 Destroy(particle.gameObject, 2f);
 
-                BaloonBoilerHealth.Instance.Repair(.2f);
+                //BaloonBoilerHealth.Instance.Repair(.2f);
+                BaloonBoilerHealth.Instance.SingleRepair();
             }
 
             

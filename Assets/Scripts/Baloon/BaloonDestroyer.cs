@@ -1,4 +1,5 @@
 using StarterAssets;
+using System.Collections;
 using UnityEngine;
 
 namespace Baloon
@@ -8,10 +9,17 @@ namespace Baloon
         [SerializeField]
         Rigidbody rbBasket, rbBoiler, rbBalloon;
 
+        [SerializeField]
+        ParticleSystem explosionParticlePrefab;
+
+        [SerializeField]
+        Transform explosionSpawnPoint;
+
+
         bool destroyed = false;
 
-        Vector3 forceDir;
-        Vector3 torqueDir;
+        Vector3 balloonForceDir;
+        Vector3 balloonTorqueDir;
 
         private void Awake()
         {
@@ -40,17 +48,70 @@ namespace Baloon
         {
             if (!destroyed) return;
 
-            rbBalloon.AddForce(forceDir * 30, ForceMode.Acceleration);
-            rbBalloon.AddTorque(torqueDir * 10, ForceMode.VelocityChange);
+            rbBalloon.AddForce(balloonForceDir * 30, ForceMode.Acceleration);
+            rbBalloon.AddTorque(balloonTorqueDir * 10, ForceMode.VelocityChange);
         }
 
         private void OnEnable()
         {
             FirstPersonController.OnDead += HandleOnDead;
+            BaloonBoilerHealth.OnDamageTaken += HandleOnDamageTaken;
         }
         private void OnDisable()
         {
             FirstPersonController.OnDead -= HandleOnDead;
+            BaloonBoilerHealth.OnDamageTaken -= HandleOnDamageTaken;
+        }
+
+        private void HandleOnDamageTaken(float oldHealth, float newHealth)
+        {
+            if (newHealth > 0) return;
+
+            // Explode
+            StartCoroutine(DoPlayExplosion());
+
+            IEnumerator DoPlayExplosion()
+            {
+                FirstPersonController player = FindFirstObjectByType<FirstPersonController>();
+                player.Doomed = true;
+                player.Die(PlayerDeadType.BoilerExplosion);
+
+                // Play
+                var explosionParticle = Instantiate(explosionParticlePrefab);
+                explosionParticle.transform.position = explosionSpawnPoint.position;
+                explosionParticle.transform.rotation = explosionSpawnPoint.rotation;
+
+                //Destroy(explosionParticle.gameObject, 3f);
+
+                CameraShake.Instance.PlayJumpscare(1f);
+
+                yield return new WaitForSeconds(.25f);
+
+                // Launch player
+                var dir = Vector3.ProjectOnPlane(player.transform.position - explosionParticle.transform.position, Vector3.up);
+                dir = dir.normalized * 4 + Vector3.up;
+                var rb = player.GetComponent<Rigidbody>();
+                rb.AddForce(dir * Random.Range(2f,4f), ForceMode.VelocityChange);
+                rb.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+
+                // Launch boiler
+                rbBoiler.transform.parent = null;
+                rbBoiler.useGravity = true;
+                rbBoiler.isKinematic = false;
+                rbBoiler.AddForce(Random.onUnitSphere * Random.Range(2f, 4f), ForceMode.VelocityChange);
+                rbBoiler.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+
+                // Launch basket
+                rbBasket.transform.parent = null;   
+                rbBasket.useGravity = true;
+                rbBasket.isKinematic = false;
+                rbBasket.AddForce(Random.onUnitSphere * Random.Range(1f, 2f), ForceMode.VelocityChange);
+                rbBasket.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+
+                
+
+                yield break;
+            }
         }
 
         private void HandleOnDead(PlayerDeadType deadType)
@@ -81,8 +142,8 @@ namespace Baloon
                     //rbBoiler.AddForce(dir * 3, ForceMode.VelocityChange);
                     //rbBoiler.AddTorque(dir, ForceMode.VelocityChange);
 
-                    forceDir = Vector3.up;
-                    torqueDir = GetRandomDir();
+                    balloonForceDir = Vector3.up;
+                    balloonTorqueDir = GetRandomDir();
                     
                     break;
             }

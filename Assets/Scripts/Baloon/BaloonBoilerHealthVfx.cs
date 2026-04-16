@@ -13,7 +13,7 @@ namespace Baloon
         ParticleSystem leakParticlePrefab;
 
 
-        float step = .2f;
+        float step = .25f;
 
 
 
@@ -42,7 +42,7 @@ namespace Baloon
         private void HandleOnDamageTaken(float oldHealth, float newHealth)
         {
             var diff = oldHealth - newHealth;   
-            while(diff >= 0)
+            while(diff > 0)
             {
                 var list = leaks.Where(l => l.Damaged == false).ToList();
                 int index = Random.Range(0, list.Count);

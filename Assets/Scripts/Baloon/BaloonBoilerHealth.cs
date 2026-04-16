@@ -29,14 +29,14 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    TakeDamage(.2f);
-            //}
-            //else if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    Repair(.2f);
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                TryTakeSingleDamage();
+            }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                SingleRepair();
+            }
 
 #endif
         }
@@ -55,7 +55,7 @@ namespace Baloon
         public bool TryTakeSingleDamage()
         {
             if (health <= 0f) return false;
-            TakeDamage(.2f);
+            TakeDamage(.25f);
             return true;
         }
 
@@ -68,6 +68,13 @@ namespace Baloon
             if (health > 1f) health = 1f;
 
             OnRepaired?.Invoke(oldHealth, health);
+        }
+
+        public void SingleRepair()
+        {
+            if (health >= 1) return;
+
+            Repair(.25f);
         }
     }
 }

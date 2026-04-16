@@ -15,7 +15,7 @@ using UnityEngine.InputSystem.XR;
 namespace StarterAssets
 {
 
-    public enum PlayerDeadType { KillerWind }
+    public enum PlayerDeadType { KillerWind, BoilerExplosion }
 
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -565,6 +565,10 @@ namespace StarterAssets
 				case PlayerDeadType.KillerWind:
                     StartCoroutine(DoKillerWindDead());
                     break;
+
+				case PlayerDeadType.BoilerExplosion:
+					DoExplosionDead();
+					break;
 			}
 
 			IEnumerator DoKillerWindDead()
@@ -585,18 +589,36 @@ namespace StarterAssets
                 onBasketCollider.enabled = false;
 
                 // Get a random direction
-                var dir = Vector3.right * Random.Range(1f, 2f) + Vector3.forward * Random.Range(1f, 2f) + Vector3.up * Random.Range(1f, 2f);
-                if (Random.Range(0, 2) == 0) dir.x *= -1;
-                if (Random.Range(0, 2) == 0) dir.z *= -1;
+                //var dir = Vector3.right * Random.Range(1f, 2f) + Vector3.forward * Random.Range(1f, 2f) + Vector3.up * Random.Range(1f, 2f);
+                //if (Random.Range(0, 2) == 0) dir.x *= -1;
+                //if (Random.Range(0, 2) == 0) dir.z *= -1;
 
                 // Apply a force to the rigidbody
-                rb.AddForce(dir * 3f, ForceMode.VelocityChange);
-                rb.AddTorque(dir * 1f, ForceMode.VelocityChange);
+                //rb.AddForce(dir * 3f, ForceMode.VelocityChange);
+                rb.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
 
                 OnDead?.Invoke(deadType);
             
             }
 
+			//
+			// Only reset thing but don't apply any force here
+			void DoExplosionDead()
+			{
+                dead = true;
+
+                // Free parenting
+                transform.parent = null;
+                // Set non kinematic rigidbody
+                var rb = GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.useGravity = true;
+
+                // Remove collision
+                onBasketCollider.enabled = false;
+
+                OnDead?.Invoke(deadType);
+            }
 			
         }
 	}
