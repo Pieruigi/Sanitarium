@@ -1,4 +1,5 @@
 using Baloon;
+using DG.Tweening;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ public class CarrionFlyController : MonoBehaviour
     [SerializeField]
     ParticleSystem fireParticlePrefab;
 
+    [SerializeField]
+    Renderer meshRenderer;
+
     bool moving = false;
 
     float time;
@@ -40,7 +44,7 @@ public class CarrionFlyController : MonoBehaviour
     Rigidbody rb;
 
     bool isDead = false;
-
+    public bool IsDead {  get { return isDead; } }
 
     
 
@@ -255,6 +259,8 @@ public class CarrionFlyController : MonoBehaviour
             fire.transform.rotation = Quaternion.identity;
 
             Destroy(fire.gameObject, 5f);
+
+            Darken(meshRenderer, 1f, Color.white * .4f);
           
             yield return new WaitForSeconds(1f);
 
@@ -266,6 +272,21 @@ public class CarrionFlyController : MonoBehaviour
 
             
         }
+
+
     }
-    
+
+    void Darken(Renderer targetRenderer, float duration, Color targetColor)
+    {
+        // English: Accessing .materials creates unique instances for this specific renderer,
+        // ensuring other objects using the same shared material are not affected.
+        Material[] materials = targetRenderer.materials;
+
+        foreach (Material mat in materials)
+        {
+            // Avvia il tween sul colore del materiale
+            mat.DOColor(targetColor, "_BaseColor", duration);
+        }
+    }
+
 }

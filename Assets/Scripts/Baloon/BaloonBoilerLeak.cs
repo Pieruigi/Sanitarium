@@ -28,8 +28,8 @@ namespace Baloon
         [SerializeField]
         ParticleSystem sparksPrefab;
 
-        
-
+        [SerializeField]
+        GameObject hole;
 
         [SerializeField]
         Interactor interactor;
@@ -45,7 +45,12 @@ namespace Baloon
 
         bool repairing = false;
         float repairElapsed = 0;
-        float repairTime = 1;   
+        float repairTime = 1;
+
+        private void Awake()
+        {
+            //hole.SetActive(false);
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -156,8 +161,11 @@ namespace Baloon
             damaged = true;
             hit = 3;
 
+            // Remove bolt
             bolt.transform.DOLocalMoveZ(5f, 1f).SetDelay(.2f).OnComplete(() => { bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false); });
-            
+
+            // Show hole
+            //hole.SetActive(true);
 
             // Instantiate new particle
             particle = Instantiate(particlePrefab, transform);
@@ -187,6 +195,7 @@ namespace Baloon
                 repairing = false;
 
                 bolt.SetActive(true);
+                //hole.SetActive(false);
 
                 particle.Stop();
 
