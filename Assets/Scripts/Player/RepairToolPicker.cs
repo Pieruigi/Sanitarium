@@ -39,10 +39,11 @@ namespace Baloon
         {
             if (this.interactor != interactor) return;
 
-            if (!picked)
+            if (!picked && LeftHand.Instance.IsFree)
             {
                 picked = true;
                 wrench.SetActive(false);
+                LeftHand.Instance.IsFree = false;
                 RepairToolController.Instance.ReportPickedUp();
             }
             else
@@ -60,6 +61,7 @@ namespace Baloon
             if (!picked) return;
             picked = false;
             wrench.SetActive(true);
+            LeftHand.Instance.IsFree = true;
             RepairToolController.Instance.ReportPutBack();
         }
     }

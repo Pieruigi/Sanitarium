@@ -9,12 +9,18 @@ namespace Baloon
         [SerializeField]
         List<BaloonBoilerLeak> leaks;
 
+        public IList<BaloonBoilerLeak> Leaks
+        {
+            get { return leaks.AsReadOnly(); }
+        }
+
         [SerializeField]
         ParticleSystem leakParticlePrefab;
 
 
-        float step = .25f;
 
+        public BaloonBoilerLeak NextToHit { get; set; } = null;
+        
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,15 +50,22 @@ namespace Baloon
             var diff = oldHealth - newHealth;   
             while(diff > 0)
             {
-                var list = leaks.Where(l => l.Damaged == false).ToList();
-                int index = Random.Range(0, list.Count);
-                var leak = list[index];
+                BaloonBoilerLeak leak = null;
+                if (NextToHit)
+                {
+                    leak = NextToHit;
+                    NextToHit = null;
+                }
+                else
+                {
+                    var list = leaks.Where(l => l.Damaged == false).ToList();
+                    int index = Random.Range(0, list.Count);
+                    leak = list[index];
+                }
                 
                 leak.StartLeaking();
 
-                
-
-                diff -= step;
+                diff -= BaloonBoilerHealth.DamageStep;
 
             }
 

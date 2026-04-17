@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 2177673285047734763}
   - component: {fileID: 8365381658270226093}
   - component: {fileID: 9147547705952567585}
+  - component: {fileID: 8575442158458515937}
   - component: {fileID: 454435662150186801}
   - component: {fileID: 606731308796019301}
   m_Layer: 0
@@ -323,6 +324,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.RepairToolController
   wrench: {fileID: 6966187402162817620}
   animator: {fileID: 2128286564601840389}
+--- !u!114 &8575442158458515937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4288153074745606956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72061bb0779d949be980de9c61667d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.LeftHand
 --- !u!54 &454435662150186801
 Rigidbody:
   m_ObjectHideFlags: 0

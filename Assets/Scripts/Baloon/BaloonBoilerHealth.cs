@@ -11,6 +11,8 @@ namespace Baloon
         public delegate void RepairedDelegate(float oldHealth, float newHealth);
         public static RepairedDelegate OnRepaired;
 
+        public static readonly float DamageStep = .25f;
+
         [SerializeField]
         [Range(0f,1f)]
         float health;
@@ -55,7 +57,7 @@ namespace Baloon
         public bool TryTakeSingleDamage()
         {
             if (health <= 0f) return false;
-            TakeDamage(.25f);
+            TakeDamage(DamageStep);
             return true;
         }
 
@@ -74,7 +76,7 @@ namespace Baloon
         {
             if (health >= 1) return;
 
-            Repair(.25f);
+            Repair(DamageStep);
         }
     }
 }
