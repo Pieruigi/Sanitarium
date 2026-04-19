@@ -27,6 +27,18 @@ public class CarrionFlyController : MonoBehaviour
     [SerializeField]
     Renderer meshRenderer;
 
+    [SerializeField]
+    AudioSource buzzAudioSource;
+
+    [SerializeField]
+    AudioSource hitAudioSource;
+
+    [SerializeField]
+    AudioSource burningAudioSource;
+
+    [SerializeField]
+    AudioSource screechAudioSource;
+
     bool moving = false;
 
     float time;
@@ -242,7 +254,11 @@ public class CarrionFlyController : MonoBehaviour
     {
         if (!attackPoint) return;
 
+        hitAudioSource.Play();
+
         BaloonBoilerHealth.Instance.TryTakeSingleDamage();
+
+        CameraShake.Instance.PlayJumpscare(.5f);
 
         StartCoroutine(Die());
         
@@ -251,6 +267,15 @@ public class CarrionFlyController : MonoBehaviour
             yield return new WaitForSeconds(.25f);
 
             isDead = true;
+
+            // Stop buzz audio source
+            buzzAudioSource.Stop();
+
+            // Burn
+            burningAudioSource.Play();
+
+            // Screech
+            screechAudioSource.PlayDelayed(.7f);
 
             // Create particle
             var fire = Instantiate(fireParticlePrefab);

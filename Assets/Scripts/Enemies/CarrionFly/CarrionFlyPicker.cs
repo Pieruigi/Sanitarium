@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 
@@ -11,10 +12,15 @@ namespace Baloon
         [SerializeField]
         Interactor interactor;
 
+        [SerializeField]
+        Transform meshRoot;
+
         bool holding = false;
 
         Rigidbody rb;
         Collider coll;
+
+        Tween rotTween;
 
         private void Awake()
         {
@@ -40,15 +46,16 @@ namespace Baloon
 
             // Set position
             var pos = Camera.main.transform.position + Camera.main.transform.forward;
-            controller.transform.position = Vector3.Lerp(controller.transform.position, pos, 10f * Time.deltaTime);
+            controller.transform.position = Vector3.Lerp(controller.transform.position, pos, 20f * Time.deltaTime);
 
-            return;
-            var targetFwd = Camera.main.transform.up;
-            var targetUp = Camera.main.transform.forward;
+            //return;
+            var targetFwd = Camera.main.transform.right;
+            var targetUp = Camera.main.transform.up;
 
             var targetRot = Quaternion.LookRotation(targetFwd, targetUp);
+            //targetRot = Quaternion.Euler(targetRot.eulerAngles + Vector3.back * 90f);
 
-            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, targetRot, 10f * Time.deltaTime);
+            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, targetRot, 20f * Time.deltaTime);
         }
 
         private void OnEnable()
@@ -72,6 +79,9 @@ namespace Baloon
 
             rb.isKinematic = true;
             coll.enabled = false;
+
+            if (rotTween != null) rotTween.Kill();
+            rotTween = meshRoot.transform.DOLocalRotate(Vector3.back * 70f, .5f);// Quaternion.Lerp(controller.transform.rotation, targetRot, 10f * Time.deltaTime);
         }
 
         private void HandleOnInteractionStopped(Interactor interactor)
@@ -82,6 +92,9 @@ namespace Baloon
             LeftHand.Instance.IsFree = true;
             rb.isKinematic = false;
             coll.enabled = true;
+
+            if(rotTween != null) rotTween.Kill();
+            rotTween = meshRoot.transform.DOLocalRotate(Vector3.zero, .5f);// Quaternion.Lerp(controller.transform.rotation, targetRot, 10f * Time.deltaTime);
         }
     }
 }
