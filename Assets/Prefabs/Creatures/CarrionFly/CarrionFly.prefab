@@ -179,10 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad930e6bcdcc17b4fab5de00d3df7105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarrionFlyPatroller
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  patrolPoints: []
   idleTimeMin: 3
   idleTimeMax: 5
   animator: {fileID: 58076915359751807}

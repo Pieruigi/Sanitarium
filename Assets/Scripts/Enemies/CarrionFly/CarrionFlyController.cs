@@ -47,6 +47,8 @@ public class CarrionFlyController : MonoBehaviour
 
     bool attacking = false;
 
+    bool attackOnStart = false;
+
     GameObject attackPoint;
 
     float moveSpeed = 10f;
@@ -69,12 +71,20 @@ public class CarrionFlyController : MonoBehaviour
         rb.useGravity = false;
 
         // Set starting position
-        currentPoint = patrolPoints[Random.Range(0, patrolPoints.Count)];
-        transform.position = currentPoint.position;
-        transform.rotation = currentPoint.rotation;
+        if(patrolPoints != null && patrolPoints.Count > 0)
+        {
+            currentPoint = patrolPoints[Random.Range(0, patrolPoints.Count)];
+            transform.position = currentPoint.position;
+            transform.rotation = currentPoint.rotation;
+        }
+        else
+        {
+            // If we don't have any patrol point then we are spawning the carrion fly only to attack the balloon
+            attackOnStart = true; 
+        }
 
-        // Init idle time
-        time = Random.Range(idleTimeMin, idleTimeMax);
+            // Init idle time
+            time = Random.Range(idleTimeMin, idleTimeMax);
 
         // Set idle animation
         SetIdleAnimation();
@@ -85,7 +95,14 @@ public class CarrionFlyController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        leakManager = BaloonController.Instance.GetComponentInChildren<BaloonBoilerHealthVfx>();    
+        leakManager = BaloonController.Instance.GetComponentInChildren<BaloonBoilerHealthVfx>();
+
+        if (attackOnStart)
+        {
+            attackOnStart = false;
+            StartAttacking();
+        }
+            
     }
 
     // Update is called once per frame
@@ -161,7 +178,24 @@ public class CarrionFlyController : MonoBehaviour
 #endif
     }
 
-  
+    private void FixedUpdate()
+    {
+        if (!isDead) return;
+
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var balloonCollider = BaloonController.Instance.GetComponent<Collider>();
+        if(collision.collider == balloonCollider)
+        {
+            // Set kinematic
+            rb.isKinematic = true;
+            // Set parenting
+            transform.parent = BaloonController.Instance.transform;
+        }
+    }
 
     void SetIdleAnimation()
     {
@@ -258,15 +292,13 @@ public class CarrionFlyController : MonoBehaviour
 
         BaloonBoilerHealth.Instance.TryTakeSingleDamage();
 
-        CameraShake.Instance.PlayJumpscare(.5f);
-
         StartCoroutine(Die());
         
         IEnumerator Die()
         {
             yield return new WaitForSeconds(.25f);
 
-            isDead = true;
+            
 
             // Stop buzz audio source
             buzzAudioSource.Stop();
@@ -295,7 +327,7 @@ public class CarrionFlyController : MonoBehaviour
             // Start dying animation
             animator.SetTrigger("Die");
 
-            
+            isDead = true;
         }
 
 

@@ -158,6 +158,7 @@ namespace Baloon
 
         public void StartLeaking()
         {
+
             damaged = true;
             hit = 3;
 
@@ -177,7 +178,7 @@ namespace Baloon
             runningAudioSource.Play();
 
             // Shake camera
-            CameraShake.Instance.PlayWrenchHit();
+            CameraShake.Instance.PlayJumpscare(.5f);
 
         }
 

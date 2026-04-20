@@ -47,9 +47,11 @@ namespace Baloon
 
         private void HandleOnDamageTaken(float oldHealth, float newHealth)
         {
-            var diff = oldHealth - newHealth;   
-            while(diff > 0)
+            var diff = oldHealth - newHealth;
+            
+            while(diff > Mathf.Epsilon)
             {
+                
                 BaloonBoilerLeak leak = null;
                 if (NextToHit)
                 {

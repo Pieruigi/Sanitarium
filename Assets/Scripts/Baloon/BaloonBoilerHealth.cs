@@ -11,7 +11,7 @@ namespace Baloon
         public delegate void RepairedDelegate(float oldHealth, float newHealth);
         public static RepairedDelegate OnRepaired;
 
-        public static readonly float DamageStep = .25f;
+        public static readonly float DamageStep = .4f;
 
         [SerializeField]
         [Range(0f,1f)]
@@ -31,14 +31,14 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    TryTakeSingleDamage();
-            //}
-            //else if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    SingleRepair();
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                TryTakeSingleDamage();
+            }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                SingleRepair();
+            }
 
 #endif
         }
