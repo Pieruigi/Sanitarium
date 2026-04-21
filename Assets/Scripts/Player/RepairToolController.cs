@@ -16,6 +16,8 @@ namespace Baloon
         [SerializeField]
         Animator animator;
 
+        
+
         protected override void Awake()
         {
             base.Awake();

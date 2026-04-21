@@ -222,5 +222,17 @@ namespace Baloon
         {
             BaloonPathManager.Instance.ReversePath();
         }
+
+        public void DisableControls()
+        {
+            throttle.GetComponent<Interactor>().enabled = false;
+            starter.GetComponent<Interactor>().enabled = false;
+        }
+
+        public void EnableControls()
+        {
+            throttle.GetComponent<Interactor>().enabled = true;
+            starter.GetComponent<Interactor>().enabled = true;
+        }
     }
 }

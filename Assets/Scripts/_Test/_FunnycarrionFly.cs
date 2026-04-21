@@ -20,15 +20,15 @@ public class _FunnycarrionFly : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            StartCoroutine(DoLoop());
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    StartCoroutine(DoLoop());
 
-        }
+        //}
 
 
-        transform.position = BaloonController.Instance.transform.position;
-        transform.rotation = BaloonController.Instance.transform.rotation;
+        //transform.position = BaloonController.Instance.transform.position;
+        //transform.rotation = BaloonController.Instance.transform.rotation;
 #endif
 
 

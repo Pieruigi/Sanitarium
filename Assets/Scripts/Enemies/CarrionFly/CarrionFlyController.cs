@@ -173,8 +173,8 @@ public class CarrionFlyController : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.X))
-            StartAttacking();
+        //if (Input.GetKeyDown(KeyCode.X))
+        //    StartAttacking();
 #endif
     }
 
@@ -190,6 +190,8 @@ public class CarrionFlyController : MonoBehaviour
         var balloonCollider = BaloonController.Instance.GetComponent<Collider>();
         if(collision.collider == balloonCollider)
         {
+            // reset velocity
+            rb.linearVelocity = Vector3.zero;
             // Set kinematic
             rb.isKinematic = true;
             // Set parenting
@@ -323,6 +325,11 @@ public class CarrionFlyController : MonoBehaviour
 
             rb.isKinematic = false;
             rb.useGravity = true;
+
+            var vel = BaloonController.Instance.CurrentVelocity;
+            vel.y = 0;
+
+            rb.linearVelocity = vel;
 
             // Start dying animation
             animator.SetTrigger("Die");
