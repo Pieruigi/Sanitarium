@@ -8,8 +8,8 @@ namespace Baloon
 {
     public class InternalAirIndicator : MonoBehaviour
     {
-        [SerializeField]
-        Transform arrow, targetArrow;
+        //[SerializeField]
+        //Transform arrow, targetArrow;
 
         [SerializeField]
         TMP_Text currentValue, targetValue;
@@ -76,11 +76,11 @@ namespace Baloon
 
 
                 // Target arrow
-                var targetAngle = Mathf.Lerp(minAngle, maxAngle, targetDiff / maxDiff);
-                targetArrow.localEulerAngles = Vector3.down * targetAngle;
+                //var targetAngle = Mathf.Lerp(minAngle, maxAngle, targetDiff / maxDiff);
+                //targetArrow.localEulerAngles = Vector3.down * targetAngle;
 
-                targetAngle = Mathf.Lerp(minAngle, maxAngle, diff / maxDiff);
-                arrow.localEulerAngles = Vector3.down * targetAngle;
+                //targetAngle = Mathf.Lerp(minAngle, maxAngle, diff / maxDiff);
+                //arrow.localEulerAngles = Vector3.down * targetAngle;
 
                 targetValue.text = targetDiff.ToString("00.00", CultureInfo.InvariantCulture);
                 currentValue.text = diff.ToString("00.00", CultureInfo.InvariantCulture);

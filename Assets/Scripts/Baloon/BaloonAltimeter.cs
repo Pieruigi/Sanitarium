@@ -147,10 +147,10 @@ namespace Baloon
         void ResetAltitudeValueAll()
         {
             
-            minValue.text = "---";
-            maxValue.text = "---";
-            targetValue.text = "---.--";
-            currentValue.text = "---.--";
+            //minValue.text = "---";
+            //maxValue.text = "---";
+            targetValue.text = "";
+            currentValue.text = "";
             
         }
     }
