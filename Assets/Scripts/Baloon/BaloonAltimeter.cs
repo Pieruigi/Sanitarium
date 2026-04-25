@@ -48,8 +48,21 @@ namespace Baloon
             // Set altitude fields
             minValue.text = minAltitude.ToString("000", CultureInfo.InvariantCulture);
             maxValue.text = maxAltitude.ToString("000", CultureInfo.InvariantCulture);
-            targetValue.text = targetAltitude.ToString("000.00", CultureInfo.InvariantCulture);
-            currentValue.text = currentAltitude.ToString("000.00", CultureInfo.InvariantCulture);
+            //targetValue.text = targetAltitude.ToString("<mspace=.5em>000</mspace>.<mspace=.5em>00</mspace>", CultureInfo.InvariantCulture);
+
+            int integerPart = (int)targetAltitude;
+            // Get the decimals (e.g., 0.456 -> 45)
+            int decimalPart = (int)((targetAltitude - integerPart) * 100);
+
+            // Compose the final string: 
+            // The integer part and decimal part are inside <mspace>, but the dot is OUTSIDE.
+            targetValue.text = $"<mspace=0.5em>{integerPart:D3}</mspace>.<mspace=0.5em>{decimalPart:D2}</mspace>";
+
+            integerPart = (int)currentAltitude;
+            // Get the decimals (e.g., 0.456 -> 45)
+            decimalPart = (int)((currentAltitude - integerPart) * 100);
+
+            currentValue.text = $"<mspace=0.5em>{integerPart:D3}</mspace>.<mspace=0.5em>{decimalPart:D2}</mspace>";
 
 
             if (landing) return;
