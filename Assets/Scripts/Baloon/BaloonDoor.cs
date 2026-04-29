@@ -43,7 +43,7 @@ namespace Baloon
             {
                 toOpen = false;
                 transform.DOKill();
-                transform.DOLocalRotate(Vector3.up * 160f, .5f).SetEase(Ease.InOutSine);
+                transform.DOLocalRotate(Vector3.forward * 160f, .5f).SetEase(Ease.InOutSine);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Baloon
             if (BasePlatform.CurrentPlatform)
             {
                 transform.DOKill();
-                transform.DOLocalRotate(Vector3.up * 160f, .5f).SetEase(Ease.InOutSine);
+                transform.DOLocalRotate(Vector3.forward * 160f, .5f).SetEase(Ease.InOutSine);
             }
             else
             {
