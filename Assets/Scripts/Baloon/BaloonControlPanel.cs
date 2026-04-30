@@ -34,6 +34,7 @@ namespace Baloon
         GameObject player;
 
         bool started = false;
+        public bool IsRunning { get { return started; } }
 
         bool releasePlayerOnLanding = false;
         
