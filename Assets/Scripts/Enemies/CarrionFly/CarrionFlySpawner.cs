@@ -3,7 +3,7 @@ using StarterAssets;
 using System;
 using UnityEngine;
 
-namespace Balloon
+namespace Baloon
 {
     public class CarrionFlySpawner : MonoBehaviour
     {

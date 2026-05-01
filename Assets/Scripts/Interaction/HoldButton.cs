@@ -68,11 +68,13 @@ namespace Baloon
             if (this.interactor != interactor) return;
 
             transform.DOKill();
-
             transform.DOLocalMoveY(pushY, .1f).SetEase(Ease.OutBack);//.OnComplete(() => { OnPushed(); });
 
+            
             if (locked) return;
             OnPushed?.Invoke();
         }
+
+       
     }
 }

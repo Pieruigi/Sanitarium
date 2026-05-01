@@ -12,6 +12,9 @@ namespace Baloon
         [SerializeField]
         GameObject pipeGroup;
 
+        [SerializeField]
+        AudioSource pipesAudioSource;
+
         bool inside = false;
 
         float shakeTime = .5f;
@@ -48,6 +51,7 @@ namespace Baloon
             plug.SetActive(true);
             pipeGroup.SetActive(false);
             CameraShake.Instance.PlayJumpscare(shakeTime);
+            pipesAudioSource.Play();
         }
 
         private void HandleOnStopped()
@@ -57,6 +61,7 @@ namespace Baloon
             plug.SetActive(false);
             pipeGroup.SetActive(true);
             CameraShake.Instance.PlayJumpscare(shakeTime);
+            pipesAudioSource.Play();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -74,6 +79,7 @@ namespace Baloon
                     plug.SetActive(false);
                     pipeGroup.SetActive(true);
                     CameraShake.Instance.PlayJumpscare(shakeTime);
+                    pipesAudioSource.Play();
                 }
             }
         }

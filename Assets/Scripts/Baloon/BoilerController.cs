@@ -196,6 +196,22 @@ namespace Baloon
         {
             if(running && gasLeft > 0) throttle = value;
         }
+
+        public bool TryRefuel(float value)
+        {
+            if (gasLeft == 1) return false;
+
+            gasLeft += value;
+            if (gasLeft > 1) gasLeft = 1; // Clamp
+
+            return true;
+        }
+
+        public bool IsFull()
+        {
+            if (gasLeft > 1) gasLeft = 1; // To be sure
+            return gasLeft == 1;
+        }
     }
 
 }
