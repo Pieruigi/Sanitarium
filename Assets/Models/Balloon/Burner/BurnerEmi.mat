@@ -144,7 +144,7 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 5.287119, g: 5.287119, b: 5.287119, a: 5.287119}
+    - _BaseColor: {r: 3.3525033, g: 3.3525033, b: 3.3525033, a: 3.3525033}
     - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _CubemapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

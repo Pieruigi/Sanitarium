@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
     public class FuelTower : MonoBehaviour
     {
-        
+        public UnityAction OnEnter;
+        public UnityAction OnExit;
+
         [SerializeField]
         GameObject plug;
 
@@ -16,7 +19,7 @@ namespace Baloon
         AudioSource pipesAudioSource;
 
         bool inside = false;
-
+        
         float shakeTime = .5f;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -82,6 +85,8 @@ namespace Baloon
                     pipesAudioSource.Play();
                 }
             }
+
+            OnEnter?.Invoke();
         }
 
         private void OnTriggerExit(Collider other)
@@ -89,6 +94,8 @@ namespace Baloon
             if (!other.CompareTag("Baloon")) return;
 
             inside = false;
+
+            OnExit?.Invoke();
         }
 
         
