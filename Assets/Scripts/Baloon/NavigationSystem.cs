@@ -201,15 +201,13 @@ namespace Baloon
                         {
                             BaloonController.Instance.ResetHorizontalVelocity();
                         }
+
                     })
                     .OnComplete(() => {
-                        //BaloonController.Instance.ResetHorizontalVelocity();
-                        //// Snap finale della posizione per precisione millimetrica
-                        //var pos = new Vector3(target.position.x, baloon.position.y, target.position.z);
-                        //var cc = player.GetComponent<CharacterController>();
-                        //cc.enabled = false;
-                        //baloon.position = pos;
-                        //cc.enabled = true;
+                        BaloonController.Instance.ResetHorizontalVelocity();
+                        // Snap to position
+                        var pos = new Vector3(target.position.x, baloon.position.y, target.position.z);
+                        baloon.position = pos;
                         
                     });
 

@@ -18,6 +18,9 @@ namespace Baloon
         [SerializeField]
         AudioSource clinkAudioSource;
 
+        [SerializeField]
+        AudioSource bubblesAudioSource;
+
         float gasLevel = 0;
 
         bool open = false;
@@ -38,13 +41,20 @@ namespace Baloon
         void Update()
         {
             if (!open) return;
-            
+
+            var bubbles = false;            
             var boiler = BoilerController.Instance;
             if (!boiler.IsFull())
             {
                 if (boiler.TryRefuel(refuelRate * Time.deltaTime))
+                {
                     UpdateGasLevel();
+                    bubbles = true;
+                }
+                    
             }
+            if (bubbles && !bubblesAudioSource.isPlaying) bubblesAudioSource.Play();
+            else if(!bubbles && bubblesAudioSource.isPlaying) bubblesAudioSource.Stop();
         }
 
         private void OnEnable()
@@ -86,6 +96,7 @@ namespace Baloon
         {
             open = false;
             clinkAudioSource.Play();
+            if (bubblesAudioSource.isPlaying) bubblesAudioSource.Stop();
         }
     }
 }
