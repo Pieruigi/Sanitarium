@@ -73,7 +73,7 @@ public class BaloonLauncherFan : MonoBehaviour, IWaypointFan
         {
             case AltitudeRange.Green:
                 var pos = root.position;
-                pos.y = Mathf.Lerp(pos.y, player.transform.position.y, followSpeed * Time.deltaTime);
+                pos.y = Mathf.Lerp(pos.y, player.transform.position.y + 15f, followSpeed * Time.deltaTime);
                 root.position = pos;
                 break;
         }

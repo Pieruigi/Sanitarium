@@ -50,7 +50,6 @@ namespace Baloon
 
         private void HandleOnPushed()
         {
-            Debug.Log("TEST - AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             isActive = true;
             if(!eyes.activeSelf)
                 eyes.SetActive(true);

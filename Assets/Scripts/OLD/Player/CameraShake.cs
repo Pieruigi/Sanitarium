@@ -27,6 +27,24 @@ public class CameraShake : Singleton<CameraShake>
     // -----------------------------
     // PUBLIC METHODS
     // -----------------------------
+    public void PlayVerticalWindShake(float duration, System.Action onComplete = null, System.Action onKill = null)
+    {
+        float randDuration = duration;// Random.Range(3.2f * 2f, 4.0f * 2f);
+        float randPos = Random.Range(0.006f*2f, 0.009f*2f);
+        float randRot = Random.Range(0.02f*2f, 0.04f*2f);
+
+        PlayShake(
+            duration: randDuration,
+            posStrength: randPos,
+            rotStrength: randRot,
+            vibratoPos: 0,
+            vibratoRot: 0,
+            onComplete, 
+            onKill
+        );
+
+    }
+
 
     /// <summary>
     /// Stato VERDE: Altezza perfetta. 

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Baloon
 {
@@ -21,7 +22,8 @@ namespace Baloon
         {
 #if UNITY_EDITOR
             //if (Input.GetKeyDown(KeyCode.X))
-            //    StartWarningShake();
+            //    ShakeLight();
+                
 
             //if (Input.GetKeyDown(KeyCode.C))
             //    StopWarningShake();
@@ -32,31 +34,66 @@ namespace Baloon
         {
             var r = transform.localEulerAngles;
             r.x = r.z = 0f;
-            transform.localEulerAngles = r;
+            //transform.localEulerAngles = r;
+            transform.DOLocalRotate(r, 1f).SetEase(Ease.InOutSine);
         }
+
+        //public void VerticalWindShake(float duration)
+        //{
+        //    var balloon = transform;
+        //    var angle = Random.Range(10f, 22f);
+        //    var angleX = Random.Range(.5f, 1f);
+        //    var angleZ = Random.Range(.5f, 1f);
+
+        //    if (shakeSequence != null) shakeSequence.Kill();
+
+        //    shakeSequence = DOTween.Sequence();
+
+        //    shakeSequence.Append(balloon.DOLocalRotate(new Vector3(0, angle, 0), duration)
+        //        .SetEase(Ease.InOutSine));
+
+        //    shakeSequence.Join(balloon.DOLocalRotate(new Vector3(angleX, transform.localEulerAngles.y, angleZ), duration / 2f)
+        //      .SetEase(Ease.InOutSine)
+        //      .SetLoops(2, LoopType.Yoyo));
+
+
+        //    shakeSequence.OnComplete(() =>
+        //    {
+        //        ResetAngles();
+
+        //    })
+        //     .OnKill(() =>
+        //     {
+        //         ResetAngles();
+        //     });
+        //}
 
         public void ShakeLight()
         {
             
             var balloon = transform;
-            var angle = Random.Range(20f, 45f);
-            var angleX = Random.Range(1f, 2f);
-            var angleZ = Random.Range(1f, 2f);
+            var angle = Random.Range(20f, 45f) * (Random.Range(0,2) == 0 ? 1 : -1);
+            var angleX = Random.Range(1f, 2f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            var angleZ = Random.Range(1f, 2f) * (Random.Range(0, 2) == 0 ? 1 : -1);
             var duration = Random.Range(3.2f, 4f);
+
+            float startY = transform.localEulerAngles.y;
 
             if (shakeSequence != null) shakeSequence.Kill();
 
             shakeSequence = DOTween.Sequence();
 
-            shakeSequence.Append(balloon.DOLocalRotate(new Vector3(0, angle, 0), duration)
+            shakeSequence.Append(balloon.DOBlendableLocalRotateBy(new Vector3(0, angle, 0), duration)
                 .SetEase(Ease.InOutSine));
 
-            shakeSequence.Join(balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
+            
+            shakeSequence.Join(balloon.DOBlendableLocalRotateBy(new Vector3(angleX, 0f, angleZ), duration / 2f)
               .SetEase(Ease.InOutSine)
-              .SetLoops(2, LoopType.Yoyo));
+              .SetLoops(2, LoopType.Yoyo)
+              );
 
             
-             shakeSequence.OnComplete(() =>
+            shakeSequence.OnComplete(() =>
               {
                   ResetAngles();
 
@@ -65,34 +102,33 @@ namespace Baloon
               {
                   ResetAngles();
               });
-
-            //void ResetAngles()
-            //{
-            //    var r = balloon.localEulerAngles;
-            //    r.x = r.z = 0f;
-            //    balloon.localEulerAngles = r;
-            //}
+            
         }
 
         public void ShakeHeavy()
         {
             var balloon = transform;
-            var angleY = Random.Range(20f, 45f);
-            var angleX = Random.Range(3f, 6f);
-            var angleZ = Random.Range(3f, 6f);
+            var angleY = Random.Range(20f, 45f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            var angleX = Random.Range(3f, 6f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            var angleZ = Random.Range(3f, 6f) * (Random.Range(0, 2) == 0 ? 1 : -1);
             var duration = Random.Range(3.2f, 4f);
 
             if (shakeSequence != null) shakeSequence.Kill();
 
             shakeSequence = DOTween.Sequence();
 
-            shakeSequence.Append(balloon.DOLocalRotate(new Vector3(0f, angleY, 0f), duration));
-            shakeSequence.Join(balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
-                .SetEase(Ease.InOutSine)
-                .SetLoops(2, LoopType.Yoyo));
-            
+           
+            shakeSequence.Append(balloon.DOBlendableLocalRotateBy(new Vector3(0, angleY, 0), duration)
+               .SetEase(Ease.InOutSine));
 
-            
+
+            shakeSequence.Join(balloon.DOBlendableLocalRotateBy(new Vector3(angleX, 0f, angleZ), duration / 2f)
+              .SetEase(Ease.InOutSine)
+              .SetLoops(2, LoopType.Yoyo)
+              
+              );
+
+
             shakeSequence.OnComplete(() =>
                 {
                     ResetAngles();
@@ -103,32 +139,31 @@ namespace Baloon
                     ResetAngles();
                 });
 
-            //void ResetAngles()
-            //{
-            //    var r = balloon.localEulerAngles;
-            //    r.x = r.z = 0f;
-            //    balloon.localEulerAngles = r;
-            //}
+          
         }
 
         public void ShakeHeavyForWindGust(float duration)
         {
             var balloon = transform;
-            var angleY = Random.Range(30f, 55f);
-            var angleX = Random.Range(5f, 8f);
-            var angleZ = Random.Range(5f, 8f);
+            var angleY = Random.Range(30f, 55f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            var angleX = Random.Range(5f, 8f) * (Random.Range(0, 2) == 0 ? 1 : -1);
+            var angleZ = Random.Range(5f, 8f) * (Random.Range(0, 2) == 0 ? 1 : -1);
 
             if (shakeSequence != null) shakeSequence.Kill();
 
             shakeSequence = DOTween.Sequence();
 
-            shakeSequence.Append(balloon.DOLocalRotate(new Vector3(0f, angleY, 0f), duration));
-            shakeSequence.Join(balloon.DOLocalRotate(new Vector3(angleX, 0f, angleZ), duration / 2f)
-                .SetEase(Ease.InOutSine)
-                .SetLoops(2, LoopType.Yoyo));
-            
+          
+            shakeSequence.Append(balloon.DOBlendableLocalRotateBy(new Vector3(0, angleY, 0), duration)
+              .SetEase(Ease.InOutSine));
 
-            
+
+            shakeSequence.Join(balloon.DOBlendableLocalRotateBy(new Vector3(angleX, 0f, angleZ), duration / 2f)
+              .SetEase(Ease.InOutSine)
+              .SetLoops(2, LoopType.Yoyo)
+              );
+
+
             shakeSequence.OnComplete(() =>
                 {
                     ResetAngles();
@@ -139,12 +174,7 @@ namespace Baloon
                     ResetAngles();
                 });
 
-            //void ResetAngles()
-            //{
-            //    var r = balloon.localEulerAngles;
-            //    r.x = r.z = 0f;
-            //    balloon.localEulerAngles = r;
-            //}
+           
         }
 
         public void StartWarningShake(float duration)
@@ -155,20 +185,7 @@ namespace Baloon
 
             shakeSequence.Append(transform.DOShakeRotation(duration, 2.5f, 20, fadeOut: false));
 
-            //float duration = 1f;
-            //float strength = 1f;
-            //int vibrato = 10;
-
-            //for(int i=0; i<6; i++)
-            //{
-            //    shakeSequence.Append(transform.DOShakeRotation(duration, strength, vibrato, fadeOut: false));
-            //    duration *= .8f;
-            //    strength *= 1.2f;
-            //    vibrato = Mathf.RoundToInt(vibrato * 1.2f);
-            //}
-
-          
-
+            
            
             shakeSequence
                 .OnComplete(() => { warningShake = false; /*ResetAngles();*/ })

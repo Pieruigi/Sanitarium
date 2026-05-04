@@ -21,6 +21,11 @@ namespace Baloon
 
         bool triggered = false;
 
+        private void Awake()
+        {
+            var r = GetComponent<Renderer>();
+            if (r) r.enabled = false;
+        }
 
 #if UNITY_EDITOR
         private void Update()
@@ -67,7 +72,9 @@ namespace Baloon
         {
             if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex)
             {
-                if (!triggered) follow = true;
+                //if (!triggered) follow = true;
+                triggered = false;
+                follow = true;
             }
                     
         }
@@ -182,7 +189,7 @@ namespace Baloon
 
             IEnumerator ApplyDamage(float duration)
             {
-                if (Random.Range(0, 10) < 3) yield break; // 70% we take damage
+                if (Random.Range(0, 10) < -3) yield break; // 70% we take damage
 
                 yield return new WaitForSeconds(duration * 1.5f);
 

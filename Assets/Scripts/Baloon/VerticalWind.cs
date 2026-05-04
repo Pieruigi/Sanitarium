@@ -1,6 +1,7 @@
 #define NEW_VERTICAL_WIND
 #if NEW_VERTICAL_WIND
 using Baloon;
+using DG.Tweening;
 using UnityEngine;
 
 public class VerticalWind : Singleton<VerticalWind>
@@ -22,6 +23,8 @@ public class VerticalWind : Singleton<VerticalWind>
     bool running = false;
 
     float baseStrength;
+
+    bool shaking = false;
 
     public bool Running
     {
@@ -47,6 +50,8 @@ public class VerticalWind : Singleton<VerticalWind>
         if (!running) return;
 
         ApplyVerticalWind();
+
+        
     }
 
     private void OnEnable()
@@ -70,6 +75,8 @@ public class VerticalWind : Singleton<VerticalWind>
     {
         running = true;
     }
+
+
 
     private void ApplyVerticalWind()
     {

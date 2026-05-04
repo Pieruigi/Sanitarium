@@ -28,6 +28,9 @@ namespace Baloon
         [SerializeField]
         Transform directPathPoint, reversedPathPoint;
 
+        //[SerializeField]
+        float minY = 0;
+
         Sequence sequence;
 
         bool isActive;
@@ -49,6 +52,8 @@ namespace Baloon
             pos.z = directPathPoint.position.z;
             root.position = pos;
             root.rotation = directPathPoint.rotation;
+
+            minY = root.position.y + 10f;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -69,7 +74,8 @@ namespace Baloon
             if (!isActive) return;
 
             var pos = root.position;
-            pos.y = BaloonController.Instance.transform.position.y;
+            pos.y = BaloonController.Instance.transform.position.y + 15f;
+            if(pos.y < minY) pos.y = minY;
             root.position = pos;
 
             

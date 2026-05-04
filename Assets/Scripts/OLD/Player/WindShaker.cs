@@ -11,8 +11,8 @@ namespace Baloon
     {
         bool shaking = false;
 
-        float shakeTimeMin = 10;
-        float shakeTimeMax = 20;
+        float shakeTimeMin = 10f;
+        float shakeTimeMax = 20f;
         
 
         float shakeTime = 0;

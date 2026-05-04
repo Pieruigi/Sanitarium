@@ -8728,6 +8728,7 @@ GameObject:
   - component: {fileID: 6634405810607186959}
   - component: {fileID: 8915882542736898192}
   - component: {fileID: 1891109049728332485}
+  - component: {fileID: 4993896411214371922}
   - component: {fileID: 5171047061297543162}
   - component: {fileID: 4690081429577162413}
   - component: {fileID: 7109526778450077118}
@@ -8794,7 +8795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BoilerController
   throttle: 0
   throttleSlider: {fileID: 2313357452475681705}
-  gasLeft: 0.29
+  gasLeft: 1
 --- !u!114 &6634405810607186959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8866,6 +8867,18 @@ MonoBehaviour:
   windStrengthMax: 1.5
   changeSpeed: 0.2
   currentVerticalForce: 0
+--- !u!114 &4993896411214371922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398096410824695167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21020870db01814e850c4532c7c5379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.VerticalWindShaker
 --- !u!114 &5171047061297543162
 MonoBehaviour:
   m_ObjectHideFlags: 0
