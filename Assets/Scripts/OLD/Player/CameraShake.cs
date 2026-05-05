@@ -20,9 +20,26 @@ public class CameraShake : Singleton<CameraShake>
 #if UNITY_EDITOR
     private void Update()
     {
-      
+   
     }
 #endif
+
+    public void PlayCatwalkCollapseShake(float duration, System.Action onComplete = null, System.Action onKill = null)
+    {
+        float randPos = Random.Range(0.006f * 20f, 0.009f * 20f);
+        float randRot = Random.Range(0.02f * 20f, 0.04f * 20f);
+
+        PlayShake(
+            duration: duration,
+            posStrength: randPos,
+            rotStrength: randRot,
+            vibratoPos: 16,
+            vibratoRot: 16,
+            onComplete,
+            onKill,
+            false
+        );
+    }
 
     // -----------------------------
     // PUBLIC METHODS
@@ -176,7 +193,7 @@ public class CameraShake : Singleton<CameraShake>
         float rotStrength,
         int vibratoPos,
         int vibratoRot,
-        System.Action onComplete = null, System.Action onKill = null)
+        System.Action onComplete = null, System.Action onKill = null, bool fadeOut = true)
     {
         // Ferma shake precedenti
         shakeTween?.Kill();
@@ -188,7 +205,7 @@ public class CameraShake : Singleton<CameraShake>
             strength: posStrength,
             vibrato: vibratoPos,
             randomness: 90,
-            fadeOut: true
+            fadeOut: fadeOut
         ).SetUpdate(true);
 
         // SHAKE ROTATION
@@ -197,7 +214,7 @@ public class CameraShake : Singleton<CameraShake>
             strength: rotStrength,
             vibrato: vibratoRot,
             randomness: 90,
-            fadeOut: true
+            fadeOut: fadeOut
         ).SetUpdate(true);
 
         rotTween.onComplete += () =>

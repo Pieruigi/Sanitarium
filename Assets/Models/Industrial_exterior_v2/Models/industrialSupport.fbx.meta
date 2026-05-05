@@ -3,7 +3,12 @@ guid: e58b65a2dce79cf46ae06ba06f7afe17
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bridges_turn
+    second: {fileID: 2100000, guid: f1690d414a422e541a2b8eeaebd11ca0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
