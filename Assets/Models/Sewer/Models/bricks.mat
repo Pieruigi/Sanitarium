@@ -96,9 +96,9 @@ Material:
     - _FilterMode: 1
     - _LightMode: 1
     - _ReceiveShadowsMode: 0
-    - _ResolutionLimit: 256
+    - _ResolutionLimit: 512
     - _SnapMode: 2
-    - _SnapsPerUnit: 64
+    - _SnapsPerUnit: 1024
     m_Floats:
     - _AddPrecomputedVelocity: 0
     - _AffineTextureStrength: 0.042
@@ -112,7 +112,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _ColorBitDepthOffset: 0
     - _CubemapRotation: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
