@@ -17,11 +17,9 @@ Material:
   - _LIGHTMODE_TEXELLIT
   - _RECEIVESHADOWSMODE_ON
   - _SNAPMODE_VIEW
-  - _USE_AMBIENT_OVERRIDE
   m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
   - _SPECULARHIGHLIGHTS_OFF
-  - _USE_AMBIENT_OVERRIDE_ON
   - _USE_DITHERING
   - _USE_DITHERING_ON
   - _USE_POINT_FILTER_ON
@@ -102,9 +100,9 @@ Material:
     - _FilterMode: 1
     - _LightMode: 1
     - _ReceiveShadowsMode: 0
-    - _ResolutionLimit: 128
+    - _ResolutionLimit: 256
     - _SnapMode: 2
-    - _SnapsPerUnit: 64
+    - _SnapsPerUnit: 1024
     m_Floats:
     - _AffineTextureStrength: 0.047
     - _AlphaClip: 0
@@ -140,7 +138,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _USE_AMBIENT_OVERRIDE: 1
+    - _USE_AMBIENT_OVERRIDE: 0
     - _USE_DITHERING: 1
     - _USE_FLAT_SHADING: 0
     - _USE_POINT_FILTER: 1
