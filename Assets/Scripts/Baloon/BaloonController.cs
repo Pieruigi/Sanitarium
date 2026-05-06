@@ -35,7 +35,7 @@ namespace Baloon
 
         float maxVerticalSpeed = 6f;
 #if UNITY_EDITOR
-        float maxHorizontalSpeed = 3.5f;
+        float maxHorizontalSpeed = 3.5f * 1.2f;
 #else
         float maxHorizontalSpeed = 3.5f; 
 #endif
@@ -79,8 +79,7 @@ namespace Baloon
             player = GameObject.FindGameObjectWithTag("Player");
             characterController = player.GetComponent<CharacterController>();
             firstPersonController = player.GetComponent<FirstPersonController>();
-            Debug.Log($"TEST - playerCollider:{player.GetComponent<Collider>()}");
-         
+            
         }
 
        
