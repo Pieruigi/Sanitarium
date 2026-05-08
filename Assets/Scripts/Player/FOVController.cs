@@ -32,7 +32,6 @@ namespace Baloon
         // Update is called once per frame
         void Update()
         {
-
         }
 
 
@@ -56,6 +55,26 @@ namespace Baloon
                    fovDefault,
                    duration)
                .SetEase(Ease.OutSine);
+        }
+
+        public void JumpscareFOV(float fovValue, float duration)
+        {
+            if (fovTween != null) fovTween.Kill();
+
+            
+            fovTween = DOTween.To(() => virtualCamera.m_Lens.FieldOfView,
+                   x => virtualCamera.m_Lens.FieldOfView = x,
+                   fovValue,
+                   duration/2f)
+               .SetEase(Ease.OutBounce)
+               .OnComplete(() => 
+               {
+                   fovTween = DOTween.To(() => virtualCamera.m_Lens.FieldOfView,
+                       x => virtualCamera.m_Lens.FieldOfView = x,
+                       fovDefault,
+                       duration/2f)
+                   .SetEase(Ease.InBounce);
+               });
         }
     }
 }

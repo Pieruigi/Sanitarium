@@ -1,4 +1,5 @@
 ﻿using Baloon;
+using JetBrains.Annotations;
 using Mono.Cecil;
 using System.Collections;
 using TMPro;
@@ -557,6 +558,11 @@ namespace StarterAssets
 			return _speed;
 		}
 
+		public void ForceCameraPitch(float pitch)
+		{
+			_cinemachineTargetPitch = pitch;
+		}
+
 		public void Die(PlayerDeadType deadType)
 		{
 
@@ -619,6 +625,8 @@ namespace StarterAssets
 
                 OnDead?.Invoke(deadType);
             }
+
+			
 			
         }
 	}

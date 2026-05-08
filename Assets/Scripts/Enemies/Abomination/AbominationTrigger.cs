@@ -1,5 +1,6 @@
 using DG.Tweening;
 using NUnit.Framework;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.WSA;
 
@@ -28,9 +29,18 @@ namespace Baloon
         [SerializeField]
         AudioSource doorAudioSource;
 
+        [SerializeField]
+        GameObject normalShelf, collapsedShelf;
+
+        [SerializeField]
+        Transform exitGate, exitDoor;
+
         float openAngle = 160f;
 
         int lampMaterialIndex = 3;
+
+        FirstPersonController player;
+
 
         private void Awake()
         {
@@ -39,12 +49,13 @@ namespace Baloon
             var mats = lampRenderer.materials;
             mats[lampMaterialIndex] = lampOff;
             lampRenderer.materials = mats;
+            collapsedShelf.SetActive(false);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            player = FindFirstObjectByType<FirstPersonController>();
         }
 
         // Update is called once per frame
@@ -60,6 +71,9 @@ namespace Baloon
         {
             if (!other.CompareTag("Player")) return;
 
+            // Reset collider 
+            _collider.enabled = false;
+
             // Open the door
             door.DOLocalRotate(Vector3.up * 160f, .5f).SetEase(Ease.OutBounce);
 
@@ -68,6 +82,20 @@ namespace Baloon
 
             // Camera shake
             CameraShake.Instance.PlayJumpscare(.5f);
+
+            // Look at the creature
+            var dir = Vector3.ProjectOnPlane(abomination.transform.position - player.transform.position, Vector3.up);
+            player.transform.forward = dir;
+            player.ForceCameraPitch(0f);
+
+            // FOV
+            FOVController.Instance.JumpscareFOV(20f, .5f);
+
+            // Jumpscare
+            AudioManager.Instance.PlayJumpscare();
+
+            // Wake up abomination
+            abomination.GetComponent<AbominationController>().StartChasingPlayer();
         }
 
         void Activated()
@@ -80,7 +108,12 @@ namespace Baloon
             var mats = lampRenderer.materials;
             mats[lampMaterialIndex] = lampOn;
             lampRenderer.materials = mats;
-
+            // Block path
+            collapsedShelf.SetActive(true);
+            normalShelf.SetActive(false);
+            // Open exit gate and door
+            exitDoor.transform.localEulerAngles = Vector3.up * -21f;
+            exitGate.transform.localEulerAngles = Vector3.up * -138f;
         }
     }
 }
