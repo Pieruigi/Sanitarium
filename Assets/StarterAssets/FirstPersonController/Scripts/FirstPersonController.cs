@@ -246,8 +246,7 @@ namespace StarterAssets
                 {
                     foreach (var hit in hits)
                     {
-						Debug.Log($"TEST - OnBaloonBug - hit:{hit.collider.gameObject.name}");
-
+						
 						// Casta una sfera quindi se sono leggermente entrato in collisione per colpa per esempio dello shaking mi casta anche sulla collisione nella quale sono entrato;
 						// per risolvere basta che verifico che la il DOT tra direzione cast e velocità sia > 0
 						var hitDir = Vector3.ProjectOnPlane(hit.point - transform.position, Vector3.up);

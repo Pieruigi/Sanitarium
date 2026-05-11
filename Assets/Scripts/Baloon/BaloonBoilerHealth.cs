@@ -31,14 +31,14 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    TryTakeSingleDamage();
-            //}
-            //else if (Input.GetKeyDown(KeyCode.C))
-            //{
-            //    SingleRepair();
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                TryTakeSingleDamage();
+            }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                SingleRepair();
+            }
 
 #endif
         }

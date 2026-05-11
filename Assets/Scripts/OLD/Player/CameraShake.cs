@@ -10,6 +10,12 @@ public class CameraShake : Singleton<CameraShake>
     private Tween shakeTween;
     private Tween rotTween;
 
+    private Tween scareShakeTween;
+    private Tween scareRotTween;
+
+    [SerializeField]
+    Transform scareTransform;
+
     protected override void Awake()
     {
         base.Awake();
@@ -149,7 +155,8 @@ public class CameraShake : Singleton<CameraShake>
             posStrength: 0.25f * .4f,
             rotStrength: 15f * .4f,
             vibratoPos: 30,
-            vibratoRot: 20
+            vibratoRot: 20,
+            jumpscare: true
             // onComplete: () =>
             // {
             //     fpc.InputDisabled = false;
@@ -179,7 +186,8 @@ public class CameraShake : Singleton<CameraShake>
             posStrength: 0.25f * .4f,
             rotStrength: 15f * .4f,
             vibratoPos: 30,
-            vibratoRot: 20
+            vibratoRot: 20,
+            jumpscare: true
         );
     }
 
@@ -193,14 +201,29 @@ public class CameraShake : Singleton<CameraShake>
         float rotStrength,
         int vibratoPos,
         int vibratoRot,
-        System.Action onComplete = null, System.Action onKill = null, bool fadeOut = true)
+        System.Action onComplete = null, System.Action onKill = null, bool fadeOut = true, bool jumpscare = false)
     {
         // Ferma shake precedenti
-        shakeTween?.Kill();
-        rotTween?.Kill();
+
+        Transform t = null;
+        if (!jumpscare)
+        {
+            shakeTween?.Kill();
+            rotTween?.Kill();
+            t = transform;
+        }
+        else
+        {
+            scareShakeTween?.Kill();
+            scareRotTween?.Kill();
+            t = scareTransform;
+        }
+
+        Tween sTween, rTween;
+        
 
         // SHAKE POSITION
-        shakeTween = transform.DOShakePosition(
+        sTween = t.DOShakePosition(
             duration,
             strength: posStrength,
             vibrato: vibratoPos,
@@ -209,7 +232,7 @@ public class CameraShake : Singleton<CameraShake>
         ).SetUpdate(true);
 
         // SHAKE ROTATION
-        rotTween = transform.DOShakeRotation(
+        rTween = t.DOShakeRotation(
             duration,
             strength: rotStrength,
             vibrato: vibratoRot,
@@ -217,20 +240,30 @@ public class CameraShake : Singleton<CameraShake>
             fadeOut: fadeOut
         ).SetUpdate(true);
 
-        rotTween.onComplete += () =>
+        rTween.onComplete += () =>
         {
-            transform.localPosition = originalPos;
-            transform.localEulerAngles = originalRot;
+            t.localPosition = originalPos;
+            t.localEulerAngles = originalRot;
             onComplete?.Invoke();
         };
 
-        rotTween.onKill += () =>
+        rTween.onKill += () =>
         {
-            transform.localPosition = originalPos;
-            transform.localEulerAngles = originalRot;
+            t.localPosition = originalPos;
+            t.localEulerAngles = originalRot;
             onKill?.Invoke();
         };
 
+        if (!jumpscare)
+        {
+            shakeTween = sTween;
+            rotTween = rTween;
+        }
+        else
+        {
+            scareShakeTween = sTween;
+            scareRotTween = rTween;
+        }
 
     }
 }

@@ -48,8 +48,7 @@ namespace Baloon
                 var direction = Vector3.ProjectOnPlane(waypointB.transform.position - baloonController.transform.position, Vector3.up);
                 
                 var hTargetDir = new Vector2(direction.x, direction.z).normalized;
-                Debug.Log("TEST - target direction:" + hTargetDir);
-
+            
                 baloonController.HorizontalDirection =  Vector2.Lerp(baloonController.HorizontalDirection, hTargetDir, Time.deltaTime);
             }
         }

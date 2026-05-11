@@ -24,7 +24,6 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            Debug.Log("TEST - V4:" + springMaterial.GetVector("_BaseColor"));
             springMaterial.SetVector("_BaseColor", new Vector4(1f, 1f, 1f, 1));
         }
 

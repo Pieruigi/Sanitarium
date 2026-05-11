@@ -67,8 +67,7 @@ namespace Baloon
 
                 // Salviamo la differenza (offset) per "ancorare" il mouse alla manetta
                 offsetOnDown = tMouseAtClick - targetSliderValue;
-                Debug.Log("TEST - OffsetOnDown:" + offsetOnDown);
-
+                
                 isDragging = true;
             }
 
