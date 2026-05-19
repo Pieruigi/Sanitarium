@@ -96,6 +96,14 @@ namespace Baloon
             return paths.IndexOf(path);
         }
 
+        public bool TryGetCurrentPathIndex(out int index)
+        {
+            index = -1;
+            if (CurrentPath == null) return false;
+            index = GetIndex(CurrentPath);
+            return true;
+        }
+
         public void ReversePath()
         {
 

@@ -27,6 +27,12 @@ namespace Baloon
         [SerializeField]
         HoldButton launchButton;
 
+        [SerializeField]
+        GameObject miniBalloon;
+
+        [SerializeField]
+        AudioSource buttonAudioSource;
+
         bool activated = false;
         public bool Activated => activated;
 
@@ -67,8 +73,8 @@ namespace Baloon
             yRootDefault = root.position.y;
             yPivotDefault = pivot.localPosition.y;
             rootPositionDefault = root.position;
-            
 
+            miniBalloon.SetActive(false);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -116,7 +122,8 @@ namespace Baloon
                 pivot.DOKill();
                 pivot.DOLocalMoveY(1.5f, 1f).SetEase(Ease.OutSine);
 
-
+                // Show balloon 
+                miniBalloon.SetActive(true);
             }
             else if (action < 0)
             {
@@ -125,7 +132,7 @@ namespace Baloon
 
                 // Reset pivot
                 pivot.DOKill();
-                pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => { root.DOMove(rootPositionDefault, .5f); });
+                pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => { root.DOMove(rootPositionDefault, .5f); miniBalloon.SetActive(false); });
 
             }
 
@@ -151,7 +158,7 @@ namespace Baloon
             activator.OnExit += HandleOnExit;
             switchButton.OnPushed += HandleOnSwitchPushed;
             launchButton.OnPushed += HandleOnLaunchPushed;
-            //BaloonPathManager.OnPathSet += HandleOnPathSet;
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
         }
 
         private void OnDisable()
@@ -160,7 +167,7 @@ namespace Baloon
             activator.OnExit -= HandleOnExit;
             switchButton.OnPushed -= HandleOnSwitchPushed;
             launchButton.OnPushed -= HandleOnLaunchPushed;
-            //BaloonPathManager.OnPathSet -= HandleOnPathSet;
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
         }
 
         private void HandleOnPathSet()
@@ -174,8 +181,10 @@ namespace Baloon
 
             // Deactivate panel
             Sequence seq = DOTween.Sequence();
+            seq.AppendInterval(.5f);
             seq.Append(pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine));
             seq.Append(root.DOMove(rootPositionDefault, .5f));
+            seq.AppendCallback(() => { miniBalloon.SetActive(false); });
             seq.AppendInterval(10);
             seq.AppendCallback(() => { unavailable = false; });
 
@@ -189,11 +198,14 @@ namespace Baloon
 
             IEnumerator DoLauch()
             {
-                HandleOnPathSet();
+                //HandleOnPathSet();
+
+                // Play audio
+                buttonAudioSource.Play();
 
                 baloonLauncher.SwitchDirection(panelIndex);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(.25f);
 
                 baloonLauncher.SetPathFromCurrentDirection();
             }

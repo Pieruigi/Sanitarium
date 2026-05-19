@@ -52,7 +52,7 @@ namespace Baloon
                 // Start audio source
                 audioSource.Play();
 
-                animator.speed = 1;
+                animator.speed = 4f;
 
                 yield return new WaitForSeconds(.25f);
 

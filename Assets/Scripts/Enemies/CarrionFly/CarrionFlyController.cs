@@ -326,7 +326,7 @@ public class CarrionFlyController : MonoBehaviour
             rb.isKinematic = false;
             rb.useGravity = true;
 
-            var vel = BaloonController.Instance.CurrentVelocity;
+            var vel = BaloonController.Instance.CurrentVelocity * 1.2f;
             vel.y = 0;
 
             rb.linearVelocity = vel;

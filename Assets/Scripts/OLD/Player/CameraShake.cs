@@ -179,6 +179,17 @@ public class CameraShake : Singleton<CameraShake>
         );
     }
 
+    public void PlayLanding()
+    {
+        PlayShake(
+            duration: 0.22f,            // molto breve
+            posStrength: 0.06f,         // piccolissimo kick
+            rotStrength: 4.5f,          // leggero recoil visivo
+            vibratoPos: 10,
+            vibratoRot: 13
+        );
+    }
+
     public void PlayJumpscare(float duration)
     {
         PlayShake(
@@ -190,6 +201,8 @@ public class CameraShake : Singleton<CameraShake>
             jumpscare: true
         );
     }
+
+    
 
     // -----------------------------
     // CORE SHAKE HANDLER

@@ -112,6 +112,7 @@ namespace Baloon
 
         private void HandleOnLanding(BasePlatform platform)
         {
+            
             if (releasePlayerOnLanding)
             {
                 releasePlayerOnLanding = false;
