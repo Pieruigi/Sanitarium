@@ -20,6 +20,8 @@ namespace Baloon
 
         Animator animator;
 
+        bool chasingPlayer = false;
+
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();  
@@ -41,9 +43,30 @@ namespace Baloon
 
         }
 
+        void HandleOnTakeOff(BasePlatform basePlatform)
+        {
+            // I don't care witch platform since I register the event on abomination activation
+            // Remove the callback
+            BasePlatform.OnTakeOff -= HandleOnTakeOff;
+
+            StartCoroutine(GoBack());
+
+            IEnumerator GoBack()
+            {
+                yield return new WaitForSeconds(2f);
+
+                StopChasingPlayer();
+            }
+
+            
+        }
+
         public void StartChasingPlayer()
         {
-            
+
+            // Register platform event callback
+            BasePlatform.OnTakeOff += HandleOnTakeOff;
+
             StartCoroutine(DoStartChasingPlayer());
 
 
@@ -61,6 +84,7 @@ namespace Baloon
 
                 while (true)
                 {
+                    
                     agent.SetDestination(target.position);
 
                     yield return new WaitForSeconds(targetTime);
@@ -78,6 +102,8 @@ namespace Baloon
 
             IEnumerator DoStopChasingPlayer()
             {
+
+
                 agent.SetDestination(initialPosition);
 
                 yield return new WaitForSeconds(10f);

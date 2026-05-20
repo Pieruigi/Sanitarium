@@ -27,7 +27,7 @@ namespace Baloon
         //HoldButton coldButton, warmButton;
 
         [SerializeField]
-        AudioSource startAudioSource, runAudioSource, stopAudioSource;
+        AudioSource startAudioSource, runAudioSource, stopAudioSource, fireAudioSource;
 
         float runAudioPitchMin = 1f, runAudioPitchMax = 1.4f;
       
@@ -166,6 +166,8 @@ namespace Baloon
                         // Play running audio
                         runAudioSource.Play();
 
+                        fireAudioSource.Play();
+
                         OnStarted?.Invoke();
                     }
                 }
@@ -181,6 +183,7 @@ namespace Baloon
                 {
                     // Stop running audio
                     runAudioSource.Stop();
+                    fireAudioSource.Stop();
                     // Play stopping audio
                     stopAudioSource.Play();
 

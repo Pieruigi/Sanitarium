@@ -55,6 +55,7 @@ namespace Baloon
 
         bool unavailable = false;
 
+        [SerializeField]
         int panelIndex = -1;
 
         private void Awake()
@@ -63,7 +64,7 @@ namespace Baloon
 
             // Get index
             Debug.Log($"TEST - {transform.root.gameObject.name} - Launcher controller count {transform.parent.GetComponentsInChildren<BaloonLauncherPanel>().ToList().Count()}");
-            panelIndex = transform.parent.GetComponentsInChildren<BaloonLauncherPanel>(true).ToList().IndexOf(this);
+            //panelIndex = transform.parent.GetComponentsInChildren<BaloonLauncherPanel>(true).ToList().IndexOf(this);
             if (!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
             {
                 gameObject.SetActive(false);
@@ -132,7 +133,12 @@ namespace Baloon
 
                 // Reset pivot
                 pivot.DOKill();
-                pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => { root.DOMove(rootPositionDefault, .5f); miniBalloon.SetActive(false); });
+                pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => 
+                { 
+                    root.DOMove(rootPositionDefault, .5f);
+                    Debug.Log($"TEST - Setting miniBalloon off - {miniBalloon.transform.parent.parent}");
+                    miniBalloon.SetActive(false); 
+                });
 
             }
 
