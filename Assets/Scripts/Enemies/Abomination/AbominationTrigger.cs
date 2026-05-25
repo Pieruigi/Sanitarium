@@ -1,6 +1,7 @@
 using DG.Tweening;
 using NUnit.Framework;
 using StarterAssets;
+using System;
 using UnityEngine;
 using UnityEngine.WSA;
 
@@ -35,6 +36,9 @@ namespace Baloon
         [SerializeField]
         Transform exitGate, exitDoor;
 
+        [SerializeField]
+        BlooderController blooder;
+
         float openAngle = 160f;
 
         int lampMaterialIndex = 3;
@@ -65,6 +69,23 @@ namespace Baloon
             if (Input.GetKeyDown(KeyCode.X))
                 Activated(); // Call this by an event 
 #endif
+        }
+
+        private void OnEnable()
+        {
+            BlooderController.OnSealed += HandleOnSealed;
+        }
+
+        private void OnDisable()
+        {
+            BlooderController.OnSealed -= HandleOnSealed;
+        }
+
+        private void HandleOnSealed(BlooderController blooderController)
+        {
+            if (blooder != blooderController) return;
+
+            Activated();
         }
 
         private void OnTriggerEnter(Collider other)

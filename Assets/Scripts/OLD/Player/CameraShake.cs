@@ -202,6 +202,17 @@ public class CameraShake : Singleton<CameraShake>
         );
     }
 
+    public void PlayBlooderScream()
+    {
+        PlayShake(
+            duration: 4f,            // molto breve
+            posStrength: 0.25f * .1f,
+            rotStrength: 15f * .1f,
+            vibratoPos: 30,
+            vibratoRot: 20,
+            jumpscare: true
+        );
+    }
     
 
     // -----------------------------
