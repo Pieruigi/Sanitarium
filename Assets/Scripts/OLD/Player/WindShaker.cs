@@ -9,10 +9,9 @@ namespace Baloon
 {
     public class WindShaker : Singleton<WindShaker>
     {
-        bool shaking = false;
-
-        float shakeTimeMin = 10f;
-        float shakeTimeMax = 20f;
+       
+        float shakeTimeMin = 8f;
+        float shakeTimeMax = 16f;
         
 
         float shakeTime = 0;
@@ -22,11 +21,13 @@ namespace Baloon
         public bool Running 
         { 
             get { return running; } 
-            set { running = value; ResetShakeTime(); }
+            set { running = value; shakeTime = Random.Range(shakeTimeMin, shakeTimeMax); /* ResetShakeTime();*/ }
         }
 
         float lightStrength = 2.5f;
         float heavyStrength = 5f;
+
+        float timeSpeed = 1f;
 
         //public bool _testBalloonShaker = false;
 
@@ -49,24 +50,31 @@ namespace Baloon
 
         void LateUpdate()
         {
-            if (!running) return;
+            if (!running ) return;
 
-            shakeTime -= Time.deltaTime;
+            AdjustTimeSpeed();
+
+            shakeTime -= Time.deltaTime * timeSpeed;
             if(shakeTime < 0)
             {
-                shakeTime = Random.Range(shakeTimeMin, shakeTimeMax);
+                //shakeTime = Random.Range(shakeTimeMin, shakeTimeMax);
+                shakeTime = 99999;
+                //ResetShakeTime();
                 // Get altitude range
                 var range = AltitudeManager.Instance.GetCurrentRange();
+               
 
                 bool heavy = false;
 
                 switch (range)
                 {
                     case AltitudeRange.Green:
-                        ShakeLight();
+                        if (Random.Range(0, 5) == 0) // 20% heavy wind
+                            heavy = true;
+                        //ShakeLight();
                         break;
                     case AltitudeRange.Yellow:
-                        if(Random.Range(0, 5) == 0) // 20% heavy wind
+                        if(Random.Range(0, 2) == 0) // 50% heavy wind
                             heavy = true;
                         
                         //CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
@@ -80,6 +88,8 @@ namespace Baloon
                         //WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
                         break;
                 }
+
+               
 
                 // Shake
                 if (heavy)
@@ -105,6 +115,23 @@ namespace Baloon
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             KillerWind.OnKilling -= HandleOnKillerWindWarningStarted;
            
+        }
+
+        void AdjustTimeSpeed()
+        {
+            var range = AltitudeManager.Instance.GetCurrentRange();
+            switch (range)
+            {
+                case AltitudeRange.Green:
+                    timeSpeed = 1f;
+                    break;
+                case AltitudeRange.Yellow:
+                    timeSpeed = 1.4f;
+                    break;
+                case AltitudeRange.Red: 
+                    timeSpeed = 1.8f;
+                    break;
+            }
         }
 
         float ComputeWindStrength(float currentAltitude, bool light)
@@ -141,7 +168,9 @@ namespace Baloon
 
         void ShakeHeavy()
         {
-            CameraShake.Instance.PlayWindShakeStrong(()=> { ResetShakeTime(); StartCoroutine(ApplyDamage()); }, ResetShakeTime);
+            Debug.Log("TEST - WIND - shake strong");
+
+            CameraShake.Instance.PlayWindShakeStrong(() => { ResetShakeTime(); StartCoroutine(ApplyDamage()); }, ResetShakeTime);
             //if (_testBalloonShaker)
             BaloonShaker.Instance.ShakeHeavy();
             WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
@@ -152,8 +181,10 @@ namespace Baloon
 
             IEnumerator ApplyDamage()
             {
+                Debug.Log("TEST - WIND - Applying damage test");
                 if (Random.Range(0, 2) == 0) yield break; // 50% we take damage
 
+                Debug.Log("TEST - WIND - Applying damage");
                 yield return new WaitForSeconds(.5f);
 
                 if(BaloonBoilerHealth.Instance.TryTakeSingleDamage())
@@ -168,9 +199,12 @@ namespace Baloon
 
         void ResetShakeTime()
         {
-            var range = AltitudeManager.Instance.GetCurrentRange();
-            if (range == AltitudeRange.Yellow) shakeTime *= .8f;
-            else shakeTime *= .6f;
+            Debug.Log("TEST - WIND - Reset timer");
+            shakeTime = Random.Range(shakeTimeMin, shakeTimeMax);
+            
+            //var range = AltitudeManager.Instance.GetCurrentRange();
+            //if (range == AltitudeRange.Yellow) shakeTime *= .8f;
+            //else shakeTime *= .6f;
         }
 
         private void HandleOnPathSet()

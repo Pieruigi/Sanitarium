@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using StarterAssets;
+using JetBrains.Annotations;
 
 public class CameraShake : Singleton<CameraShake>
 {
@@ -13,8 +14,14 @@ public class CameraShake : Singleton<CameraShake>
     private Tween scareShakeTween;
     private Tween scareRotTween;
 
+    private Tween verticalWindShakeTween;
+    private Tween verticalWindRotTween;
+
     [SerializeField]
     Transform scareTransform;
+
+    [SerializeField]
+    Transform verticalWindTransform;
 
     protected override void Awake()
     {
@@ -63,7 +70,9 @@ public class CameraShake : Singleton<CameraShake>
             vibratoPos: 0,
             vibratoRot: 0,
             onComplete, 
-            onKill
+            onKill,
+            jumpscare: false,
+            verticalWind: true
         );
 
     }
@@ -85,7 +94,8 @@ public class CameraShake : Singleton<CameraShake>
             rotStrength: randRot,
             vibratoPos: 1,
             vibratoRot: 1,
-            onComplete
+            onComplete, 
+            onKill
         );
         
     }
@@ -225,21 +235,49 @@ public class CameraShake : Singleton<CameraShake>
         float rotStrength,
         int vibratoPos,
         int vibratoRot,
-        System.Action onComplete = null, System.Action onKill = null, bool fadeOut = true, bool jumpscare = false)
+        System.Action onComplete = null, System.Action onKill = null, bool fadeOut = true, bool jumpscare = false, bool verticalWind = false)
     {
         // Ferma shake precedenti
 
         Transform t = null;
         if (!jumpscare)
         {
-            shakeTween?.Kill();
-            rotTween?.Kill();
-            t = transform;
+            if (!verticalWind)
+            {
+                
+                shakeTween?.Kill();
+                shakeTween = null;
+                rotTween?.Kill();
+                rotTween = null;
+                t = transform;
+            }
+            else
+            {
+                Debug.Log("TEST - WIND - Vertical is null:" + (verticalWindShakeTween == null));
+
+                if (verticalWindShakeTween != null && verticalWindShakeTween.IsPlaying())
+                {
+                    verticalWindShakeTween.Kill();
+                    verticalWindShakeTween = null;
+                }
+
+                if (verticalWindRotTween != null && verticalWindRotTween.IsPlaying())
+                {
+                    verticalWindRotTween.Kill();
+                    verticalWindRotTween = null;
+                }
+
+                
+                t = verticalWindTransform;
+            }
+            
         }
         else
         {
             scareShakeTween?.Kill();
+            scareShakeTween = null;
             scareRotTween?.Kill();
+            scareRotTween = null;   
             t = scareTransform;
         }
 
@@ -264,24 +302,50 @@ public class CameraShake : Singleton<CameraShake>
             fadeOut: fadeOut
         ).SetUpdate(true);
 
-        rTween.onComplete += () =>
+        sTween.onComplete += () =>
         {
             t.localPosition = originalPos;
             t.localEulerAngles = originalRot;
+
+            if (sTween == verticalWindShakeTween)
+                verticalWindShakeTween = null;
+            else if (sTween == shakeTween)
+                shakeTween = null;
+            else
+                scareShakeTween = null;
+
             onComplete?.Invoke();
         };
 
-        rTween.onKill += () =>
+        sTween.onKill += () =>
         {
+            if (sTween.IsComplete()) return;
+
             t.localPosition = originalPos;
             t.localEulerAngles = originalRot;
+
+            if (sTween == verticalWindShakeTween)
+                verticalWindShakeTween = null;
+            else if (sTween == shakeTween)
+                shakeTween = null;
+            else
+                scareShakeTween = null;
+
             onKill?.Invoke();
         };
 
         if (!jumpscare)
         {
-            shakeTween = sTween;
-            rotTween = rTween;
+            if (!verticalWind)
+            {
+                shakeTween = sTween;
+                rotTween = rTween;
+            }
+            else
+            {
+                verticalWindShakeTween = sTween;
+                verticalWindRotTween = rTween;
+            }
         }
         else
         {
@@ -290,4 +354,6 @@ public class CameraShake : Singleton<CameraShake>
         }
 
     }
+
+   
 }
