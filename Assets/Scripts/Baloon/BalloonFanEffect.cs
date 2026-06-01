@@ -25,8 +25,6 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            Debug.Log($"TEST - BalloonEffect Start");
-
             var r = Random.Range(0f, 1f);
             baseAudioSource.time = baseAudioSource.clip.length * r;
             detailAudioSource.time = detailAudioSource.clip.length * r;

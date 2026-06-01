@@ -62,9 +62,6 @@ namespace Baloon
         {
             baloonLauncher = GetComponentInParent<BaloonLauncher>();
 
-            // Get index
-            Debug.Log($"TEST - {transform.root.gameObject.name} - Launcher controller count {transform.parent.GetComponentsInChildren<BaloonLauncherPanel>().ToList().Count()}");
-            //panelIndex = transform.parent.GetComponentsInChildren<BaloonLauncherPanel>(true).ToList().IndexOf(this);
             if (!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
             {
                 gameObject.SetActive(false);
