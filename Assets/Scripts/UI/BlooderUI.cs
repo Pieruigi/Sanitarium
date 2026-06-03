@@ -9,7 +9,7 @@ namespace Baloon.UI
     public class BlooderUI : MonoBehaviour
     {
         [SerializeField]
-        Sprite emptyBlooder;
+        Material emptyBlooderMat;
 
         [SerializeField]
         Image blooderImage;
@@ -47,7 +47,7 @@ namespace Baloon.UI
             if (controller != blooderController) return;
 
             // Switch sprite
-            blooderImage.sprite = emptyBlooder;
+            blooderImage.material = emptyBlooderMat;
         }
     }
 }
