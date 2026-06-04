@@ -102,7 +102,7 @@ Material:
     - _SnapMode: 2
     - _SnapsPerUnit: 1024
     m_Floats:
-    - _AffineTextureStrength: 0.151
+    - _AffineTextureStrength: 0.102
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AmbientLight: 0.02

@@ -33,7 +33,10 @@ public class CameraShake : Singleton<CameraShake>
 #if UNITY_EDITOR
     private void Update()
     {
-   
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            PlayLandingShake(0f);
+        }
     }
 #endif
 
@@ -189,16 +192,16 @@ public class CameraShake : Singleton<CameraShake>
         );
     }
 
-    public void PlayLanding()
-    {
-        PlayShake(
-            duration: 0.22f,            // molto breve
-            posStrength: 0.06f,         // piccolissimo kick
-            rotStrength: 4.5f,          // leggero recoil visivo
-            vibratoPos: 10,
-            vibratoRot: 13
-        );
-    }
+    //public void PlayLanding()
+    //{
+    //    PlayShake(
+    //        duration: 0.22f,            // molto breve
+    //        posStrength: 0.06f,         // piccolissimo kick
+    //        rotStrength: 4.5f,          // leggero recoil visivo
+    //        vibratoPos: 10,
+    //        vibratoRot: 13
+    //    );
+    //}
 
     public void PlayJumpscare(float duration)
     {
@@ -222,6 +225,22 @@ public class CameraShake : Singleton<CameraShake>
             vibratoRot: 20,
             jumpscare: true
         );
+    }
+
+    public void PlayLandingShake(float force)
+    {
+        PlayShake(
+           duration: Mathf.Lerp(0.4f, 0.5f, force),         // molto breve
+           posStrength: Mathf.Lerp(.02f, 0.2f, force),         // piccolissimo kick
+           rotStrength: Mathf.Lerp(.45f, 4.5f, force),          // leggero recoil visivo
+           vibratoPos: (int)Mathf.Lerp(8, 16, force),
+           vibratoRot: (int)Mathf.Lerp(13, 22, force)
+       );
+    }
+
+    public void PlayTakeOffShake()
+    {
+
     }
     
 

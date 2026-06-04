@@ -89,10 +89,15 @@ namespace Baloon
 
             //if (useRB) return;
 
+            float lastVelY = currentVelocity.y;
+
+
             UpdateVerticalVelocity();
             UpdateHorizontalVelocity();
 
             transform.position += currentVelocity * Time.deltaTime;
+
+            CheckLandingAndTakeOff(lastVelY);
 
         }
 
@@ -109,7 +114,24 @@ namespace Baloon
         //    UpdateHorizontalVelocityRB();
         //}
 
+        void CheckLandingAndTakeOff(float lastVelY)
+        {
+            if (BasePlatform.CurrentPlatform == null) return;
 
+            if(lastVelY < 0 && currentVelocity.y == 0)
+            {
+                Debug.Log($"TEST - Landing - LastSpeed={lastVelY}");
+                var min = -4.5f;
+                var max = -2f;
+                float power = Mathf.Lerp(0f, 1f, (max - lastVelY) / (max - min));
+                CameraShake.Instance.PlayLandingShake(power);
+            }
+            else if (lastVelY == 0 && currentVelocity.y > 0)
+            {
+                Debug.Log("TEST - Take off");
+            }
+            
+        }
 
         void UpdateVerticalVelocity()
         {
