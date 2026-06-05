@@ -31,13 +31,13 @@ namespace Baloon
             }
         }
 
-        float horizontalForceScale = 3f;
+        float horizontalForceScale = 4f;// 3f;
 
         float maxVerticalSpeed = 6f;
 #if UNITY_EDITOR
-        float maxHorizontalSpeed = 3.5f * 1.2f;
+        float maxHorizontalSpeed = 3.5f * 1.4f;// 3.5f * 1.2f;
 #else
-        float maxHorizontalSpeed = 3.5f; 
+        float maxHorizontalSpeed = 3.5f * 1.4f; 
 #endif
 
         [SerializeField] float gravity = 9.81f;
@@ -120,7 +120,6 @@ namespace Baloon
 
             if(lastVelY < 0 && currentVelocity.y == 0)
             {
-                Debug.Log($"TEST - Landing - LastSpeed={lastVelY}");
                 var min = -4.5f;
                 var max = -2f;
                 float power = Mathf.Lerp(0f, 1f, (max - lastVelY) / (max - min));
@@ -128,7 +127,7 @@ namespace Baloon
             }
             else if (lastVelY == 0 && currentVelocity.y > 0)
             {
-                Debug.Log("TEST - Take off");
+                Debug.Log("TEST - Take off - TO BE COMPLETED");
             }
             
         }
@@ -229,6 +228,7 @@ namespace Baloon
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
 
+            Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
            
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;
