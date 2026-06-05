@@ -15,6 +15,9 @@ namespace Baloon
         [SerializeField]
         Transform explosionSpawnPoint;
 
+        [SerializeField]
+        GameObject controlPanel;
+
 
         bool destroyed = false;
 
@@ -102,6 +105,7 @@ namespace Baloon
                 rbBoiler.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
 
                 // Launch basket
+                controlPanel.transform.parent = rbBasket.transform;
                 rbBasket.transform.parent = null;   
                 rbBasket.useGravity = true;
                 rbBasket.isKinematic = false;
