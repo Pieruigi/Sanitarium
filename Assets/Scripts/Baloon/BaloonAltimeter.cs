@@ -58,9 +58,9 @@ namespace Baloon
             // The integer part and decimal part are inside <mspace>, but the dot is OUTSIDE.
             targetValue.text = $"<mspace=0.5em>{integerPart:D3}</mspace>.<mspace=0.5em>{decimalPart:D2}</mspace>";
 
-            integerPart = (int)currentAltitude;
+            integerPart = currentAltitude >= 0 ? (int)currentAltitude : 0;
             // Get the decimals (e.g., 0.456 -> 45)
-            decimalPart = (int)((currentAltitude - integerPart) * 100);
+            decimalPart = currentAltitude >= 0 ? (int)((currentAltitude - integerPart) * 100) : 0;
 
             currentValue.text = $"<mspace=0.5em>{integerPart:D3}</mspace>.<mspace=0.5em>{decimalPart:D2}</mspace>";
 

@@ -2,6 +2,7 @@ using DG.Tweening;
 using StarterAssets;
 using System;
 using System.Collections;
+using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -38,6 +39,7 @@ namespace Baloon
 
         VolumetricFogVolumeComponent fog;
 
+        float fogDensityDefault, fogAttenuationDefault;
         
         float killElapsed = 0;
 
@@ -63,7 +65,9 @@ namespace Baloon
             player = FindFirstObjectByType<FirstPersonController>();
 
             globalVolume.profile.TryGet<VolumetricFogVolumeComponent>(out fog);
-            
+
+            fogDensityDefault = fog.density.value;
+            fogAttenuationDefault = fog.attenuationDistance.value;
         }
 
         // Update is called once per frame
@@ -72,56 +76,57 @@ namespace Baloon
 #if UNITY_EDITOR
 
 
-            if (Input.GetKeyDown(KeyCode.C))
-                StartKilling();
+            //if (Input.GetKeyDown(KeyCode.C))
+            //    StartKilling();
 #endif
         }
 
-        private void LateUpdate()
-        {
-            if (!running || killing) return;
+        //private void LateUpdate()
+        //{
+            
+        //    if (!running || killing) return;
 
-            // Get the altitude range
-            var range = AltitudeManager.Instance.GetCurrentRange();
+        //    // Get the altitude range
+        //    var range = AltitudeManager.Instance.GetCurrentRange();
 
-            // Check
-            switch (range)
-            {
-                case AltitudeRange.Green:
-                case AltitudeRange.Yellow:
-                    if(!killing)
-                        killElapsed = 0;
-                    //StopWarning();
-                    break;
-                case AltitudeRange.Red:
-                    killElapsed += Time.deltaTime;
+        //    // Check
+        //    switch (range)
+        //    {
+        //        case AltitudeRange.Green:
+        //        case AltitudeRange.Yellow:
+        //            if(!killing)
+        //                killElapsed = 0;
+        //            //StopWarning();
+        //            break;
+        //        case AltitudeRange.Red:
+        //            killElapsed += Time.deltaTime;
 
-                    if (killElapsed > killTime)
-                    {
-                        // You die
-                        StartKilling();
-                    }
-                    break;
-            }
+        //            if (killElapsed > killTime)
+        //            {
+        //                // You die
+        //                StartKilling();
+        //            }
+        //            break;
+        //    }
 
            
-        }
+        //}
 
-        private void OnEnable()
-        {
-            BasePlatform.OnLanding += HandleOnLanding;
-            BasePlatform.OnTakeOff += HandleOnTakeOff;
-            BaloonPathManager.OnPathSet += HandleOnPathSet;
-            BaloonPathManager.OnPathCleared += HandleOnPathCleared;
-        }
+        //private void OnEnable()
+        //{
+        //    BasePlatform.OnLanding += HandleOnLanding;
+        //    BasePlatform.OnTakeOff += HandleOnTakeOff;
+        //    BaloonPathManager.OnPathSet += HandleOnPathSet;
+        //    BaloonPathManager.OnPathCleared += HandleOnPathCleared;
+        //}
 
-        private void OnDisable()
-        {
-            BasePlatform.OnLanding -= HandleOnLanding;
-            BasePlatform.OnTakeOff -= HandleOnTakeOff;
-            BaloonPathManager.OnPathSet -= HandleOnPathSet;
-            BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
-        }
+        //private void OnDisable()
+        //{
+        //    BasePlatform.OnLanding -= HandleOnLanding;
+        //    BasePlatform.OnTakeOff -= HandleOnTakeOff;
+        //    BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        //    BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        //}
 
         private void HandleOnPathSet()
         {
@@ -173,7 +178,7 @@ namespace Baloon
                 yield return new WaitForSeconds(1f);
 
                 Instantiate(tentaclesPrefab);
-                
+
 
                 yield return new WaitForSeconds(1.5f);
 
@@ -190,6 +195,30 @@ namespace Baloon
 
         }
 
-        
+        Sequence warningSeq;
+
+        public void StartWarning(float time)
+        {
+            if (warningSeq != null) warningSeq.Kill();
+            
+            hauntingAudioSource.Play();
+            warningSeq = DOTween.Sequence();
+            warningSeq.Append(DOTween.To(() => fog.density.value, x => fog.density.value = x, .6f, time));
+            warningSeq.Join(DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, 5, time));
+            
+        }
+
+        public void StopWarning()
+        {
+            hauntingAudioSource.Stop();
+            if (warningSeq == null) return;
+            warningSeq.Kill();
+
+            warningSeq = DOTween.Sequence();
+            warningSeq.Append(DOTween.To(() => fog.density.value, x => fog.density.value = x, fogDensityDefault, 1f));
+            warningSeq.Join(DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, fogAttenuationDefault, 1f));
+        }
+
+     
     }
 }
