@@ -100,11 +100,11 @@ Material:
     - _FilterMode: 1
     - _LightMode: 1
     - _ReceiveShadowsMode: 0
-    - _ResolutionLimit: 128
+    - _ResolutionLimit: 256
     - _SnapMode: 2
     - _SnapsPerUnit: 1024
     m_Floats:
-    - _AffineTextureStrength: 0.163
+    - _AffineTextureStrength: 0.061
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AmbientLight: 0.02
