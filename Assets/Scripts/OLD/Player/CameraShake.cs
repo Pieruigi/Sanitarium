@@ -33,10 +33,10 @@ public class CameraShake : Singleton<CameraShake>
 #if UNITY_EDITOR
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PlayLandingShake(0f);
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    PlayLandingShake(0f);
+        //}
     }
 #endif
 
