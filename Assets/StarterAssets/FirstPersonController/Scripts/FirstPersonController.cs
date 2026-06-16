@@ -1,4 +1,5 @@
 ﻿using Baloon;
+using Baloon.SaveSystem;
 using JetBrains.Annotations;
 using Mono.Cecil;
 using System.Collections;
@@ -22,7 +23,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviour
+	public class FirstPersonController : MonoBehaviour//, ISavable
 	{
 		
 
@@ -131,6 +132,14 @@ namespace StarterAssets
 		// For example when killer wind destroy the balloon, before the player actually dies, tentacles start shaking the balloon, and then we must call Doomed = true at that moment.
 		public bool Doomed { get; set; }
 
+        public string SaveId => "Player";
+
+        class Data
+        {
+            public Vector3 position;
+            public Quaternion rotation;
+        }
+
         private void Awake()
 		{
 			// get a reference to our main camera
@@ -155,6 +164,20 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+
+			// Check save game
+			if(SaveManager.Instance.DataEntryExists(SaveId))
+			{
+				
+				var jsonData = SaveManager.Instance.GetRawJsonData(SaveId);
+				var data = JsonUtility.FromJson<Data>(jsonData);
+
+                Debug.Log($"TEST - Entry found - SaveID:{SaveId}, rawData:{jsonData}");
+
+                ForcePosition(data.position);
+				transform.rotation = data.rotation;
+				
+			}
 		}
 
 
@@ -208,6 +231,34 @@ namespace StarterAssets
         {
            
         }
+
+        private void OnEnable()
+        {
+			SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+        }
+
+        private void OnDisable()
+        {
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            // Generate save data
+			var rawJson = GenerateSaveData();
+			// Create or update save entry
+			SaveManager.Instance.CreateOrUpdateDataEntry(SaveId, rawJson);
+        }
+
+        string GenerateSaveData()
+        {
+            var data = new Data();
+            data.position = transform.position;
+            data.rotation = transform.rotation;
+            var rawJson = JsonUtility.ToJson(data);
+            return rawJson;
+        }
+
 
         private void MoveOnBalloon()
         {
@@ -628,5 +679,8 @@ namespace StarterAssets
 			
 			
         }
-	}
+
+       
+        
+    }
 }

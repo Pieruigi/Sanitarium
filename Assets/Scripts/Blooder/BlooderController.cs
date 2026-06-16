@@ -1,3 +1,4 @@
+using Baloon.SaveSystem;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -37,12 +38,31 @@ namespace Baloon
         bool completed = false;
         bool pushed = false;
 
-        
+
+        [SerializeField]
+        string saveId;
+
+        class Data
+        {
+            public bool completed;
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            // Load data
+            var rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData); 
+                completed = data.completed;
+                var pos = blood.localPosition;
+                pos.y = bloodCompletedY;
+                blood.localPosition = pos;
+                blood.gameObject.SetActive(false);
+                blooderLever.ForceCompleted();
+            }
+            
         }
 
         // Update is called once per frame
@@ -66,6 +86,8 @@ namespace Baloon
                 blood.gameObject.SetActive(false);
                 CameraShake.Instance.PlayBlooderScream();
                 OnSealed?.Invoke(this);
+
+                SaveManager.Instance.Save();
             }
             else
             {
@@ -84,12 +106,21 @@ namespace Baloon
         {
             blooderLever.OnPushed += HandleOnPushed;
             blooderLever.OnReleased += HandleOnReleased;
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
         }
 
         private void OnDisable()
         {
             blooderLever.OnPushed -= HandleOnPushed;
             blooderLever.OnReleased -= HandleOnReleased;
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();
+            data.completed = completed;
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         private void HandleOnPushed()

@@ -95,5 +95,11 @@ namespace Baloon
 
             OnReleased?.Invoke();
         }
+
+        public void ForceCompleted()
+        {
+            completed = true;
+            transform.localEulerAngles = Vector3.up * angle;
+        }
     }
 }

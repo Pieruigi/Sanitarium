@@ -1,4 +1,6 @@
+using Baloon.SaveSystem;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
@@ -24,6 +26,30 @@ namespace Baloon
         [SerializeField]
         AudioSource audioSource;
 
+        bool triggered = false;
+
+        [SerializeField]
+        string saveId;
+
+        class Data
+        {
+            [System.Serializable]
+            public class Element
+            {
+                public Vector3 position;
+                public Quaternion rotation;
+            }
+
+            public Data()
+            {
+                elements = new List<Element>();
+            }
+
+            public bool triggered;
+
+            public List<Element> elements;
+        }
+
         private void Awake()
         {
             foreach(var rigidbody in rigidbodies)
@@ -34,7 +60,24 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            string rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData);
+                triggered = data.triggered;
 
+                if (triggered)
+                {
+                    for(int i=0; i<data.elements.Count; i++)
+                    {
+                        var element = data.elements[i];
+                        var rb = rigidbodies[i];
+                        rb.isKinematic = true;
+                        rb.transform.position = element.position;
+                        rb.transform.rotation = element.rotation;
+                    }
+                }
+            }
         }
 
         // Update is called once per frame
@@ -49,8 +92,40 @@ namespace Baloon
 #endif
         }
 
-        void Play()
+        private void OnEnable()
         {
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+        }
+
+        private void OnDisable()
+        {
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();
+            data.triggered = triggered;
+
+            if (triggered)
+            {
+                foreach(var rb in rigidbodies)
+                {
+                    Data.Element element = new Data.Element();
+                    element.position = rb.transform.position;
+                    element.rotation = rb.transform.rotation;
+                    data.elements.Add(element);
+                }
+            }
+
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
+        }
+
+        public void Play()
+        {
+            if(triggered) return;
+            triggered = true;
+
             // Start camera shake
             CameraShake.Instance.PlayCatwalkCollapseShake(duration);
 
@@ -59,6 +134,7 @@ namespace Baloon
 
             IEnumerator DoCollapse()
             {
+
                 audioSource.Play();
 
                 var time = duration - inTime - outTime;

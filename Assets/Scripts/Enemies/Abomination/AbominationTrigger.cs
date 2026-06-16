@@ -1,8 +1,10 @@
+using Baloon.SaveSystem;
 using DG.Tweening;
 using NUnit.Framework;
 using StarterAssets;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.WSA;
 
 namespace Baloon
@@ -45,6 +47,17 @@ namespace Baloon
 
         FirstPersonController player;
 
+        bool triggered = false;
+
+        [SerializeField]
+        string saveId;
+
+        class Data
+        {
+            public bool enabled;
+            public bool triggered;
+        }
+
 
         private void Awake()
         {
@@ -60,6 +73,28 @@ namespace Baloon
         void Start()
         {
             player = FindFirstObjectByType<FirstPersonController>();
+
+            // Load data
+            var jsonData =  SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(jsonData))
+            {
+                var data = JsonUtility.FromJson<Data>(jsonData);
+
+                _collider.enabled = data.enabled;
+                triggered = data.triggered;
+                if(data.enabled || data.triggered)
+                {
+                    // Enable or already triggered
+                    EnableObjects();
+
+                    if (data.triggered)
+                    {
+                        door.DOLocalRotate(Vector3.up * 160f, .5f).SetEase(Ease.OutBounce);
+                        // Destroy abomination
+                        Destroy(abomination);
+                    }                    
+                }
+            }
         }
 
         // Update is called once per frame
@@ -74,11 +109,21 @@ namespace Baloon
         private void OnEnable()
         {
             BlooderController.OnSealed += HandleOnSealed;
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
         }
 
         private void OnDisable()
         {
             BlooderController.OnSealed -= HandleOnSealed;
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();
+            data.enabled = _collider.enabled;
+            data.triggered = triggered;
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         private void HandleOnSealed(BlooderController blooderController)
@@ -94,6 +139,8 @@ namespace Baloon
 
             // Reset collider 
             _collider.enabled = false;
+
+            triggered = true;
 
             // Open the door
             door.DOLocalRotate(Vector3.up * 160f, .5f).SetEase(Ease.OutBounce);
@@ -121,10 +168,18 @@ namespace Baloon
 
         void Activated()
         {
-            // Activate light
-            _light.SetActive(true);
+            
             // Activate the collider
             _collider.enabled=true;
+            triggered = false;
+            
+            EnableObjects();
+        }
+
+        void EnableObjects()
+        {
+            // Activate light
+            _light.SetActive(true);
             // Set lamp material
             var mats = lampRenderer.materials;
             mats[lampMaterialIndex] = lampOn;

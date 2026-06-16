@@ -27,7 +27,7 @@ namespace Baloon.SaveSystem
 
     public class SaveManager : SingletonPersistent<SaveManager> 
     {
-        public static UnityAction OnUpdateMasterSaveData;
+        public static UnityAction OnUpdateDataEntry;
 
         string fileName = "save.json";
 
@@ -35,13 +35,17 @@ namespace Baloon.SaveSystem
 
         string filePath = null;
 
-        MasterSaveData masterSaveData = new MasterSaveData();
+        MasterSaveData masterSaveData;// = new MasterSaveData();
 
 
         protected override void Awake()
         {
             base.Awake();
             filePath = Path.Combine(Application.persistentDataPath, fileName);
+
+#if UNITY_EDITOR
+            Load();
+#endif
         } 
             
         
@@ -58,33 +62,22 @@ namespace Baloon.SaveSystem
         void Update()
         {
 #if UNITY_EDITOR
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    LoadFile();
+
+            //}
             if (Input.GetKeyDown(KeyCode.X))
             {
-                LoadFile();
-                
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                SaveFile();
+                Save();
                 //Debug.Log(cache);
             }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                DeleteFile();
-                //Debug.Log(cache);
-            }
+            //if (Input.GetKeyDown(KeyCode.V))
+            //{
+            //    DeleteFile();
+            //    //Debug.Log(cache);
+            //}
 #endif
-        }
-
-        void LoadFile()
-        {
-            masterSaveData.entries.Clear();
-            var cache = "";
-            if (File.Exists(filePath))
-            {
-                cache = File.ReadAllText(filePath);
-            }
-                
         }
 
 
@@ -95,9 +88,12 @@ namespace Baloon.SaveSystem
 
         public void Save()
         {
-         
+            
+
             // Call event to let savable object to update the masterSaveData using CreateOrUpdateDataEntry()
-            OnUpdateMasterSaveData?.Invoke();
+            OnUpdateDataEntry?.Invoke();
+
+            if (masterSaveData == null) return;
 
             // Create json
             string json = JsonUtility.ToJson(masterSaveData, true);
@@ -106,13 +102,51 @@ namespace Baloon.SaveSystem
 
         public void CreateOrUpdateDataEntry(string id, string rawJsonData)
         {
+            if(masterSaveData == null) masterSaveData = new MasterSaveData();
+
             var entry = masterSaveData.entries.Find(e=>e.id == id);
             if (entry == null)
-                masterSaveData.entries.Add(new SaveEntry(id));
+            {
+                entry = new SaveEntry(id);
+                masterSaveData.entries.Add(entry);
+            }
+                
 
             entry.rawJsonData = rawJsonData;
         }
 
-        
+        public void Load()
+        {
+            // Clear data
+            masterSaveData = null;
+
+            if (!File.Exists(filePath)) return;
+
+            // Load file
+            var json = File.ReadAllText(filePath);
+
+            // Create entries
+            masterSaveData = JsonUtility.FromJson<MasterSaveData>(json);
+        }
+
+        public void Delete()
+        {
+            masterSaveData = null;
+            File.Delete(filePath);
+        }
+
+        public bool DataEntryExists(string id)
+        {
+            if (masterSaveData == null) return false;
+            
+            return masterSaveData.entries.Exists(e=>e.id == id);    
+        }
+
+        public string GetRawJsonData(string dataEntryId)
+        {
+            if(!DataEntryExists(dataEntryId)) return null;
+
+            return masterSaveData.entries.Find(e=>e.id== dataEntryId).rawJsonData;
+        }
     }
 }
