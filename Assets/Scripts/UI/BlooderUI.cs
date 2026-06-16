@@ -20,7 +20,8 @@ namespace Baloon.UI
         private void Awake()
         {
           
-            BlooderController.OnSealed += HandleOnSealed;
+            //BlooderController.OnSealed += HandleOnSealed;
+            //BlooderController.OnStarted += HandleOnBlooderStarted;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,17 +38,42 @@ namespace Baloon.UI
 
         private void OnDestroy()
         {
-            BlooderController.OnSealed -= HandleOnSealed;
+            //BlooderController.OnSealed -= HandleOnSealed;
+            //BlooderController.OnStarted -= HandleOnBlooderStarted;
         }
 
-        private void HandleOnSealed(BlooderController blooderController)
+        private void OnEnable()
         {
+            if(controller.Sealed && blooderImage.material != emptyBlooderMat)
+                blooderImage.material = emptyBlooderMat;
+        }
+
+        private void OnDisable()
+        {
+            
+        }
+
+        //private void HandleOnBlooderStarted(BlooderController blooderController, bool isSealed)
+        //{
+        //    Debug.Log($"TEST - Blooder started - {blooderController.transform.parent} - {isSealed}");
+            
+
+        //    if (controller != blooderController) return;
+
+        //    Debug.Log($"TEST - UI - {controller.transform.parent}");
+
+        //    if (isSealed)
+        //        HandleOnSealed(blooderController);
+        //}
+
+        //private void HandleOnSealed(BlooderController blooderController)
+        //{
           
 
-            if (controller != blooderController) return;
+        //    if (controller != blooderController) return;
 
-            // Switch sprite
-            blooderImage.material = emptyBlooderMat;
-        }
+        //    // Switch sprite
+        //    blooderImage.material = emptyBlooderMat;
+        //}
     }
 }

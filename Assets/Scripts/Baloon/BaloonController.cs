@@ -1,4 +1,6 @@
+using Baloon.SaveSystem;
 using StarterAssets;
+using System;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -61,8 +63,14 @@ namespace Baloon
         CharacterController characterController;
         FirstPersonController firstPersonController;
 
-        
-        
+
+        string saveId = "balloon";
+
+        class Data
+        {
+            public Vector3 position;
+            public Quaternion rotation;
+        }
 
         //bool useRB = false;
 
@@ -80,6 +88,14 @@ namespace Baloon
             characterController = player.GetComponent<CharacterController>();
             firstPersonController = player.GetComponent<FirstPersonController>();
             
+            // Save data
+            string rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData);
+                transform.position = data.position;
+                transform.rotation = data.rotation;
+            }
         }
 
        
@@ -104,6 +120,24 @@ namespace Baloon
         private void LateUpdate()
         {
            
+        }
+
+        private void OnEnable()
+        {
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+        }
+
+        private void OnDisable()
+        {
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();
+            data.position = transform.position;
+            data.rotation = transform.rotation;
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         //private void FixedUpdate()

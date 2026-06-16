@@ -38,11 +38,21 @@ namespace Baloon
         private void OnEnable()
         {
             BlooderController.OnSealed += HandleOnBlooderSelead;
+            BlooderController.OnStarted += HandleOnBlooderStarted;
         }
 
         private void OnDisable()
         {
             BlooderController.OnSealed -= HandleOnBlooderSelead;
+            BlooderController.OnStarted -= HandleOnBlooderStarted;
+        }
+
+        private void HandleOnBlooderStarted(BlooderController controller, bool isSealed)
+        {
+            if (blooder != controller) return;
+
+            if(isSealed)
+                HandleOnBlooderSelead(controller);
         }
 
         private void HandleOnBlooderSelead(BlooderController blooderController)

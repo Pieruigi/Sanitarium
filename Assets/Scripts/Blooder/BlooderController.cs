@@ -14,6 +14,9 @@ namespace Baloon
         public delegate void SealingDelegate(BlooderController blooderController, float progress);
         public static SealingDelegate OnSealing;
 
+        public delegate void StartedDelegate(BlooderController blooderController, bool isSealed);
+        public static StartedDelegate OnStarted;
+
         [SerializeField]
         TurnLever blooderLever;
 
@@ -39,6 +42,9 @@ namespace Baloon
         bool pushed = false;
 
 
+        public bool Sealed => completed;
+        
+
         [SerializeField]
         string saveId;
 
@@ -62,7 +68,8 @@ namespace Baloon
                 blood.gameObject.SetActive(false);
                 blooderLever.ForceCompleted();
             }
-            
+
+            OnStarted?.Invoke(this, completed);
         }
 
         // Update is called once per frame
