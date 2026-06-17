@@ -17,7 +17,7 @@ using UnityEngine.InputSystem.XR;
 namespace StarterAssets
 {
 
-    public enum PlayerDeadType { KillerWind, BoilerExplosion }
+    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing }
 
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -623,7 +623,10 @@ namespace StarterAssets
                     break;
 
 				case PlayerDeadType.BoilerExplosion:
-					DoExplosionDead();
+					StartCoroutine(DoExplosionDead());
+					break;
+				case PlayerDeadType.CatwalkCollapsing:
+					StartCoroutine(DoCatwalkCollapsing());
 					break;
 			}
 
@@ -654,12 +657,13 @@ namespace StarterAssets
                 rb.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
 
                 OnDead?.Invoke(deadType);
-            
+
+                yield return new WaitForSeconds(3f);
             }
 
 			//
 			// Only reset thing but don't apply any force here
-			void DoExplosionDead()
+			IEnumerator DoExplosionDead()
 			{
                 dead = true;
 
@@ -674,9 +678,26 @@ namespace StarterAssets
                 onBasketCollider.enabled = false;
 
                 OnDead?.Invoke(deadType);
+
+                yield return new WaitForSeconds(3f);
             }
 
-			
+			IEnumerator DoCatwalkCollapsing()
+			{
+				
+
+                // Set non kinematic rigidbody
+                var rb = GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                rb.useGravity = true;
+
+				yield return new WaitForSeconds(1.5f);
+                
+				dead = true;
+                OnDead?.Invoke(deadType);
+				
+
+            }
 			
         }
 

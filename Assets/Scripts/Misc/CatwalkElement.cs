@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,20 +14,42 @@ namespace Baloon
         [SerializeField]
         List<AudioClip> audioClips;
 
+        Rigidbody rb;
+
+        FirstPersonController player;
+
         private void Awake()
         {
             if(audioSource == null) audioSource  = GetComponent<AudioSource>();
+
+            rb = GetComponent<Rigidbody>();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            player = FindFirstObjectByType<FirstPersonController>();
         }
 
         // Update is called once per frame
         void Update()
         {
+
+        }
+
+        private void FixedUpdate()
+        {
+            if (rb.isKinematic || player.Doomed) return;
+
+            
+            if(Physics.Raycast(Camera.main.transform.position, Vector3.down, out var hitInfo, 2f))
+            {
+                if(hitInfo.collider.gameObject == gameObject)
+                {
+                    player.Doomed = true;
+                    player.Die(PlayerDeadType.CatwalkCollapsing);
+                }
+            }
 
         }
 
@@ -44,7 +67,7 @@ namespace Baloon
             IEnumerator ResetKinematicDelayed()
             {
                 yield return new WaitForSeconds(2f);
-                GetComponent<Rigidbody>().isKinematic = true;
+                rb.isKinematic = true;
             }
         }
     }
