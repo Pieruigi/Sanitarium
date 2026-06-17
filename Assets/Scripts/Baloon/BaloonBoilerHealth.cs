@@ -1,3 +1,5 @@
+using Baloon.SaveSystem;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,14 +19,23 @@ namespace Baloon
         [Range(0f,1f)]
         float health;
 
-        //public float Health => health;
+        string saveId = "boiler_health";
 
+        class Data
+        {
+            public float health;
+        }
         
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            var rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData);
+                health = data.health;
+            }
         }
 
         // Update is called once per frame
@@ -41,6 +52,23 @@ namespace Baloon
             //}
 
 #endif
+        }
+
+        private void OnEnable()
+        {
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+        }
+
+        private void OnDisable()
+        {
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();  
+            data.health = health;
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         public void TakeDamage(float amount)

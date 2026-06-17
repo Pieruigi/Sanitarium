@@ -1,3 +1,4 @@
+using Baloon.SaveSystem;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +48,14 @@ namespace Baloon
         float repairElapsed = 0;
         float repairTime = 1;
 
+        [SerializeField]
+        string saveId;
+
+        class Data
+        {
+            public bool damaged;
+        }
+
         private void Awake()
         {
             //hole.SetActive(false);
@@ -55,7 +64,25 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            var rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData);
+                damaged = data.damaged;
+                if (damaged)
+                {
+                    hit = 2;
 
+                    // Remove bolt
+                    bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false);
+
+                    // Instantiate new particle
+                    particle = Instantiate(particlePrefab, transform);
+                    particle.transform.localPosition = Vector3.zero;
+                    particle.transform.localRotation = Quaternion.identity;
+                    particle.Stop();
+                }
+            }
         }
 
         // Update is called once per frame
@@ -86,6 +113,8 @@ namespace Baloon
             RepairToolEventListener.OnHit += HandleOnAnimationHit;
             BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
             BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+
+            SaveManager.OnUpdateDataEntry += HandleOnUpdataDataEntry;
         }
 
         private void OnDisable()
@@ -95,6 +124,15 @@ namespace Baloon
             RepairToolEventListener.OnHit -= HandleOnAnimationHit;
             BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
             BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdataDataEntry;
+        }
+
+        private void HandleOnUpdataDataEntry()
+        {
+            var data = new Data();
+            data.damaged = damaged;
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         private void HandleOnBaloonStarted()

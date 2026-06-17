@@ -176,6 +176,7 @@ MonoBehaviour:
   sparksPrefab: {fileID: 6738698796058360349, guid: 0f7a1c65fdb330149b5c0895b79829fb, type: 3}
   hole: {fileID: 3570527265805699763}
   interactor: {fileID: 4991301710820828990}
+  saveId: boiler_leak_4
 --- !u!114 &4991301710820828990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,6 +5452,7 @@ MonoBehaviour:
   sparksPrefab: {fileID: 6738698796058360349, guid: 0f7a1c65fdb330149b5c0895b79829fb, type: 3}
   hole: {fileID: 2785744870876100564}
   interactor: {fileID: 3311836446240062544}
+  saveId: boiler_leak_5
 --- !u!114 &3311836446240062544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6533,6 +6535,7 @@ MonoBehaviour:
   sparksPrefab: {fileID: 6738698796058360349, guid: 0f7a1c65fdb330149b5c0895b79829fb, type: 3}
   hole: {fileID: 3458735019304025053}
   interactor: {fileID: 6559937621849513219}
+  saveId: boiler_leak_1
 --- !u!114 &6559937621849513219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9833,6 +9836,7 @@ MonoBehaviour:
   sparksPrefab: {fileID: 6738698796058360349, guid: 0f7a1c65fdb330149b5c0895b79829fb, type: 3}
   hole: {fileID: 2547741458202064963}
   interactor: {fileID: 135700229586003312}
+  saveId: boiler_leak_6
 --- !u!114 &135700229586003312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9916,6 +9920,7 @@ MonoBehaviour:
   sparksPrefab: {fileID: 6738698796058360349, guid: 0f7a1c65fdb330149b5c0895b79829fb, type: 3}
   hole: {fileID: 4974896779458360880}
   interactor: {fileID: 7566918365058940987}
+  saveId: boiler_leak_2
 --- !u!114 &7566918365058940987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12856,6 +12861,7 @@ MonoBehaviour:
   sparksPrefab: {fileID: 6738698796058360349, guid: 0f7a1c65fdb330149b5c0895b79829fb, type: 3}
   hole: {fileID: 9020088875697233172}
   interactor: {fileID: 7104360723603244750}
+  saveId: boiler_leak_3
 --- !u!114 &7104360723603244750
 MonoBehaviour:
   m_ObjectHideFlags: 0
