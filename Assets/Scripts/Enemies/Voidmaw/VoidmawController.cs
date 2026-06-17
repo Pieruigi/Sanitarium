@@ -58,6 +58,12 @@ namespace Baloon
             rb = GetComponent<Rigidbody>();
             rb.isKinematic = true;
             rb.useGravity = false;
+
+            //// Ignore balloon hit collision
+            //var coll = GetComponent<Collider>();
+            //var others = FindObjectsByType<BalloonCollisionChecker>(FindObjectsSortMode.None);
+            //foreach (var other in others)
+            //    Physics.IgnoreCollision(coll, other.GetComponent<Collider>(), true);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created

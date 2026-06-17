@@ -78,6 +78,8 @@ namespace Baloon
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!other.CompareTag("Baloon")) return;
+
             inside = true;
 
             if (processing) return;
@@ -88,6 +90,8 @@ namespace Baloon
 
         private void OnTriggerExit(Collider other)
         {
+            if (!other.CompareTag("Baloon")) return;
+
             inside = false;
         }
 

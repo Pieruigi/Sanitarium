@@ -89,6 +89,11 @@ public class CarrionFlyController : MonoBehaviour
         // Set idle animation
         SetIdleAnimation();
 
+        // Ignore balloon hit collision
+        var coll = GetComponent<Collider>();
+        var others = FindObjectsByType<BalloonCollisionChecker>(FindObjectsSortMode.None);
+        foreach (var other in others)
+            Physics.IgnoreCollision(coll, other.GetComponent<Collider>(), true);
         
     }
 

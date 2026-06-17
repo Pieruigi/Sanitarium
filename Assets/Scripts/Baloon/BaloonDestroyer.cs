@@ -73,49 +73,93 @@ namespace Baloon
             // Explode
             StartCoroutine(DoPlayExplosion());
 
-            IEnumerator DoPlayExplosion()
-            {
-                FirstPersonController player = FindFirstObjectByType<FirstPersonController>();
-                player.Doomed = true;
-                player.Die(PlayerDeadType.BoilerExplosion);
+            //IEnumerator DoPlayExplosion()
+            //{
+            //    FirstPersonController player = FindFirstObjectByType<FirstPersonController>();
+            //    player.Doomed = true;
+            //    player.Die(PlayerDeadType.BoilerExplosion);
 
-                // Play
-                var explosionParticle = Instantiate(explosionParticlePrefab);
-                explosionParticle.transform.position = explosionSpawnPoint.position;
-                explosionParticle.transform.rotation = explosionSpawnPoint.rotation;
+            //    // Play
+            //    var explosionParticle = Instantiate(explosionParticlePrefab);
+            //    explosionParticle.transform.position = explosionSpawnPoint.position;
+            //    explosionParticle.transform.rotation = explosionSpawnPoint.rotation;
 
-                //Destroy(explosionParticle.gameObject, 3f);
+            //    //Destroy(explosionParticle.gameObject, 3f);
 
-                CameraShake.Instance.PlayJumpscare(1f);
+            //    CameraShake.Instance.PlayJumpscare(1f);
 
-                yield return new WaitForSeconds(.25f);
+            //    yield return new WaitForSeconds(.25f);
 
-                // Launch player
-                var dir = Vector3.ProjectOnPlane(player.transform.position - explosionParticle.transform.position, Vector3.up);
-                dir = dir.normalized * 4 + Vector3.up;
-                var rb = player.GetComponent<Rigidbody>();
-                rb.AddForce(dir * Random.Range(2f,4f), ForceMode.VelocityChange);
-                rb.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+            //    // Launch player
+            //    var dir = Vector3.ProjectOnPlane(player.transform.position - explosionParticle.transform.position, Vector3.up);
+            //    dir = dir.normalized * 4 + Vector3.up;
+            //    var rb = player.GetComponent<Rigidbody>();
+            //    rb.AddForce(dir * Random.Range(2f,4f), ForceMode.VelocityChange);
+            //    rb.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
 
-                // Launch boiler
-                rbBoiler.transform.parent = null;
-                rbBoiler.useGravity = true;
-                rbBoiler.isKinematic = false;
-                rbBoiler.AddForce(Random.onUnitSphere * Random.Range(2f, 4f), ForceMode.VelocityChange);
-                rbBoiler.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+            //    // Launch boiler
+            //    rbBoiler.transform.parent = null;
+            //    rbBoiler.useGravity = true;
+            //    rbBoiler.isKinematic = false;
+            //    rbBoiler.AddForce(Random.onUnitSphere * Random.Range(2f, 4f), ForceMode.VelocityChange);
+            //    rbBoiler.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
 
-                // Launch basket
-                controlPanel.transform.parent = rbBasket.transform;
-                rbBasket.transform.parent = null;   
-                rbBasket.useGravity = true;
-                rbBasket.isKinematic = false;
-                rbBasket.AddForce(Random.onUnitSphere * Random.Range(1f, 2f), ForceMode.VelocityChange);
-                rbBasket.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+            //    // Launch basket
+            //    controlPanel.transform.parent = rbBasket.transform;
+            //    rbBasket.transform.parent = null;   
+            //    rbBasket.useGravity = true;
+            //    rbBasket.isKinematic = false;
+            //    rbBasket.AddForce(Random.onUnitSphere * Random.Range(1f, 2f), ForceMode.VelocityChange);
+            //    rbBasket.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
 
                 
 
-                yield break;
-            }
+            //    yield break;
+            //}
+        }
+
+        public IEnumerator DoPlayExplosion()
+        {
+            FirstPersonController player = FindFirstObjectByType<FirstPersonController>();
+            player.Doomed = true;
+            player.Die(PlayerDeadType.BoilerExplosion);
+
+            // Play
+            var explosionParticle = Instantiate(explosionParticlePrefab);
+            explosionParticle.transform.position = explosionSpawnPoint.position;
+            explosionParticle.transform.rotation = explosionSpawnPoint.rotation;
+
+            //Destroy(explosionParticle.gameObject, 3f);
+
+            CameraShake.Instance.PlayJumpscare(1f);
+
+            yield return new WaitForSeconds(.25f);
+
+            // Launch player
+            var dir = Vector3.ProjectOnPlane(player.transform.position - explosionParticle.transform.position, Vector3.up);
+            dir = dir.normalized * 4 + Vector3.up;
+            var rb = player.GetComponent<Rigidbody>();
+            rb.AddForce(dir * Random.Range(2f, 4f), ForceMode.VelocityChange);
+            rb.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+
+            // Launch boiler
+            rbBoiler.transform.parent = null;
+            rbBoiler.useGravity = true;
+            rbBoiler.isKinematic = false;
+            rbBoiler.AddForce(Random.onUnitSphere * Random.Range(2f, 4f), ForceMode.VelocityChange);
+            rbBoiler.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+
+            // Launch basket
+            controlPanel.transform.parent = rbBasket.transform;
+            rbBasket.transform.parent = null;
+            rbBasket.useGravity = true;
+            rbBasket.isKinematic = false;
+            rbBasket.AddForce(Random.onUnitSphere * Random.Range(1f, 2f), ForceMode.VelocityChange);
+            rbBasket.AddTorque(Random.onUnitSphere * Random.Range(1f, 6f), ForceMode.VelocityChange);
+
+
+
+            yield break;
         }
 
         private void HandleOnDead(PlayerDeadType deadType)
