@@ -1,9 +1,18 @@
+using Baloon.SaveSystem;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonPersistent<GameManager>
 {
+ 
+    public const int MainSceneIndex = 0;
+    public const int GameSceneIndex = 1;
 
-    public readonly int GameSceneIndex = 1;
+
+    bool isNewGame = false;
+    public bool IsNewGame => isNewGame;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,4 +25,27 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void PlayGame()
+    {
+        isNewGame = !SaveManager.Instance.SaveFileExists();
+        if (!isNewGame)
+        {
+            SaveManager.Instance.Load();
+        }
+
+        StartCoroutine(DoLoad());
+
+        IEnumerator DoLoad()
+        {
+            yield return null;
+            SceneManager.LoadScene(GameSceneIndex);
+        }
+
+        //SceneManager.LoadScene(GameSceneIndex);
+
+
+    }
+
+    
 }

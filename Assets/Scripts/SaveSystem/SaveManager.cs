@@ -44,7 +44,7 @@ namespace Baloon.SaveSystem
             filePath = Path.Combine(Application.persistentDataPath, fileName);
 
 #if UNITY_EDITOR
-            Load();
+            //Load();
 #endif
         } 
             

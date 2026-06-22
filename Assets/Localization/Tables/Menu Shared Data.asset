@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: continue_game
     m_Metadata:
       m_Items: []
+  - m_Id: 65384496488448
+    m_Key: MainScene/MenuUI/Panel/NewGameButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
