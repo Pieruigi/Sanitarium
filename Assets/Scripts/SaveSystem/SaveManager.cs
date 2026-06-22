@@ -148,5 +148,10 @@ namespace Baloon.SaveSystem
 
             return masterSaveData.entries.Find(e=>e.id== dataEntryId).rawJsonData;
         }
+
+        public bool SaveFileExists()
+        {
+            return File.Exists(filePath);
+        }
     }
 }
