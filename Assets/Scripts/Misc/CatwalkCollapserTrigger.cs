@@ -1,8 +1,6 @@
 using Baloon;
 using Baloon.SaveSystem;
-using System;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class CatwalkCollapserTrigger : MonoBehaviour
 {

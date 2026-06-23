@@ -31,6 +31,18 @@ MonoBehaviour:
     m_Key: resolution
     m_Metadata:
       m_Items: []
+  - m_Id: 417839126142976
+    m_Key: screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418407928291328
+    m_Key: windowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 419649106731008
+    m_Key: fullscreen
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

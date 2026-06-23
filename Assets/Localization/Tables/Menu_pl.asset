@@ -34,6 +34,18 @@ MonoBehaviour:
     m_Localized: "Rozdzielczo\u015B\u0107"
     m_Metadata:
       m_Items: []
+  - m_Id: 417839126142976
+    m_Localized: Ekran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418407928291328
+    m_Localized: W oknie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 419649106731008
+    m_Localized: "Pe\u0142ny ekran"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

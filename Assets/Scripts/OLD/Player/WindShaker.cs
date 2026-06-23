@@ -1,9 +1,6 @@
 using DG.Tweening;
 using System.Collections;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.InputManagerEntry;
 
 namespace Baloon
 {

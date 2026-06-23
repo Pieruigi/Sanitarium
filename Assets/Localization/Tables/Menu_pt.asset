@@ -34,6 +34,18 @@ MonoBehaviour:
     m_Localized: "Resolu\xE7\xE3o"
     m_Metadata:
       m_Items: []
+  - m_Id: 417839126142976
+    m_Localized: "Ecr\xE3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418407928291328
+    m_Localized: Janela
+    m_Metadata:
+      m_Items: []
+  - m_Id: 419649106731008
+    m_Localized: "Ecr\xE3 inteiro"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

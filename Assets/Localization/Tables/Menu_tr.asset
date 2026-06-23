@@ -34,6 +34,18 @@ MonoBehaviour:
     m_Localized: "\xC7\xF6z\xFCn\xFCrl\xFCk"
     m_Metadata:
       m_Items: []
+  - m_Id: 417839126142976
+    m_Localized: Ekran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418407928291328
+    m_Localized: Pencereli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 419649106731008
+    m_Localized: Tam Ekran
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

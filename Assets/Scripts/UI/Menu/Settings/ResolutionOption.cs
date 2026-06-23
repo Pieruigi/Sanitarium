@@ -51,5 +51,15 @@ namespace Baloon.UI
 
             Init(options, index);
         }
+
+        protected override void ReportValueChanged(int value)
+        {
+            var refreshRate = Screen.currentResolution.refreshRateRatio;
+            var option = GetOption(value);
+
+            string[] optionSplit = option.Split("x");
+
+            Screen.SetResolution(int.Parse(optionSplit[0]), int.Parse(optionSplit[1]), Screen.fullScreen); // ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed);
+        }
     }
 }
