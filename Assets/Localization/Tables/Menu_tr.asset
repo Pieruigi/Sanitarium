@@ -26,6 +26,14 @@ MonoBehaviour:
     m_Localized: Devam Et
     m_Metadata:
       m_Items: []
+  - m_Id: 351131615092736
+    m_Localized: Ayarlar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 353762899124224
+    m_Localized: "\xC7\xF6z\xFCn\xFCrl\xFCk"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
