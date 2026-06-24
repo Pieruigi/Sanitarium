@@ -122,9 +122,12 @@ namespace StarterAssets
 
 		bool dead = false;
 
-		// Set true if something is going to kill the player in order to avoid any other killer routine (set true as soon as the routine start);
-		// For example when killer wind destroy the balloon, before the player actually dies, tentacles start shaking the balloon, and then we must call Doomed = true at that moment.
-		public bool Doomed { get; set; }
+        [SerializeField]
+        float mouseSens = 1f;
+
+        // Set true if something is going to kill the player in order to avoid any other killer routine (set true as soon as the routine start);
+        // For example when killer wind destroy the balloon, before the player actually dies, tentacles start shaking the balloon, and then we must call Doomed = true at that moment.
+        public bool Doomed { get; set; }
 
         public string SaveId => "Player";
 
@@ -338,6 +341,8 @@ namespace StarterAssets
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 		}
 
+		
+
 		private void CameraRotation()
 		{
 			if (Time.timeScale == 0) return;
@@ -350,13 +355,13 @@ namespace StarterAssets
             // if there is an input
             if (_input.look.sqrMagnitude >= _threshold)
 			{
-				
+				mouseSens = SettingsManager.Instance.MouseSpeed;
 
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
-				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier * mouseSens;
+				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier * mouseSens;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);

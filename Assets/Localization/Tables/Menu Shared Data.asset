@@ -43,6 +43,26 @@ MonoBehaviour:
     m_Key: fullscreen
     m_Metadata:
       m_Items: []
+  - m_Id: 699652625129472
+    m_Key: volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 734144765091840
+    m_Key: mouse_speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739165569277952
+    m_Key: vertical_mouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739934645248000
+    m_Key: normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739951791562752
+    m_Key: inverted
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

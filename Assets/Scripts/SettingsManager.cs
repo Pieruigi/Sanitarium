@@ -16,15 +16,15 @@ namespace Baloon
 
         public const string MouseSpeedOptionParam = "MouseSpeed";
 
-        public const int MouseSpeedOptionMin = 0;
-        public const int MouseSpeedOptionMax = 100;
+        public const int MouseSpeedOptionMin = 1;
+        public const int MouseSpeedOptionMax = 9;
 
-        public const int MouseSpeedOptionDefault = 10;
+        public const int MouseSpeedOptionDefault = 5;
 
         public const string VolumeOptionParam = "Volume";
 
-        public const int VolumeOptionMin = 0;
-        public const int VolumeOptionMax = 100;
+        //public const int VolumeOptionMin = 0;
+        //public const int VolumeOptionMax = 100;
 
         public const int VolumeOptionDefault = 80;
 
@@ -39,7 +39,21 @@ namespace Baloon
             get
             {
                 var v = PlayerPrefs.GetInt("MouseSpeed", MouseSpeedOptionDefault);
-                return Mathf.Lerp(1f, 40f, (float)v / (float)MouseSpeedOptionMax) / 40f;
+                if (v == 5)
+                {
+                    return 1.0f;
+                }
+                else if (v > 5)
+                {
+                    // Scala lineare verso l'alto: da 5 (1.0x) a 9 (4.0x)
+                    return 1.0f + (v - 5) * 0.75f;
+                }
+                else
+                {
+                    // Scala lineare verso il basso: da 5 (1.0x) a 1 (0.25x)
+                    return 1.0f - (5 - v) * 0.1875f;
+                }
+                //return Mathf.Lerp(1f, 40f, (float)v / (float)MouseSpeedOptionMax) / 40f;
             }
         }
 
@@ -48,8 +62,9 @@ namespace Baloon
             get
             {
                 var v = PlayerPrefs.GetInt("Volume", VolumeOptionDefault);
-                return Mathf.Log10((float)v / 10000f) * 20f;
-                
+                //return Mathf.Log10((float)v / 10000f) * 20f;
+                return Mathf.Log10((float)v / 10f) * 80f; // From 1 to 10
+
             }
         }
 
@@ -93,7 +108,7 @@ namespace Baloon
             OnOptionsChanged?.Invoke();
         }
 
-
+        
 
     }
 }

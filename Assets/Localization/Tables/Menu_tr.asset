@@ -46,6 +46,26 @@ MonoBehaviour:
     m_Localized: Tam Ekran
     m_Metadata:
       m_Items: []
+  - m_Id: 699652625129472
+    m_Localized: "Ses D\xFCzeyi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 734144765091840
+    m_Localized: "Fare H\u0131z\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739165569277952
+    m_Localized: Y Ekseni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739934645248000
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739951791562752
+    m_Localized: Ters
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
