@@ -66,6 +66,22 @@ MonoBehaviour:
     m_Localized: Ters
     m_Metadata:
       m_Items: []
+  - m_Id: 769579339997184
+    m_Localized: Dil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 788880344211456
+    m_Localized: Zorluk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789697210081280
+    m_Localized: "Kal\u0131c\u0131 \xD6l\xFCm"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789719259537408
+    m_Localized: Bebek Modu
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

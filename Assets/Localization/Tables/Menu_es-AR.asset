@@ -66,6 +66,22 @@ MonoBehaviour:
     m_Localized: Invertido
     m_Metadata:
       m_Items: []
+  - m_Id: 769579339997184
+    m_Localized: Idioma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 788880344211456
+    m_Localized: Dificultad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789697210081280
+    m_Localized: Muerte permanente
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789719259537408
+    m_Localized: "Modo Beb\xE9"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

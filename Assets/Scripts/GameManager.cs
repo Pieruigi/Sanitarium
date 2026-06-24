@@ -14,6 +14,8 @@ public class GameManager : SingletonPersistent<GameManager>
     bool isNewGame = false;
     public bool IsNewGame => isNewGame;
 
+    public int Difficulty = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

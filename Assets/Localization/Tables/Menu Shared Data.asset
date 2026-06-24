@@ -63,6 +63,22 @@ MonoBehaviour:
     m_Key: inverted
     m_Metadata:
       m_Items: []
+  - m_Id: 769579339997184
+    m_Key: language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 788880344211456
+    m_Key: difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789697210081280
+    m_Key: permadeath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789719259537408
+    m_Key: baby_mode
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

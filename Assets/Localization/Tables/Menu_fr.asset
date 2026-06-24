@@ -66,6 +66,22 @@ MonoBehaviour:
     m_Localized: "Invers\xE9"
     m_Metadata:
       m_Items: []
+  - m_Id: 769579339997184
+    m_Localized: Langue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 788880344211456
+    m_Localized: "Difficult\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789697210081280
+    m_Localized: Mort permanente
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789719259537408
+    m_Localized: "Mode B\xE9b\xE9"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

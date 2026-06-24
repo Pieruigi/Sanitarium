@@ -31,8 +31,10 @@ namespace Baloon
         public const string VerticalMouseOptionParam = "VerticalMouse";
 
         public const int VerticalMouseOptionDefault = 0;
-        
+
         //public const string ResolutionIdOptionParam = "ResolutionId";
+
+       
 
         public float MouseSpeed
         {

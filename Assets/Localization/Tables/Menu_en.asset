@@ -66,6 +66,22 @@ MonoBehaviour:
     m_Localized: Inverted
     m_Metadata:
       m_Items: []
+  - m_Id: 769579339997184
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 788880344211456
+    m_Localized: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789697210081280
+    m_Localized: Permadeath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 789719259537408
+    m_Localized: Baby Mode
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

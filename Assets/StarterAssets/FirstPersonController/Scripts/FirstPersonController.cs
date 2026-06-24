@@ -360,7 +360,7 @@ namespace StarterAssets
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
-				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier * mouseSens;
+				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier * mouseSens * (SettingsManager.Instance.VerticalMouse ? -1f : 1f);
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier * mouseSens;
 
 				// clamp our pitch rotation

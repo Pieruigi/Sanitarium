@@ -1,23 +1,23 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Baloon.UI
 {
-    public class ScreenModeOption : OptionList
+    public class DifficultyOption : OptionList
     {
         protected override void Awake()
         {
             base.Awake();
 
-            var options = new List<string>(new string[] { "windowed", "fullscreen" });
-            Init(options, Screen.fullScreen ? 1 : 0);
+            
+            
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            var options = new List<string>(new string[] { "permadeath", "baby_mode" });
+            Init(options, GameManager.Instance.Difficulty);
         }
 
         // Update is called once per frame
@@ -28,7 +28,7 @@ namespace Baloon.UI
 
         protected override void ReportValueChanged(int value)
         {
-            Screen.fullScreen = value == 0 ? false : true;
+            GameManager.Instance.Difficulty = value;
         }
     }
 }
