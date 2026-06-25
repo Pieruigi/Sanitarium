@@ -1,3 +1,6 @@
+using StarterAssets;
+using System.Collections;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 namespace Baloon
@@ -30,8 +33,43 @@ namespace Baloon
         {
             if (spawned) return;
 
-            spawned = true;
-            creature = Instantiate(prefab, target);
+            StartCoroutine(DoSpawn(other.GetComponent<FirstPersonController>()));
+
+            //StartCoroutine(DoJumpscare(other.GetComponent<FirstPersonController>()));
+
+            IEnumerator DoSpawn(FirstPersonController player)
+            {
+                spawned = true;
+
+                player.DisableAndLookForSeconds(target.position);
+
+                CameraShake.Instance.PlayJumpscare(1f);
+
+                yield return new WaitForSeconds(.1f);
+
+                creature = Instantiate(prefab, target);
+            }
+
+            //IEnumerator DoJumpscare(FirstPersonController player)
+            //{
+            //    player.DisableAndLookForSeconds(target.position);
+                
+            //    //player.JawDisabled = true;
+            //    //player.PitchDisabled = true;
+            //    //player.MoveDisabled = true;
+
+            //    //var dir = target.position - player.transform.position;
+
+            //    //player.ForceRotation(Quaternion.LookRotation(dir.normalized, Vector3.up));
+            //    //player.ForceCameraPitch(0);
+
+            //    CameraShake.Instance.PlayJumpscare(1f);
+
+            //    //yield return new WaitForSeconds(.5f);
+            //    //player.JawDisabled = false;
+            //    //player.PitchDisabled = false;
+            //    //player.MoveDisabled = false;
+            //}
         }
     }
 }

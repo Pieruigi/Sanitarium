@@ -125,6 +125,10 @@ namespace StarterAssets
         [SerializeField]
         float mouseSens = 1f;
 
+		public bool JawDisabled = false;
+		public bool PitchDisabled = false;
+		public bool MoveDisabled = false;
+
         // Set true if something is going to kill the player in order to avoid any other killer routine (set true as soon as the routine start);
         // For example when killer wind destroy the balloon, before the player actually dies, tentacles start shaking the balloon, and then we must call Doomed = true at that moment.
         public bool Doomed { get; set; }
@@ -221,6 +225,7 @@ namespace StarterAssets
 
             }
 
+			
             CameraRotation();
         }
 
@@ -259,9 +264,11 @@ namespace StarterAssets
 
         private void MoveOnBalloon()
         {
+            if (MoveDisabled)
+                _input.move = Vector2.zero;
 
-			// 2. Smoothly update velocity
-			float targetSpeed = 0;
+            // 2. Smoothly update velocity
+            float targetSpeed = 0;
 			if (_input.move.magnitude > 0) targetSpeed = MoveSpeed;
 
 			if(_speed != targetSpeed)
@@ -352,6 +359,9 @@ namespace StarterAssets
 
             //}
 
+			if(JawDisabled) _input.look.x = 0f;
+			if(PitchDisabled) _input.look.y = 0f;	
+
             // if there is an input
             if (_input.look.sqrMagnitude >= _threshold)
 			{
@@ -380,8 +390,8 @@ namespace StarterAssets
 
 		private void Move()
 		{
-		
-
+			
+			
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
@@ -448,7 +458,7 @@ namespace StarterAssets
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move == Vector2.zero || MoveDisabled) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -610,7 +620,39 @@ namespace StarterAssets
 		public void ForceCameraPitch(float pitch)
 		{
 			_cinemachineTargetPitch = pitch;
+            CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+        }
+
+		public void ForceRotation(Quaternion rotation)
+		{
+			transform.rotation = rotation;
 		}
+
+		public void DisableAndLookForSeconds(Vector3 target, float time = .5f)
+		{
+			StartCoroutine(DoDisable());
+
+            IEnumerator DoDisable()
+            {
+                // Disable player input
+                JawDisabled = true;
+                PitchDisabled = true;
+                MoveDisabled = true;
+
+                // Force pitch and jaw
+                var lookDir = target - transform.position;
+
+                ForceRotation(Quaternion.LookRotation(lookDir.normalized, Vector3.up));
+                ForceCameraPitch(0);
+
+                yield return new WaitForSeconds(time);
+
+                // Disable player input
+                JawDisabled = false;
+                PitchDisabled = false;
+                MoveDisabled = false;
+            }
+        }
 
 		public void Die(PlayerDeadType deadType)
 		{

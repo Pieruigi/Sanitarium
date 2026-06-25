@@ -1,6 +1,7 @@
 using Baloon.SaveSystem;
 using DG.Tweening;
 using StarterAssets;
+using System.Collections;
 using UnityEngine;
 
 
@@ -145,6 +146,9 @@ namespace Baloon
             // Play audio
             doorAudioSource.Play();
 
+            //StartCoroutine(DisablePlayerForAWhile());
+            player.DisableAndLookForSeconds(abomination.transform.position);
+
             // Camera shake
             CameraShake.Instance.PlayJumpscare(.5f);
 
@@ -161,6 +165,8 @@ namespace Baloon
 
             // Wake up abomination
             abomination.GetComponent<AbominationController>().StartChasingPlayer();
+
+            
         }
 
         void Activated()
