@@ -99,8 +99,8 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-                Activated(); // Call this by an event 
+            //if (Input.GetKeyDown(KeyCode.X))
+            //    Activated(); // Call this by an event 
 #endif
         }
 

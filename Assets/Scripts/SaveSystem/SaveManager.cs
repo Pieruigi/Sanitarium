@@ -67,11 +67,11 @@ namespace Baloon.SaveSystem
             //    LoadFile();
 
             //}
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Save();
-                //Debug.Log(cache);
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    Save();
+            //    //Debug.Log(cache);
+            //}
             //if (Input.GetKeyDown(KeyCode.V))
             //{
             //    DeleteFile();

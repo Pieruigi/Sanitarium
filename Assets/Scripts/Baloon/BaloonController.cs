@@ -1,14 +1,19 @@
 using Baloon.SaveSystem;
 using StarterAssets;
-using System;
-using Unity.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Baloon
 {
     public class BaloonController : Singleton<BaloonController>
     {
+        [SerializeField]
+        AudioSource landingAudioSource;
+
+        [SerializeField]
+        List<AudioClip> landingAudioClips;
+                
+
         public float Altitude => transform.position.y;
 
         //Rigidbody rb;
@@ -158,6 +163,12 @@ namespace Baloon
                 var max = -2f;
                 float power = Mathf.Lerp(0f, 1f, (max - lastVelY) / (max - min));
                 CameraShake.Instance.PlayLandingShake(power);
+
+                var minVolume = .5f;
+                var maxVolume = .8f;
+                landingAudioSource.volume = Mathf.Lerp(minVolume, maxVolume, power);
+                landingAudioSource.clip = landingAudioClips[Random.Range(0, landingAudioClips.Count)];
+                landingAudioSource.Play();
             }
             else if (lastVelY == 0 && currentVelocity.y > 0)
             {

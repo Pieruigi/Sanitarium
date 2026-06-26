@@ -195,6 +195,10 @@ MonoBehaviour:
     m_Bits: 1024
   onBasketCollider: {fileID: 606731308796019301}
   playerTarget: {fileID: 0}
+  mouseSens: 1
+  JawDisabled: 0
+  PitchDisabled: 0
+  MoveDisabled: 0
 --- !u!114 &2177673285047734763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,7 +891,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.063
+  m_Volume: 0.211
   m_Pitch: 1
   Loop: 0
   Mute: 0

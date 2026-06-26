@@ -7,6 +7,9 @@ namespace Baloon
     {
         ChonchonController chonchon;
 
+        [SerializeField]
+        bool isExit = false;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -38,16 +41,20 @@ namespace Baloon
         {
             if (!other.CompareTag("Player")) return;
 
-            chonchon.SetIdleState();
+            if (!isExit)
+                chonchon.SetIdleState();
+            else
+                chonchon.SetExitState();
+
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (!other.CompareTag("Player")) return;
+        //private void OnTriggerExit(Collider other)
+        //{
+        //    if (!other.CompareTag("Player")) return;
 
-            var dir = Vector3.ProjectOnPlane(other.transform.position - transform.position, Vector3.up);
-            if (Vector3.Dot(dir, transform.forward) > 0)
-                chonchon.UnsetIdleState();
-        }
+        //    var dir = Vector3.ProjectOnPlane(other.transform.position - transform.position, Vector3.up);
+        //    if (Vector3.Dot(dir, transform.forward) > 0)
+        //        chonchon.UnsetIdleState();
+        //}
     }
 }
