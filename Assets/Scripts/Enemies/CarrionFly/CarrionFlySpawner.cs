@@ -13,6 +13,10 @@ namespace Baloon
         [SerializeField]
         int pathIndex = -1;
 
+        [SerializeField]
+        BaloonPathDirection directon = BaloonPathDirection.Both;
+
+
         GameObject carrionFly;
 
         bool spawned = false;
@@ -54,7 +58,8 @@ namespace Baloon
         {
             if(spawned) return;
 
-            if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex) follow = true;
+            if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex && 
+               (directon == BaloonPathDirection.Both || (directon == BaloonPathDirection.Forward && !BaloonPathManager.Instance.IsPathReversed) || (directon == BaloonPathDirection.Reversed && BaloonPathManager.Instance.IsPathReversed))) follow = true;
         }
 
         private void HandleOnPathhCleared()

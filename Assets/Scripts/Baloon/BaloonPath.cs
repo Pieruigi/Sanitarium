@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Baloon
 {
+
+    public enum BaloonPathDirection { Both, Forward, Reversed }
+
     [System.Serializable]
     public class BaloonPath// : MonoBehaviour
     {
