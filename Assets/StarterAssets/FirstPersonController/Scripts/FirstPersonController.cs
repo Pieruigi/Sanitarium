@@ -100,6 +100,15 @@ namespace StarterAssets
 
 		public bool IsCrouching => false;
 
+		[SerializeField]
+		GameObject bloodUI;
+
+		[SerializeField]
+		AudioSource bloodAudioSource;
+
+		[SerializeField]
+		AudioSource bodyFallAudioSource;
+
 		
 		private bool IsCurrentDeviceMouse
 		{
@@ -151,6 +160,7 @@ namespace StarterAssets
 			}
 
 			onBasketCollider.enabled = false;
+			bloodUI.SetActive(false);
 		}
 
 		private void Start()
@@ -766,7 +776,11 @@ namespace StarterAssets
         {
 			if(!dead) return;
 
-            
+			GetComponent<Rigidbody>().isKinematic = true;
+
+            bodyFallAudioSource.Play();
+			bloodAudioSource.Play();
+			bloodUI.SetActive(true);
 
             Debug.Log("TEST - Dead player collision:"+collision.gameObject.name);
         }
