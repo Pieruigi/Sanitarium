@@ -195,6 +195,59 @@ namespace Baloon
 
         }
 
+        public void PlayNoGasKill()
+        {
+            if (killing || player.Doomed) return;
+            killing = true;
+            player.Doomed = true;
+
+            StartCoroutine(DoKill());
+
+            OnKilling?.Invoke();
+
+            IEnumerator DoKill()
+            {
+                // Stop the wind shaker
+                WindShaker.Instance.Running = false;
+
+                // Stop the constante vertical wind
+                VerticalWind.Instance.Running = false;
+
+                hauntingAudioSource.Play();
+
+                DOTween.To(() => fog.density.value, x => fog.density.value = x, .6f, 10.5f);
+                DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, 5, 10.5f);
+
+                yield return new WaitForSeconds(1.5f);
+
+                // Move the balloon up 
+                var targetY = transform.position.y + 40;
+
+                var duration = 3f;
+
+               
+
+                // 2. Move the balloon violently (Ease.OutQuad starts fast and then slows down)
+                BaloonController.Instance.transform.DOMoveY(targetY, duration).SetEase(Ease.OutQuad);
+
+                BaloonController.Instance.DisableVerticalVelocity();
+
+                BaloonShaker.Instance.StartWarningShake(duration);
+                CameraShake.Instance.PlayKillerWindShake(duration);
+
+                // Apply audio
+                //WindAudio.Instance.FadeGustVolume(duration);
+                WindAudio.Instance.FadeKillerVolume(duration);
+
+                bangingAudioSource.Play();
+                breakingAudioSource.PlayDelayed(2.5f);
+
+                player.Die(PlayerDeadType.KillerWind);
+            }
+
+           
+        }
+
         Sequence warningSeq;
 
         public void StartWarning(float time)
@@ -219,6 +272,6 @@ namespace Baloon
             warningSeq.Join(DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, fogAttenuationDefault, 1f));
         }
 
-     
+        
     }
 }

@@ -49,5 +49,21 @@ public class GameManager : SingletonPersistent<GameManager>
 
     }
 
+    void LoadMainScene()
+    {
+        SceneManager.LoadScene(MainSceneIndex);
+    }
+
+    public void ReportPlayerDeath()
+    {
+        if(Difficulty == 0)
+        {
+            // Delete save game
+            SaveManager.Instance.Delete();
+        }
+
+        //PlayGame();
+        LoadMainScene();
+    }
     
 }

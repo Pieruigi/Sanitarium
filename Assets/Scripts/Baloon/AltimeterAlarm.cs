@@ -25,7 +25,12 @@ public class AltimeterAlarm : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!started) return;
+        if (!started)
+        {
+            //StopAlarms();
+            return;
+        }
+        
 
         var currentAltitude = BaloonController.Instance.Altitude;
         var minAltitude = AltitudeManager.Instance.MinAltitude;
@@ -51,7 +56,7 @@ public class AltimeterAlarm : MonoBehaviour
     private void OnEnable()
     {
         //BaloonControlPanel.OnStarted += HandleOnBaloonStarted;
-        //BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+        BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
         BasePlatform.OnLanding += HandleOnLanding;
         BasePlatform.OnTakeOff += HandleOnTakeOff;
     }
@@ -59,7 +64,7 @@ public class AltimeterAlarm : MonoBehaviour
     private void OnDisable()
     {
         //BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
-        //BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
+        BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
         BasePlatform.OnLanding -= HandleOnLanding;
         BasePlatform.OnTakeOff -= HandleOnTakeOff;
     }
@@ -102,5 +107,7 @@ public class AltimeterAlarm : MonoBehaviour
         //if (yellowAudioSource.isPlaying) yellowAudioSource.Stop();
         if (redAudioSource.isPlaying) redAudioSource.Stop();
     }
+
+
 
 }

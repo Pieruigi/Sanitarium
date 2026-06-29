@@ -1,4 +1,5 @@
 using DG.Tweening;
+using StarterAssets;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -22,7 +23,7 @@ namespace Baloon
 
         bool processing = false;
 
-    
+        FirstPersonController player;
 
         private void Awake()
         {
@@ -32,7 +33,7 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            player = FindFirstObjectByType<FirstPersonController>();
         }
 
         // Update is called once per frame
@@ -81,6 +82,8 @@ namespace Baloon
             if (!other.CompareTag("Baloon")) return;
 
             inside = true;
+
+            if (player.Doomed) return;
 
             if (processing) return;
 

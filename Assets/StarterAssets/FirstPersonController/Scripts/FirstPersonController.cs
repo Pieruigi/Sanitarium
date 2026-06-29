@@ -1,6 +1,7 @@
 ﻿using Baloon;
 using Baloon.SaveSystem;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 #if ENABLE_INPUT_SYSTEM
@@ -715,12 +716,20 @@ namespace StarterAssets
                 rb.isKinematic = false;
                 rb.useGravity = true;
 
-                // Remove collision
-                onBasketCollider.enabled = false;
+				// Remove collision
+
+				//onBasketCollider.enabled = false;
+
+				DisableAllBalloonCollisions();
+                onBasketCollider.isTrigger = false;
+
 
                 OnDead?.Invoke(deadType);
 
-                yield return new WaitForSeconds(3f);
+
+                yield return new WaitForSeconds(5f);
+
+                GameManager.Instance.ReportPlayerDeath();
             }
 
 			IEnumerator DoCatwalkCollapsing()
@@ -739,10 +748,29 @@ namespace StarterAssets
 				
 
             }
+
+			
 			
         }
 
-       
-        
+		void DisableAllBalloonCollisions()
+		{
+			var colls = BaloonController.Instance.GetComponentsInChildren<Collider>();
+			foreach (Collider coll in colls)
+			{
+				Physics.IgnoreCollision(onBasketCollider, coll, true);
+			}
+		}
+
+        private void OnCollisionEnter(Collision collision)
+        {
+			if(!dead) return;
+
+            
+
+            Debug.Log("TEST - Dead player collision:"+collision.gameObject.name);
+        }
+
+
     }
 }

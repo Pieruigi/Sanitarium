@@ -1,11 +1,14 @@
 using Baloon.SaveSystem;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
     public class BoilerController : Singleton<BoilerController>
     {
+     
+
         [SerializeField]
         [Range(0, 1f)]
         float throttle = 0;
@@ -68,6 +71,7 @@ namespace Baloon
         float gasDepleteMinSpeed = 0.00094f;//0.00125f
 
 
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -121,6 +125,8 @@ namespace Baloon
             if(gasLeft < 0) gasLeft = 0;
 
             if (gasLeft == 0) throttle = 0;
+
+          
         }
 
         private void OnEnable()

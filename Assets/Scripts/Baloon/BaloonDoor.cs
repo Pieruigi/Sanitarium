@@ -55,12 +55,14 @@ namespace Baloon
 
         void Open()
         {
+            if (BoilerController.Instance.GasLeft == 0) return; // No need to open since you die if you remain with no gas
+
             if (BasePlatform.CurrentPlatform)
             {
                 transform.DOKill();
                 transform.DOLocalRotate(Vector3.forward * 160f, .5f).SetEase(Ease.InOutSine);
             }
-            else
+            else // This was the old code to manage door opening if you remain with no gas (so engine stops) while landing
             {
                 toOpen = true;
             }

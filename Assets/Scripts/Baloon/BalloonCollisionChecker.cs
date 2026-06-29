@@ -1,4 +1,6 @@
+using DG.Tweening;
 using StarterAssets;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -7,6 +9,9 @@ namespace Baloon
 {
     public class BalloonCollisionChecker : MonoBehaviour
     {
+        [SerializeField]
+        AudioSource collisionAudioSource;
+
         FirstPersonController player;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,7 +52,29 @@ namespace Baloon
             Debug.Log("TEST - Collision with " + collision.gameObject);
             if (BasePlatform.CurrentPlatform || player.Doomed) return;
 
-            StartCoroutine(GetComponentInParent<BaloonDestroyer>().DoPlayExplosion());
+            player.Doomed = true;
+
+            // Store current velocity
+            var vel = BaloonController.Instance.CurrentVelocity;
+
+            // Stop moving forward
+            BaloonController.Instance.DisableHorizontalVelocity();
+
+            // Move back
+            var time = 1.5f;
+            vel.y = 0;
+            var bounceTarget = BaloonController.Instance.transform.position - vel * time;
+            BaloonController.Instance.transform.DOMove(bounceTarget, time).SetEase(Ease.OutQuad);
+            CameraShake.Instance.PlayKillerWindShake(time);
+            BaloonShaker.Instance.StartWarningShake(time);
+
+            // Play audio
+            collisionAudioSource.Play();
+
+            StartCoroutine(GetComponentInParent<BaloonDestroyer>().DoPlayExplosion(time));
+
+            
+            
         }
 
     }

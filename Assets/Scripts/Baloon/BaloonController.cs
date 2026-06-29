@@ -1,4 +1,5 @@
 using Baloon.SaveSystem;
+using DG.Tweening;
 using StarterAssets;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,6 +71,9 @@ namespace Baloon
 
 
         string saveId = "balloon";
+
+        bool verticalVelocityDisabled = false;
+        bool horizontalVelocityDisabled = false;
 
         class Data
         {
@@ -179,6 +183,8 @@ namespace Baloon
 
         void UpdateVerticalVelocity()
         {
+            if(verticalVelocityDisabled) return;
+
             var diff = InternalAir.Instance.TemperatureDifference;
 
             //if (diff > 1.5 && diff < 2.5) diff = 2f;
@@ -243,7 +249,7 @@ namespace Baloon
 
         void UpdateHorizontalVelocity()
         {
-            if (horizontalForce == 0) return;
+            if (horizontalForce == 0 || horizontalVelocityDisabled) return;
 
             //horizontalDirection = Vector3.forward;
             // 1. Calculate acceleration (F = m * a, assuming mass = 1)
@@ -313,7 +319,17 @@ namespace Baloon
         //{
 
         //}
+        public void DisableVerticalVelocity()
+        {
+            currentVelocity.y = 0;
+            verticalVelocityDisabled = true;
+        }
 
+        public void DisableHorizontalVelocity()
+        {
+            currentVelocity.x = currentVelocity.y = 0;
+            horizontalVelocityDisabled = true;
+        }
         
     }
 }

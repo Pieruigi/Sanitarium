@@ -52,7 +52,7 @@ namespace Baloon
             if (!destroyed) return;
 
             rbBalloon.AddForce(balloonForceDir * 30, ForceMode.Acceleration);
-            rbBalloon.AddTorque(balloonTorqueDir * 10, ForceMode.VelocityChange);
+            rbBalloon.AddTorque(new Vector3(balloonTorqueDir.x*.01f, balloonTorqueDir.y*.05f, balloonTorqueDir.z*.01f), ForceMode.VelocityChange);
         }
 
         private void OnEnable()
@@ -118,10 +118,13 @@ namespace Baloon
             //}
         }
 
-        public IEnumerator DoPlayExplosion()
+        public IEnumerator DoPlayExplosion(float delay = 0)
         {
             FirstPersonController player = FindFirstObjectByType<FirstPersonController>();
             player.Doomed = true;
+
+            if(delay > 0) yield return new WaitForSeconds(delay);
+
             player.Die(PlayerDeadType.BoilerExplosion);
 
             // Play
