@@ -1,5 +1,6 @@
 ﻿using Baloon;
 using Baloon.SaveSystem;
+using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -697,7 +698,10 @@ namespace StarterAssets
                 rb.useGravity = true;
 
                 // Remove collision
-                onBasketCollider.enabled = false;
+                //onBasketCollider.enabled = false;
+                DisableAllBalloonCollisions();
+                onBasketCollider.enabled = true;
+                onBasketCollider.isTrigger = false;
 
                 // Get a random direction
                 //var dir = Vector3.right * Random.Range(1f, 2f) + Vector3.forward * Random.Range(1f, 2f) + Vector3.up * Random.Range(1f, 2f);
@@ -710,7 +714,8 @@ namespace StarterAssets
 
                 OnDead?.Invoke(deadType);
 
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(7f);
+                GameManager.Instance.ReportPlayerDeath();
             }
 
 			//
@@ -737,7 +742,7 @@ namespace StarterAssets
                 OnDead?.Invoke(deadType);
 
 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(7f);
 
                 GameManager.Instance.ReportPlayerDeath();
             }
@@ -751,11 +756,17 @@ namespace StarterAssets
                 rb.isKinematic = false;
                 rb.useGravity = true;
 
-				yield return new WaitForSeconds(1.5f);
+				onBasketCollider.enabled = true;
+                onBasketCollider.isTrigger = false;
+
+                yield return new WaitForSeconds(1.5f);
                 
 				dead = true;
                 OnDead?.Invoke(deadType);
-				
+
+
+                yield return new WaitForSeconds(7f);
+                GameManager.Instance.ReportPlayerDeath();
 
             }
 
@@ -776,13 +787,26 @@ namespace StarterAssets
         {
 			if(!dead) return;
 
+			if (bloodUI.activeSelf) return;
+
 			GetComponent<Rigidbody>().isKinematic = true;
+
+			//Camera.main.transform.DOShakeRotation(.5f);
 
             bodyFallAudioSource.Play();
 			bloodAudioSource.Play();
 			bloodUI.SetActive(true);
 
+			// If we hit the ground we start a timer to reload the main scene without waiting the report in the death routine (it could take to long in some cases)
+			StartCoroutine(DoReportDeath(3f));
+
             Debug.Log("TEST - Dead player collision:"+collision.gameObject.name);
+
+			IEnumerator DoReportDeath(float delay)
+			{
+				yield return new WaitForSeconds(delay);
+                GameManager.Instance.ReportPlayerDeath();
+            }
         }
 
 

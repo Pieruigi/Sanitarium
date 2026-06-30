@@ -221,9 +221,9 @@ namespace Baloon
                 yield return new WaitForSeconds(1.5f);
 
                 // Move the balloon up 
-                var targetY = transform.position.y + 40;
+                var targetY = transform.position.y + 10;
 
-                var duration = 3f;
+                var duration = 4f;
 
                
 

@@ -167,7 +167,7 @@ namespace Baloon
 
         private void HandleOnDead(PlayerDeadType deadType)
         {
-            Debug.Log("TEST - DDDDDDDDDDDDDDDDDDDDDD");
+            
             switch (deadType)
             {
                 case PlayerDeadType.KillerWind:
