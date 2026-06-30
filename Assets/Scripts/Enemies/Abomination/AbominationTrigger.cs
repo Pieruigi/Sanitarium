@@ -59,12 +59,17 @@ namespace Baloon
 
         private void Awake()
         {
+
             _collider.enabled = false;
             _light.SetActive(false);
             var mats = lampRenderer.materials;
             mats[lampMaterialIndex] = lampOff;
             lampRenderer.materials = mats;
             collapsedShelf.SetActive(false);
+
+#if UNITY_EDITOR
+            _collider.enabled = true;
+#endif
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -9064,7 +9064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BoilerController
   throttle: 0
   throttleSlider: {fileID: 2313357452475681705}
-  gasLeft: 0.034
+  gasLeft: 0.049
 --- !u!114 &6634405810607186959
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,12 @@ namespace Baloon
         [SerializeField]
         AudioSource audioSource;
 
+        [SerializeField]
+        Light deadLight;
+
+        [SerializeField]
+        Transform deadTarget;
+
         float targetTime = .5f;
 
         Transform target;
@@ -22,11 +28,13 @@ namespace Baloon
 
         bool chasingPlayer = false;
 
+        bool killingPlayer = false;
+
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();  
             initialPosition = transform.position;
-            
+            deadLight.enabled = false;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,6 +49,26 @@ namespace Baloon
         void Update()
         {
 
+        }
+
+        private void LateUpdate()
+        {
+            if (chasingPlayer)
+            {
+                // Check distance
+                var dist = target.position - transform.position;
+                if (dist.magnitude < 1.5f)
+                {
+                    StopAllCoroutines();
+                    chasingPlayer = false;
+                    killingPlayer = true;
+                    agent.ResetPath();
+                    agent.isStopped = true;
+                    agent.velocity = Vector3.zero;
+                    KillPlayer();
+                   
+                }
+            }
         }
 
         void HandleOnTakeOff(BasePlatform basePlatform)
@@ -63,6 +91,7 @@ namespace Baloon
 
         public void StartChasingPlayer()
         {
+            chasingPlayer = true;
 
             // Register platform event callback
             BasePlatform.OnTakeOff += HandleOnTakeOff;
@@ -79,12 +108,9 @@ namespace Baloon
 
                 yield return new WaitForSeconds(.25f);
 
-                
-                
-
-                while (true)
+                while (chasingPlayer)
                 {
-                    
+                  
                     agent.SetDestination(target.position);
 
                     yield return new WaitForSeconds(targetTime);
@@ -93,8 +119,60 @@ namespace Baloon
 
         }
 
+        void KillPlayer()
+        {
+            StartCoroutine(DoKill());
+
+            IEnumerator DoKill()
+            {
+                // Stop player input and look the abomination direction
+                FirstPersonController player = target.GetComponent<FirstPersonController>();
+                player.Doomed = true; 
+                player.JawDisabled = true;
+                player.PitchDisabled = true;
+                player.MoveDisabled = true;
+
+                Debug.Log("TEST - Killing player");
+                // Disable flashlight
+                Flashlight.Instance.gameObject.SetActive(false);
+
+                //player.DisableAndLookForSeconds(transform.position, 100f);
+
+                // Force player position
+                //var pos = transform.position + transform.forward * 2f;
+                //player.ForcePosition(pos);
+
+                // Enable abomination light
+                deadLight.enabled = true;
+
+                // Move the camera
+                var cam = CameraShake.Instance.transform;
+                cam.position = deadTarget.position;
+                cam.rotation = deadTarget.rotation;
+
+                // Stop animation
+                animator.speed = 0;
+
+                // Jumpscare
+                CameraShake.Instance.PlayJumpscare(1.5f);
+
+                yield return new WaitForSeconds(1.5f);
+
+                player.Die(PlayerDeadType.CreatureAttack);
+
+
+            }
+
+            
+
+
+
+        }
+
         public void StopChasingPlayer()
         {
+            chasingPlayer = false;
+
             // Stop the chasing coroutine
             StopAllCoroutines();
 

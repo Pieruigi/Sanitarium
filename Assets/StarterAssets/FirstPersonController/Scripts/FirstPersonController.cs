@@ -4,6 +4,10 @@ using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.Audio;
+
+
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -13,7 +17,7 @@ using UnityEngine.InputSystem.XR;
 namespace StarterAssets
 {
 
-    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing }
+    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing, CreatureAttack }
 
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -110,6 +114,9 @@ namespace StarterAssets
 		[SerializeField]
 		AudioSource bodyFallAudioSource;
 
+		[SerializeField]
+		AudioMixer mixer;
+
 		
 		private bool IsCurrentDeviceMouse
 		{
@@ -143,6 +150,8 @@ namespace StarterAssets
         // Set true if something is going to kill the player in order to avoid any other killer routine (set true as soon as the routine start);
         // For example when killer wind destroy the balloon, before the player actually dies, tentacles start shaking the balloon, and then we must call Doomed = true at that moment.
         public bool Doomed { get; set; }
+
+		
 
         public string SaveId => "Player";
 
@@ -254,6 +263,11 @@ namespace StarterAssets
         private void OnDisable()
         {
             SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void OnDestroy()
+        {
+			mixer.SetFloat("AliveVolume", 0);
         }
 
         private void HandleOnUpdateDataEntry()
@@ -653,6 +667,7 @@ namespace StarterAssets
 
                 // Force pitch and jaw
                 var lookDir = target - transform.position;
+				lookDir.y = 0;
 
                 ForceRotation(Quaternion.LookRotation(lookDir.normalized, Vector3.up));
                 ForceCameraPitch(0);
@@ -681,7 +696,26 @@ namespace StarterAssets
 				case PlayerDeadType.CatwalkCollapsing:
 					StartCoroutine(DoCatwalkCollapsing());
 					break;
+				case PlayerDeadType.CreatureAttack:
+					StartCoroutine(DoCreatureAttack());
+					break;
 			}
+
+			IEnumerator DoCreatureAttack()
+			{
+                dead = true;
+
+                mixer.SetFloat("AliveVolume", -80f);
+
+                bodyFallAudioSource.Play();
+                bloodAudioSource.Play();
+                bloodUI.SetActive(true);
+
+                OnDead?.Invoke(deadType);
+
+                yield return new WaitForSeconds(3);
+                GameManager.Instance.ReportPlayerDeath();
+            }
 
 			IEnumerator DoKillerWindDead()
 			{
@@ -792,6 +826,8 @@ namespace StarterAssets
 			GetComponent<Rigidbody>().isKinematic = true;
 
 			//Camera.main.transform.DOShakeRotation(.5f);
+
+			mixer.SetFloat("AliveVolume", -80f);
 
             bodyFallAudioSource.Play();
 			bloodAudioSource.Play();

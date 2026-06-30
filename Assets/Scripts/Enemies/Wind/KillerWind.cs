@@ -218,12 +218,12 @@ namespace Baloon
                 DOTween.To(() => fog.density.value, x => fog.density.value = x, .6f, 10.5f);
                 DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, 5, 10.5f);
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(1f);
 
                 // Move the balloon up 
-                var targetY = transform.position.y + 10;
+                var targetY = transform.position.y + 30;
 
-                var duration = 4f;
+                var duration = 6f;
 
                
 
@@ -232,12 +232,17 @@ namespace Baloon
 
                 BaloonController.Instance.DisableVerticalVelocity();
 
+                WindAudio.Instance.FadeKillerVolume(duration);
+                CameraShake.Instance.PlayWindGustShake(duration);
+
+                yield return new WaitForSeconds(3f);
+
                 BaloonShaker.Instance.StartWarningShake(duration);
                 CameraShake.Instance.PlayKillerWindShake(duration);
 
                 // Apply audio
                 //WindAudio.Instance.FadeGustVolume(duration);
-                WindAudio.Instance.FadeKillerVolume(duration);
+               
 
                 bangingAudioSource.Play();
                 breakingAudioSource.PlayDelayed(2.5f);

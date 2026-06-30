@@ -539,8 +539,8 @@ Rigidbody:
   m_GameObject: {fileID: 4288153074745606956}
   serializedVersion: 5
   m_Mass: 60
-  m_LinearDamping: 2
-  m_AngularDamping: 3
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1225,7 +1225,7 @@ AudioSource:
   m_GameObject: {fileID: 6503817500147460041}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6066503320276925646, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
+  OutputAudioMixerGroup: {fileID: 4760216709692580667, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 4d0423b571b8fff4f9e27ff8bd9b854e, type: 3}
   m_PlayOnAwake: 0
@@ -1633,7 +1633,7 @@ AudioSource:
   m_GameObject: {fileID: 7991733689001500177}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6066503320276925646, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
+  OutputAudioMixerGroup: {fileID: 4760216709692580667, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: fce4da7658403c64491432b7b7a09c17, type: 3}
   m_PlayOnAwake: 0
