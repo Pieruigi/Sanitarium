@@ -68,7 +68,7 @@ namespace Baloon
             collapsedShelf.SetActive(false);
 
 #if UNITY_EDITOR
-            _collider.enabled = true;
+            //_collider.enabled = true;
 #endif
         }
 

@@ -376,6 +376,7 @@ MonoBehaviour:
   bloodUI: {fileID: 786997376692974711}
   bloodAudioSource: {fileID: 8575990886766020352}
   bodyFallAudioSource: {fileID: 4535727956825792786}
+  mixer: {fileID: 24100000, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   acceleration: 20
   wallDetectionDistance: 0.02
   wallLayer:
@@ -1371,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.972549}
+  m_Color: {r: 0.122641504, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -16,6 +16,9 @@ namespace Baloon
         [SerializeField]
         Transform deadTarget;
 
+        [SerializeField]
+        AudioSource goreAudioSource;
+
         float targetTime = .5f;
 
         Transform target;
@@ -156,6 +159,15 @@ namespace Baloon
                 // Jumpscare
                 CameraShake.Instance.PlayJumpscare(1.5f);
 
+                // Play jumspcare audio
+                AudioManager.Instance.PlayJumpscare();
+
+                // Stop chasing audio source
+                audioSource.Stop();
+
+                // Play gore delayed
+                goreAudioSource.PlayDelayed(1.5f);
+                
                 yield return new WaitForSeconds(1.5f);
 
                 player.Die(PlayerDeadType.CreatureAttack);
