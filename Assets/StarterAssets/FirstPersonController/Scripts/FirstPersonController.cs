@@ -309,12 +309,16 @@ namespace StarterAssets
 			direction = Vector3.ProjectOnPlane(direction, transform.up).normalized;
 
 			var velocity = direction * _speed;
-			
+
+			float sphereRadius = _controller.radius;
+			Vector3 origin = transform.position + Vector3.up * 0.4f;
+				 
+
 			if(_speed > 0)
 			{
                 // Collisions
-                float sphereRadius = _controller.radius;
-                Vector3 origin = transform.position + Vector3.up * 0.4f;
+                //sphereRadius = _controller.radius;
+                //origin = transform.position + Vector3.up * 0.4f;
                 Vector3 castDirection = velocity.normalized;
 				// La distanza del cast deve coprire lo spostamento di questo frame + un piccolo margine
 				float castDistance = (_speed * Time.deltaTime) + wallDetectionDistance;
@@ -335,7 +339,16 @@ namespace StarterAssets
                         var hitDir = Vector3.ProjectOnPlane(hit.point - transform.position, Vector3.up);
 						if (Vector3.Dot(hitDir, velocity) < 0) continue;
 
-						var normal = Vector3.ProjectOnPlane(hit.normal, transform.up).normalized;
+
+
+      //                  if (Vector3.Dot(hitDir, velocity) > 0)
+						//{
+						//	velocity = Vector3.zero;
+						//	continue;
+						//}
+
+
+                        var normal = Vector3.ProjectOnPlane(hit.normal, transform.up).normalized;
 						//normal.y = 0;
                         float dot = Vector3.Dot(velocity, normal);
 
@@ -355,10 +368,41 @@ namespace StarterAssets
 
             }
 
-			transform.position += velocity * Time.deltaTime;
+			var old = transform.localPosition;
+			transform.localPosition += velocity * Time.deltaTime;
 
 
-           
+
+			// check panel controller, which is at (0,0,0)
+			var dist = transform.localPosition;
+			dist.y = 0;
+			var toll = .35f;
+			if (dist.magnitude < toll)
+			{
+   //             Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+				transform.localPosition = dist.normalized * toll;
+
+            }
+				
+
+			// Check
+            //sphereRadius = _controller.radius;
+            //origin = transform.position + Vector3.up * 0.4f;
+            //Vector3 castDirection = velocity.normalized;
+            // La distanza del cast deve coprire lo spostamento di questo frame + un piccolo margine
+            //float castDistance = (_speed * Time.deltaTime) + wallDetectionDistance;
+
+
+			//var colls = Physics.OverlapSphere(origin, sphereRadius, wallLayer);
+            
+            
+   //         Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG:");
+   //         if (colls != null && colls.Length > 0)
+			//{
+
+   //             transform.localPosition = old;
+   //         }
+				
         }
 
 

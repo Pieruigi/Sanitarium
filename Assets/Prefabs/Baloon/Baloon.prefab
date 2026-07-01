@@ -9064,7 +9064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BoilerController
   throttle: 0
   throttleSlider: {fileID: 2313357452475681705}
-  gasLeft: 0.049
+  gasLeft: 0.688
 --- !u!114 &6634405810607186959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9358,7 +9358,7 @@ GameObject:
   - component: {fileID: 627327218385757381}
   - component: {fileID: 5944281942460684740}
   - component: {fileID: 1444735043468219286}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ControlPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

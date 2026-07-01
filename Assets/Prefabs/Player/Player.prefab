@@ -378,7 +378,7 @@ MonoBehaviour:
   bodyFallAudioSource: {fileID: 4535727956825792786}
   mixer: {fileID: 24100000, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   acceleration: 20
-  wallDetectionDistance: 0.25
+  wallDetectionDistance: 0.02
   wallLayer:
     serializedVersion: 2
     m_Bits: 1024
