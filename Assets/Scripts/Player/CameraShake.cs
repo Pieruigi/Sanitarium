@@ -23,6 +23,8 @@ public class CameraShake : Singleton<CameraShake>
     [SerializeField]
     Transform verticalWindTransform;
 
+    float windShakeMultiplier = 1f;//1.4f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -79,9 +81,9 @@ public class CameraShake : Singleton<CameraShake>
     // -----------------------------
     public void PlayVerticalWindShake(float duration, System.Action onComplete = null, System.Action onKill = null)
     {
-        float randDuration = duration;// Random.Range(3.2f * 2f, 4.0f * 2f);
-        float randPos = Random.Range(0.006f*2f, 0.009f*2f);
-        float randRot = Random.Range(0.02f*2f, 0.04f*2f);
+        float randDuration = duration;
+        float randPos = Random.Range(0.006f*2f, 0.009f*2f) * windShakeMultiplier;
+        float randRot = Random.Range(0.02f*2f, 0.04f*2f) * windShakeMultiplier;
 
         PlayShake(
             duration: randDuration,
@@ -105,8 +107,8 @@ public class CameraShake : Singleton<CameraShake>
     public void PlayWindShakeLight(System.Action onComplete = null, System.Action onKill = null)
     {
         float randDuration = Random.Range(3.2f, 4.0f);
-        float randPos = Random.Range(0.012f, 0.018f);
-        float randRot = Random.Range(0.4f, 0.8f);
+        float randPos = Random.Range(0.012f, 0.018f) * windShakeMultiplier;
+        float randRot = Random.Range(0.4f, 0.8f) * windShakeMultiplier;
 
         PlayShake(
             duration: randDuration,
@@ -125,8 +127,8 @@ public class CameraShake : Singleton<CameraShake>
     public void PlayWindShakeStrong(System.Action onComplete = null, System.Action onKill = null)
     {
         float randDuration = Random.Range(3.2f, 4.0f);
-        float randPos = Random.Range(0.024f, 0.036f);
-        float randRot = Random.Range(0.8f, 1.6f);
+        float randPos = Random.Range(0.024f, 0.036f) * windShakeMultiplier;
+        float randRot = Random.Range(0.8f, 1.6f) * windShakeMultiplier;
         // Qui il vento "schiaffeggia" la mongolfiera. 
         // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
         PlayShake(
@@ -144,8 +146,8 @@ public class CameraShake : Singleton<CameraShake>
     {
         Debug.Log("TEST - Wind gust shake");
 
-        float randPos = Random.Range(0.03f, 0.04f);
-        float randRot = Random.Range(1.5f, 2.5f);
+        float randPos = Random.Range(0.03f, 0.04f) * windShakeMultiplier;
+        float randRot = Random.Range(1.5f, 2.5f) * windShakeMultiplier;
         // Qui il vento "schiaffeggia" la mongolfiera. 
         // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
         PlayShake(
@@ -161,8 +163,8 @@ public class CameraShake : Singleton<CameraShake>
 
     public void PlayKillerWindShake(float duration)
     {
-        float randPos = Random.Range(0.3f, 0.4f);
-        float randRot = Random.Range(2f, 2.85f);
+        float randPos = Random.Range(0.3f, 0.4f) * windShakeMultiplier;
+        float randRot = Random.Range(2f, 2.85f) * windShakeMultiplier;
         // Qui il vento "schiaffeggia" la mongolfiera. 
         // Spostamento molto forte, ma sempre fluido grazie al vibrato 1.
         PlayShake(

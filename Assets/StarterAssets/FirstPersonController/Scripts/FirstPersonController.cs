@@ -132,7 +132,7 @@ namespace StarterAssets
 
         [Header("In-Basket Movement")]
         [SerializeField] private float acceleration = 8f; // How fast you reach max speed
-        [SerializeField] private float wallDetectionDistance = 0.4f;
+        [SerializeField] private float wallDetectionDistance = 0.25f;
         [SerializeField] private LayerMask wallLayer;
 		[SerializeField] private Collider onBasketCollider;
 		[SerializeField] private Transform playerTarget;
@@ -327,10 +327,12 @@ namespace StarterAssets
                 {
                     foreach (var hit in hits)
                     {
-						
-						// Casta una sfera quindi se sono leggermente entrato in collisione per colpa per esempio dello shaking mi casta anche sulla collisione nella quale sono entrato;
-						// per risolvere basta che verifico che la il DOT tra direzione cast e velocità sia > 0
-						var hitDir = Vector3.ProjectOnPlane(hit.point - transform.position, Vector3.up);
+						Debug.Log("TEST - Balloon Collision:" + hit.collider.gameObject);
+                        Debug.Log("TEST - Balloon Collision - Velocity:" + velocity);
+
+                        // Casta una sfera quindi se sono leggermente entrato in collisione per colpa per esempio dello shaking mi casta anche sulla collisione nella quale sono entrato;
+                        // per risolvere basta che verifico che la il DOT tra direzione cast e velocità sia > 0
+                        var hitDir = Vector3.ProjectOnPlane(hit.point - transform.position, Vector3.up);
 						if (Vector3.Dot(hitDir, velocity) < 0) continue;
 
 						var normal = Vector3.ProjectOnPlane(hit.normal, transform.up).normalized;
@@ -348,6 +350,7 @@ namespace StarterAssets
 
                     // Dopo aver "pulito" la velocity contro tutti i muri trovati, aggiorniamo la speed
                     //_speed = velocity.magnitude;
+                    Debug.Log("TEST - Balloon Collision - Final Velocity:" + velocity);
                 }
 
             }
