@@ -70,7 +70,7 @@ namespace Baloon
 
         public void ShakeLight()
         {
-            
+            return;
             var balloon = transform;
             var angle = Random.Range(20f, 45f) * (Random.Range(0,2) == 0 ? 1 : -1);
             var angleX = Random.Range(1f, 2f) * (Random.Range(0, 2) == 0 ? 1 : -1);
@@ -107,6 +107,7 @@ namespace Baloon
 
         public void ShakeHeavy()
         {
+            return;
             var balloon = transform;
             var angleY = Random.Range(20f, 45f) * (Random.Range(0, 2) == 0 ? 1 : -1);
             var angleX = Random.Range(3f, 6f) * (Random.Range(0, 2) == 0 ? 1 : -1);
@@ -144,6 +145,7 @@ namespace Baloon
 
         public void ShakeHeavyForWindGust(float duration)
         {
+            return;
             var balloon = transform;
             var angleY = Random.Range(30f, 55f) * (Random.Range(0, 2) == 0 ? 1 : -1);
             var angleX = Random.Range(5f, 8f) * (Random.Range(0, 2) == 0 ? 1 : -1);

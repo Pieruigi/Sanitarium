@@ -323,11 +323,12 @@ namespace Baloon
         {
             currentVelocity.y = 0;
             verticalVelocityDisabled = true;
+            VerticalWind.Instance.enabled = false;
         }
 
         public void DisableHorizontalVelocity()
         {
-            currentVelocity.x = currentVelocity.y = 0;
+            currentVelocity.x = currentVelocity.z = 0;
             horizontalVelocityDisabled = true;
         }
         

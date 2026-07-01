@@ -756,6 +756,7 @@ namespace StarterAssets
 			// Only reset thing but don't apply any force here
 			IEnumerator DoExplosionDead()
 			{
+				Debug.Log("TEST - Do explosion");
                 dead = true;
 
                 // Free parenting

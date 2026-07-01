@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Baloon
 {
@@ -11,6 +12,8 @@ namespace Baloon
     {
         [SerializeField]
         bool topLimit = false; // Is top or bottom limit?
+
+
 
 
         bool running = false;
@@ -24,6 +27,9 @@ namespace Baloon
         bool processing = false;
 
         FirstPersonController player;
+
+        float redTime = 10f;
+        float redElapsed = 0;
 
         private void Awake()
         {
@@ -48,6 +54,36 @@ namespace Baloon
 
             // Adjust altitude
             AdjustAltitude();
+
+            if (!topLimit) return; // We only need one of the trigger
+            if (player.Doomed || processing) return;
+            var curRange = AltitudeManager.Instance.GetCurrentRange();
+            if (curRange == AltitudeRange.Red)
+            {
+                redElapsed += Time.deltaTime;
+                if (redElapsed > redTime)
+                {
+                    //if (!player.Doomed && !processing)
+                    {
+                        var middle = (AltitudeManager.Instance.MaxAltitude - AltitudeManager.Instance.MinAltitude) / 2f + AltitudeManager.Instance.MinAltitude;
+                        Debug.Log("TEST - middle:" + middle);
+
+                        if (BaloonController.Instance.Altitude >  middle) ProcessBottomLimit();
+                        else ProcessBottomLimit();
+                    }
+                    
+                }
+            }
+            else
+            {
+                if(redElapsed > 0)
+                {
+                    redElapsed -= Time.deltaTime;
+                    if (redElapsed < 0) redElapsed = 0;
+                }
+            }
+            
+            
         }
 
 
@@ -87,7 +123,7 @@ namespace Baloon
 
             if (processing) return;
 
-            if (topLimit) ProcessTopLimit();
+            if (topLimit) ProcessBottomLimit();
             else ProcessBottomLimit();
         }
 
@@ -102,7 +138,8 @@ namespace Baloon
         {
             processing = true;
 
-            KillerWind.Instance.StartKilling();
+            //KillerWind.Instance.StartKilling();
+            KillerWind.Instance.PlayLargeTentacleKilling();
 
             //StartCoroutine(DoProcess());
 

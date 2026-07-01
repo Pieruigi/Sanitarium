@@ -37,6 +37,10 @@ namespace Baloon
         [SerializeField]
         Volume globalVolume;
 
+
+        [SerializeField]
+        GameObject largeTentacle;
+
         VolumetricFogVolumeComponent fog;
 
         float fogDensityDefault, fogAttenuationDefault;
@@ -76,8 +80,8 @@ namespace Baloon
 #if UNITY_EDITOR
 
 
-            //if (Input.GetKeyDown(KeyCode.C))
-            //    StartKilling();
+            if (Input.GetKeyDown(KeyCode.X))
+                PlayLargeTentacleKilling();
 #endif
         }
 
@@ -193,6 +197,66 @@ namespace Baloon
 
           
 
+        }
+
+        public void PlayLargeTentacleKilling()
+        {
+            if (player.Doomed || killing) return;
+
+            player.Doomed = true;
+            killing = true;
+
+            StartCoroutine(DoKill());
+
+            OnKilling?.Invoke();
+
+            IEnumerator DoKill()
+            {
+                WindAudio.Instance.FadeReset();
+
+                hauntingAudioSource.Play();
+
+                DOTween.To(() => fog.density.value, x => fog.density.value = x, .6f, 4f);
+                DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, 5, 4f);
+
+                //yield return new WaitForSeconds(1f);
+
+                
+                // Stop horizontal and vertical speed
+                BaloonController.Instance.DisableHorizontalVelocity();
+                BaloonController.Instance.DisableVerticalVelocity();
+
+                // Instatiate large tentacle
+                Vector3 offset = new Vector3(0, -16f, 12.0f);
+                var hDir = player.transform.forward; hDir.y = 0;// NavigationSystem.Instance.WaypointB.transform.position - NavigationSystem.Instance.WaypointA.transform.position;
+                var pos = BaloonController.Instance.transform.position + hDir.normalized * offset.z + Vector3.up * offset.y;              
+                var lt = Instantiate(largeTentacle, pos - Vector3.up * 32f, Quaternion.identity);
+                
+                hDir.y = 0;
+                hDir.Normalize();
+                Quaternion baseRotation = Quaternion.LookRotation(-hDir, Vector3.up);
+                //lt.transform.rotation = baseRotation * Quaternion.Euler(38.14f, 0f, 0f);
+
+                // Stop animation
+                Animator anim = lt.GetComponentInChildren<Animator>();
+                anim.speed = 0;
+
+                // Move tentacle
+                float time = 3f;
+                lt.transform.DOMoveY(pos.y, time).SetEase(Ease.OutQuad);
+                lt.transform.DORotateQuaternion(baseRotation * Quaternion.Euler(90.5f, 0f, 0f), time).SetEase(Ease.OutQuad);
+
+                yield return new WaitForSeconds(3f);
+
+                // Start animation
+                anim.speed = 1f;
+
+                yield return new WaitForSeconds(.25f);
+
+                player.Die(PlayerDeadType.BoilerExplosion);
+                StartCoroutine(BaloonController.Instance.GetComponent<BaloonDestroyer>().DoPlayExplosion());
+                
+            }
         }
 
         public void PlayNoGasKill()

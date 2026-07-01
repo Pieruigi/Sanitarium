@@ -68,8 +68,8 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.X))
-                SetStunnedState();
+            //if(Input.GetKeyDown(KeyCode.X))
+            //    SetStunnedState();
 #endif
         }
 
