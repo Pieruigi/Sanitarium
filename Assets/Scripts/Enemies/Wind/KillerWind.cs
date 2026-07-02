@@ -80,8 +80,8 @@ namespace Baloon
 #if UNITY_EDITOR
 
 
-            if (Input.GetKeyDown(KeyCode.X))
-                PlayLargeTentacleKilling();
+            //if (Input.GetKeyDown(KeyCode.X))
+            //    PlayLargeTentacleKilling();
 #endif
         }
 
