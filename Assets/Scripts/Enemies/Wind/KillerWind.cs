@@ -219,12 +219,15 @@ namespace Baloon
                 DOTween.To(() => fog.density.value, x => fog.density.value = x, .6f, 4f);
                 DOTween.To(() => fog.attenuationDistance.value, x => fog.attenuationDistance.value = x, 5, 4f);
 
-                //yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f);
 
                 
                 // Stop horizontal and vertical speed
                 BaloonController.Instance.DisableHorizontalVelocity();
                 BaloonController.Instance.DisableVerticalVelocity();
+
+                // Short jumpscare just to smooth velocity change
+                CameraShake.Instance.PlayMoaningShake(4.5f);
 
                 // Instatiate large tentacle
                 Vector3 offset = new Vector3(0, -16f, 12.0f);

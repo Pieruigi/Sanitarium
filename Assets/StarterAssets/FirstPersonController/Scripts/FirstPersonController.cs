@@ -252,8 +252,15 @@ namespace StarterAssets
 
         private void FixedUpdate()
         {
-           
-        }
+#if UNITY_EDITOR
+
+			if (onBaloon)
+			{
+				Debug.Log("TEST - Dist:" + transform.localPosition.magnitude);
+			}
+
+#endif
+		}
 
         private void OnEnable()
         {
@@ -327,6 +334,8 @@ namespace StarterAssets
                 // Prendiamo TUTTE le collisioni davanti a noi in questo frame
                 RaycastHit[] hits = Physics.SphereCastAll(origin, sphereRadius, castDirection, castDistance, wallLayer);
 
+				//hits = new RaycastHit[0];
+
                 if (hits.Length > 0)
                 {
                     foreach (var hit in hits)
@@ -383,26 +392,16 @@ namespace StarterAssets
 				transform.localPosition = dist.normalized * toll;
 
             }
-				
 
-			// Check
-            //sphereRadius = _controller.radius;
-            //origin = transform.position + Vector3.up * 0.4f;
-            //Vector3 castDirection = velocity.normalized;
-            // La distanza del cast deve coprire lo spostamento di questo frame + un piccolo margine
-            //float castDistance = (_speed * Time.deltaTime) + wallDetectionDistance;
+			toll = 1.13f;
+            if (dist.magnitude > toll)
+            {
+                //             Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+                transform.localPosition = dist.normalized * toll;
 
+            }
+          
 
-			//var colls = Physics.OverlapSphere(origin, sphereRadius, wallLayer);
-            
-            
-   //         Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG:");
-   //         if (colls != null && colls.Length > 0)
-			//{
-
-   //             transform.localPosition = old;
-   //         }
-				
         }
 
 
