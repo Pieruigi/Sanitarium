@@ -377,8 +377,8 @@ namespace StarterAssets
 
             }
 
-			var old = transform.localPosition;
-			transform.localPosition += velocity * Time.deltaTime;
+			var old = transform.position;
+			transform.position += velocity * Time.deltaTime;
 
 
 
@@ -389,10 +389,10 @@ namespace StarterAssets
 			if (dist.magnitude < toll)
 			{
    //             Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-				transform.localPosition = dist.normalized * toll;
+				transform.localPosition =  dist.normalized * toll;
 
             }
-
+			
 			toll = 1.13f;
             if (dist.magnitude > toll)
             {

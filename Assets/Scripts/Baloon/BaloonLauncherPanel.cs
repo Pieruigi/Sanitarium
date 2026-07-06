@@ -1,4 +1,5 @@
 
+using Baloon.UI;
 using DG.Tweening;
 using NUnit.Framework;
 using System;
@@ -32,6 +33,12 @@ namespace Baloon
 
         [SerializeField]
         AudioSource buttonAudioSource;
+
+#if DEMO
+        [SerializeField]
+        bool demo_disabled = false;
+
+#endif
 
         bool activated = false;
         public bool Activated => activated;
@@ -195,6 +202,17 @@ namespace Baloon
 
         private void HandleOnLaunchPushed()
         {
+#if DEMO
+            if(demo_disabled)
+            {
+                // Call UI
+                LauncherDemoUI.Instance.ShowMessage();
+                return;
+            }
+
+            
+#endif
+
             StartCoroutine(DoLauch());
 
             //baloonLauncher.SetPathFromCurrentDirection();
