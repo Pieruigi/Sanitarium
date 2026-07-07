@@ -104,6 +104,8 @@ namespace Baloon
 
                 // Set target altitude
                 AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
+
+                CameraShake.Instance.PlayPathClearedShake();
             }
         }
 
@@ -210,7 +212,7 @@ namespace Baloon
                         
                     });
 
-
+                CameraShake.Instance.PlayPathClearedShake();
 
 
 

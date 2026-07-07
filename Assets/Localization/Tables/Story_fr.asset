@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Story_fr
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 14b3cb0b6f30f9f4498f08a4990566e0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 10316931072
+    m_Localized: "Un cataclysme cosmique a d\xE9vast\xE9 la Terre, la transformant
+      en une lande spectrale et invivable. Le ciel n'est plus qu'une chape sombre
+      balay\xE9e par des vents d\xE9cha\xEEn\xE9s ; les oc\xE9ans ont laiss\xE9 la
+      place \xE0 une substance dense et cramoisie.\r\n\nDans une tentative d\xE9sesp\xE9r\xE9e
+      de comprendre le fl\xE9au, une exp\xE9dition scientifique a r\xE9ussi \xE0
+      localiser le bassin d'origine, construisant des stations de drainage pour ass\xE9cher
+      le fluide et mettre au jour les secrets du fond marin.\r\n\nMais l'intervention
+      humaine a r\xE9veill\xE9 quelque chose qui aurait d\xFB rester enfoui, et la
+      situation a d\xE9g\xE9n\xE9r\xE9. Le seul espoir qui reste est de s'aventurer
+      dans les canyons d\xE9sol\xE9s et d'\xE9teindre toutes les stations avant que
+      l'horreur ne soit d\xE9finitive.\n\nPour ce faire, vous devrez voler \xE0 bord
+      d'une vieille montgolfi\xE8re de service... c'est votre mission. \n\nBonne
+      chance."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

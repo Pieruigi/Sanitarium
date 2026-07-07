@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Story_pt
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: pt
+  m_SharedData: {fileID: 11400000, guid: 14b3cb0b6f30f9f4498f08a4990566e0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 10316931072
+    m_Localized: "Um cataclismo c\xF3smico devastou a Terra, tornando-a numa landa
+      espetral e inabit\xE1vel. O c\xE9u \xE9 uma capa sombria a\xE7oitada por ventos
+      enfurecidos; os oceanos deram lugar a uma subst\xE2ncia densa e carmesim.\r\n\nNuma
+      tentativa desesperada de compreender a praga, uma expedi\xE7\xE3o cient\xEDfica
+      conseguiu localizar a bacia de origem, construindo esta\xE7\xF5es de drenagem
+      para drenar o fluido e trazer \xE0 luz os segredos do fundo do mar.\r\n\nMas
+      a interven\xE7\xE3o humana despertou algo que deveria ter permanecido sepultado
+      e a situa\xE7\xE3o descambou. A \xFAnica esperan\xE7a restante \xE9 aventurar-se
+      pelos desfiladeiros desolados e desligar todas as esta\xE7\xF5es antes que
+      o horror seja definitivo.\n\nPara o fazer, ter\xE1 de voar num velho bal\xE3o
+      de ar quente de servi\xE7o... esta \xE9 a sua miss\xE3o. \n\nBoa sorte."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

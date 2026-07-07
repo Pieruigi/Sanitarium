@@ -36,13 +36,11 @@ namespace Baloon
         }
 
 #if UNITY_EDITOR
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.V))
-        //        ShakeLight();
-        //    if (Input.GetKeyDown(KeyCode.C))
-        //        ShakeHeavy();
-        //}
+        private void Update()
+        {
+            
+                
+        }
 #endif
 
         void LateUpdate()

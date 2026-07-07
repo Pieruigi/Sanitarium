@@ -79,6 +79,30 @@ MonoBehaviour:
     m_Key: baby_mode
     m_Metadata:
       m_Items: []
+  - m_Id: 5517342174863360
+    m_Key: key_bindings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5520577572888576
+    m_Key: movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5522169156067328
+    m_Key: sprint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523048592564224
+    m_Key: flashlight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523783933747200
+    m_Key: interaction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5524552393154560
+    m_Key: map
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

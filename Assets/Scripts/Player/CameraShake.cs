@@ -37,7 +37,7 @@ public class CameraShake : Singleton<CameraShake>
     {
         //if (Input.GetKeyDown(KeyCode.X))
         //{
-        //    PlayLandingShake(0f);
+        //    PlayPathClearedShake();
         //}
     }
 #endif
@@ -261,7 +261,20 @@ public class CameraShake : Singleton<CameraShake>
     {
 
     }
-    
+
+    public void PlayPathClearedShake()
+    {
+        Debug.Log("TEST - SHAAAAKE");
+
+        PlayShake(
+           duration: 1f,         // molto breve
+           posStrength: .02f,         // piccolissimo kick
+           rotStrength: 1.4f,          // leggero recoil visivo
+           vibratoPos: 5,
+           vibratoRot: 4
+       );
+    }
+
 
     // -----------------------------
     // CORE SHAKE HANDLER

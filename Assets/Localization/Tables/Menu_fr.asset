@@ -82,6 +82,30 @@ MonoBehaviour:
     m_Localized: "Mode B\xE9b\xE9"
     m_Metadata:
       m_Items: []
+  - m_Id: 5517342174863360
+    m_Localized: Commandes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5520577572888576
+    m_Localized: "D\xE9placement"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5522169156067328
+    m_Localized: Courir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523048592564224
+    m_Localized: Lampe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523783933747200
+    m_Localized: Interagir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5524552393154560
+    m_Localized: Carte
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

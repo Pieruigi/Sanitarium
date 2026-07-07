@@ -82,6 +82,30 @@ MonoBehaviour:
     m_Localized: "Modo Beb\xE9"
     m_Metadata:
       m_Items: []
+  - m_Id: 5517342174863360
+    m_Localized: Controles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5520577572888576
+    m_Localized: Movimiento
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5522169156067328
+    m_Localized: Correr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523048592564224
+    m_Localized: Linterna
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523783933747200
+    m_Localized: Interactuar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5524552393154560
+    m_Localized: Mapa
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -82,6 +82,30 @@ MonoBehaviour:
     m_Localized: Baby Mode
     m_Metadata:
       m_Items: []
+  - m_Id: 5517342174863360
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5520577572888576
+    m_Localized: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5522169156067328
+    m_Localized: Run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523048592564224
+    m_Localized: Flashlight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523783933747200
+    m_Localized: Interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5524552393154560
+    m_Localized: Map
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

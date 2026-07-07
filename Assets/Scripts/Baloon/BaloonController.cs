@@ -134,11 +134,25 @@ namespace Baloon
         private void OnEnable()
         {
             SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
+            BaloonPathManager.OnPathCleared += HandleOnPathCleared;
         }
 
         private void OnDisable()
         {
             SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+            BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        }
+
+        private void HandleOnPathSet()
+        {
+            
+        }
+
+        private void HandleOnPathCleared()
+        {
+            
         }
 
         private void HandleOnUpdateDataEntry()

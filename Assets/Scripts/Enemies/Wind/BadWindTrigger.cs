@@ -31,10 +31,10 @@ namespace Baloon
 #if UNITY_EDITOR
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                ApplyPowerfulGust(BaloonController.Instance.transform, 1);
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    ApplyPowerfulGust(BaloonController.Instance.transform, 1);
+            //}
         }
 
 #endif

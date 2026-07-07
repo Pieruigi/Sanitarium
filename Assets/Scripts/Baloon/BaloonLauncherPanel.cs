@@ -112,6 +112,11 @@ namespace Baloon
             else if (inside && range != AltitudeRange.Green && activated)
                 action = -1;
 
+            //if (inside && range != AltitudeRange.Red && !activated)
+            //    action = 1;
+            //else if (inside && range == AltitudeRange.Red && activated)
+            //    action = -1;
+
             if (action == 0 && !activated) return;
 
 

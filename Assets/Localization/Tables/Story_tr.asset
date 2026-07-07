@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Story_tr
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: tr
+  m_SharedData: {fileID: 11400000, guid: 14b3cb0b6f30f9f4498f08a4990566e0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 10316931072
+    m_Localized: "Kozmik bir felaket D\xFCnya'y\u0131 kas\u0131p kavurarak buray\u0131
+      hayaletimsi ve ya\u015Fanamaz bir \xE7orak araziye \xE7evirdi. G\xF6ky\xFCz\xFC
+      \xE7\u0131lg\u0131n r\xFCzgarlar\u0131n d\xF6vd\xFC\u011F\xFC kasvetli bir
+      \xF6rt\xFCye d\xF6n\xFC\u015F\xFCrken, okyanuslar yerini yo\u011Fun, koyu k\u0131rm\u0131z\u0131
+      bir maddeye b\u0131rakt\u0131.\r\n\nBu salg\u0131n\u0131 anlamak i\xE7in \xE7aresizce
+      \xE7abalayan bir bilimsel ke\u015Fif ekibi, kayna\u011F\u0131n bulundu\u011Fu
+      havzay\u0131 tespit etmeyi ba\u015Fard\u0131 ve s\u0131v\u0131y\u0131 pompalayarak
+      deniz taban\u0131n\u0131n s\u0131rlar\u0131n\u0131 a\xE7\u0131\u011Fa \xE7\u0131karmak
+      i\xE7in drenaj istasyonlar\u0131 kurdu.\r\n\nAncak insan m\xFCdahalesi, g\xF6m\xFCl\xFC
+      kalmas\u0131 gereken bir \u015Feyi uyand\u0131rd\u0131 ve durum h\u0131zla
+      kontrolden \xE7\u0131kt\u0131. Geriye kalan tek umut, \u0131ss\u0131z kanyonlar\u0131n
+      derinliklerine inmek ve deh\u015Fet kesinle\u015Fmeden \xF6nce t\xFCm istasyonlar\u0131
+      kapatmakt\u0131r.\n\nBunu yapmak i\xE7in eski bir servis s\u0131cak hava balonunu
+      u\xE7urman gerekecek... g\xF6revin bu. \n\nBol \u015Fans."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

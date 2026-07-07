@@ -82,6 +82,30 @@ MonoBehaviour:
     m_Localized: "Modalit\xE0 Bimbo"
     m_Metadata:
       m_Items: []
+  - m_Id: 5517342174863360
+    m_Localized: Controlli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5520577572888576
+    m_Localized: Movimento
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5522169156067328
+    m_Localized: Corsa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523048592564224
+    m_Localized: Torcia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523783933747200
+    m_Localized: Interagisci
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5524552393154560
+    m_Localized: Mappa
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

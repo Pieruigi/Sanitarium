@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Story_pl
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: pl
+  m_SharedData: {fileID: 11400000, guid: 14b3cb0b6f30f9f4498f08a4990566e0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 10316931072
+    m_Localized: "Kosmiczny kataklizm spustoszy\u0142 Ziemi\u0119, zamieniaj\u0105c
+      j\u0105 \u0432 upiorne i niezdatne do \u017Cycia pustkowie. Niebo sta\u0142o
+      si\u0119 mrocznym ca\u0142unem smaganym przez szalej\u0105ce wiatry, a oceany
+      ust\u0105pi\u0142y miejsca g\u0119stej, szkar\u0142atnej substancji.\r\n\nW
+      rozpaczliwej pr\xF3bie zrozumienia zarazy naukowa ekspedycja zdo\u0142a\u0142a
+      zlokalizowa\u0107 basen \u017Ar\xF3d\u0142owy, wznosz\u0105c stacje drena\u017Cowe,
+      aby odpompowa\u0107 p\u0142yn i odkry\u0107 tajemnice skrywane na dnie.\r\n\nJednak
+      ludzka ingerencja obudzi\u0142a co\u015B, co powinno by\u0142o pozosta\u0107
+      pogrzebane, \u0430 sytuacja wymkn\u0119\u0142a si\u0119 spod kontroli. Jedyn\u0105
+      nadziej\u0105 jest wyprawa w g\u0142\u0105b opuszczonych kanion\xF3w i wy\u0142\u0105czenie
+      wszystkich stacji, zanim horror stanie si\u0119 ostateczny.\n\nAby to zrobi\u0107,
+      b\u0119dziesz musia\u0142 polecie\u0107 starym, s\u0142u\u017Cbowym balonem
+      na gor\u0105ce powietrze... to jest twoja misja. \n\nPowodzenia."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

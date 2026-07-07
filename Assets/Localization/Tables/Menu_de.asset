@@ -82,6 +82,30 @@ MonoBehaviour:
     m_Localized: Baby-Modus
     m_Metadata:
       m_Items: []
+  - m_Id: 5517342174863360
+    m_Localized: Steuerung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5520577572888576
+    m_Localized: Bewegung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5522169156067328
+    m_Localized: Rennen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523048592564224
+    m_Localized: Taschenlampe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5523783933747200
+    m_Localized: Interagieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5524552393154560
+    m_Localized: Karte
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
