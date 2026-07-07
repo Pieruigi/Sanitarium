@@ -14,7 +14,9 @@ namespace Baloon
 
         [SerializeField] int pathIndex = 0;
 
-        [SerializeField] VerticalWindDirection direction;
+        [SerializeField] VerticalWindDirection windDirection;
+
+        [SerializeField] BaloonPathDirection pathDirection;
 
         bool follow = false;
 
@@ -29,10 +31,10 @@ namespace Baloon
 #if UNITY_EDITOR
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.V))
-            //{
-            //    ApplyPowerfulGust(BaloonController.Instance.transform, 1);
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                ApplyPowerfulGust(BaloonController.Instance.transform, 1);
+            }
         }
 
 #endif
@@ -69,7 +71,10 @@ namespace Baloon
 
         private void HandleOnPathSet()
         {
-            if(BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex)
+            if (BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex &&
+               (pathDirection == BaloonPathDirection.Both || (pathDirection == BaloonPathDirection.Forward && !BaloonPathManager.Instance.IsPathReversed) || (pathDirection == BaloonPathDirection.Reversed && BaloonPathManager.Instance.IsPathReversed)))
+
+            //if (BaloonPathManager.Instance.GetIndex(BaloonPathManager.Instance.CurrentPath) == pathIndex)
             {
                 //if (!triggered) follow = true;
                 triggered = false;
@@ -99,7 +104,7 @@ namespace Baloon
             int windDirection; // 1: Up, -1: Down
             var range = altitudeManager.GetCurrentRange();
 
-            if (direction == VerticalWindDirection.Random)
+            if (this.windDirection == VerticalWindDirection.Random)
             {
                 if (range != AltitudeRange.Red)
                 {
@@ -118,7 +123,7 @@ namespace Baloon
             }
             else
             {
-                windDirection = direction == VerticalWindDirection.Up ? 1 : -1;
+                windDirection = this.windDirection == VerticalWindDirection.Up ? 1 : -1;
             }
 
             ApplyPowerfulGust(balloon, windDirection);
@@ -149,7 +154,8 @@ namespace Baloon
             var duration = Random.Range(gustDuration * .9f, gustDuration * 1.1f);
             var strength = Random.Range(gustStrength * .9f, gustStrength * 1.1f);
 
-            strength = ComputeWindStrength(BaloonController.Instance.Altitude);
+            //strength = ComputeWindStrength(BaloonController.Instance.Altitude);
+            strength = ComputeWindStrength(1f); // I don't the wind to change it's power depending on the altitude
             Debug.Log("TEST - Gust strength:" + strength);
 
             // Calculate displacement

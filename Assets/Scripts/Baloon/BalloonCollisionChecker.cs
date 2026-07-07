@@ -46,8 +46,65 @@ namespace Baloon
 
         }
 
-
         private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("TEST - Collision with " + collision.gameObject);
+            if (BasePlatform.CurrentPlatform || player.Doomed) return;
+
+            //player.Doomed = true;
+
+            // Store current velocity
+            var vel = BaloonController.Instance.CurrentVelocity;
+
+            float horizontalMagnitude = new Vector2(vel.x, vel.z).magnitude;
+
+            // Get the absolute value of the vertical component
+            float verticalMagnitude = Mathf.Abs(vel.y);
+
+            Vector3 bounceVel = Vector3.zero;
+
+            if (horizontalMagnitude > verticalMagnitude) // Horizontal
+            {
+                bounceVel = vel;
+                bounceVel.x *= -1.75f;
+                bounceVel.z *= -1.75f;
+            }
+            else // Vertical
+            {
+                bounceVel = vel;
+                bounceVel *= -1.75f;
+            }
+
+           // Stop moving forward
+           //BaloonController.Instance.DisableHorizontalVelocity();
+
+            // Move back
+            var time = 2f;
+            //vel.y *= -1;
+            var bounceTarget = BaloonController.Instance.transform.position + bounceVel * time;
+            BaloonController.Instance.transform.DOMove(bounceTarget, time).SetEase(Ease.OutQuad);
+            CameraShake.Instance.PlayKillerWindShake(time);
+            BaloonShaker.Instance.StartWarningShake(time);
+
+            // Play audio
+            collisionAudioSource.Play();
+
+            //StartCoroutine(GetComponentInParent<BaloonDestroyer>().DoPlayExplosion(time));
+            StartCoroutine(TakeDamage());
+
+
+            IEnumerator TakeDamage()
+            {
+                yield return new WaitForSeconds(1.5f);
+
+                if (player.Doomed) yield break;
+
+                BaloonBoilerHealth.Instance.TryTakeSingleDamage();
+            }
+
+        }
+
+        private void _OnCollisionEnter(Collision collision)
         {
             Debug.Log("TEST - Collision with " + collision.gameObject);
             if (BasePlatform.CurrentPlatform || player.Doomed) return;
