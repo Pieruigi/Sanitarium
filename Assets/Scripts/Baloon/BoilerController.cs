@@ -162,7 +162,7 @@ namespace Baloon
         private void HandleOnUpdateDataEntry()
         {
             var data = new Data();
-            data.gasLeft = gasLeft;
+            data.gasLeft = Mathf.Max(gasLeft, 0.2f);
             SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 

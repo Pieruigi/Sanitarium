@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9074563591829163170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4694988565064317924}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &664608990866326617
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +912,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.62352943, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5943396, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -918,7 +930,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5992638426418153083}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4694988565064317924}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &2262105732379328111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2117,6 +2141,7 @@ MonoBehaviour:
   gameMode: {fileID: 1084270373597242019}
   logo: {fileID: 1329149729803142648}
   panel: {fileID: 6229113831011969785}
+  clearButton: {fileID: 5512477350074648287}
 --- !u!1 &7460604069390971915
 GameObject:
   m_ObjectHideFlags: 0
@@ -3023,7 +3048,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4582386453086067652}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5179064531871817961}
+        m_TargetAssemblyTypeName: Baloon.UI.ClearBoxUI, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5512477350074648287}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4694988565064317924}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9111506412536660858
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,9 +4145,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3340129332501119983, guid: 19311cdf2aee60245b7565e7aa5eb7f7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7766685350234379332}
-    - targetCorrespondingSourceObject: {fileID: 7144922518300509759, guid: 19311cdf2aee60245b7565e7aa5eb7f7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 131920140817027786}
   m_SourcePrefab: {fileID: 100100000, guid: 19311cdf2aee60245b7565e7aa5eb7f7, type: 3}
 --- !u!1 &32829187263082197 stripped
 GameObject:
@@ -4124,57 +4182,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4516449811814149058, guid: 19311cdf2aee60245b7565e7aa5eb7f7, type: 3}
   m_PrefabInstance: {fileID: 3327636854039326010}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5551242044698979077 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7144922518300509759, guid: 19311cdf2aee60245b7565e7aa5eb7f7, type: 3}
-  m_PrefabInstance: {fileID: 3327636854039326010}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &131920140817027786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551242044698979077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:e867da6efcb782441b32519f6ccbc5f6
-    m_TableEntryReference:
-      m_KeyId: 739934645248000
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6771839506817480525}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &6771839506817480525 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8346379784997886583, guid: 19311cdf2aee60245b7565e7aa5eb7f7, type: 3}
   m_PrefabInstance: {fileID: 3327636854039326010}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5551242044698979077}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}

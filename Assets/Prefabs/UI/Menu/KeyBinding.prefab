@@ -326,7 +326,6 @@ GameObject:
   - component: {fileID: 195448803716806017}
   - component: {fileID: 2116161006906288891}
   - component: {fileID: 6977628572129810705}
-  - component: {fileID: 5562983411811855839}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -393,18 +392,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5562983411811855839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8567472071308904928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28146590833ea1244998b2e4ca6b8a1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Baloon.UI.ResolutionOption
-  prevButton: {fileID: 0}
-  nextButton: {fileID: 0}
-  valueField: {fileID: 0}

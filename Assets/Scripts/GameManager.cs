@@ -1,3 +1,4 @@
+using Baloon;
 using Baloon.SaveSystem;
 using System.Collections;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ public class GameManager : SingletonPersistent<GameManager>
     bool isNewGame = false;
     public bool IsNewGame => isNewGame;
 
-    public int Difficulty = 0;
+    //public int Difficulty = 0;
 
     public bool ShowStory = true;
 
@@ -22,6 +23,8 @@ public class GameManager : SingletonPersistent<GameManager>
     void Start()
     {
         Application.targetFrameRate = -1;// 60;
+
+        //Difficulty = SettingsManager.Instance.GameMode;
     }
 
     // Update is called once per frame
@@ -32,10 +35,16 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public void PlayGame()
     {
+        
         isNewGame = !SaveManager.Instance.SaveFileExists();
         if (!isNewGame)
         {
+            ShowStory = false;
             SaveManager.Instance.Load();
+        }
+        else
+        {
+            ShowStory = true;
         }
 
         StartCoroutine(DoLoad());
@@ -58,7 +67,7 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public void ReportPlayerDeath()
     {
-        if(Difficulty == 0)
+        if(SettingsManager.Instance.GameMode == 0)
         {
             // Delete save game
             SaveManager.Instance.Delete();

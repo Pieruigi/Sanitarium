@@ -62,11 +62,15 @@ namespace Baloon
             {
                 var data = JsonUtility.FromJson<Data>(rawData); 
                 completed = data.completed;
-                var pos = blood.localPosition;
-                pos.y = bloodCompletedY;
-                blood.localPosition = pos;
-                blood.gameObject.SetActive(false);
-                blooderLever.ForceCompleted();
+                if (completed)
+                {
+                    var pos = blood.localPosition;
+                    pos.y = bloodCompletedY;
+                    blood.localPosition = pos;
+                    blood.gameObject.SetActive(false);
+                    blooderLever.ForceCompleted();
+                }
+                
             }
 
             OnStarted?.Invoke(this, completed);

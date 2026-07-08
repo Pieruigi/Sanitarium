@@ -99392,7 +99392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ad2368aa9eed2498b3d4a4a15f6744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  Difficulty: 0
   ShowStory: 1
 --- !u!1 &1642407643
 GameObject:
@@ -133925,7 +133924,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1481525341736555801, guid: b46a963ef4a44bd48acef765341b20d9, type: 3}
+    - {fileID: 283403021253457399, guid: b46a963ef4a44bd48acef765341b20d9, type: 3}
+    - {fileID: 614315795949670760, guid: b46a963ef4a44bd48acef765341b20d9, type: 3}
+    - {fileID: 7946225340955042299, guid: b46a963ef4a44bd48acef765341b20d9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

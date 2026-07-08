@@ -1,5 +1,7 @@
+using Baloon.SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Baloon.UI
 {
@@ -13,6 +15,9 @@ namespace Baloon.UI
 
         [SerializeField]
         GameObject panel;
+
+        [SerializeField]
+        Button clearButton;
 
         bool inGame = false;
 
@@ -41,6 +46,11 @@ namespace Baloon.UI
                 panel.SetActive(false); 
                 inGame = true;
         
+            }
+            else
+            {
+                if (!SaveManager.Instance.SaveFileExists())
+                    clearButton.interactable = false;
             }
         }
 

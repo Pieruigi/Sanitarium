@@ -34,7 +34,8 @@ namespace Baloon
 
         //public const string ResolutionIdOptionParam = "ResolutionId";
 
-       
+        public const string GameModeOptionParam = "GameMode";
+        public const int GameModeOptionDefault = 0;
 
         public float MouseSpeed
         {
@@ -76,6 +77,15 @@ namespace Baloon
             {
                 var v = PlayerPrefs.GetInt("VerticalMouse", VerticalMouseOptionDefault);
                 return v != 0;
+            }
+        }
+
+        public int GameMode
+        {
+            get
+            {
+                var v = PlayerPrefs.GetInt("GameMode", GameModeOptionDefault);
+                return v;
             }
         }
 
