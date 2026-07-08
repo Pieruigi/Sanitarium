@@ -10,6 +10,8 @@ namespace Baloon.UI
         {
             if (GameManager.Instance.ShowStory)
             {
+                MenuUI.Instance.Unavailable = true;
+
                 GameManager.Instance.ShowStory = false;
                 Time.timeScale = 0;
 
@@ -37,6 +39,7 @@ namespace Baloon.UI
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             gameObject.SetActive(false);
+            MenuUI.Instance.Unavailable = false;
         }
     }
 }

@@ -41,6 +41,7 @@ namespace Baloon.UI
         void InitCloseGameMenuButton()
         {
             locString.StringReference.TableEntryReference = "continue_game";
+            GetComponent<Button>().onClick.AddListener(MenuUI.Instance.Hide);
         }
 
         void InitContinueGameButton()

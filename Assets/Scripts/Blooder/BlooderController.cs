@@ -94,7 +94,7 @@ namespace Baloon
                 CameraShake.Instance.PlayBlooderScream();
                 OnSealed?.Invoke(this);
 
-                SaveManager.Instance.Save();
+                //SaveManager.Instance.Save();
             }
             else
             {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Baloon.UI
@@ -7,7 +8,10 @@ namespace Baloon.UI
     {
         private void Awake()
         {
-            GetComponent<Button>().onClick.AddListener(() => { Application.Quit(); });
+            if (SceneManager.GetActiveScene().buildIndex == GameManager.MainSceneIndex)
+                GetComponent<Button>().onClick.AddListener(() => { Application.Quit(); });
+            else
+                GetComponent<Button>().onClick.AddListener(() => { GameManager.Instance.LoadMainScene(); });
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -51,7 +51,7 @@ public class GameManager : SingletonPersistent<GameManager>
 
     }
 
-    void LoadMainScene()
+    public void LoadMainScene()
     {
         SceneManager.LoadScene(MainSceneIndex);
     }
