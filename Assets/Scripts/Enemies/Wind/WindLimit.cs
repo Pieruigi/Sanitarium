@@ -56,6 +56,9 @@ namespace Baloon
         {
             if (!running || killing) return;
 
+            if (BasePlatform.CurrentPlatform) return;
+
+
             // Adjust altitude
             AdjustAltitude();
 

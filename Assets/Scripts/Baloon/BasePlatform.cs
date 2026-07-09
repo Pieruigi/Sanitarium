@@ -20,7 +20,8 @@ namespace Baloon
 
         bool inside;
 
-        bool saveEnabled = false;
+        bool landingWithEngineOn = false;
+        bool pathCleared = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -37,18 +38,26 @@ namespace Baloon
         private void OnEnable()
         {
             BaloonControlPanel.OnStopped += HandleOnStopped;
+            BaloonPathManager.OnPathCleared += HandleOnPathCleared;
         }
 
         private void OnDisable()
         {
             BaloonControlPanel.OnStopped -= HandleOnStopped;
+            BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
+        }
+
+        private void HandleOnPathCleared()
+        {
+            pathCleared = true;
         }
 
         private void HandleOnStopped()
         {
-            if (!saveEnabled) return;
+            if (!landingWithEngineOn || !pathCleared) return;
 
-            saveEnabled = false;
+            landingWithEngineOn = false;
+            pathCleared = false;
 
             if (BoilerController.Instance.GasLeft > 0)
                 SaveManager.Instance.Save();
@@ -73,11 +82,11 @@ namespace Baloon
             CurrentPlatform = this;
 
             // You can save only when you enter the platform and the engine is running
-            saveEnabled = false;
-            var c = BaloonController.Instance.GetComponent<BaloonControlPanel>();
+            landingWithEngineOn = false;
+            var c = BaloonController.Instance.GetComponentInChildren<BaloonControlPanel>();
             if (c.IsRunning)
             {
-                saveEnabled = true;
+                landingWithEngineOn = true;
             }
 
             OnLanding?.Invoke(this);
@@ -91,7 +100,7 @@ namespace Baloon
             CurrentPlatform = null;
 
             // You can't save anymore here
-            saveEnabled = false;
+            landingWithEngineOn = false;
 
 
             OnTakeOff?.Invoke(this);

@@ -30,6 +30,7 @@ public class AltimeterAlarm : MonoBehaviour
             //StopAlarms();
             return;
         }
+
         
 
         var currentAltitude = BaloonController.Instance.Altitude;
@@ -105,6 +106,7 @@ public class AltimeterAlarm : MonoBehaviour
     void StopAlarms()
     {
         //if (yellowAudioSource.isPlaying) yellowAudioSource.Stop();
+        Debug.Log("TEST - Stoppinga alarm");
         if (redAudioSource.isPlaying) redAudioSource.Stop();
     }
 
