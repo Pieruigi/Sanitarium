@@ -55,5 +55,12 @@ namespace Baloon.UI
             locString.StringReference.TableEntryReference = "new_game";
             GetComponent<Button>().onClick.AddListener(GameManager.Instance.PlayGame);
         }
+
+        public void ResetToNewGameButton()
+        {
+            locString.StringReference.TableEntryReference = "new_game";
+            GetComponent<Button>().onClick.RemoveAllListeners();
+            GetComponent<Button>().onClick.AddListener(GameManager.Instance.PlayGame);
+        }
     }
 }

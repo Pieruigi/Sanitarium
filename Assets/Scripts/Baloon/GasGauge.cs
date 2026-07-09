@@ -39,11 +39,11 @@ namespace Baloon
 
         private void LateUpdate()
         {
-            if (!started) return;
+            //if (!started) return;
 
             if(BoilerController.Instance.GasLeft < shortageLimit)
             {
-                if(!shortageLight.IsOn) shortageLight.SetOn(true);
+                if(!shortageLight.IsOn && started) shortageLight.SetOn(true);
             }
 
             var pos = Vector3.Lerp(emptyPoint.localPosition, fullPoint.localPosition, BoilerController.Instance.GasLeft);

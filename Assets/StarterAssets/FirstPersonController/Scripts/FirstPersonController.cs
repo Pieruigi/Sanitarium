@@ -738,6 +738,8 @@ namespace StarterAssets
 
 			IEnumerator DoCreatureAttack()
 			{
+				Debug.Log("TEST - Do creature die");
+
                 dead = true;
 
                 mixer.SetFloat("AliveVolume", -80f);
