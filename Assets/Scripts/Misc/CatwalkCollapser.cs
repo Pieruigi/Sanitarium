@@ -145,7 +145,7 @@ namespace Baloon
                 {
                     yield return new WaitForSeconds(step);
 
-                    Debug.Log("TEST - Collapse rigidbody");
+                   
                     var r = rigidbodies[count];
                     r.GetComponent<MeshCollider>().convex = true;
                     r.isKinematic = false;

@@ -48,7 +48,7 @@ namespace Baloon
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("TEST - Collision with " + collision.gameObject);
+            
             if (BasePlatform.CurrentPlatform || player.Doomed) return;
 
             //player.Doomed = true;
@@ -106,7 +106,7 @@ namespace Baloon
 
         private void _OnCollisionEnter(Collision collision)
         {
-            Debug.Log("TEST - Collision with " + collision.gameObject);
+          
             if (BasePlatform.CurrentPlatform || player.Doomed) return;
 
             player.Doomed = true;

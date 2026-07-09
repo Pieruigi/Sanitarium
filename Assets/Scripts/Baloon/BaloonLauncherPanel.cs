@@ -145,7 +145,7 @@ namespace Baloon
                 pivot.DOLocalMoveY(yPivotDefault, 1f).SetEase(Ease.InSine).OnComplete(() => 
                 { 
                     root.DOMove(rootPositionDefault, .5f);
-                    Debug.Log($"TEST - Setting miniBalloon off - {miniBalloon.transform.parent.parent}");
+                    
                     miniBalloon.SetActive(false); 
                 });
 

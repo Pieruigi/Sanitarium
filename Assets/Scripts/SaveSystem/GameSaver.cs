@@ -9,8 +9,8 @@ namespace Baloon.UI
         [SerializeField]
         BasePlatform platform;
 
-        [SerializeField]
-        BlooderController blooder;
+        //[SerializeField]
+        //BlooderController blooder;
 
         bool blooderSealed = false;
 
@@ -42,7 +42,7 @@ namespace Baloon.UI
 
         private void HandleOnStopped()
         {
-            if (blooder.Sealed || BasePlatform.CurrentPlatform != platform) return;
+            if (/*(blooder && blooder.Sealed) || */BasePlatform.CurrentPlatform != platform) return;
                        
 
             SaveManager.Instance.Save();

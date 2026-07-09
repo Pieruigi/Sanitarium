@@ -1,3 +1,4 @@
+using Baloon.SaveSystem;
 using System;
 using TMM;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace Baloon
 
         bool inside;
 
+        bool saveEnabled = false;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -31,17 +34,25 @@ namespace Baloon
                         
         }
 
-        //private void OnEnable()
-        //{
-        //    trigger.OnEnter += HandleOnEnter;
-        //    trigger.OnExit += HandleOnExit;
-        //}
+        private void OnEnable()
+        {
+            BaloonControlPanel.OnStopped += HandleOnStopped;
+        }
 
-        //private void OnDisable()
-        //{
-        //    trigger.OnEnter -= HandleOnEnter;
-        //    trigger.OnExit -= HandleOnExit;
-        //}
+        private void OnDisable()
+        {
+            BaloonControlPanel.OnStopped -= HandleOnStopped;
+        }
+
+        private void HandleOnStopped()
+        {
+            if (!saveEnabled) return;
+
+            saveEnabled = false;
+
+            if (BoilerController.Instance.GasLeft > 0)
+                SaveManager.Instance.Save();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -52,15 +63,22 @@ namespace Baloon
         private void OnTriggerExit(Collider other)
         {
             if (!other.CompareTag("Baloon")) return;
+            
             HandleOnExit(other);
         }
 
         private void HandleOnEnter(Collider other)
         {
-         
-
             inside = true;
             CurrentPlatform = this;
+
+            // You can save only when you enter the platform and the engine is running
+            saveEnabled = false;
+            var c = BaloonController.Instance.GetComponent<BaloonControlPanel>();
+            if (c.IsRunning)
+            {
+                saveEnabled = true;
+            }
 
             OnLanding?.Invoke(this);
         }
@@ -71,7 +89,11 @@ namespace Baloon
 
             inside = false;
             CurrentPlatform = null;
-                
+
+            // You can't save anymore here
+            saveEnabled = false;
+
+
             OnTakeOff?.Invoke(this);
         }
     }

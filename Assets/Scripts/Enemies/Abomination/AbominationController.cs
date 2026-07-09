@@ -135,7 +135,7 @@ namespace Baloon
                 player.PitchDisabled = true;
                 player.MoveDisabled = true;
 
-                Debug.Log("TEST - Killing player");
+               
                 // Disable flashlight
                 Flashlight.Instance.gameObject.SetActive(false);
 

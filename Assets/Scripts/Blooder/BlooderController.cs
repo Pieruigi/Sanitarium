@@ -86,7 +86,7 @@ namespace Baloon
         {
             if(!pushed || completed) return;
 
-            Debug.Log($"TEST - NormalizedProgress:{blooderLever.NormalizedProgress}");
+            
             if (blooderLever.NormalizedProgress == 1)
             {
                 completed = true;
@@ -98,7 +98,7 @@ namespace Baloon
                 CameraShake.Instance.PlayBlooderScream();
                 OnSealed?.Invoke(this);
 
-                //SaveManager.Instance.Save();
+                SaveManager.Instance.Save();
             }
             else
             {

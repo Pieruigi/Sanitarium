@@ -68,7 +68,7 @@ namespace Baloon
 
         public void SetPath(int pathIndex, bool reversed, bool locked)
         {
-            Debug.Log("TEST - Setting path:" + pathIndex);
+            
             if(pathIndex < 0)
             {
                 OnPathUnknown?.Invoke();
@@ -83,7 +83,7 @@ namespace Baloon
 
             currentPath = paths[pathIndex];
             isPathReversed = reversed;
-            Debug.Log("TEST - OnPathSet");
+            
             OnPathSet?.Invoke();
         }
 

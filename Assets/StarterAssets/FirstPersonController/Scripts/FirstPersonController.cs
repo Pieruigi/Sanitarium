@@ -194,7 +194,7 @@ namespace StarterAssets
 				var jsonData = SaveManager.Instance.GetRawJsonData(SaveId);
 				var data = JsonUtility.FromJson<Data>(jsonData);
 
-                Debug.Log($"TEST - Entry found - SaveID:{SaveId}, rawData:{jsonData}");
+                
 
                 ForcePosition(data.position);
 				transform.rotation = data.rotation;
@@ -250,17 +250,7 @@ namespace StarterAssets
             CameraRotation();
         }
 
-        private void FixedUpdate()
-        {
-#if UNITY_EDITOR
-
-			if (onBaloon)
-			{
-				Debug.Log("TEST - Dist:" + transform.localPosition.magnitude);
-			}
-
-#endif
-		}
+        
 
         private void OnEnable()
         {
@@ -340,8 +330,7 @@ namespace StarterAssets
                 {
                     foreach (var hit in hits)
                     {
-						Debug.Log("TEST - Balloon Collision:" + hit.collider.gameObject);
-                        Debug.Log("TEST - Balloon Collision - Velocity:" + velocity);
+						
 
                         // Casta una sfera quindi se sono leggermente entrato in collisione per colpa per esempio dello shaking mi casta anche sulla collisione nella quale sono entrato;
                         // per risolvere basta che verifico che la il DOT tra direzione cast e velocità sia > 0
@@ -372,7 +361,7 @@ namespace StarterAssets
 
                     // Dopo aver "pulito" la velocity contro tutti i muri trovati, aggiorniamo la speed
                     //_speed = velocity.magnitude;
-                    Debug.Log("TEST - Balloon Collision - Final Velocity:" + velocity);
+                    
                 }
 
             }
@@ -802,7 +791,7 @@ namespace StarterAssets
 			// Only reset thing but don't apply any force here
 			IEnumerator DoExplosionDead()
 			{
-				Debug.Log("TEST - Do explosion");
+				
                 dead = true;
 
                 // Free parenting
@@ -883,7 +872,7 @@ namespace StarterAssets
 			// If we hit the ground we start a timer to reload the main scene without waiting the report in the death routine (it could take to long in some cases)
 			StartCoroutine(DoReportDeath(3f));
 
-            Debug.Log("TEST - Dead player collision:"+collision.gameObject.name);
+            
 
 			IEnumerator DoReportDeath(float delay)
 			{

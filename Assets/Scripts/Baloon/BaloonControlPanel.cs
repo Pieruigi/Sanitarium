@@ -1,3 +1,4 @@
+using Baloon.SaveSystem;
 using NUnit.Framework;
 using StarterAssets;
 using System;
@@ -194,6 +195,8 @@ namespace Baloon
                     player.GetComponent<FirstPersonController>().ExitBaloon();
                     //player.transform.parent = null;
                     OnStopped?.Invoke();
+
+                    
                 }
                 else
                 {

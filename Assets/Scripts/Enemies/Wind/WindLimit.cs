@@ -70,7 +70,7 @@ namespace Baloon
                     //if (!player.Doomed && !processing)
                     {
                         var middle = (AltitudeManager.Instance.MaxAltitude - AltitudeManager.Instance.MinAltitude) / 2f + AltitudeManager.Instance.MinAltitude;
-                        Debug.Log("TEST - middle:" + middle);
+                        
 
                         if (BaloonController.Instance.Altitude >  middle) ProcessBottomLimit();
                         else ProcessBottomLimit();

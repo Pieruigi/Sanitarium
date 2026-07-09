@@ -163,7 +163,7 @@ namespace Baloon
 
         void ShakeHeavy()
         {
-            Debug.Log("TEST - WIND - shake strong");
+            
 
             CameraShake.Instance.PlayWindShakeStrong(() => { ResetShakeTime(); StartCoroutine(ApplyDamage()); }, ResetShakeTime);
             //if (_testBalloonShaker)
@@ -176,10 +176,10 @@ namespace Baloon
 
             IEnumerator ApplyDamage()
             {
-                Debug.Log("TEST - WIND - Applying damage test");
+                
                 if (Random.Range(0, 2) == 0) yield break; // 50% we take damage
 
-                Debug.Log("TEST - WIND - Applying damage");
+                
                 yield return new WaitForSeconds(.5f);
 
                 if(BaloonBoilerHealth.Instance.TryTakeSingleDamage())
@@ -194,7 +194,7 @@ namespace Baloon
 
         void ResetShakeTime()
         {
-            Debug.Log("TEST - WIND - Reset timer");
+           
             shakeTime = Random.Range(shakeTimeMin, shakeTimeMax);
             
             //var range = AltitudeManager.Instance.GetCurrentRange();

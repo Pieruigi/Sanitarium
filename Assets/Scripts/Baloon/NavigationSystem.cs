@@ -78,7 +78,7 @@ namespace Baloon
 
         private void HandleOnPathSet()
         {
-            Debug.Log("TEST - Setting path");
+            
             currentPath = BaloonPathManager.Instance.CurrentPath;
 
             isPathReversed = BaloonPathManager.Instance.IsPathReversed;
@@ -95,7 +95,7 @@ namespace Baloon
             {
                 yield return new WaitForSeconds(delay);
 
-                Debug.Log("TEST - HorizontalForce:" + waypointA.HorizontalForce);
+                
 
                 if (horizontalForceTween != null) horizontalForceTween.Kill();
 

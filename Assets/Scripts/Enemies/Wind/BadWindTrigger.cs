@@ -156,7 +156,7 @@ namespace Baloon
 
             //strength = ComputeWindStrength(BaloonController.Instance.Altitude);
             strength = ComputeWindStrength(1f); // I don't the wind to change it's power depending on the altitude
-            Debug.Log("TEST - Gust strength:" + strength);
+           
 
             // Calculate displacement
             float targetY = target.position.y + (direction * strength);

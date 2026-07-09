@@ -71,18 +71,13 @@ namespace Baloon
                
                 //if (inputAction.action.IsPressed()) Debug.Log("TEST - PPPPPPPPPPPPPPPPPPPPPPPPPPP");
 
-                if (_test)
-                    Debug.Log($"TEST - Diff:{transform.position - Camera.main.transform.position}");
-
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
 
                 
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, InteractionDistance, mask))
                 {
-                    if(_test)
-                        Debug.Log($"TEST - Point:{hit.collider.transform.InverseTransformPoint(hit.point)}");
-
+                    
                     if (hit.collider == interactionCollider)
                     {
                         

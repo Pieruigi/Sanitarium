@@ -144,7 +144,7 @@ public class CameraShake : Singleton<CameraShake>
 
     public void PlayWindGustShake(float duration, System.Action onComplete = null, System.Action onKill = null)
     {
-        Debug.Log("TEST - Wind gust shake");
+        
 
         float randPos = Random.Range(0.03f, 0.04f) * windShakeMultiplier;
         float randRot = Random.Range(1.5f, 2.5f) * windShakeMultiplier;
@@ -264,7 +264,7 @@ public class CameraShake : Singleton<CameraShake>
 
     public void PlayPathClearedShake()
     {
-        Debug.Log("TEST - SHAAAAKE");
+       
 
         PlayShake(
            duration: 1f,         // molto breve
@@ -304,7 +304,7 @@ public class CameraShake : Singleton<CameraShake>
             }
             else
             {
-                Debug.Log("TEST - WIND - Vertical is null:" + (verticalWindShakeTween == null));
+                
 
                 if (verticalWindShakeTween != null && verticalWindShakeTween.IsPlaying())
                 {

@@ -120,7 +120,7 @@ public class BaloonLauncher : MonoBehaviour
     private void HandleOnPathUnknown()
     {
         
-        Debug.Log("TEST - OnPathUnknown");
+        
     }
 
     private void HandleOnPathSet()
@@ -144,19 +144,19 @@ public class BaloonLauncher : MonoBehaviour
             OnDirectionChanged?.Invoke(this);
         }
 
-        Debug.Log("TEST - OnPathSet");
+        
     }
 
     private void HandleOnPathLocked()
     {
         
-        Debug.Log("TEST - OnPathLocked");
+        
     }
 
     private void HandleOnPathCleared()
     {
         
-        Debug.Log("TEST - OnPathCleared");
+        
     }
 
     

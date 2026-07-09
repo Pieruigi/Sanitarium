@@ -79,7 +79,7 @@ namespace Baloon
 
             // Start tween
             var time = MathF.Abs(currentAngle - targetAngle) / Mathf.Abs(defaultAngle - targetAngle) * duration;
-            Debug.Log($"TEST - Time:{time}");
+           
             turnTween = DOTween.To(() => currentAngle, x => currentAngle = x, targetAngle, time).SetEase(Ease.InOutSine);
             turnTween.OnUpdate(() => { transform.localEulerAngles = Vector3.up * currentAngle; });
             turnTween.OnComplete(() => { transform.localEulerAngles = Vector3.up * targetAngle; completed = true; });

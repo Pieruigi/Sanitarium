@@ -44,7 +44,7 @@ namespace Baloon.UI
 
         private void OnEnable()
         {
-            if(controller.Sealed && blooderImage.material != emptyBlooderMat)
+            if(controller != null && controller.Sealed && blooderImage.material != emptyBlooderMat)
                 blooderImage.material = emptyBlooderMat;
         }
 

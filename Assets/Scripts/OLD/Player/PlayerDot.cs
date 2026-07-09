@@ -32,7 +32,7 @@ namespace SNT.UI
             
             dot.rectTransform.position = pos;
 
-            Debug.Log("TEST - Pos:" + pos);
+            
             
 
             if(PlayerInteractor.Instance.IsBusy())

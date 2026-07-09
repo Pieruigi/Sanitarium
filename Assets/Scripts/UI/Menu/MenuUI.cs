@@ -51,6 +51,11 @@ namespace Baloon.UI
             {
                 if (!SaveManager.Instance.SaveFileExists())
                     clearButton.interactable = false;
+
+                // If you're coming from the game scene then we must reset cursor and timescale
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 1; 
             }
         }
 

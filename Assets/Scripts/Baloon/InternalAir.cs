@@ -105,7 +105,7 @@ namespace Baloon
 
         private void HandleOnCoolerReleased()
         {
-            Debug.Log("TEST - Cooler released");
+            
             FOVController.Instance.ResetFOV();
             coolerOn = false;
         }

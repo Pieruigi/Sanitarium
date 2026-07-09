@@ -58,7 +58,7 @@ namespace Baloon
            
             if (collision.collider.gameObject.layer != LayerMask.NameToLayer("Ground")) return;
             
-            Debug.Log("TEST - AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:" + collision.collider.gameObject);
+           
             audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
             audioSource.Play();
 

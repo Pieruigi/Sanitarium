@@ -52,7 +52,7 @@ namespace SNT
         {
             if(this.triggerButton != triggerButton) return;
 
-            Debug.Log("TEST - Pressing button...");
+           
             tweenSeq.Kill();
             tweenSeq = DOTween.Sequence();
             tweenSeq.Append(target.DOLocalMoveY(pressedY, .25f).SetEase(Ease.OutBack));
