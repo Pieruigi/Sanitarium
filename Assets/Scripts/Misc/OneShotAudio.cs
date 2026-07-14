@@ -9,11 +9,13 @@ namespace Baloon
 
         bool triggered = false;
 
+        [SerializeField]
         AudioSource audioSource;
 
         private void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
+            if(!audioSource)
+                audioSource = GetComponent<AudioSource>();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
