@@ -1,5 +1,7 @@
 using Baloon;
+using Baloon.Demo;
 using Baloon.SaveSystem;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,6 +21,16 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public bool ShowStory = true;
 
+    public bool deathReported = false;
+
+#if DEMO
+
+    public bool DemoEnd = false;
+
+    
+
+#endif
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +43,21 @@ public class GameManager : SingletonPersistent<GameManager>
     void Update()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleOnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleOnSceneLoaded;
+    }
+
+    private void HandleOnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        deathReported = false;
     }
 
     public void PlayGame()
@@ -67,14 +94,32 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public void ReportPlayerDeath()
     {
+        if (deathReported) return;
+        deathReported = true;
+
         if(SettingsManager.Instance.GameMode == 0)
         {
             // Delete save game
             SaveManager.Instance.Delete();
         }
 
-        //PlayGame();
+#if DEMO
+        if (DemoEnd)
+        {
+            DemoEnd = false;
+            DemoEndUI.Instance.Show();
+        }
+        else
+        {
+            LoadMainScene();
+        }
+
+#else
         LoadMainScene();
+#endif
+
+        
+
     }
-    
+
 }

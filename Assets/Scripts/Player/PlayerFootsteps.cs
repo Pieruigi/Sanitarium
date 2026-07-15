@@ -16,8 +16,8 @@ namespace Baloon
         [SerializeField]
         List<AudioClip> concreteAudioClips, metalAudioClips;
 
-        float concreteVolume = 0.1f;
-        float metalVolume = .04f;
+        float concreteVolume = 0.1f * 2f;
+        float metalVolume = .04f * 2f;
 
         //SurfaceType footstepTypeDefault = SurfaceType.Concrete;
 

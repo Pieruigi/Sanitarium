@@ -259,7 +259,13 @@ public class CameraShake : Singleton<CameraShake>
 
     public void PlayTakeOffShake()
     {
-
+        PlayShake(
+           duration: Random.Range(1.5f, 2f),         // molto breve
+           posStrength: Random.Range(0.02f, 0.03f),         // piccolissimo kick
+           rotStrength: Random.Range(3f, 4.5f),          // leggero recoil visivo
+           vibratoPos: 1,
+           vibratoRot: 1
+       );
     }
 
     public void PlayPathClearedShake()

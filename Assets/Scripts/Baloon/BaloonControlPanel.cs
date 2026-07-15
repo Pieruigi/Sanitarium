@@ -169,6 +169,8 @@ namespace Baloon
 
                         fireAudioSource.Play();
 
+                        //CameraShake.Instance.PlayLandingShake(.005f);
+
                         OnStarted?.Invoke();
                     }
                 }
@@ -193,6 +195,8 @@ namespace Baloon
                     //coldButton.Locked = true;
                     //warmButton.Locked = true;
                     player.GetComponent<FirstPersonController>().ExitBaloon();
+
+                    //CameraShake.Instance.PlayLandingShake(.005f);
                     //player.transform.parent = null;
                     OnStopped?.Invoke();
 
