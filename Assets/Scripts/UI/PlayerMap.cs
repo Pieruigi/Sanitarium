@@ -70,6 +70,11 @@ namespace Baloon.UI
                 uiPrevWaypoint = uiWaypoints.Find(w=>w.Waypoint == prevWaypoint);
                 nextWaypoint = NavigationSystem.Instance.WaypointB;
                 uiNextWaypoint = uiWaypoints.Find(w => w.Waypoint == nextWaypoint);
+
+                Debug.Log($"TEST - MAP - PrevWP:{prevWaypoint}");
+                Debug.Log($"TEST - MAP - NextWP:{nextWaypoint}");
+                Debug.Log($"TEST - MAP - PrevWP_UI:{uiPrevWaypoint}");
+                Debug.Log($"TEST - MAP - NextWP_UI:{uiNextWaypoint}");
             }
 
             

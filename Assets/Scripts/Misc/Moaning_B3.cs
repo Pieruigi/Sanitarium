@@ -33,12 +33,12 @@ namespace Baloon
 
         private void OnEnable()
         {
-            valve.OnReleased += HandleValveOnRelease;   
+            valve.OnPushed += HandleValveOnRelease;   
         }
 
         private void OnDisable()
         {
-            valve.OnReleased -= HandleValveOnRelease;
+            valve.OnPushed -= HandleValveOnRelease;
         }
 
         private void HandleValveOnRelease()
