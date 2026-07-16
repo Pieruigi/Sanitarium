@@ -29,9 +29,8 @@ namespace Baloon.Demo
 #if DEMO
         private void OnTriggerEnter(Collider other)
         {
-            //if (!other.CompareTag("Baloon")) return;
-            if (!other.CompareTag("Player")) return;
-
+            if (!other.CompareTag("Baloon")) return;
+            
             if (!blooder1.Sealed || !blooder2.Sealed) return;
 
             GameManager.Instance.DemoEnd = true;

@@ -1,12 +1,9 @@
 using DG.Tweening;
 using StarterAssets;
-using System;
 using System.Collections;
-using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 namespace Baloon
 {
@@ -301,6 +298,8 @@ namespace Baloon
 
                 WindAudio.Instance.FadeKillerVolume(duration);
                 CameraShake.Instance.PlayWindGustShake(duration);
+
+                BaloonCreek.Instance.Play(duration, Random.Range(.8f, 1f));
 
                 yield return new WaitForSeconds(3f);
 

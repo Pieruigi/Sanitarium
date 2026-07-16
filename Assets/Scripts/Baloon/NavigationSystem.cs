@@ -1,11 +1,7 @@
 using DG.Tweening;
-using StarterAssets;
-using System;
 using System.Collections;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Baloon
 {
@@ -106,6 +102,8 @@ namespace Baloon
                 AltitudeManager.Instance.SetAltitude(waypointB.MinAltitude, waypointB.MaxAltitude);
 
                 CameraShake.Instance.PlayPathClearedShake();
+
+                BaloonCreek.Instance.Play(Random.Range(1.5f, 2f), Random.Range(0.5f, 1f));
             }
         }
 
@@ -214,7 +212,7 @@ namespace Baloon
 
                 CameraShake.Instance.PlayPathClearedShake();
 
-
+                BaloonCreek.Instance.Play(Random.Range(1.5f, 2f), Random.Range(0.5f, 1f));
 
             }
         }
