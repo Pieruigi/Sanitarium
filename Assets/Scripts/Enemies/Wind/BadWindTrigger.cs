@@ -181,6 +181,9 @@ namespace Baloon
 
             StartCoroutine(ApplyDamage(duration));
 
+            // Creek
+            BaloonCreek.Instance.Play(Random.Range(2.5f, 3f), Random.Range(.8f, 1f));
+
             // 3. Audio Hook (Example)
             // AudioSource.PlayClipAtPoint(windGustClip, target.position);
 

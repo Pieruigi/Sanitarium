@@ -100,6 +100,7 @@ namespace Baloon
         {
             completed = true;
             transform.localEulerAngles = Vector3.up * angle;
+            interactor.NoHint = true;
         }
     }
 }

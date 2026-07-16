@@ -182,8 +182,8 @@ namespace Baloon
                 var max = -2f;
                 float power = Mathf.Lerp(0f, 1f, (max - lastVelY) / (max - min));
                 CameraShake.Instance.PlayLandingShake(power);
-                BaloonCreek.Instance.Stop();
-                BaloonCreek.Instance.AdjustVolumeByFactor(0);
+                //BaloonCreek.Instance.Stop();
+                //BaloonCreek.Instance.AdjustVolumeByFactor(0);
 
                 var minVolume = .5f;
                 var maxVolume = .8f;
@@ -194,8 +194,8 @@ namespace Baloon
             else if (lastVelY == 0 && currentVelocity.y > 0)
             {
                 CameraShake.Instance.PlayTakeOffShake();
-                BaloonCreek.Instance.Play();
-                BaloonCreek.Instance.AdjustVolumeByFactor(0);
+                BaloonCreek.Instance.Play(3, 0);
+                //BaloonCreek.Instance.AdjustVolumeByFactor(0);
                 Debug.Log("TEST - VSpeed:"+currentVelocity.y);  
             }
             

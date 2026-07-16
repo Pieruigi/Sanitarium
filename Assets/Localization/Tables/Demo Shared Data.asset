@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: not_available
     m_Metadata:
       m_Items: []
+  - m_Id: 3563993540059136
+    m_Key: demo_thanks
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -22,6 +22,12 @@ MonoBehaviour:
     m_Localized: Disponible en el juego completo.
     m_Metadata:
       m_Items: []
+  - m_Id: 3563993540059136
+    m_Localized: "\xA1Gracias por jugar la demo de Altitude Zero!\r\nSi te gust\xF3,
+      considera agregar el juego a tu lista de deseados de Steam.\r\n\xA1Ayuda much\xEDsimo
+      a un desarrollador independiente!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

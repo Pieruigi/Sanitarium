@@ -1,5 +1,7 @@
 using DG.Tweening;
 using Mono.Cecil.Cil;
+using System.Collections;
+using System.Numerics;
 using UnityEngine;
 
 namespace Baloon
@@ -10,12 +12,10 @@ namespace Baloon
 
         float length;
 
-        float minVolume = .1f;
-        float maxVolume = .25f;
+        float minVolume = .4f;
+        float maxVolume = .6f;
 
-        float targetVolume = 0;
-        float volumeSpeed = 1f;
-
+        
         protected override void Awake()
         {
             base.Awake();
@@ -26,7 +26,7 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            AdjustVolumeByFactor(0);
+            
         }
 
         // Update is called once per frame
@@ -35,34 +35,30 @@ namespace Baloon
          
         }
 
-        public void Play(float duration)
+        public void Play(float duration, float power)
         {
-            return;
-            if (source.isPlaying) source.Pause();
+            if (source.isPlaying) source.Stop();
 
             float min = 0f;
             float max = length - duration;
 
             source.time = Random.Range(min, max);
 
+            //AdjustVolumeByFactor(power);
+            source.volume = Mathf.Lerp(minVolume, maxVolume, Mathf.Clamp01(power));
+            
             source.Play();
+            
+            StartCoroutine(DoStop(duration));
+
+            IEnumerator DoStop(float time)
+            {
+                yield return new WaitForSeconds(time);
+                source.Stop();
+            }
         }
 
-        public void Play() 
-        {
-            source.Play();
-        }
-
-        public void Stop()
-        {
-            source.Pause();
-        }
-
-        public void AdjustVolumeByFactor(float factor)
-        {
-            var v = Mathf.Lerp(minVolume, maxVolume, factor);
-            var t = Mathf.Abs(source.volume - v) / volumeSpeed;
-            source.DOFade(v, t);
-        }
+     
+        
     }
 }

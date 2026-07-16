@@ -9,6 +9,9 @@ namespace Baloon
 {
     public class Interactor : MonoBehaviour
     {
+        public delegate void HintDelegate(bool interactable);
+        public static HintDelegate OnHint;
+
         public delegate void InteractionStartedDelegate(Interactor interactor);
         public static InteractionStartedDelegate OnInteractionStarted;
 
@@ -47,6 +50,13 @@ namespace Baloon
         [SerializeField]
         bool _test = false;
 
+        bool noHint;
+        public bool NoHint
+        {
+            get { return noHint; }
+            set { noHint = value; if (noHint) OnHint?.Invoke(false); }
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -56,6 +66,8 @@ namespace Baloon
         // Update is called once per frame
         void Update()
         {
+            var showMessageOld = showMessage;
+
             bool stopInteracting = false;
 
             var actionWasPressed = oldInputIsPressed;
@@ -98,15 +110,24 @@ namespace Baloon
 
 
                     }
-
+                    else
+                    {
+                        showMessage = false;
+                    }
 
                 }
                 else
                 {
+                    showMessage = false;
+
                     if (interacting && !stopOnKeyUpOnly)
                         stopInteracting = true;
                    
                 }
+            }
+            else
+            {
+                showMessage = false;
             }
 
             if ((mouseButton0 && Input.GetMouseButtonUp(0)) || Input.GetKeyUp(key) || (!actionIsPressed && actionWasPressed))
@@ -122,6 +143,15 @@ namespace Baloon
                 interacting = false;
                 OnInteractionStopped?.Invoke(this);
             }
+
+            if(showMessage != showMessageOld)
+            {
+                if (showMessage && !NoHint)
+                    OnHint?.Invoke(true);
+                else
+                    OnHint?.Invoke(false);
+            }
+            
         }
 
         void OnEnable()
@@ -145,11 +175,13 @@ namespace Baloon
         private void HandleOnEnter(Collider other)
         {
             inside = true;
+           
         }
 
         private void HandleOnExit(Collider other)
         {
             inside = false;
+           
         }
 
         

@@ -159,6 +159,9 @@ namespace Baloon
             var y = BaloonController.Instance.transform.position.y; ;
             y += ComputeWindStrength(BaloonController.Instance.Altitude, true) * (Random.Range(0, 2) == 0 ? 1 : -1) * Random.Range(.9f, 1.1f);
             BaloonController.Instance.transform.DOMoveY(y, 2f).SetEase(Ease.OutQuad);
+
+            // Creek
+            BaloonCreek.Instance.Play(Random.Range(4f, 5f), Random.Range(.4f, .6f));
         }
 
         void ShakeHeavy()
@@ -173,6 +176,9 @@ namespace Baloon
             var y = BaloonController.Instance.transform.position.y;
             y += ComputeWindStrength(BaloonController.Instance.Altitude, false) * (Random.Range(0, 2) == 0 ? 1 : -1) * Random.Range(.9f, 1.1f);
             BaloonController.Instance.transform.DOMoveY(y, 2f).SetEase(Ease.OutQuad);
+
+            // Creek
+            BaloonCreek.Instance.Play(Random.Range(4f, 5f), Random.Range(.6f, .8f));
 
             IEnumerator ApplyDamage()
             {

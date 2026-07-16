@@ -22,6 +22,12 @@ MonoBehaviour:
     m_Localized: "Dost\u0119pne w pe\u0142nej wersji."
     m_Metadata:
       m_Items: []
+  - m_Id: 3563993540059136
+    m_Localized: "Dzi\u0119kujemy za zagranie w demo Altitude Zero!\r\nJe\u015Bli
+      Ci si\u0119 podoba\u0142o, dodaj gr\u0119 do swojej Listy \u017Bycze\u0144
+      na Steam.\r\nTo naprawd\u0119 ogromna pomoc dla jednoosobowego studia!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
