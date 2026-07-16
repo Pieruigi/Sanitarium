@@ -196,7 +196,7 @@ namespace Baloon
                 CameraShake.Instance.PlayTakeOffShake();
                 BaloonCreek.Instance.Play(3, 0);
                 //BaloonCreek.Instance.AdjustVolumeByFactor(0);
-                Debug.Log("TEST - VSpeed:"+currentVelocity.y);  
+                //Debug.Log("TEST - VSpeed:"+currentVelocity.y);  
             }
             
         }

@@ -81,8 +81,7 @@ namespace Baloon
             if (inside)
             {
                
-                //if (inputAction.action.IsPressed()) Debug.Log("TEST - PPPPPPPPPPPPPPPPPPPPPPPPPPP");
-
+                
                 RaycastHit hit;
                 LayerMask mask = LayerMask.GetMask(new string[] { "Interactable" });
 

@@ -106,7 +106,6 @@ public class AltimeterAlarm : MonoBehaviour
     void StopAlarms()
     {
         //if (yellowAudioSource.isPlaying) yellowAudioSource.Stop();
-        Debug.Log("TEST - Stoppinga alarm");
         if (redAudioSource.isPlaying) redAudioSource.Stop();
     }
 

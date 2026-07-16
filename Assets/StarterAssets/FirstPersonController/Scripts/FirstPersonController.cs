@@ -377,15 +377,13 @@ namespace StarterAssets
 			var toll = .35f;
 			if (dist.magnitude < toll)
 			{
-   //             Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-				transform.localPosition =  dist.normalized * toll;
+   			transform.localPosition =  dist.normalized * toll;
 
             }
 			
 			toll = 1.13f;
             if (dist.magnitude > toll)
             {
-                //             Debug.Log("TEST - Balloon Collision - OVERLAPPINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
                 transform.localPosition = dist.normalized * toll;
 
             }
@@ -738,9 +736,7 @@ namespace StarterAssets
 
 			IEnumerator DoCreatureAttack()
 			{
-				Debug.Log("TEST - Do creature die");
-
-                dead = true;
+				dead = true;
 
                 mixer.SetFloat("AliveVolume", -80f);
 

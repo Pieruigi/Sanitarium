@@ -67,8 +67,8 @@ namespace Baloon
         bool running = false;
 
 
-        float gasDepleteMaxSpeed = 0.0047f;//0.00625f;
-        float gasDepleteMinSpeed = 0.00094f;//0.00125f
+        float gasDepleteMaxSpeed = 0.0047f * 1.2f;//0.00625f;
+        float gasDepleteMinSpeed = 0.00094f * 1.2f;//0.00125f
 
 
 
