@@ -41,6 +41,10 @@ namespace Baloon
 
         float deactivatedY = 100f;
 
+        float followSpeed = 10;
+
+        GameObject player;
+
 
         private void Awake()
         {
@@ -59,6 +63,7 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            player = GameObject.FindGameObjectWithTag("Player");
             pivot.transform.localPosition = Vector3.up * deactivatedY;
             pivot.gameObject.SetActive(false);
         }
@@ -73,10 +78,19 @@ namespace Baloon
         {
             if (!isActive) return;
 
-            var pos = root.position;
-            pos.y = BaloonController.Instance.transform.position.y + 15f;
-            if(pos.y < minY) pos.y = minY;
-            root.position = pos;
+            var range = AltitudeManager.Instance.GetCurrentRange();
+            switch (range)
+            {
+                case AltitudeRange.Green:
+                    var pos = root.position;
+                    pos.y = Mathf.Lerp(pos.y, player.transform.position.y + 15f, followSpeed * Time.deltaTime);
+                    //pos.y = BaloonController.Instance.transform.position.y + 15f;
+                    //if (pos.y < minY) pos.y = minY;
+                    root.position = pos;
+                    break;
+            }
+
+            
 
             
 

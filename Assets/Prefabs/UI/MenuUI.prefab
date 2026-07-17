@@ -1929,6 +1929,7 @@ GameObject:
   - component: {fileID: 6653869208853453752}
   - component: {fileID: 5222202836512406161}
   - component: {fileID: 4006170632634098343}
+  - component: {fileID: 480131824262470426}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2050,6 +2051,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c5d42996095154a8b7c7fabfce8b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.UI.WishlistButton
+--- !u!114 &480131824262470426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4841960176000396323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65690fcd8f1fe3b41a383c37121a3b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.UI.WishlistFlicker
+  targetButton: {fileID: 5222202836512406161}
+  minInterval: 0.05
+  maxInterval: 0.15
+  flickerDuration: 0.075
 --- !u!1 &5853825927508981102
 GameObject:
   m_ObjectHideFlags: 0
