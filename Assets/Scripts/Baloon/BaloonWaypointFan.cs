@@ -83,7 +83,7 @@ namespace Baloon
             {
                 case AltitudeRange.Green:
                     var pos = root.position;
-                    pos.y = Mathf.Lerp(pos.y, player.transform.position.y + 15f, followSpeed * Time.deltaTime);
+                    pos.y = Mathf.Lerp(pos.y, player.transform.position.y + 20f, followSpeed * Time.deltaTime);
                     //pos.y = BaloonController.Instance.transform.position.y + 15f;
                     //if (pos.y < minY) pos.y = minY;
                     root.position = pos;

@@ -7,7 +7,8 @@ namespace Baloon
 {
     public class FOVController : Singleton<FOVController>
     {
-        float fovDefault;
+        [SerializeField]
+        float fovDefault = 50;
 
         CinemachineVirtualCamera virtualCamera;
 
@@ -20,7 +21,8 @@ namespace Baloon
             base.Awake();
 
             virtualCamera = GetComponent<CinemachineVirtualCamera>();
-            fovDefault = virtualCamera.m_Lens.FieldOfView;
+            //fovDefault = virtualCamera.m_Lens.FieldOfView;
+            virtualCamera.m_Lens.FieldOfView = fovDefault;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
