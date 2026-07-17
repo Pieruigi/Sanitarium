@@ -274,7 +274,7 @@ public class CarrionFlyController : MonoBehaviour
         var pos = leak.transform.position;
         var fwd = Vector3.ProjectOnPlane(leak.transform.forward, Vector3.up);
 
-        attackPoint.transform.position = pos + fwd * 1.1f;// - fwd * .8f;
+        attackPoint.transform.position = pos + fwd * 1.1f + Vector3.down * .12f;// - fwd * .8f;
         attackPoint.transform.forward = -fwd;
         
         // Set height

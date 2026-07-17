@@ -35,7 +35,7 @@ namespace Baloon
         //public const string ResolutionIdOptionParam = "ResolutionId";
 
         public const string GameModeOptionParam = "GameMode";
-        public const int GameModeOptionDefault = 0;
+        public const int GameModeOptionDefault = 1;
 
         public float MouseSpeed
         {

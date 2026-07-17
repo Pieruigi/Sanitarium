@@ -84,6 +84,8 @@ namespace Baloon.UI
             Cursor.visible = false;
             panel.SetActive(false);
             Time.timeScale = 1;
+
+            PauseAudioSourceAll(false);
         }
 
         void Show()
@@ -92,6 +94,22 @@ namespace Baloon.UI
             Cursor.visible = true;
             panel.SetActive(true);
             Time.timeScale = 0;
+
+            PauseAudioSourceAll(true);
         }
+
+        void PauseAudioSourceAll(bool value)
+        {
+            var sources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+            foreach (var source in sources)
+            {
+                if (value)
+                    source.Pause();
+                else
+                    source.UnPause();
+            }
+        }
+
+        
     }
 }
