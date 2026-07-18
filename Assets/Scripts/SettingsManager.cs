@@ -26,7 +26,7 @@ namespace Baloon
         //public const int VolumeOptionMin = 0;
         //public const int VolumeOptionMax = 100;
 
-        public const int VolumeOptionDefault = 80;
+        public const int VolumeOptionDefault = 8;
 
         public const string VerticalMouseOptionParam = "VerticalMouse";
 

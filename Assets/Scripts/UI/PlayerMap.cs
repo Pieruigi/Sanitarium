@@ -71,13 +71,14 @@ namespace Baloon.UI
                 nextWaypoint = NavigationSystem.Instance.WaypointB;
                 uiNextWaypoint = uiWaypoints.Find(w => w.Waypoint == nextWaypoint);
 
-                Debug.Log($"TEST - MAP - PrevWP:{prevWaypoint}");
-                Debug.Log($"TEST - MAP - NextWP:{nextWaypoint}");
-                Debug.Log($"TEST - MAP - PrevWP_UI:{uiPrevWaypoint}");
-                Debug.Log($"TEST - MAP - NextWP_UI:{uiNextWaypoint}");
+                //Debug.Log($"TEST - MAP - PrevWP:{prevWaypoint}");
+                //Debug.Log($"TEST - MAP - NextWP:{nextWaypoint}");
+                //Debug.Log($"TEST - MAP - PrevWP_UI:{uiPrevWaypoint}");
+                //Debug.Log($"TEST - MAP - NextWP_UI:{uiNextWaypoint}");
             }
+           
 
-            
+
             if (hasPath)
             {
                 // Compute direction
@@ -92,7 +93,7 @@ namespace Baloon.UI
                 var bDist = Vector3.Distance(orig, balloon);
                 var ratio = bDist / dist;
 
-                
+
                 // Compute ui direction
                 var uiDir = uiDest - uiOrig;
                 uiDir.Normalize();
@@ -147,7 +148,10 @@ namespace Baloon.UI
         private void HandleOnPathCleared()
         {
             hasPath = false;
-            prevWaypoint = nextWaypoint;
+
+            //prevWaypoint = nextWaypoint;
+            prevWaypoint = GetTheClosestWaypoint();
+            //Debug.Log("TEST - MAP - prevWaypoint:" + prevWaypoint);
             uiPrevWaypoint = uiWaypoints.Find(w => w.Waypoint == prevWaypoint);
         }
 
@@ -180,16 +184,23 @@ namespace Baloon.UI
         {
             var bPos = BaloonController.Instance.transform.position;
             bPos.y = 0;
+            float min = -1;
+            BaloonWaypoint w = null;
             foreach(var waypoint in waypoints)
             {
                 var wPos = waypoint.transform.position;
                 wPos.y = 0;
                 var d = Vector3.Distance(bPos, wPos);
-                if (d < 1f)
-                    return waypoint;
+                if(w == null || d < min)
+                {
+                    min = d;
+                    w = waypoint;
+                }
+                //if (d < 10f)
+                //    return waypoint;
             }
 
-            return null;
+            return w;
         }
     }
 }
