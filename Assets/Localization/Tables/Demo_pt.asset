@@ -23,9 +23,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3563993540059136
-    m_Localized: "Obrigado por jogares a demo de Altitude Zero!\r\nSe gostaste, por
-      favor, considera adicionar o jogo \xE0 tua Lista de Desejos do Steam.\r\nAjuda
-      imenso um desenvolvedor solo!"
+    m_Localized: "Obrigado por jogares a demo de Altitude Zero!\r\nSe gostaste, adiciona
+      o jogo \xE0 tua Lista de Desejos do Steam.\r\nIsso ajuda imenso um desenvolvedor
+      independente!"
     m_Metadata:
       m_Items: []
   references:

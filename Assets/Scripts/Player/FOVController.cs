@@ -7,8 +7,8 @@ namespace Baloon
 {
     public class FOVController : Singleton<FOVController>
     {
-        [SerializeField]
-        float fovDefault = 50;
+        //[SerializeField]
+        float fovDefault = 50f;
 
         CinemachineVirtualCamera virtualCamera;
 
