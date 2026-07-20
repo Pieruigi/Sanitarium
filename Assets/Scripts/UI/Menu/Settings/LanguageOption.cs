@@ -19,6 +19,7 @@ namespace Baloon.UI
         {
             base.Awake();
 
+#if !UNITY_WEBGL
             var availables = LocalizationSettings.AvailableLocales.Locales;
             foreach (var available in availables)
             {
@@ -37,6 +38,10 @@ namespace Baloon.UI
                 options.Add(available.Identifier.CultureInfo.NativeName);
 
             Init(options, currentIndex);
+#else
+            //Destroy(gameObject);
+
+#endif
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created

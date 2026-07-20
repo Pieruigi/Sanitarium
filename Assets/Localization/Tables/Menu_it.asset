@@ -106,6 +106,20 @@ MonoBehaviour:
     m_Localized: Mappa
     m_Metadata:
       m_Items: []
+  - m_Id: 10306358237716480
+    m_Localized: 'Tutti i tuoi progressi andranno perduti!
+
+      Continuare?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10307473851277312
+    m_Localized: Si
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10307495347085312
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

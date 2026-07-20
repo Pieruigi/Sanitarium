@@ -103,6 +103,18 @@ MonoBehaviour:
     m_Key: map
     m_Metadata:
       m_Items: []
+  - m_Id: 10306358237716480
+    m_Key: clear_save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10307473851277312
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10307495347085312
+    m_Key: no
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
