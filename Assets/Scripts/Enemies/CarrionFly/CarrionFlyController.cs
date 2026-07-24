@@ -258,8 +258,10 @@ public class CarrionFlyController : MonoBehaviour
 
 
         if (dot > 0) // Player is looking in the panel control direction (-0.342f for 110 degrees, -0.174f for 100 degrees)
-            leaks = leakManager.Leaks.Where(l => !l.Damaged && Vector3.Dot(dir.normalized, Vector3.ProjectOnPlane(l.transform.forward, Vector3.up).normalized) > -0.174f).ToList();
-        else
+            leaks = leakManager.Leaks.Where(l => !l.Damaged && Vector3.Dot(dir.normalized, Vector3.ProjectOnPlane(l.transform.forward, Vector3.up).normalized) > 0.75f).ToList();
+
+        
+        if(leaks == null || leaks.Count == 0) // May happens it dots is <0 or previous conditions are not satisfied
             leaks = leakManager.Leaks.Where(l => !l.Damaged /*&& Vector3.Dot(dir, Vector3.ProjectOnPlane(l.transform.forward, Vector3.up)) > 0*/).ToList();
 
 
@@ -276,7 +278,7 @@ public class CarrionFlyController : MonoBehaviour
         var pos = leak.transform.position;
         var fwd = Vector3.ProjectOnPlane(leak.transform.forward, Vector3.up);
 
-        attackPoint.transform.position = pos + fwd * 1.1f + Vector3.down * .13f;// - fwd * .8f;
+        attackPoint.transform.position = pos + fwd * 1f + Vector3.down * .15f;// - fwd * .8f;
         attackPoint.transform.forward = -fwd;
 
         // Set height
