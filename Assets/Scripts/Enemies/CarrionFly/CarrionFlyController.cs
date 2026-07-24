@@ -241,6 +241,59 @@ public class CarrionFlyController : MonoBehaviour
 
     public void StartAttacking()
     {
+
+
+        var balloon = BaloonController.Instance;
+        var player = GameObject.FindGameObjectWithTag("Player");
+
+        // Choose the boiler side
+        var dir = Vector3.ProjectOnPlane(balloon.transform.position - transform.position, Vector3.up);
+        var dirP = Vector3.ProjectOnPlane(balloon.transform.position - player.transform.position, Vector3.up);
+        var dot = Vector3.Dot(dirP.normalized, dir.normalized);
+        
+
+
+        BaloonBoilerLeak leak = null;
+        List<BaloonBoilerLeak> leaks = null;
+
+
+        if (dot > 0) // Player is looking in the panel control direction (-0.342f for 110 degrees, -0.174f for 100 degrees)
+            leaks = leakManager.Leaks.Where(l => !l.Damaged && Vector3.Dot(dir.normalized, Vector3.ProjectOnPlane(l.transform.forward, Vector3.up).normalized) > -0.174f).ToList();
+        else
+            leaks = leakManager.Leaks.Where(l => !l.Damaged /*&& Vector3.Dot(dir, Vector3.ProjectOnPlane(l.transform.forward, Vector3.up)) > 0*/).ToList();
+
+
+        if (leaks == null || leaks.Count == 0) return; // Stop
+
+        leak = leaks[Random.Range(0, leaks.Count)];
+
+        leakManager.NextToHit = leak;
+
+        // Create and attach the attack point to the balloon
+        attackPoint = new GameObject($"{gameObject.name}_AttackPoint");
+        attackPoint.transform.parent = leak.transform;
+
+        var pos = leak.transform.position;
+        var fwd = Vector3.ProjectOnPlane(leak.transform.forward, Vector3.up);
+
+        attackPoint.transform.position = pos + fwd * 1.1f + Vector3.down * .13f;// - fwd * .8f;
+        attackPoint.transform.forward = -fwd;
+
+        // Set height
+        //attackPoint.transform.localPosition += Vector3.up * 2.5f;
+        //attackPoint.transform.localPosition += balloon.transform.right * Random.Range(-.3f, .3f);
+
+        // We set flags once we are sure the attack can start
+        attacking = true;
+        moving = true;
+
+        // Move
+        SetMoveAnimation();
+
+    }
+
+    public void _StartAttacking()
+    {
         
 
         var balloon = BaloonController.Instance;
