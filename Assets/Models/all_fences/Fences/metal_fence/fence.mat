@@ -138,7 +138,7 @@ Material:
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
-    - _CameraFarFadeDistance: 2
+    - _CameraFarFadeDistance: 10
     - _CameraNearFadeDistance: 1
     - _CastShadows: 1
     - _ClearCoatMask: 0
@@ -149,14 +149,14 @@ Material:
     - _Color_Bit_Depth_Offset: 0
     - _CubemapRotation: 0
     - _Cull: 0
-    - _Cutoff: 0.372
+    - _Cutoff: 0.267
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0.1
-    - _DstBlend: 10
+    - _DstBlend: 1
     - _DstBlendAlpha: 10
     - _EmissionEnabled: 0
     - _EnvironmentReflections: 0
@@ -167,7 +167,7 @@ Material:
     - _InvFade: 1
     - _LightingEnabled: 0
     - _Metallic: 0
-    - _Mode: 2
+    - _Mode: 4
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 1
@@ -178,7 +178,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _Snaps_Per_Unit: 1024
     - _SoftParticlesEnabled: 0
-    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesFarFadeDistance: 50
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 0
     - _SrcBlend: 5
@@ -200,7 +200,7 @@ Material:
     - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorAddSubDiff: {r: -1, g: 0, b: 0, a: 0}
+    - _ColorAddSubDiff: {r: -1, g: 1, b: 0, a: 0}
     - _CubemapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}

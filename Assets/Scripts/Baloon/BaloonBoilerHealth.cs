@@ -84,6 +84,7 @@ namespace Baloon
 
         public bool TryTakeSingleDamage()
         {
+            Debug.Log("TEST - Damage");
             if (health <= 0f) return false;
             TakeDamage(DamageStep);
             return true;
