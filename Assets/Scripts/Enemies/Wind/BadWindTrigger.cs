@@ -187,7 +187,7 @@ namespace Baloon
             // 3. Audio Hook (Example)
             // AudioSource.PlayClipAtPoint(windGustClip, target.position);
 
-            Debug.Log($"<color=cyan>[WindTrigger]</color> Gust applied! Direction: {direction}");
+            //Debug.Log($"<color=cyan>[WindTrigger]</color> Gust applied! Direction: {direction}");
 
             void Reset()
             {

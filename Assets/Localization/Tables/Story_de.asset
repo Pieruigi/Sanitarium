@@ -19,19 +19,15 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 10316931072
-    m_Localized: "Ein kosmisches Kataklysmus hat die Erde verw\xFCstet und sie in
-      ein gespenstisches, unbewohnbares \xD6dland verwandelt. Der Himmel ist ein
-      d\xFCsteres Gewand, das von peitschenden Winden gegei\xDFelt wird; die Ozeane
-      sind einer dichten, karmesinroten Substanz gewichen.\n\r\nIn einem verzweifelten
-      Versuch, die Plage zu begreifen, gelang es einer wissenschaftlichen Expedition,
-      das Ursprungsbecken zu lokalisieren. Sie errichteten Abpumpstationen, um die
-      Fl\xFCssigkeit trockenzulegen und die Geheimnisse des Meeresbodens ans Licht
-      zu bringen.\n\r\nDoch das menschliche Eingreifen hat etwas geweckt, das besser
-      vergraben geblieben w\xE4re, und die Situation ist eskaliert. Die einzige verbleibende
-      Hoffnung besteht darin, sich in die trostlosen Canyons zu wagen und alle Stationen
-      abzuschalten, bevor der Horror endg\xFCltig wird.\n\nUm dies zu tun, musst
-      du in einem alten Service-Hei\xDFluftballon fliegen... das ist deine Mission.
-      \n\nViel Gl\xFCck."
+    m_Localized: "Jeder Versuch, die Anomalie zu untersuchen, ist gescheitert. Die
+      wissenschaftliche Expedition, die die Entw\xE4sserungsstationen eingeschaltet
+      hatte, kehrte nie zur\xFCck... und das ist nicht einmal die schlimmste Nachricht.\n\nEtwas
+      ist tief unter der Erde erwacht, und sein Einfluss beginnt langsam, unseren
+      Planeten zu verderben.\n\nWir glauben, dass diese uralte Pr\xE4senz durch das
+      Abschalten der Stationen und das erneute Fluten des Beckens vielleicht wieder
+      in Vergessenheit geraten kann.\n\nDu bist unsere letzte Hoffnung.\n\nSteige
+      in diesen alten Versorgungs-Hei\xDFluftballon, erreiche alle Stationen und
+      schalte sie ab.\n\nViel Gl\xFCck."
     m_Metadata:
       m_Items: []
   references:

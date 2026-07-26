@@ -163,7 +163,6 @@ public class BaloonLauncher : MonoBehaviour
 
     public void SwitchDirection()
     {
-        Debug.Log("Switching direction");     
         //int length = internalDirections.Length;
         
         //for(int i=1; i<length; i++)

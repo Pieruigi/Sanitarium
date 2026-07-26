@@ -74,6 +74,11 @@ namespace Baloon
             }
         }
 
+        private void OnDestroy()
+        {
+            BasePlatform.OnTakeOff -= HandleOnTakeOff;
+        }
+
         void HandleOnTakeOff(BasePlatform basePlatform)
         {
             // I don't care witch platform since I register the event on abomination activation
@@ -109,7 +114,7 @@ namespace Baloon
 
                 animator.speed = 4f;
 
-                yield return new WaitForSeconds(.25f);
+                yield return new WaitForSeconds(.5f); // .25f
 
                 while (chasingPlayer)
                 {
@@ -192,8 +197,7 @@ namespace Baloon
 
             IEnumerator DoStopChasingPlayer()
             {
-
-
+                
                 agent.SetDestination(initialPosition);
 
                 yield return new WaitForSeconds(10f);

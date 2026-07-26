@@ -19,19 +19,15 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 10316931072
-    m_Localized: "Kosmiczny kataklizm spustoszy\u0142 Ziemi\u0119, zamieniaj\u0105c
-      j\u0105 \u0432 upiorne i niezdatne do \u017Cycia pustkowie. Niebo sta\u0142o
-      si\u0119 mrocznym ca\u0142unem smaganym przez szalej\u0105ce wiatry, a oceany
-      ust\u0105pi\u0142y miejsca g\u0119stej, szkar\u0142atnej substancji.\r\n\nW
-      rozpaczliwej pr\xF3bie zrozumienia zarazy naukowa ekspedycja zdo\u0142a\u0142a
-      zlokalizowa\u0107 basen \u017Ar\xF3d\u0142owy, wznosz\u0105c stacje drena\u017Cowe,
-      aby odpompowa\u0107 p\u0142yn i odkry\u0107 tajemnice skrywane na dnie.\r\n\nJednak
-      ludzka ingerencja obudzi\u0142a co\u015B, co powinno by\u0142o pozosta\u0107
-      pogrzebane, \u0430 sytuacja wymkn\u0119\u0142a si\u0119 spod kontroli. Jedyn\u0105
-      nadziej\u0105 jest wyprawa w g\u0142\u0105b opuszczonych kanion\xF3w i wy\u0142\u0105czenie
-      wszystkich stacji, zanim horror stanie si\u0119 ostateczny.\n\nAby to zrobi\u0107,
-      b\u0119dziesz musia\u0142 polecie\u0107 starym, s\u0142u\u017Cbowym balonem
-      na gor\u0105ce powietrze... to jest twoja misja. \n\nPowodzenia."
+    m_Localized: "Ka\u017Cda pr\xF3ba zbadania anomalii zako\u0144czy\u0142a si\u0119
+      niepowodzeniem. Ekspedycja naukowa, kt\xF3ra uruchomi\u0142a stacje odwadniaj\u0105ce,
+      nigdy nie wr\xF3ci\u0142a... i to nawet nie jest najgorsza wiadomo\u015B\u0107.\n\nCo\u015B
+      przebudzi\u0142o si\u0119 g\u0142\u0119boko pod ziemi\u0105, a jego wp\u0142yw
+      powoli niszczy nasz\u0105 planet\u0119.\n\nWierzymy, \u017Ce wy\u0142\u0105czaj\u0105c
+      stacje i ponownie zalewaj\u0105c basen, ta pradawna obecno\u015B\u0107 mo\u017Ce
+      powr\xF3ci\u0107 w zapomnienie.\n\nJeste\u015B nasz\u0105 ostatni\u0105 nadziej\u0105.\n\nWsi\u0105d\u017A
+      do tej starej s\u0142u\u017Cbowej balonowej kapsu\u0142y, dotrzyj do wszystkich
+      stacji i wy\u0142\u0105cz je.\n\nPowodzenia."
     m_Metadata:
       m_Items: []
   references:

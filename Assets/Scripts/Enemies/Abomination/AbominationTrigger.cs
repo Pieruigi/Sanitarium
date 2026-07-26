@@ -145,17 +145,19 @@ namespace Baloon
 
             triggered = true;
 
+            float duration = 1f;
+
             // Open the door
-            door.DOLocalRotate(Vector3.up * 160f, .5f).SetEase(Ease.OutBounce);
+            door.DOLocalRotate(Vector3.up * 160f, duration).SetEase(Ease.OutBounce);
 
             // Play audio
             doorAudioSource.Play();
 
             //StartCoroutine(DisablePlayerForAWhile());
-            player.DisableAndLookForSeconds(abomination.transform.position);
+            player.DisableAndLookForSeconds(abomination.transform.position, duration);
 
             // Camera shake
-            CameraShake.Instance.PlayJumpscare(.5f);
+            CameraShake.Instance.PlayJumpscare(duration);
 
             // Look at the creature
             var dir = Vector3.ProjectOnPlane(abomination.transform.position - player.transform.position, Vector3.up);
@@ -163,7 +165,7 @@ namespace Baloon
             player.ForceCameraPitch(0f);
 
             // FOV
-            FOVController.Instance.JumpscareFOV(20f, .5f);
+            FOVController.Instance.JumpscareFOV(15f, duration);
 
             // Jumpscare
             AudioManager.Instance.PlayJumpscare();

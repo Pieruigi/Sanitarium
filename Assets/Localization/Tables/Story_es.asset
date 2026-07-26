@@ -19,18 +19,14 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 10316931072
-    m_Localized: "Un cataclismo c\xF3smico ha devastado la Tierra, convirti\xE9ndola
-      en un p\xE1ramo espectral e inhibitable. El cielo es un manto sombr\xEDo azotado
-      por vientos enloquecidos; los oc\xE9anos han dado paso a una sustancia densa
-      y carmes\xED.\r\n\nEn un intento desesperado por comprender la plaga, una expedici\xF3n
-      cient\xEDfica logr\xF3 localizar la cuenca de origen, construyendo estaciones
-      de drenaje para vaciar el fluido y sacar a la luz los secretos del fondo marino.\r\n\nPero
-      la intervenci\xF3n humana ha despertado algo que deber\xEDa haber permanecido
-      sepultado y la situaci\xF3n se ha descontrolado. La \xFAnica esperanza que
-      queda es adentrarse en los ca\xF1ones desolados y apagar todas las estaciones
-      antes de que el horror sea definitivo.\n\nPara hacerlo, tendr\xE1s que volar
-      en un viejo globo aerost\xE1tico de servicio... esta es tu misi\xF3n. \n\nBuena
-      suerte."
+    m_Localized: "Todos los intentos de estudiar la anomal\xEDa han fracasado. La
+      expedici\xF3n cient\xEDfica que hab\xEDa puesto en marcha las estaciones de
+      drenaje nunca regres\xF3... y esa ni siquiera es la peor noticia.\n\nAlgo ha
+      despertado en las profundidades de la Tierra, y su influencia est\xE1 corrompiendo
+      lentamente nuestro planeta.\n\nCreemos que, apagando las estaciones y volviendo
+      a inundar la cuenca, esta antigua presencia pueda regresar al olvido.\n\nEres
+      nuestra \xFAltima esperanza.\n\nSube a ese viejo globo aerost\xE1tico de servicio,
+      llega a todas las estaciones y ap\xE1galas.\n\nBuena suerte."
     m_Metadata:
       m_Items: []
   references:

@@ -19,17 +19,14 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 10316931072
-    m_Localized: "Um cataclismo c\xF3smico devastou a Terra, tornando-a numa landa
-      espetral e inabit\xE1vel. O c\xE9u \xE9 uma capa sombria a\xE7oitada por ventos
-      enfurecidos; os oceanos deram lugar a uma subst\xE2ncia densa e carmesim.\r\n\nNuma
-      tentativa desesperada de compreender a praga, uma expedi\xE7\xE3o cient\xEDfica
-      conseguiu localizar a bacia de origem, construindo esta\xE7\xF5es de drenagem
-      para drenar o fluido e trazer \xE0 luz os segredos do fundo do mar.\r\n\nMas
-      a interven\xE7\xE3o humana despertou algo que deveria ter permanecido sepultado
-      e a situa\xE7\xE3o descambou. A \xFAnica esperan\xE7a restante \xE9 aventurar-se
-      pelos desfiladeiros desolados e desligar todas as esta\xE7\xF5es antes que
-      o horror seja definitivo.\n\nPara o fazer, ter\xE1 de voar num velho bal\xE3o
-      de ar quente de servi\xE7o... esta \xE9 a sua miss\xE3o. \n\nBoa sorte."
+    m_Localized: "Todas as tentativas de estudar a anomalia falharam. A expedi\xE7\xE3o
+      cient\xEDfica que tinha ligado as esta\xE7\xF5es de drenagem nunca regressou...
+      e essa nem sequer \xE9 a pior not\xEDcia.\n\nAlgo despertou nas profundezas
+      da Terra, e a sua influ\xEAncia est\xE1 lentamente a corromper o nosso planeta.\n\nAcreditamos
+      que, ao desligar as esta\xE7\xF5es e voltar a inundar a bacia, esta antiga
+      presen\xE7a possa regressar ao esquecimento.\n\n\xC9s a nossa \xFAltima esperan\xE7a.\n\nSobe
+      para aquele velho bal\xE3o de servi\xE7o, alcan\xE7a todas as esta\xE7\xF5es
+      e desliga-as.\n\nBoa sorte."
     m_Metadata:
       m_Items: []
   references:

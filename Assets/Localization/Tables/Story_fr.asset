@@ -19,19 +19,15 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 10316931072
-    m_Localized: "Un cataclysme cosmique a d\xE9vast\xE9 la Terre, la transformant
-      en une lande spectrale et invivable. Le ciel n'est plus qu'une chape sombre
-      balay\xE9e par des vents d\xE9cha\xEEn\xE9s ; les oc\xE9ans ont laiss\xE9 la
-      place \xE0 une substance dense et cramoisie.\r\n\nDans une tentative d\xE9sesp\xE9r\xE9e
-      de comprendre le fl\xE9au, une exp\xE9dition scientifique a r\xE9ussi \xE0
-      localiser le bassin d'origine, construisant des stations de drainage pour ass\xE9cher
-      le fluide et mettre au jour les secrets du fond marin.\r\n\nMais l'intervention
-      humaine a r\xE9veill\xE9 quelque chose qui aurait d\xFB rester enfoui, et la
-      situation a d\xE9g\xE9n\xE9r\xE9. Le seul espoir qui reste est de s'aventurer
-      dans les canyons d\xE9sol\xE9s et d'\xE9teindre toutes les stations avant que
-      l'horreur ne soit d\xE9finitive.\n\nPour ce faire, vous devrez voler \xE0 bord
-      d'une vieille montgolfi\xE8re de service... c'est votre mission. \n\nBonne
-      chance."
+    m_Localized: "Toutes les tentatives pour \xE9tudier l'anomalie ont \xE9chou\xE9.
+      L'exp\xE9dition scientifique qui avait mis en marche les stations de drainage
+      n'est jamais revenue... et ce n'est m\xEAme pas la pire des nouvelles.\n\nQuelque
+      chose s'est r\xE9veill\xE9 dans les profondeurs de la Terre, et son influence
+      corrompt lentement notre plan\xE8te.\n\nNous pensons qu'en \xE9teignant les
+      stations et en remplissant \xE0 nouveau le bassin, cette ancienne pr\xE9sence
+      pourra peut-\xEAtre retourner dans l'oubli.\n\nVous \xEAtes notre dernier espoir.\n\nMontez
+      dans cette vieille montgolfi\xE8re de service, atteignez toutes les stations
+      et \xE9teignez-les.\n\nBonne chance."
     m_Metadata:
       m_Items: []
   references:
