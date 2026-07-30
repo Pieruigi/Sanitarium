@@ -19,6 +19,9 @@ namespace Baloon.UI
         [SerializeField]
         Button clearButton;
 
+        [SerializeField]
+        GameObject socialGroup;
+
         bool inGame = false;
 
         bool unavailable = false;
@@ -44,6 +47,7 @@ namespace Baloon.UI
                 gameMode.SetActive(false);
                 logo.SetActive(false);
                 panel.SetActive(false); 
+                socialGroup.SetActive(false);
                 inGame = true;
         
             }

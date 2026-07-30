@@ -107,15 +107,15 @@ namespace Baloon
             int action = 0; // 0:nothing; 1:activate; -1:deactivate
             var range = AltitudeManager.Instance.GetCurrentRange();
 
-            if (inside && range == AltitudeRange.Green && !activated)
-                action = 1;
-            else if (inside && range != AltitudeRange.Green && activated)
-                action = -1;
-
-            //if (inside && range != AltitudeRange.Red && !activated)
+            //if (inside && range == AltitudeRange.Green && !activated)
             //    action = 1;
-            //else if (inside && range == AltitudeRange.Red && activated)
+            //else if (inside && range != AltitudeRange.Green && activated)
             //    action = -1;
+
+            if (inside && range != AltitudeRange.Red && !activated)
+                action = 1;
+            else if (inside && range == AltitudeRange.Red && activated)
+                action = -1;
 
             if (action == 0 && !activated) return;
 
