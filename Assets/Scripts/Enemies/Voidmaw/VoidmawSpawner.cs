@@ -71,7 +71,11 @@ namespace Baloon
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!other.CompareTag("Player")) return;
+
             if (!follow || triggered) return;
+
+            Debug.Log("TEST - Triggered");
 
             triggered = true;
 

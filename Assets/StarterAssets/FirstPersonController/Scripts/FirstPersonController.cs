@@ -374,7 +374,7 @@ namespace StarterAssets
 			// check panel controller, which is at (0,0,0)
 			var dist = transform.localPosition;
 			dist.y = 0;
-			var toll = .35f;
+			var toll = .4f;// .35f;
 			if (dist.magnitude < toll)
 			{
    			transform.localPosition =  dist.normalized * toll;
