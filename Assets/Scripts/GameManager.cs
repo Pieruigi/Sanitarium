@@ -34,8 +34,10 @@ public class GameManager : SingletonPersistent<GameManager>
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Application.targetFrameRate = -1;// 60;
+#if UNITY_EDITOR
 
+        Application.targetFrameRate = 60;
+#endif
         //Difficulty = SettingsManager.Instance.GameMode;
     }
 

@@ -151,7 +151,7 @@ namespace Baloon
                     IEnumerator Startup()
                     {
                         // Play starting audio
-                        startAudioSource.Play();
+                        startAudioSource?.Play();
 
                         yield return new WaitForSeconds(1f);
 
@@ -165,9 +165,9 @@ namespace Baloon
                         //player.transform.parent = transform.parent;
 
                         // Play running audio
-                        runAudioSource.Play();
+                        runAudioSource?.Play();
 
-                        fireAudioSource.Play();
+                        fireAudioSource?.Play();
 
                         //CameraShake.Instance.PlayLandingShake(.005f);
 
@@ -176,7 +176,7 @@ namespace Baloon
                 }
                 else // No gas
                 {
-                    startAudioSource.Play();
+                    startAudioSource?.Play();
                 }
                
             }
@@ -185,10 +185,10 @@ namespace Baloon
                 if(BasePlatform.CurrentPlatform && throttle.sliderValue == 0)
                 {
                     // Stop running audio
-                    runAudioSource.Stop();
-                    fireAudioSource.Stop();
+                    runAudioSource?.Stop();
+                    fireAudioSource?.Stop();
                     // Play stopping audio
-                    stopAudioSource.Play();
+                    stopAudioSource?.Play();
 
                     started = false;
                     ResetAndLockThrottle();

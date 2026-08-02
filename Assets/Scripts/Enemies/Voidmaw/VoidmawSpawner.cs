@@ -75,8 +75,7 @@ namespace Baloon
 
             if (!follow || triggered) return;
 
-            Debug.Log("TEST - Triggered");
-
+           
             triggered = true;
 
             // Instantiate object
