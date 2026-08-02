@@ -37,6 +37,19 @@ namespace Baloon
         public const string GameModeOptionParam = "GameMode";
         public const int GameModeOptionDefault = 1;
 
+        public const string FpsLimitOptionParam = "FpsLimit";
+        public const int FpsLimitOptionDefault = 0;
+
+        public int FpsLimit
+        {
+            get
+            {
+                var v = PlayerPrefs.GetInt(FpsLimitOptionParam, FpsLimitOptionDefault);
+
+                return v;
+            }
+        }
+
         public float MouseSpeed
         {
             get

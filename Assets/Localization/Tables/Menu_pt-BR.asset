@@ -118,6 +118,10 @@ MonoBehaviour:
     m_Localized: "N\xE3o"
     m_Metadata:
       m_Items: []
+  - m_Id: 14892643178766336
+    m_Localized: Limite de FPS
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

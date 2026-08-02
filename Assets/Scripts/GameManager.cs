@@ -36,9 +36,13 @@ public class GameManager : SingletonPersistent<GameManager>
     {
 #if UNITY_EDITOR
 
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
 #endif
         //Difficulty = SettingsManager.Instance.GameMode;
+        UpdateFpsLimit();
+        
+
+
     }
 
     // Update is called once per frame
@@ -50,16 +54,41 @@ public class GameManager : SingletonPersistent<GameManager>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += HandleOnSceneLoaded;
+        SettingsManager.OnOptionsChanged += HandleOnOptionsChanged;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= HandleOnSceneLoaded;
+        SettingsManager.OnOptionsChanged -= HandleOnOptionsChanged;
     }
 
     private void HandleOnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         deathReported = false;
+    }
+
+    void HandleOnOptionsChanged()
+    {
+        UpdateFpsLimit();
+    }
+
+    void UpdateFpsLimit()
+    {
+        QualitySettings.vSyncCount = 0;
+        var fpsLimit = SettingsManager.Instance.FpsLimit;
+        switch (fpsLimit)
+        {
+            case 1:
+                Application.targetFrameRate = 30;
+                break;
+            case 2:
+                Application.targetFrameRate = 60;
+                break;
+            default:
+                Application.targetFrameRate = -1;
+                break;
+        }
     }
 
     public void PlayGame()

@@ -118,6 +118,10 @@ MonoBehaviour:
     m_Localized: "\uC544\uB2C8\uC694"
     m_Metadata:
       m_Items: []
+  - m_Id: 14892643178766336
+    m_Localized: "FPS \uC81C\uD55C"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
