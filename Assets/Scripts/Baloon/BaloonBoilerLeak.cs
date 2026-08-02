@@ -123,7 +123,7 @@ namespace Baloon
             Interactor.OnInteractionStopped -= HandleOnInteractionStopped;
             RepairToolEventListener.OnHit -= HandleOnAnimationHit;
             BaloonControlPanel.OnStarted -= HandleOnBaloonStarted;
-            BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
+            BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
 
             SaveManager.OnUpdateDataEntry -= HandleOnUpdataDataEntry;
         }
