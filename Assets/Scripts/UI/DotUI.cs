@@ -44,7 +44,7 @@ namespace Baloon.UI
             Interactor.OnHint -= HandleOnHint;
         }
 
-        private void HandleOnHint(bool interactable)
+        private void HandleOnHint(Interactor interactor, bool interactable)
         {
             if(interactable) SetFullSprite();
             else SetEmptySprite();

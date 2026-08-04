@@ -153,7 +153,7 @@ namespace Baloon
                         // Play starting audio
                         startAudioSource?.Play();
 
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(0.01f);
 
                         started = true;
 

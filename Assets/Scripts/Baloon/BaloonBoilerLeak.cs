@@ -42,7 +42,7 @@ namespace Baloon
         bool damaged = false;
         public bool Damaged => damaged;
 
-        int hit = 2;
+        int hit = 1;
 
         bool repairing = false;
         float repairElapsed = 0;
@@ -71,7 +71,7 @@ namespace Baloon
                 damaged = data.damaged;
                 if (damaged)
                 {
-                    hit = 2;
+                    hit = 0;// 2;
 
                     // Remove bolt
                     bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false);
@@ -198,7 +198,7 @@ namespace Baloon
         {
 
             damaged = true;
-            hit = 2;
+            hit = 0;// 2;
 
             // Remove bolt
             bolt.transform.DOLocalMoveZ(5f, 1f).SetDelay(.2f).OnComplete(() => { bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false); });

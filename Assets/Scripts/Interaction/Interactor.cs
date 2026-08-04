@@ -9,7 +9,7 @@ namespace Baloon
 {
     public class Interactor : MonoBehaviour
     {
-        public delegate void HintDelegate(bool interactable);
+        public delegate void HintDelegate(Interactor interactor, bool interactable);
         public static HintDelegate OnHint;
 
         public delegate void InteractionStartedDelegate(Interactor interactor);
@@ -54,7 +54,7 @@ namespace Baloon
         public bool NoHint
         {
             get { return noHint; }
-            set { noHint = value; if (noHint) OnHint?.Invoke(false); }
+            set { noHint = value; if (noHint) OnHint?.Invoke(this, false); }
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -146,9 +146,9 @@ namespace Baloon
             if(showMessage != showMessageOld)
             {
                 if (showMessage && !NoHint)
-                    OnHint?.Invoke(true);
+                    OnHint?.Invoke(this, true);
                 else
-                    OnHint?.Invoke(false);
+                    OnHint?.Invoke(this, false);
             }
             
         }
