@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,15 @@ namespace Baloon.UI
         [SerializeField]
         float emptyAlpha, fullAlpha;
 
+        [SerializeField]
+        TMP_Text holdText;
+
         CanvasGroup group;
 
         private void Awake()
         {
             group = GetComponent<CanvasGroup>();
+            HideHold();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,6 +65,16 @@ namespace Baloon.UI
         {
             dotImage.sprite = fullSprite;
             group.alpha = fullAlpha;
+        }
+
+        public void ShowHold()
+        {
+            holdText.enabled = true;
+        }
+
+        public void HideHold()
+        {
+            holdText.enabled = false;
         }
     }
 }

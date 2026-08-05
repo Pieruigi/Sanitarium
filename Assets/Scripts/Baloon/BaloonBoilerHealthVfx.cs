@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,13 +21,15 @@ namespace Baloon
 
 
         public BaloonBoilerLeak NextToHit { get; set; } = null;
+
+        GameObject player;
         
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            player = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Update is called once per frame
@@ -60,9 +63,14 @@ namespace Baloon
                 }
                 else
                 {
-                    var list = leaks.Where(l => l.Damaged == false).ToList();
-                    int index = Random.Range(0, list.Count);
-                    leak = list[index];
+                    var list = leaks.Where(l => l.Damaged == false).OrderByDescending(l => { return Vector3.Distance(player.transform.position, l.transform.position); }).ToList();
+                    //if (list.Count > 1)
+                    //{
+                    //    list.RemoveAt(0);
+                    //}
+                    //int index = Random.Range(0, list.Count);
+                    //leak = list[index];
+                    leak = list.First();
                 }
                 
                 leak.StartLeaking();

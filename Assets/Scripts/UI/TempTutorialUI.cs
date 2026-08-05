@@ -38,8 +38,7 @@ namespace Baloon.UI
 
         private void HandleOnHint(Interactor interactor, bool interactable)
         {
-            Debug.Log("TEST - " + interactor);
-
+            
             if (interactor != this.interactor) return;
 
             

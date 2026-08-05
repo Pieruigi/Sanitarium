@@ -1,4 +1,5 @@
 using Baloon.SaveSystem;
+using Baloon.UI;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace Baloon
         public bool Damaged => damaged;
 
         int hit = 1;
+        int damageHit = 2;
 
         bool repairing = false;
         float repairElapsed = 0;
@@ -71,7 +73,7 @@ namespace Baloon
                 damaged = data.damaged;
                 if (damaged)
                 {
-                    hit = 0;// 2;
+                    hit = damageHit;// 2;
 
                     // Remove bolt
                     bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false);
@@ -101,10 +103,14 @@ namespace Baloon
                     if(hit == 0)
                     {
                         StopLeaking();
+                        StartCoroutine(HideHoldDelayed(.5f));
+                        //FindFirstObjectByType<DotUI>().HideHold();
                     }
                 }
             }
         }
+
+
 
         private void OnEnable()
         {
@@ -115,6 +121,8 @@ namespace Baloon
             BaloonControlPanel.OnStopped += HandleOnBaloonStopped;
 
             SaveManager.OnUpdateDataEntry += HandleOnUpdataDataEntry;
+
+            Interactor.OnHint += HandleOnHint;
         }
 
         private void OnDisable()
@@ -126,6 +134,30 @@ namespace Baloon
             BaloonControlPanel.OnStopped -= HandleOnBaloonStopped;
 
             SaveManager.OnUpdateDataEntry -= HandleOnUpdataDataEntry;
+
+            Interactor.OnHint -= HandleOnHint;
+        }
+
+        IEnumerator HideHoldDelayed(float time)
+        {
+            yield return new WaitForSeconds(time);
+            FindFirstObjectByType<DotUI>().HideHold();
+        }
+
+        private void HandleOnHint(Interactor interactor, bool interactable)
+        {
+            if (interactor != this.interactor) return;
+            if (interactable)
+            {
+                if (damaged && RepairToolController.Instance.Equipped)
+                    FindFirstObjectByType<DotUI>().ShowHold();
+                else
+                    FindFirstObjectByType<DotUI>().HideHold();
+            }
+            else
+            {
+                FindFirstObjectByType<DotUI>().HideHold();
+            }
         }
 
         private void HandleOnUpdataDataEntry()
@@ -198,7 +230,7 @@ namespace Baloon
         {
 
             damaged = true;
-            hit = 0;// 2;
+            hit = damageHit;// 2;
 
             // Remove bolt
             bolt.transform.DOLocalMoveZ(5f, 1f).SetDelay(.2f).OnComplete(() => { bolt.transform.localPosition = Vector3.zero; bolt.transform.localRotation = Quaternion.identity; bolt.SetActive(false); });

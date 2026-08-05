@@ -55,7 +55,7 @@ namespace Baloon
 
         void Open()
         {
-            if (BoilerController.Instance.GasLeft == 0) return; // No need to open since you die if you remain with no gas
+            //if (BoilerController.Instance.GasLeft == 0) return; // No need to open since you die if you remain with no gas
 
             if (BasePlatform.CurrentPlatform)
             {

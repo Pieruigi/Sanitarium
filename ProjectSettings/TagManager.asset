@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Baloon
+  - Fuel
   layers:
   - Default
   - TransparentFX

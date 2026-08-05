@@ -1,4 +1,5 @@
 using Baloon.SaveSystem;
+using Baloon.UI;
 using NUnit.Framework;
 using StarterAssets;
 using System;
@@ -42,6 +43,8 @@ namespace Baloon
     
         Coroutine startupCoroutine;
 
+        Interactor starterInteractor;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -50,6 +53,8 @@ namespace Baloon
             ResetAndLockThrottle();
             //coldButton.Locked = true;
             //warmButton.Locked = true;
+
+            starterInteractor = starter.GetComponent<Interactor>();
         }
 
         // Update is called once per frame
@@ -97,6 +102,8 @@ namespace Baloon
             throttle.OnValueChanged += HandleOnThrottleValueChanged;
 
             BasePlatform.OnLanding += HandleOnLanding;
+
+            Interactor.OnHint += HandleOnStarterHint;
         }
 
         private void OnDisable()
@@ -109,6 +116,22 @@ namespace Baloon
             throttle.OnValueChanged -= HandleOnThrottleValueChanged;
 
             BasePlatform.OnLanding -= HandleOnLanding;
+
+            Interactor.OnHint -= HandleOnStarterHint;
+        }
+
+        private void HandleOnStarterHint(Interactor interactor, bool interactable)
+        {
+            if (interactor != starterInteractor) return;
+
+            if (interactable && !started)
+            {
+                FindFirstObjectByType<DotUI>().ShowHold();
+            }
+            else
+            {
+                FindFirstObjectByType<DotUI>().HideHold();
+            }
         }
 
         private void HandleOnLanding(BasePlatform platform)
@@ -153,7 +176,11 @@ namespace Baloon
                         // Play starting audio
                         startAudioSource?.Play();
 
-                        yield return new WaitForSeconds(0.01f);
+                        //FindFirstObjectByType<DotUI>().ShowHold();
+
+                        yield return new WaitForSeconds(1f);
+
+                        FindFirstObjectByType<DotUI>().HideHold();
 
                         started = true;
 
@@ -184,6 +211,8 @@ namespace Baloon
             {
                 if(BasePlatform.CurrentPlatform && throttle.sliderValue == 0)
                 {
+                    FindFirstObjectByType<DotUI>().ShowHold();
+
                     // Stop running audio
                     runAudioSource?.Stop();
                     fireAudioSource?.Stop();
@@ -215,8 +244,11 @@ namespace Baloon
         {
             if (!started)
             {
+                //FindFirstObjectByType<DotUI>().HideHold();
                 // Stop starting audio
                 //startAudioSource.Stop();
+
+               
 
                 // Stop starting coroutine
                 StopCoroutine(startupCoroutine);

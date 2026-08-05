@@ -143,6 +143,8 @@ namespace Baloon
 
         private void ProcessBottomLimit()
         {
+            if (!BaloonPathManager.Instance.HasPath()) return;
+
             processing = true;
 
             //KillerWind.Instance.StartKilling();
