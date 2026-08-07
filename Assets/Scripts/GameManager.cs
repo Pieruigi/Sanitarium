@@ -5,11 +5,13 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonPersistent<GameManager>
 {
- 
+    public static UnityAction OnDemoCompleted;
+
     public const int MainSceneIndex = 0;
     public const int GameSceneIndex = 1;
 
@@ -139,6 +141,7 @@ public class GameManager : SingletonPersistent<GameManager>
         {
             DemoEnd = false;
             DemoEndUI.Instance.Show();
+            OnDemoCompleted?.Invoke();
         }
         else
         {

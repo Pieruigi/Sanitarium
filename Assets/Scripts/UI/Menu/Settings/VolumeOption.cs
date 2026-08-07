@@ -9,6 +9,11 @@ namespace Baloon.UI
         {
             base.Awake();
 
+            
+        }
+
+        private void Start()
+        {
             Init(PlayerPrefs.GetInt(SettingsManager.VolumeOptionParam, SettingsManager.VolumeOptionDefault));
         }
 

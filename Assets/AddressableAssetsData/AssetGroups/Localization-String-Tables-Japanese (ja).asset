@@ -28,6 +28,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-ja
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6abd501100eecd1499f5ddc44b3c4167
+    m_Address: Hints_ja
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ja
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e794c7930be44764bbc23e0db1135081
     m_Address: Story_ja
     m_ReadOnly: 1

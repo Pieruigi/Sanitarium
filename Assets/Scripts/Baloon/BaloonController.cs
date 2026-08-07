@@ -190,6 +190,10 @@ namespace Baloon
                 landingAudioSource.volume = Mathf.Lerp(minVolume, maxVolume, power);
                 landingAudioSource.clip = landingAudioClips[Random.Range(0, landingAudioClips.Count)];
                 landingAudioSource.Play();
+
+                // Damage
+                if (power > .75f)
+                    BaloonBoilerHealth.Instance.TryTakeSingleDamage();
             }
             else if (lastVelY == 0 && currentVelocity.y > 0)
             {

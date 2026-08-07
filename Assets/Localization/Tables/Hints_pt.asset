@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Hints_pt
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: pt
+  m_SharedData: {fileID: 11400000, guid: 5abddaed1fbd0174ea97d109fca411f0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 2168747712512
+    m_Localized: 'Vermelho: Subir
+
+      Branco: Manter altitude
+
+      Azul: Descer
+
+      (temperatura
+      pretendida/atual)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11726249517056
+    m_Localized: 'Mantenha o intervalo de altitude segura
+
+      (Tente manter as
+      luzes indicadoras verdes)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14965174951936
+    m_Localized: "Pressione para ir a Sul\n(Consulte o mapa para ver as dire\xE7\xF5es)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16247801503744
+    m_Localized: Use a chave inglesa para reparar (ou bater)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25995586297856
+    m_Localized: "Pouco combust\xEDvel? Mantenha premido aqui :)"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
