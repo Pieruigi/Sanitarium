@@ -30,7 +30,7 @@ namespace Baloon
 
 #if UNITY_EDITOR
             //owner = false;
-
+                        
 #endif
 
             DebugAllGlobalStats();
@@ -38,6 +38,8 @@ namespace Baloon
             UpdateGlobalStatsLog(firstGameStat);
 
             //DebugAllGlobalStats();
+
+
         }
 
         // Update is called once per frame
