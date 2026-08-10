@@ -27,7 +27,7 @@ namespace SNT
 
         public void ShowCursor(bool value)
         {
-            Cursor.visible = value;
+            //Cursor.visible = value;
             //Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         }
 

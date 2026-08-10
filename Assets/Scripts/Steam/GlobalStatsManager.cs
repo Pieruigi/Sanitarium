@@ -103,12 +103,17 @@ namespace Baloon
         void UpdateGlobalStatsLog(string statName)
         {
             if (owner) return;
-            
-            if (PlayerPrefs.HasKey(statName)) return;
+
+            //if (PlayerPrefs.HasKey(statName)) return;
+
+            if (!SteamStatsManager.Instance.TryGetStat(statName, out var value)) return;
+
+            if (value > 0) return; // Already set
+
             if (SteamStatsManager.Instance.TryIncrementStat(statName, 1))
             {
-                PlayerPrefs.SetInt(statName, 1);
-                PlayerPrefs.Save();
+                //PlayerPrefs.SetInt(statName, 1);
+                //PlayerPrefs.Save();
             }
 
             SteamStatsManager.Instance.DebugStat(statName);

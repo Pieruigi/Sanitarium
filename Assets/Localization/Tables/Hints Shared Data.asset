@@ -35,6 +35,26 @@ MonoBehaviour:
     m_Key: fuel
     m_Metadata:
       m_Items: []
+  - m_Id: 810618406821888
+    m_Key: direction_n
+    m_Metadata:
+      m_Items: []
+  - m_Id: 812087965114368
+    m_Key: direction_e
+    m_Metadata:
+      m_Items: []
+  - m_Id: 812162539839488
+    m_Key: direction_s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 812188754239488
+    m_Key: direction_w
+    m_Metadata:
+      m_Items: []
+  - m_Id: 828913306558464
+    m_Key: target_drainage
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

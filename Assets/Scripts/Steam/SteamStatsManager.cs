@@ -67,7 +67,7 @@ namespace Steam
 
 
 
-        bool TryGetStat(string statName, out int value)
+        public bool TryGetStat(string statName, out int value)
         {
             value = 0;
 

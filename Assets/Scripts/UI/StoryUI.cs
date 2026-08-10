@@ -30,7 +30,11 @@ namespace Baloon.UI
         // Update is called once per frame
         void Update()
         {
-
+            if (gameObject.activeSelf)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
 
         public void Continue()

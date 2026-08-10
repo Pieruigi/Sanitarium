@@ -17,7 +17,7 @@ namespace Baloon.UI
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            textField.enabled = false;
+            textField.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -44,9 +44,9 @@ namespace Baloon.UI
             
 
             if (interactable)
-                textField.enabled = true;
+                textField.gameObject.SetActive(true);
             else 
-                textField.enabled = false;
+                textField.gameObject.SetActive(false);
         }
     }
 }

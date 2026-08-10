@@ -100,6 +100,7 @@ public class AltimeterAlarm : MonoBehaviour
     void PlayRedAlarm()
     {
         //if (yellowAudioSource.isPlaying) yellowAudioSource.Stop();
+        if (!BaloonPathManager.Instance.HasPath()) return;
         if (!redAudioSource.isPlaying) redAudioSource.Play();
     }
 
