@@ -7,8 +7,8 @@ namespace Baloon
     public class WindShaker : Singleton<WindShaker>
     {
        
-        float shakeTimeMin = 8f;
-        float shakeTimeMax = 16f;
+        float shakeTimeMin = 3.5f;
+        float shakeTimeMax = 5f;
         
 
         float shakeTime = 0;
@@ -24,7 +24,7 @@ namespace Baloon
         float lightStrength = 2.5f;
         float heavyStrength = 5f;
 
-        float timeSpeed = 1f;
+        float timeSpeed = 1f;// 1f;
 
         //public bool _testBalloonShaker = false;
 

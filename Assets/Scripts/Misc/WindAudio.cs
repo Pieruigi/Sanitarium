@@ -72,13 +72,17 @@ namespace Baloon
         void PlayWind()
         {
             windAudioSource.volume = 0;
-            windAudioSource.Play();
+            if(!windAudioSource.isPlaying) windAudioSource.Play();
+            if (volumeSequence != null) volumeSequence.Kill();
+            windAudioSource.DOKill();
             windAudioSource.DOFade(volumeDefault, 2f);
         }
 
         void StopWind()
         {
-            windAudioSource.DOFade(0f, 2f).OnComplete(() => { windAudioSource.volume = 0; windAudioSource.Stop(); });
+            if (volumeSequence != null) volumeSequence.Kill();
+            windAudioSource.DOKill();
+            windAudioSource.DOFade(0f, 2f).OnComplete(() => { windAudioSource.volume = 0; /*windAudioSource.Stop();*/ });
         }
 
         
