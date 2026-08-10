@@ -6679,6 +6679,7 @@ GameObject:
   - component: {fileID: 7059358863616363526}
   - component: {fileID: 1012375027458244911}
   - component: {fileID: 2126486314107308099}
+  - component: {fileID: 5000986846209058891}
   m_Layer: 0
   m_Name: Activator
   m_TagString: Untagged
@@ -6721,7 +6722,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 12
-  m_Height: 60
+  m_Height: 6000
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2126486314107308099
@@ -6736,6 +6737,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ae4d7dca5e3154caffa6a2ffab62e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TMM.ActivationTrigger
+--- !u!114 &5000986846209058891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945175821342540811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66d2a3f8d833974b981446bcc57696c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaloonHarbour
 --- !u!1 &6960210527477923211
 GameObject:
   m_ObjectHideFlags: 0

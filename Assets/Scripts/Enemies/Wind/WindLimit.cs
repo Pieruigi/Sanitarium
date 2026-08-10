@@ -64,6 +64,11 @@ namespace Baloon
 
             if (!topLimit) return; // We only need one of the trigger
             if (player.Doomed || processing) return;
+            if (!BaloonHarbour.NotSafe)
+            {
+                redElapsed = 0;
+                return;
+            }
             var curRange = AltitudeManager.Instance.GetCurrentRange();
             if (curRange == AltitudeRange.Red)
             {
@@ -143,7 +148,9 @@ namespace Baloon
 
         private void ProcessBottomLimit()
         {
-            if (!BaloonPathManager.Instance.HasPath()) return;
+            //if (!BaloonPathManager.Instance.HasPath()) return;
+
+            if (!BaloonHarbour.NotSafe) return;
 
             processing = true;
 
