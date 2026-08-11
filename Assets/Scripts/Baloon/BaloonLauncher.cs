@@ -210,5 +210,10 @@ public class BaloonLauncher : MonoBehaviour
     {
         return directions.ToList().Exists(p=>p.PathIndex == pathIndex && p.Reversed == reversed);
     }
+
+    public bool IsPathLocked(int direction)
+    {
+        return directions[direction].Locked;
+    }
    
 }
