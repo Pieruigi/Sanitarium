@@ -66,7 +66,7 @@ namespace Baloon
            
             IEnumerator ResetKinematicDelayed()
             {
-                yield return new WaitForSeconds(4f);
+                yield return new WaitForSeconds(8f);
                 rb.isKinematic = true;
             }
         }

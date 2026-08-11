@@ -210,6 +210,7 @@ namespace Baloon
 
         private void HandleOnPathSet()
         {
+            Debug.Log("TEST - AAAAAAAAAAAAAAAAA");
             running = true;
             shakeTime = Random.Range(shakeTimeMin, shakeTimeMax);
 
