@@ -102,6 +102,8 @@ namespace Baloon
         {
             if(unavailable) return;
 
+            if (baloonLauncher.IsDisabled) return;
+
             if (baloonLauncher.IsPathLocked(panelIndex)) return;
 
             if (BaloonPathManager.Instance.CurrentPath != null) return;

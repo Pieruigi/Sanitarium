@@ -77,6 +77,15 @@ public class BaloonLauncher : MonoBehaviour
     [SerializeField]
     BaloonWaypoint waypoint;
     public BaloonWaypoint Waypoint => waypoint;
+
+    [SerializeField]
+    bool isDisabled = false;
+
+    public bool IsDisabled => isDisabled;
+    
+
+    [SerializeField]
+    BlooderController blooder;
     
     //int[] internalDirections;
 
@@ -107,6 +116,7 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathLocked += HandleOnPathLocked;
         BaloonPathManager.OnPathCleared += HandleOnPathCleared;
         BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
+        BlooderController.OnSealed += HandleOnBlooderSealed;
     }
 
     private void OnDisable()
@@ -115,6 +125,13 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathLocked -= HandleOnPathLocked;
         BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
         BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
+        BlooderController.OnSealed -= HandleOnBlooderSealed;
+    }
+
+    private void HandleOnBlooderSealed(BlooderController blooderController)
+    {
+        if (blooder != blooderController) return;
+        isDisabled = false;
     }
 
     private void HandleOnPathUnknown()
