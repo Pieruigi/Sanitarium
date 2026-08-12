@@ -44,9 +44,9 @@ namespace Baloon
 
         float maxVerticalSpeed = 6f;
 #if UNITY_EDITOR
-        float maxHorizontalSpeed = 3.5f * 1.8f;// 1.4f;// 3.5f * 1.2f;
+        float maxHorizontalSpeed = 3.5f * 1.4f;// 1.4f;// 3.5f * 1.2f;
 #else
-        float maxHorizontalSpeed = 3.5f * 1.8f; 
+        float maxHorizontalSpeed = 3.5f * 1.4f; 
 #endif
 
         [SerializeField] float gravity = 9.81f;
