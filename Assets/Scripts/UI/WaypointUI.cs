@@ -15,7 +15,7 @@ namespace Baloon.UI
             {
                 if(waypoint == null)
                 {
-                    var w = FindObjectsByType<BaloonWaypoint>(FindObjectsSortMode.None).ToList().Find(w => w.gameObject.name.ToLower().StartsWith($"{gameObject.name.ToLower()}-") || 
+                    var w = FindObjectsByType<BaloonWaypoint>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList().Find(w => w.gameObject.name.ToLower().StartsWith($"{gameObject.name.ToLower()}-") || 
                                                                                                            w.transform.parent.gameObject.name.ToLower().StartsWith($"{gameObject.name.ToLower()}-"));
                     var bw = w.GetComponentInChildren<BaloonWaypoint>();
                     waypoint = bw;

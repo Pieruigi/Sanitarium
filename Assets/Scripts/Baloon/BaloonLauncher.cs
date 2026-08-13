@@ -86,9 +86,10 @@ public class BaloonLauncher : MonoBehaviour
 
     [SerializeField]
     BlooderController blooder;
-    
+
     //int[] internalDirections;
 
+   
     private void Awake()
     {
         //internalDirections = new int[] { (int)directions.x, (int)directions.y, (int)directions.z, (int)directions.w };
@@ -117,6 +118,7 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathCleared += HandleOnPathCleared;
         BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
         BlooderController.OnSealed += HandleOnBlooderSealed;
+        BlooderController.OnStarted += HandleOnBlooderStarted;
     }
 
     private void OnDisable()
@@ -126,6 +128,13 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
         BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
         BlooderController.OnSealed -= HandleOnBlooderSealed;
+        BlooderController.OnStarted -= HandleOnBlooderStarted;
+    }
+
+    private void HandleOnBlooderStarted(BlooderController blooderController, bool isSealed)
+    {
+        if (blooder != blooderController) return;
+        isDisabled = !isSealed;
     }
 
     private void HandleOnBlooderSealed(BlooderController blooderController)

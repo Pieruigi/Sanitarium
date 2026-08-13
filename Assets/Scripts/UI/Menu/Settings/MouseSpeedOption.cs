@@ -8,6 +8,11 @@ namespace Baloon.UI
         {
             base.Awake();
 
+            
+        }
+
+        private void Start()
+        {
             Init(PlayerPrefs.GetInt(SettingsManager.MouseSpeedOptionParam, SettingsManager.MouseSpeedOptionDefault));
         }
 
