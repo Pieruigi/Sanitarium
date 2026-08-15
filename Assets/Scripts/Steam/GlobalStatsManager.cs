@@ -7,11 +7,13 @@ namespace Baloon
 {
     public class GlobalStatsManager : MonoBehaviour
     {
-        string engineStartedStat = "log_start_engine";
-        string firstGameStat = "log_first_game";
+        string engineStartedStat = "v2_log_start_engine";
+        string firstGameStat = "v2_log_first_game";
 
-        string waypointReachedStatPrefix = "log_reached_";
-        string demoCompletedStat = "log_demo_completed";
+        string waypointReachedStatPrefix = "v2_log_reached_";
+        string demoCompletedStat = "v2_log_demo_completed";
+
+        string blooderStatPrefix = "v2_blooder_sealed_";
 
         bool owner = false;
 
@@ -21,12 +23,12 @@ namespace Baloon
         void Start()
         {
             //if(SteamFriends.GetPersonaName() == "Pierlu")
-            if(SteamStatsManager.Instance.Initialized)
-            {
-                Debug.Log(SteamUser.GetSteamID());
-                if("76561198052836073".Equals(SteamUser.GetSteamID().ToString()))
-                    owner = true;
-            }
+            //if(SteamStatsManager.Instance.Initialized)
+            //{
+            //    Debug.Log(SteamUser.GetSteamID());
+            //    if("76561198052836073".Equals(SteamUser.GetSteamID().ToString()))
+            //        owner = true;
+            //}
 
 #if UNITY_EDITOR
             //owner = false;
@@ -53,6 +55,8 @@ namespace Baloon
             BaloonControlPanel.OnStarted += HandleOnEngineStarted;
             BaloonWaypoint.OnReached += HandleOnReached;
             GameManager.OnDemoCompleted += HandleOnDemoCompleted;
+            BlooderController.OnSealed += HandleOnBlooderSelead;
+
         }
 
         private void OnDisable()
@@ -60,6 +64,13 @@ namespace Baloon
             BaloonControlPanel.OnStarted -= HandleOnEngineStarted;
             BaloonWaypoint.OnReached -= HandleOnReached;
             GameManager.OnDemoCompleted -= HandleOnDemoCompleted;
+            BlooderController.OnSealed -= HandleOnBlooderSelead;
+        }
+
+        private void HandleOnBlooderSelead(BlooderController blooderController)
+        {
+            string s = blooderController.transform.parent.gameObject.name;
+            UpdateGlobalStatsLog(blooderStatPrefix + s);
         }
 
         private void HandleOnDemoCompleted()
@@ -89,15 +100,12 @@ namespace Baloon
 
             SteamStatsManager.Instance.DebugStat(engineStartedStat);
             SteamStatsManager.Instance.DebugStat(firstGameStat);
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "D0");
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "C1");
+            SteamStatsManager.Instance.DebugStat(demoCompletedStat);
             SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "D1");
             SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "B3");
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "A4");
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "A3");
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "B6");
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "B8");
             SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "A7");
+            SteamStatsManager.Instance.DebugStat(blooderStatPrefix + "D1");
+            SteamStatsManager.Instance.DebugStat(blooderStatPrefix + "A7");
         }
 
         void UpdateGlobalStatsLog(string statName)

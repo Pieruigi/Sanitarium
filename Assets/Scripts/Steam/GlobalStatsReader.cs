@@ -51,75 +51,54 @@ public class GlobalStatsReader : MonoBehaviour
     private void ReadExampleStats()
     {
         // Reading a long/int global stat
-        if (SteamUserStats.GetGlobalStat("log_start_engine", out long totalGames))
+        if (SteamUserStats.GetGlobalStat("v2_log_start_engine", out long totalGames))
         {
             Debug.Log($"First engine start: {totalGames}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_first_game", out long totalDistance))
+        if (SteamUserStats.GetGlobalStat("v2_log_first_game", out long totalDistance))
         {
             Debug.Log($"First game start: {totalDistance}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_D0", out long d0))
+        if (SteamUserStats.GetGlobalStat("v2_log_demo_completed", out long d0))
         {
-            Debug.Log($"Reached D0: {d0}");
+            Debug.Log($"Demo completed: {d0}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_C1", out long c1))
+        if (SteamUserStats.GetGlobalStat("v2_log_reached_D1", out long c1))
         {
-            Debug.Log($"Reached C1: {c1}");
+            Debug.Log($"Reached D1: {c1}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_D1", out long d1))
+        if (SteamUserStats.GetGlobalStat("v2_log_reached_B3", out long d1))
         {
-            Debug.Log($"Reached D1: {d1}");
+            Debug.Log($"Reached B3: {d1}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_B3", out long b3))
+        if (SteamUserStats.GetGlobalStat("v2_log_reached_A7", out long b3))
         {
-            Debug.Log($"Reached B3: {b3}");
+            Debug.Log($"Reached A7: {b3}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_A4", out long a4))
+        if (SteamUserStats.GetGlobalStat("v2_blooder_sealed_D1", out long a4))
         {
-            Debug.Log($"Reached A4: {a4}");
+            Debug.Log($"Sealed D1: {a4}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_A3", out long a3))
+        if (SteamUserStats.GetGlobalStat("v2_blooder_sealed_A7", out long a3))
         {
-            Debug.Log($"Reached A3: {a3}");
+            Debug.Log($"Sealed A7: {a3}");
         }
 
-        // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_B6", out long b6))
-        {
-            Debug.Log($"Reached B6: {b6}");
-        }
+      
 
-        // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_B8", out long b8))
-        {
-            Debug.Log($"Reached B8: {b8}");
-        }
-
-        // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_reached_A7", out long a7))
-        {
-            Debug.Log($"Reached A7: {a7}");
-        }
-
-        // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("log_demo_completed", out long dc))
-        {
-            Debug.Log($"Demo completed: {dc}");
-        }
     }
 }

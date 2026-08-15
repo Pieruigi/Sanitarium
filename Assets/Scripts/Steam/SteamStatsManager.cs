@@ -63,6 +63,13 @@ namespace Steam
 #endif
         }
 
+        void ResetAllGlobalStats()
+        {
+            if(!Initialized) return;
+
+            
+        }
+
         #endregion
 
 

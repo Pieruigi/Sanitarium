@@ -9,6 +9,12 @@ namespace Baloon
 {
     public class BaloonController : Singleton<BaloonController>
     {
+        /// <summary>
+        /// 1.0 for 1.4 speed
+        /// 1.286 for 1.8 speed
+        /// </summary>
+        public const float SpeedMultiplier = 1.286f;
+
         [SerializeField]
         AudioSource landingAudioSource;
 
@@ -44,9 +50,9 @@ namespace Baloon
 
         float maxVerticalSpeed = 6f;
 #if UNITY_EDITOR
-        float maxHorizontalSpeed = 3.5f * 1.4f;// 1.4f;// 3.5f * 1.2f;
+        float maxHorizontalSpeed = 3.5f * 1.4f * SpeedMultiplier;// 1.4f;// 3.5f * 1.2f;
 #else
-        float maxHorizontalSpeed = 3.5f * 1.4f; 
+        float maxHorizontalSpeed = 3.5f * 1.4f * SpeedMultiplier; 
 #endif
 
         [SerializeField] float gravity = 9.81f;
