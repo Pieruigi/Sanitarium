@@ -12,8 +12,9 @@ namespace Baloon
         /// <summary>
         /// 1.0 for 1.4 speed
         /// 1.286 for 1.8 speed
+        /// 1.429 for 2.0 speed
         /// </summary>
-        public const float SpeedMultiplier = 1.286f;
+        public const float SpeedMultiplier = 1.43f;
 
         [SerializeField]
         AudioSource landingAudioSource;
@@ -46,7 +47,7 @@ namespace Baloon
             }
         }
 
-        float horizontalForceScale = 4f;// 3f;
+        float horizontalForceScale = 9f;// 3f;
 
         float maxVerticalSpeed = 6f;
 #if UNITY_EDITOR
@@ -309,7 +310,7 @@ namespace Baloon
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
 
-            //Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
+            Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
            
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;

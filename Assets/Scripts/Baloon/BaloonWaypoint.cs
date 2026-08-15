@@ -21,8 +21,8 @@ namespace Baloon
         [SerializeField]
         AltitudeType altitudeType;
 
-        [SerializeField]
-        float horizontalForce;
+        //[SerializeField]
+        float horizontalForce = 3;
         public float HorizontalForce => horizontalForce;
 
         [SerializeField]
