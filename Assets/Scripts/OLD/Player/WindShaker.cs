@@ -28,6 +28,18 @@ namespace Baloon
 
         //public bool _testBalloonShaker = false;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+#if DEMO
+            //shakeTimeMin = 3.5f * 1.4f;
+            //shakeTimeMax = 5f * 1.4f;
+
+
+#endif
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

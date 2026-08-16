@@ -56,6 +56,8 @@ namespace Baloon
         float maxHorizontalSpeed = 3.5f * 1.4f * SpeedMultiplier; 
 #endif
 
+
+
         [SerializeField] float gravity = 9.81f;
         [SerializeField] float linearDrag = 0.5f; // Simula l'attrito dell'aria
 
@@ -96,6 +98,10 @@ namespace Baloon
             base.Awake();
             //rb = GetComponent<Rigidbody>();
             //if (!useRB) Destroy(rb);
+
+#if DEMO
+            //maxHorizontalSpeed = 3.5f * 1.4f;
+#endif
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created

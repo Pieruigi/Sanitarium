@@ -70,7 +70,18 @@ namespace Baloon
         float gasDepleteMaxSpeed = 0.0047f * 1.4f * BaloonController.SpeedMultiplier;// 1.4f;//0.00625f;
         float gasDepleteMinSpeed = 0.00094f * 1.4f * BaloonController.SpeedMultiplier;// 1.4f;//0.00125f
 
+        protected override void Awake()
+        {
+            base.Awake();
 
+#if DEMO
+            //gasDepleteMaxSpeed = 0.0047f * 2.0f;// 1.4f;//0.00625f;
+            //gasDepleteMinSpeed = 0.00094f * 2.0f;// 1.4f;//0.00125f
+            gasDepleteMaxSpeed *= 1.2f;// 1.4f;//0.00625f;
+            gasDepleteMinSpeed *= 1.2f;// 1.4f;//0.00125f
+
+#endif
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()

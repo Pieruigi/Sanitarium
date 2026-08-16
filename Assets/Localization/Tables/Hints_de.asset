@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 5abddaed1fbd0174ea97d109fca411f0, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 6789982753568850020
   m_TableData:
   - m_Id: 2168747712512
     m_Localized: "Rot: Steigen\nWei\xDF: Flugh\xF6he halten\nBlau: Sinken\n(Ziel-/Ist-Temperatur)"
@@ -62,6 +63,20 @@ MonoBehaviour:
       bei Bedarf die Tankstationen."
     m_Metadata:
       m_Items: []
+  - m_Id: 3327964178538496
+    m_Localized: 'Ventil geschlossen <sprite="blooderE2_32" index=0>
+
+      Verbleibend:
+      {left} x <sprite="blooderF2_32" index=0>'
+    m_Metadata:
+      m_Items:
+      - rid: 6789982753568850020
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6789982753568850020
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3327964178538496

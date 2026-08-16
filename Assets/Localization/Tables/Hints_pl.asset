@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: pl
   m_SharedData: {fileID: 11400000, guid: 5abddaed1fbd0174ea97d109fca411f0, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 6789982753568850024
   m_TableData:
   - m_Id: 2168747712512
     m_Localized: "Czerwony: Wznoszenie\nBia\u0142y: Utrzymuj wysoko\u015B\u0107\nNiebieski:
@@ -63,6 +64,18 @@ MonoBehaviour:
       razie potrzeby dotrzyj do stacji tankowania."
     m_Metadata:
       m_Items: []
+  - m_Id: 3327964178538496
+    m_Localized: "Zaw\xF3r zamkni\u0119ty <sprite=\"blooderE2_32\" index=0>\r\nPozosta\u0142o:
+      {left} x <sprite=\"blooderF2_32\" index=0>"
+    m_Metadata:
+      m_Items:
+      - rid: 6789982753568850024
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6789982753568850024
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3327964178538496

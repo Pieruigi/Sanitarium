@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: target_drainage
     m_Metadata:
       m_Items: []
+  - m_Id: 3327964178538496
+    m_Key: target_shut_down
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: fr
   m_SharedData: {fileID: 11400000, guid: 5abddaed1fbd0174ea97d109fca411f0, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 6789982753568850019
   m_TableData:
   - m_Id: 2168747712512
     m_Localized: "Rouge : Monter\nBlanc : Maintenir l'altitude\nBleu : Descendre\n(temp\xE9rature
@@ -63,6 +64,18 @@ MonoBehaviour:
       les stations de ravitaillement si n\xE9cessaire."
     m_Metadata:
       m_Items: []
+  - m_Id: 3327964178538496
+    m_Localized: "Vanne ferm\xE9e <sprite=\"blooderE2_32\" index=0>\r\nRestantes
+      : {left} x <sprite=\"blooderF2_32\" index=0>"
+    m_Metadata:
+      m_Items:
+      - rid: 6789982753568850019
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6789982753568850019
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3327964178538496

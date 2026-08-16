@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: zh
   m_SharedData: {fileID: 11400000, guid: 5abddaed1fbd0174ea97d109fca411f0, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 6789982753568850018
   m_TableData:
   - m_Id: 2168747712512
     m_Localized: "\u7EA2\u8272\uFF1A \u4E0A\u5347\n\u767D\u8272\uFF1A \u4FDD\u6301\u9AD8\u5EA6\n\u84DD\u8272\uFF1A
@@ -60,6 +61,18 @@ MonoBehaviour:
     m_Localized: "\u524D\u5F80\u6392\u6C34\u7AD9\u5E76\u5C06\u5176\u5173\u95ED\u3002\n\r\n\u5982\u6709\u9700\u8981\uFF0C\u8BF7\u524D\u5F80\u52A0\u6CB9\u7AD9\u3002"
     m_Metadata:
       m_Items: []
+  - m_Id: 3327964178538496
+    m_Localized: "\u9600\u95E8\u5DF2\u5173\u95ED <sprite=\"blooderE2_32\" index=0>\r\n\u5269\u4F59\uFF1A{left}
+      x <sprite=\"blooderF2_32\" index=0>"
+    m_Metadata:
+      m_Items:
+      - rid: 6789982753568850018
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6789982753568850018
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3327964178538496

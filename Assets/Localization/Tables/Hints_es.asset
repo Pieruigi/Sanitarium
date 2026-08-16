@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: es
   m_SharedData: {fileID: 11400000, guid: 5abddaed1fbd0174ea97d109fca411f0, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 6789982753568850029
   m_TableData:
   - m_Id: 2168747712512
     m_Localized: 'Rojo: Ascender
@@ -69,6 +70,18 @@ MonoBehaviour:
       las estaciones de repostaje si es necesario."
     m_Metadata:
       m_Items: []
+  - m_Id: 3327964178538496
+    m_Localized: "V\xE1lvula cerrada <sprite=\"blooderE2_32\" index=0>\r\nRestantes:
+      {left} x <sprite=\"blooderF2_32\" index=0>"
+    m_Metadata:
+      m_Items:
+      - rid: 6789982753568850029
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6789982753568850029
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3327964178538496
