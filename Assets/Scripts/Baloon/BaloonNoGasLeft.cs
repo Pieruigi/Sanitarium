@@ -52,7 +52,7 @@ namespace Baloon
 
                 var p = pList.First();
 
-                Debug.Log($"TEST - P:{p.transform.parent.gameObject}");
+                //Debug.Log($"TEST - P:{p.transform.parent.gameObject}");
 
                 var dist = Vector3.ProjectOnPlane(BaloonController.Instance.transform.position - p.transform.position, Vector3.up).magnitude;
 

@@ -1,5 +1,8 @@
 using Baloon;
+using Baloon.UI;
 using DG.Tweening;
+using System;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -42,12 +45,24 @@ namespace Baloon
         {
             Interactor.OnInteractionStarted += Push;
             Interactor.OnInteractionStopped += Release;
+            Interactor.OnHint += HandleOnHint;
         }
 
         protected virtual void OnDisable()
         {
             Interactor.OnInteractionStarted -= Push;
             Interactor.OnInteractionStopped -= Release;
+            Interactor.OnHint -= HandleOnHint;
+        }
+
+        private void HandleOnHint(Interactor interactor, bool interactable)
+        {
+            if (this.interactor != interactor) return;
+
+            if (interactable)
+                FindFirstObjectByType<DotUI>().ShowHold();
+            else
+                FindFirstObjectByType<DotUI>().HideHold();
         }
 
         protected virtual void Release(Interactor interactor)

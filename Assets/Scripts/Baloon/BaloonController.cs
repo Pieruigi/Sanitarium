@@ -316,7 +316,7 @@ namespace Baloon
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
 
-            Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
+            //Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
            
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;

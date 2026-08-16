@@ -70,6 +70,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 6789982753568850019
+  - m_Id: 3392004443594752
+    m_Localized: Atterrissez pour faire le plein <sprite="fuel2_32" index=0>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

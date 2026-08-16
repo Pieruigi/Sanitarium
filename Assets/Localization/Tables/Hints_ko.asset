@@ -75,6 +75,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 6789982753568850023
+  - m_Id: 3392004443594752
+    m_Localized: "\uCC29\uB959\uD558\uC5EC \uC5F0\uB8CC\uB97C \uCDA9\uC804\uD558\uC138\uC694
+      <sprite=\"fuel2_32\" index=0>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

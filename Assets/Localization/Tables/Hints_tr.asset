@@ -72,6 +72,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 6789982753568850030
+  - m_Id: 3392004443594752
+    m_Localized: "Yak\u0131t ikmali i\xE7in ini\u015F yap\u0131n <sprite=\"fuel2_32\"
+      index=0>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

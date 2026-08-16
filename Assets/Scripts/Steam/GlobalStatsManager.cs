@@ -14,6 +14,7 @@ namespace Baloon
         string demoCompletedStat = "v2_log_demo_completed";
 
         string blooderStatPrefix = "v2_blooder_sealed_";
+        string waypointLeftStatPrefix = "v2_log_left_";
 
         bool owner = false;
 
@@ -56,6 +57,7 @@ namespace Baloon
             BaloonWaypoint.OnReached += HandleOnReached;
             GameManager.OnDemoCompleted += HandleOnDemoCompleted;
             BlooderController.OnSealed += HandleOnBlooderSelead;
+            //BaloonWaypoint.OnLeft += HandleOnLeft;
 
         }
 
@@ -65,6 +67,17 @@ namespace Baloon
             BaloonWaypoint.OnReached -= HandleOnReached;
             GameManager.OnDemoCompleted -= HandleOnDemoCompleted;
             BlooderController.OnSealed -= HandleOnBlooderSelead;
+            //BaloonWaypoint.OnLeft -= HandleOnLeft;
+        }
+
+        private void HandleOnLeft(BaloonWaypoint waypoint)
+        {
+            if (!waypoint.CompareTag("Log")) return;
+
+            string wName = waypoint.gameObject.name;
+            wName = wName.Split("-")[0];
+
+            UpdateGlobalStatsLog(waypointLeftStatPrefix + wName);
         }
 
         private void HandleOnBlooderSelead(BlooderController blooderController)
@@ -82,9 +95,14 @@ namespace Baloon
         {
             if (!waypoint.CompareTag("Log")) return;
 
-            string wName = waypoint.gameObject.name;
+            var g = waypoint.gameObject;
+            if(!g.name.Contains("-"))
+                g = waypoint.transform.parent.gameObject;
+
+            string wName = g.name;
             wName = wName.Split("-")[0];
 
+            //if("B3".Equals(wName))
             UpdateGlobalStatsLog(waypointReachedStatPrefix + wName);
         }
 
