@@ -76,7 +76,15 @@ namespace Baloon
 
             var transitionSpeed = targetTemperatureDifference > inExtDiff ? increaseSpeed : decreaseSpeed * (coolerOn ? coolerSpeedMul : 1f);
 
+#if UNITY_EDITOR
+            if(BoilerController.Instance.GasLeft == 0)
+            {
+                if (targetTemperatureDifference > inExtDiff)
+                    transitionSpeed *= 0.5f;
+            }
             
+#endif
+
             //if (targetDiff > inExtDiff)
             //    inExtDiff = Mathf.MoveTowards(inExtDiff, targetDiff, increaseSpeed * Time.deltaTime);
             //else

@@ -64,7 +64,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
-    m_Localized: 'Ventil geschlossen <sprite="blooderE2_32" index=0>
+    m_Localized: 'Station abgeschlossen <sprite="blooderE2_32" index=0>
 
       Verbleibend:
       {left} x <sprite="blooderF2_32" index=0>'

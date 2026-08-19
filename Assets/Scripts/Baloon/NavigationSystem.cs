@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NUnit.Framework.Internal;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,9 @@ namespace Baloon
 {
     public class NavigationSystem : Singleton<NavigationSystem>
     {
+        public delegate void DestinationReachedDelegate(BaloonWaypoint waypoint);
+        public static DestinationReachedDelegate OnDestinationReached;
+
         public const float DefaultSpeed = 3f;
 
         BaloonPath currentPath;
@@ -162,7 +166,9 @@ namespace Baloon
                 // Store the destination waypoint
                 var target = waypointB.transform;
 
-                
+                OnDestinationReached?.Invoke(waypointB);
+
+
                 // Clear baloon path
                 BaloonPathManager.Instance.ClearPath();
 
@@ -214,6 +220,7 @@ namespace Baloon
 
                 BaloonCreek.Instance.Play(Random.Range(1.5f, 2f), Random.Range(0.5f, 1f));
 
+               
             }
         }
 

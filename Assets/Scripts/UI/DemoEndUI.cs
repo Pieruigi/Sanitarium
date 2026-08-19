@@ -8,6 +8,8 @@ namespace Baloon.Demo
         [SerializeField]
         GameObject panel;
 
+        string url = "https://store.steampowered.com/app/4839050/Altitude_Zero/?utm_source=demo&utm_medium=demo&utm_campaign=wishlist";
+
         protected override void Awake()
         {
             base.Awake();
@@ -42,7 +44,7 @@ namespace Baloon.Demo
 
         public void OpenSteam()
         {
-            Application.OpenURL("https://store.steampowered.com/app/4839050/Altitude_Zero/");
+            Application.OpenURL(url);
             GameManager.Instance.LoadMainScene();
         }
     }

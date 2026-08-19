@@ -249,6 +249,13 @@ namespace Baloon
             // Sottraiamo la gravità
             acceleration -= gravity;
 
+//#if UNITY_EDITOR
+//            if(acceleration > 0)
+//            {
+//                acceleration *= .1f;
+//            }
+//#endif
+
             // Applichiamo l'accelerazione alla velocità
             verticalSpeed += acceleration * Time.deltaTime;
 

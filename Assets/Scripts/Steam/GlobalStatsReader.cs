@@ -81,6 +81,12 @@ public class GlobalStatsReader : MonoBehaviour
         }
 
         // Reading a double/float global stat
+        if (SteamUserStats.GetGlobalStat("v2_log_reached_B4", out long b4))
+        {
+            Debug.Log($"Reached B4: {b4}");
+        }
+
+        // Reading a double/float global stat
         if (SteamUserStats.GetGlobalStat("v2_log_reached_A7", out long b3))
         {
             Debug.Log($"Reached A7: {b3}");

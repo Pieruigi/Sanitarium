@@ -26,13 +26,26 @@ namespace Baloon.UI
 
         private void OnEnable()
         {
-            BaloonWaypoint.OnReached += HandleOnWaypointReached;
-            
+            NavigationSystem.OnDestinationReached += HandleOnWaypointReached;
+            BasePlatform.OnLanding += HandleOnLanding;
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
         }
 
         private void OnDisable()
         {
-            BaloonWaypoint.OnReached -= HandleOnWaypointReached;
+            NavigationSystem.OnDestinationReached -= HandleOnWaypointReached;
+            BasePlatform.OnLanding -= HandleOnLanding;
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        }
+
+        private void HandleOnPathSet()
+        {
+            if (text.activeSelf) text.SetActive(false);
+        }
+
+        private void HandleOnLanding(BasePlatform platform)
+        {
+            HandleOnPathSet();
         }
 
         private void HandleOnWaypointReached(BaloonWaypoint waypoint)
@@ -47,9 +60,9 @@ namespace Baloon.UI
 
                 text.SetActive(true);
 
-                yield return new WaitForSeconds(3f);
+                //yield return new WaitForSeconds(3f);
 
-                text.SetActive(false);
+                //text.SetActive(false);
             }
         }
     }

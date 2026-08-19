@@ -80,7 +80,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
-    m_Localized: 'Valve closed <sprite="blooderE2_32" index=0>
+    m_Localized: 'Station completed <sprite="blooderE2_32" index=0>
 
       Remaining:
       {left} x <sprite="blooderF2_32" index=0>'
