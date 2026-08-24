@@ -81,6 +81,10 @@ namespace Baloon
             gasDepleteMinSpeed *= 1.2f;// 1.4f;//0.00125f
 
 #endif
+
+#if UNITY_EDITOR
+            gasLeft = .125f;
+#endif
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -135,7 +139,9 @@ namespace Baloon
             gasLeft -= amount;
             if(gasLeft < 0) gasLeft = 0;
 
-            if (gasLeft == 0) throttle = 0;
+
+            
+            //if (gasLeft == 0) throttle = 0;
 
           
         }
@@ -173,7 +179,7 @@ namespace Baloon
         private void HandleOnUpdateDataEntry()
         {
             var data = new Data();
-            data.gasLeft = Mathf.Max(gasLeft, 0.2f);
+            data.gasLeft = gasLeft;//  Mathf.Max(gasLeft, 0.2f);
             SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
@@ -235,7 +241,7 @@ namespace Baloon
 
         private void HandleOnThrottleSliderValueChanged(float value)
         {
-            if(running && gasLeft > 0) throttle = value;
+            if(running /*&& gasLeft > 0*/) throttle = value;
         }
 
         public bool TryRefuel(float value)

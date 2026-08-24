@@ -39,6 +39,8 @@ namespace Baloon
 
         [SerializeField]
         int dataIndex = 0;
+        public int DataIndex => dataIndex;
+
         public bool IsOn => isOn;
 
         string baseColorPropName = "_BaseColor";

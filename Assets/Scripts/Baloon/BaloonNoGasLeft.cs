@@ -36,10 +36,10 @@ namespace Baloon
         {
             if (processing) return;
 
-            if(BoilerController.Instance.GasLeft == 0)
-            {
-                HandleOnNoGasLeft();
-            }
+            //if(BoilerController.Instance.GasLeft == 0)
+            //{
+            //    HandleOnNoGasLeft();
+            //}
         }
 
 

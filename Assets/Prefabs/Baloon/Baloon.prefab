@@ -10609,6 +10609,10 @@ MonoBehaviour:
     colorIntensity: 1.5
     lightColor: {r: 0, g: 0, b: 0, a: 0}
     lightIntensity: 0
+  - baseColor: {r: 1, g: 0.15566039, b: 0.15566039, a: 1}
+    colorIntensity: 1.5
+    lightColor: {r: 0, g: 0, b: 0, a: 0}
+    lightIntensity: 0
   dataIndex: 0
 --- !u!1 &4934512686492123436
 GameObject:

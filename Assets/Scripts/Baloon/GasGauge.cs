@@ -43,7 +43,13 @@ namespace Baloon
 
             if(BoilerController.Instance.GasLeft < shortageLimit)
             {
-                if(!shortageLight.IsOn && started) shortageLight.SetOn(true);
+                if (BoilerController.Instance.GasLeft > 0 && shortageLight.DataIndex != 0)
+                    shortageLight.SwitchData(0);
+                else if(BoilerController.Instance.GasLeft == 0 && shortageLight.DataIndex != 1)
+                    shortageLight.SwitchData(1);
+
+
+                if (!shortageLight.IsOn && started) shortageLight.SetOn(true);
             }
 
             var pos = Vector3.Lerp(emptyPoint.localPosition, fullPoint.localPosition, BoilerController.Instance.GasLeft);

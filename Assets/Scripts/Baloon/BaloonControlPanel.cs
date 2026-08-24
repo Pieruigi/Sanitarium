@@ -45,6 +45,8 @@ namespace Baloon
 
         Interactor starterInteractor;
 
+        float oldGasLeft = 0;
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -64,25 +66,35 @@ namespace Baloon
             //if (Input.GetKeyDown(KeyCode.X))
             //    FlyBack();
 #endif
-            if(BoilerController.Instance.GasLeft == 0)
-            {
-                if(started)
-                {
-                    // Stop running audio
-                    runAudioSource.Stop();
-                    // Play stopping audio
-                    stopAudioSource.Play();
+            //if(BoilerController.Instance.GasLeft == 0)
+            //{
+            //    if(started)
+            //    {
+            //        // Stop running audio
+            //        runAudioSource.Stop();
+            //        // Play stopping audio
+            //        stopAudioSource.Play();
 
-                    started = false;
+            //        started = false;
                     
 
-                    releasePlayerOnLanding = true;
+            //        releasePlayerOnLanding = true;
 
-                    OnStopped?.Invoke();
-                }
+            //        OnStopped?.Invoke();
+            //    }
                 
+            //}
+
+            if(BoilerController.Instance.GasLeft == 0 && oldGasLeft > 0)
+            {
+                if (started)
+                {
+                    stopAudioSource.Play();
+                    runAudioSource.pitch *= .5f;
+                }
             }
-            
+
+            oldGasLeft = BoilerController.Instance.GasLeft;
         }
 
         private void LateUpdate()
@@ -151,6 +163,10 @@ namespace Baloon
             if (!started) return;
 
             runAudioSource.pitch = Mathf.Lerp(runAudioPitchMin, runAudioPitchMax, value);
+            //runAudioSource.pitch = Mathf.Lerp(runAudioPitchMin * (BoilerController.Instance.GasLeft > 0 ? 1 : .5f) , runAudioPitchMax * (BoilerController.Instance.GasLeft > 0 ? 1 : .5f), value);
+
+            if(BoilerController.Instance.GasLeft == 0)
+                runAudioSource.pitch *= .5f;
         }
 
         private void HandleOnThrottleDragStarted()
@@ -167,8 +183,8 @@ namespace Baloon
         {
             if (!started)
             {
-                if(BoilerController.Instance.GasLeft > 0)
-                {
+                //if(BoilerController.Instance.GasLeft > 0)
+                //{
                     startupCoroutine = StartCoroutine(Startup());
 
                     IEnumerator Startup()
@@ -200,11 +216,11 @@ namespace Baloon
 
                         OnStarted?.Invoke();
                     }
-                }
-                else // No gas
-                {
-                    startAudioSource?.Play();
-                }
+                //}
+                //else // No gas
+                //{
+                //    startAudioSource?.Play();
+                //}
                
             }
             else
