@@ -241,5 +241,11 @@ public class BaloonLauncher : MonoBehaviour
     {
         return directions[direction].Locked;
     }
+
+    public int GetFirstAvailableDirection()
+    {
+        return directions.ToList().FindIndex(d => d.PathIndex >= 0);
+        
+    }
    
 }

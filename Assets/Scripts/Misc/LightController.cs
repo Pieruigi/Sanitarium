@@ -49,6 +49,8 @@ namespace Baloon
 
         MaterialPropertyBlock mpb;
 
+        public MaterialPropertyBlock MaterialPropertyBlock => mpb;
+
         Sequence sequence;
 
         private void Awake()
@@ -416,6 +418,12 @@ namespace Baloon
             
 
 
+        }
+
+        public void ForceColor(Vector4 color)
+        {
+            mpb.SetColor(baseColorPropName, color);
+            _renderer.SetPropertyBlock(mpb, materialIndex);
         }
 
     }
