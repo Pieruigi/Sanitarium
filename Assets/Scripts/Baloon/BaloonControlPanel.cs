@@ -208,6 +208,7 @@ namespace Baloon
                         //player.transform.parent = transform.parent;
 
                         // Play running audio
+                        runAudioSource.pitch = runAudioPitchMin * (BoilerController.Instance.GasLeft > 0 ? 1f : .5f);
                         runAudioSource?.Play();
 
                         fireAudioSource?.Play();
