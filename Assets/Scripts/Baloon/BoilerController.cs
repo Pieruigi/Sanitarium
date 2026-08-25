@@ -83,7 +83,7 @@ namespace Baloon
 #endif
 
 #if UNITY_EDITOR
-            gasLeft = .125f;
+            //gasLeft = .125f;
 #endif
         }
 

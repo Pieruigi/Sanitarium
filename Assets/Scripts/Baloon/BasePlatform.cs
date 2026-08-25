@@ -59,8 +59,8 @@ namespace Baloon
             landingWithEngineOn = false;
             pathCleared = false;
 
-            if (BoilerController.Instance.GasLeft > 0)
-                SaveManager.Instance.Save();
+            //if (BoilerController.Instance.GasLeft > 0)
+            SaveManager.Instance.Save();
         }
 
         private void OnTriggerEnter(Collider other)

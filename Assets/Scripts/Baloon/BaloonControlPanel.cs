@@ -14,7 +14,7 @@ namespace Baloon
 {
     public class BaloonControlPanel : MonoBehaviour
     {
-        public const float DragFov = 40f;
+        public const float DragFov = 50f;// 40f;
 
         public static UnityAction OnStarted;
         public static UnityAction OnStopped;
@@ -250,7 +250,11 @@ namespace Baloon
                 }
                 else
                 {
-                    // Button stuck
+                    // Launch
+                    // Get the launcher
+                    var launcher = FindObjectsByType<BaloonLauncherController>(FindObjectsSortMode.None).ToList().Find(l => l.Inside);
+                    launcher?.Launch();
+                    
                 }
                 
             }

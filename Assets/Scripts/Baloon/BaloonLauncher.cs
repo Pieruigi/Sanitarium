@@ -1,9 +1,11 @@
 using Baloon;
 using System;
+using System.Collections;
 using System.Linq;
 using TMM;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.WSA;
 
 //[System.Serializable]
 //public struct BaloonLauncherDirections
@@ -53,6 +55,7 @@ public class BaloonLauncher : MonoBehaviour
     public delegate void DirectionChangedDelegate(BaloonLauncher baloonLauncher);
     public static DirectionChangedDelegate OnDirectionChanged;
 
+   
 
     ///// <summary>
     ///// Path indices (-1 means no path).
@@ -78,8 +81,8 @@ public class BaloonLauncher : MonoBehaviour
     BaloonWaypoint waypoint;
     public BaloonWaypoint Waypoint => waypoint;
 
-    [SerializeField]
-    bool isDisabled = false;
+    //[SerializeField]
+    bool isDisabled = true;
 
     public bool IsDisabled => isDisabled;
     
@@ -87,7 +90,9 @@ public class BaloonLauncher : MonoBehaviour
     [SerializeField]
     BlooderController blooder;
 
+
     //int[] internalDirections;
+    BasePlatform basePlatform;
 
    
     private void Awake()
@@ -99,6 +104,8 @@ public class BaloonLauncher : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        basePlatform = transform.parent.GetComponentInChildren<BasePlatform>();
+
         
     }
 
@@ -119,6 +126,7 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathUnknown += HandleOnPathUnknown;
         BlooderController.OnSealed += HandleOnBlooderSealed;
         BlooderController.OnStarted += HandleOnBlooderStarted;
+        BasePlatform.OnLanding += HandleOnLanding;
     }
 
     private void OnDisable()
@@ -129,12 +137,29 @@ public class BaloonLauncher : MonoBehaviour
         BaloonPathManager.OnPathUnknown -= HandleOnPathUnknown;
         BlooderController.OnSealed -= HandleOnBlooderSealed;
         BlooderController.OnStarted -= HandleOnBlooderStarted;
+        BasePlatform.OnLanding -= HandleOnLanding;
+
+    }
+
+    private void HandleOnLanding(BasePlatform platform)
+    {
+        if (!CompareTag("Fuel")) return;
+        
+        Debug.Log("TEST - Base platform:" + BasePlatform.CurrentPlatform);
+        isDisabled = BasePlatform.CurrentPlatform != basePlatform;
+
+
+        
     }
 
     private void HandleOnBlooderStarted(BlooderController blooderController, bool isSealed)
     {
+        if (CompareTag("Fuel")) return;
+        
         if (blooder != blooderController) return;
+        
         isDisabled = !isSealed;
+        
     }
 
     private void HandleOnBlooderSealed(BlooderController blooderController)
@@ -247,5 +272,7 @@ public class BaloonLauncher : MonoBehaviour
         return directions.ToList().FindIndex(d => d.PathIndex >= 0);
         
     }
-   
+
+    
+
 }

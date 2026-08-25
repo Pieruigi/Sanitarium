@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMM;
 using UnityEngine;
 
@@ -20,9 +21,13 @@ namespace Baloon
         [SerializeField]
         AudioSource abortedAudioSource;
 
+        [SerializeField]
+        AudioSource mechanicalAudioSource;
+
         int direction = -1;
 
         bool inside = false;
+        public bool Inside => inside;
 
         bool launching = false;
 
@@ -80,19 +85,19 @@ namespace Baloon
                     break;
             }
             
-            if (launching)
-            {
-                launchElapsed += Time.deltaTime;
+            //if (launching)
+            //{
+            //    launchElapsed += Time.deltaTime;
 
-                //if(launchElapsed > launchTime)
-                //{
-                //    launched = true;
-                //}
-            }
-            else
-            {
-                launchElapsed = 0;
-            }
+            //    //if(launchElapsed > launchTime)
+            //    //{
+            //    //    launched = true;
+            //    //}
+            //}
+            //else
+            //{
+            //    launchElapsed = 0;
+            //}
 
         }
 
@@ -119,6 +124,30 @@ namespace Baloon
             inside = false;
             launching = false;
             launchElapsed = 0;
+        }
+
+        public void Launch()
+        {
+            if (!inside || launcher.IsDisabled || BaloonPathManager.Instance.HasPath() || !launching || launched) return;
+
+            
+            
+
+            StartCoroutine(DoLauch());
+
+            IEnumerator DoLauch()
+            {
+                //HandleOnPathSet();
+                launched = true;
+                buttonFx.Stop();
+                mechanicalAudioSource.Play();
+
+                launcher.SwitchDirection(launcher.GetFirstAvailableDirection());
+
+                yield return new WaitForSeconds(.25f);
+
+                launcher.SetPathFromCurrentDirection();
+            }
         }
     }
 }

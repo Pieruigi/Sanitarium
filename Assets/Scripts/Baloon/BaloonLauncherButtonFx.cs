@@ -16,6 +16,9 @@ namespace Baloon
 
         Sequence tween;
 
+        [SerializeField]
+        AudioSource furnaceAudioSource;
+
         private void Awake()
         {
             //enabled = false;
@@ -64,6 +67,10 @@ namespace Baloon
             });
             //tween.OnComplete(() => { Debug.Log("TEST - On Complete..."); });
             tween.Play();
+
+
+            // Audio
+            furnaceAudioSource.Play();
         }
 
         public void Stop()
@@ -74,6 +81,8 @@ namespace Baloon
 
             //lightController.MaterialPropertyBlock.SetColor(baseColorPropName, (Vector4)defaultColor);
             if(tween != null) tween.Kill();
+
+            furnaceAudioSource.Stop();
         }
     }
 }

@@ -67,19 +67,21 @@ namespace Baloon
 
         private void Awake()
         {
-            baloonLauncher = GetComponentInParent<BaloonLauncher>();
+            gameObject.SetActive(false);
 
-            if (!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
-            {
-                gameObject.SetActive(false);
-                return;
-            }
+            //baloonLauncher = GetComponentInParent<BaloonLauncher>();
 
-            yRootDefault = root.position.y;
-            yPivotDefault = pivot.localPosition.y;
-            rootPositionDefault = root.position;
+            //if (!GetComponentInParent<BaloonLauncher>().IsPathAvailable(panelIndex))
+            //{
+            //    gameObject.SetActive(false);
+            //    return;
+            //}
 
-            miniBalloon.SetActive(false);
+            //yRootDefault = root.position.y;
+            //yPivotDefault = pivot.localPosition.y;
+            //rootPositionDefault = root.position;
+
+            //miniBalloon.SetActive(false);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -175,8 +177,8 @@ namespace Baloon
         {
             activator.OnEnter += HandleOnEnter;
             activator.OnExit += HandleOnExit;
-            switchButton.OnPushed += HandleOnSwitchPushed;
-            launchButton.OnPushed += HandleOnLaunchPushed;
+            //switchButton.OnPushed += HandleOnSwitchPushed;
+            //launchButton.OnPushed += HandleOnLaunchPushed;
             BaloonPathManager.OnPathSet += HandleOnPathSet;
         }
 
@@ -184,8 +186,8 @@ namespace Baloon
         {
             activator.OnEnter -= HandleOnEnter;
             activator.OnExit -= HandleOnExit;
-            switchButton.OnPushed -= HandleOnSwitchPushed;
-            launchButton.OnPushed -= HandleOnLaunchPushed;
+            //switchButton.OnPushed -= HandleOnSwitchPushed;
+            //launchButton.OnPushed -= HandleOnLaunchPushed;
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
         }
 
