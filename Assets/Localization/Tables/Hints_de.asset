@@ -75,6 +75,10 @@ MonoBehaviour:
     m_Localized: Lande zum Auftanken <sprite="fuel2_32" index=0>
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Localized: Lande und schalte die Station <sprite="blooderF2_32" index=0> aus
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

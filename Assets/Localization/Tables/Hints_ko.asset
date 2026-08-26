@@ -80,6 +80,11 @@ MonoBehaviour:
       <sprite=\"fuel2_32\" index=0>"
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Localized: "\uCC29\uB959\uD558\uC5EC <sprite=\"blooderF2_32\" index=0> \uC815\uAC70\uC7A5\uC744
+      \uB044\uC138\uC694"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

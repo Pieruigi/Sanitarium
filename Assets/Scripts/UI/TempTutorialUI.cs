@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -13,10 +14,13 @@ namespace Baloon.UI
         [SerializeField]
         TMP_Text textField;
 
+        bool show = false;
+
        
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            show = false;
             textField.gameObject.SetActive(false);
         }
 
@@ -24,7 +28,11 @@ namespace Baloon.UI
         void Update()
         {
             if (StationReachedUI.Instance.IsVisible && textField.gameObject.activeSelf)
+            {
+                show = false;
                 textField.gameObject.SetActive(false);
+            }
+                
 
         }
 
@@ -43,12 +51,28 @@ namespace Baloon.UI
             
             if (interactor != this.interactor) return;
 
-            if (StationReachedUI.Instance.IsVisible) return;
+            if (StationReachedUI.Instance.IsVisible)
+            {
+                show = false;
+                textField.gameObject.SetActive(false);
+                return;
+            }
+            
+
+            show = interactable;
 
             if (interactable)
-                textField.gameObject.SetActive(true);
+                StartCoroutine(ShowDelayed());
             else 
                 textField.gameObject.SetActive(false);
+
+            IEnumerator ShowDelayed()
+            {
+                yield return new WaitForSeconds(.25f);
+
+                if(show)
+                    textField.gameObject.SetActive(true);
+            }
         }
     }
 }

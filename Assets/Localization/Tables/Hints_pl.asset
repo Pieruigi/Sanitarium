@@ -74,6 +74,11 @@ MonoBehaviour:
     m_Localized: "Wyl\u0105duj, aby zatankowa\u0107 <sprite=\"fuel2_32\" index=0>"
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Localized: "Wyl\u0105duj i wy\u0142\u0105cz stacj\u0119 <sprite=\"blooderF2_32\"
+      index=0>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

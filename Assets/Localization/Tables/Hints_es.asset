@@ -80,6 +80,10 @@ MonoBehaviour:
     m_Localized: Aterriza para repostar <sprite="fuel2_32" index=0>
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Localized: "Aterriza y apaga la estaci\xF3n <sprite=\"blooderF2_32\" index=0>"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

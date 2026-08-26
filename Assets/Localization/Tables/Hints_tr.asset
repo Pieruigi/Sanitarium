@@ -77,6 +77,11 @@ MonoBehaviour:
       index=0>"
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Localized: "\u0130ni\u015F yap ve <sprite=\"blooderF2_32\" index=0> istasyonunu
+      kapat"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

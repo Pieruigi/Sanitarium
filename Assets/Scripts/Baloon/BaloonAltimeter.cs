@@ -124,6 +124,7 @@ namespace Baloon
             landing = true;
 
             // Lights off
+            StopFlickering();
             SetLightOffAll();
             ResetAltitudeValueAll();
         }
