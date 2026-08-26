@@ -23,6 +23,8 @@ namespace Baloon.UI
         // Update is called once per frame
         void Update()
         {
+            if (StationReachedUI.Instance.IsVisible && textField.gameObject.activeSelf)
+                textField.gameObject.SetActive(false);
 
         }
 
@@ -41,7 +43,7 @@ namespace Baloon.UI
             
             if (interactor != this.interactor) return;
 
-            
+            if (StationReachedUI.Instance.IsVisible) return;
 
             if (interactable)
                 textField.gameObject.SetActive(true);

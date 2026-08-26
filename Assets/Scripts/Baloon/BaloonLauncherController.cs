@@ -15,12 +15,7 @@ namespace Baloon
         [SerializeField]
         ActivationTrigger activator;
 
-        [SerializeField]
-        AudioSource launchAudioSource;
-
-        [SerializeField]
-        AudioSource abortedAudioSource;
-
+        
         [SerializeField]
         AudioSource mechanicalAudioSource;
 
@@ -30,10 +25,6 @@ namespace Baloon
         public bool Inside => inside;
 
         bool launching = false;
-
-        float launchElapsed = 0;
-
-        float launchTime = 5f;
 
         bool launched = false;
 
@@ -63,11 +54,7 @@ namespace Baloon
                     if(!launching)
                     {
                         launching = true;
-                        launchElapsed = 0;
-                        // If aborted is playing stop it
-                        //if(abortedAudioSource.isPlaying) abortedAudioSource.Stop();
-                        // Play audio
-                        //launchAudioSource.Play();
+                    
                         buttonFx.Play();
                     }
                     break;
@@ -75,29 +62,12 @@ namespace Baloon
                     if (launching)
                     {
                         launching = false;
-                        launchElapsed = 0;
-                        // Stop launch audio
-                        //if(launchAudioSource.isPlaying) launchAudioSource.Stop();
-                        // Play aborted 
-                        //abortedAudioSource.Play();
                         buttonFx.Stop();
                     }
                     break;
             }
             
-            //if (launching)
-            //{
-            //    launchElapsed += Time.deltaTime;
-
-            //    //if(launchElapsed > launchTime)
-            //    //{
-            //    //    launched = true;
-            //    //}
-            //}
-            //else
-            //{
-            //    launchElapsed = 0;
-            //}
+          
 
         }
 
@@ -123,7 +93,7 @@ namespace Baloon
         {
             inside = false;
             launching = false;
-            launchElapsed = 0;
+           
         }
 
         public void Launch()
@@ -139,14 +109,16 @@ namespace Baloon
             {
                 //HandleOnPathSet();
                 launched = true;
-                buttonFx.Stop();
+                
                 mechanicalAudioSource.Play();
 
                 launcher.SwitchDirection(launcher.GetFirstAvailableDirection());
 
-                yield return new WaitForSeconds(.25f);
+                yield return new WaitForSeconds(.125f);
 
                 launcher.SetPathFromCurrentDirection();
+
+                buttonFx.Stop();
             }
         }
     }

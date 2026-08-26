@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,7 +23,11 @@ namespace Baloon
 
         int redIndex = 0, yellowIndex = 1, greenIndex = 2;
 
-      
+        List<Tween> tweens = new List<Tween>();
+
+        string baseColorPropName = "_BaseColor";
+
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -68,16 +73,29 @@ namespace Baloon
             if (landing) return;
 
             AltitudeRange currentRange = AltitudeManager.Instance.GetCurrentRange();
-            
+
+            var hasPath = BaloonPathManager.Instance.HasPath();
+
             switch (currentRange)
             {
                 case AltitudeRange.Red:
-                    SwitchLightDataAll(redIndex);
+                    if (hasPath)
+                    {
+                        StopFlickering();
+                        SwitchLightDataAll(redIndex);
+                    }
+                    else
+                    {
+                        SwitchLightDataAll(yellowIndex);
+                        StartFlickering();
+                    }
                     break;
                 case AltitudeRange.Yellow:
+                    StopFlickering();
                     SwitchLightDataAll(yellowIndex);
                     break;
                 case AltitudeRange.Green:
+                    StopFlickering();
                     SwitchLightDataAll(greenIndex);
                     break;
             }
@@ -165,6 +183,53 @@ namespace Baloon
             targetValue.text = "";
             currentValue.text = "";
             
+        }
+
+        void StartFlickering()
+        {
+            if (tweens.Count > 0) return;
+
+            
+            Vector4 defaultColor = lights[0].GetBaseColorByIndex(1);
+
+            tweens.Clear();
+
+            foreach(LightController light in lights)
+            {
+                var tween = DOTween.Sequence();
+
+                Vector4 startColor = defaultColor;
+
+                tween.Append(DOTween.To(() => startColor, x => startColor = x, defaultColor, .5f));
+                //tween.AppendCallback(() => { GetComponent<AudioSource>().Play(); });
+                //tween.AppendInterval(1f);
+                tween.Append(DOTween.To(() => startColor, x => startColor = x, defaultColor * .5f, .5f));
+                tween.SetLoops(-1, LoopType.Restart);
+                tween.OnUpdate(() =>
+                {
+
+                    light.ForceColor(startColor);
+                    //GetComponent<Renderer>().SetPropertyBlock(lightController.MaterialPropertyBlock);
+                }
+                );
+                tween.OnKill(() =>
+                {
+                    light.ForceColor((Vector4)defaultColor);
+                    //tweens.Remove(tween);
+                });
+                //tween.OnComplete(() => { Debug.Log("TEST - On Complete..."); });
+                tween.Play();
+                tweens.Add(tween);
+
+            }
+
+        }
+
+        void StopFlickering()
+        {
+            foreach (var t in tweens)
+                t.Kill();
+            tweens.Clear();
         }
     }
 }

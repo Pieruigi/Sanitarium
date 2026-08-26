@@ -91,6 +91,10 @@ MonoBehaviour:
     m_Localized: 'Atterra per fare rifornimento <sprite="fuel2_32" index=0> '
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Localized: Atterra e spegni la stazione <sprite="blooderF2_32" index=0>
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

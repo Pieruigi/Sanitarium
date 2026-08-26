@@ -1292,7 +1292,6 @@ MonoBehaviour:
     reversed: 0
   initialDirection: 0
   waypoint: {fileID: 0}
-  isDisabled: 0
   blooder: {fileID: 0}
 --- !u!1 &1651289559684889761
 GameObject:
@@ -5309,7 +5308,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 967476203333559762, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: eecac905de501e64cb1ea66fd5f73eaa, type: 3}
+  m_Resource: {fileID: 8300000, guid: 6e092fb0fb347fa4a9017af9f15ed97e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.211
   m_Pitch: 1

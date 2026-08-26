@@ -19,6 +19,21 @@ namespace Baloon
         [SerializeField]
         AudioSource furnaceAudioSource;
 
+        [SerializeField]
+        AudioSource readyAudioSource;
+
+        [SerializeField]
+        AudioSource abortedAudioSource;
+
+        [SerializeField]
+        BaloonSpeaker baloonSpeaker;
+
+        [SerializeField]
+        AudioClip readyAudioClip;
+
+        [SerializeField]
+        AudioClip abortedAudioClip;
+
         private void Awake()
         {
             //enabled = false;
@@ -71,6 +86,12 @@ namespace Baloon
 
             // Audio
             furnaceAudioSource.Play();
+            //readyAudioSource.Play();
+            //if (abortedAudioSource.isPlaying) abortedAudioSource.Stop();
+            //if (speakerAudioSource.isPlaying) speakerAudioSource.Stop();
+            //speakerAudioSource.clip = readyAudioClip;
+            //speakerAudioSource.Play();
+            baloonSpeaker.Play(readyAudioClip);
         }
 
         public void Stop()
@@ -83,6 +104,19 @@ namespace Baloon
             if(tween != null) tween.Kill();
 
             furnaceAudioSource.Stop();
+
+            //if (speakerAudioSource.isPlaying) speakerAudioSource.Stop();
+            if (!BaloonPathManager.Instance.HasPath())
+            {
+                //speakerAudioSource.clip = abortedAudioClip;
+                baloonSpeaker.Play(abortedAudioClip);
+            }
+            
+
+            //if (readyAudioSource.isPlaying) readyAudioSource.Stop();
+            
+            //if(!BaloonPathManager.Instance.HasPath())
+            //    abortedAudioSource.Play();
         }
     }
 }

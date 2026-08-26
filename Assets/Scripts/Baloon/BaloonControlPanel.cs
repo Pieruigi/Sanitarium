@@ -12,7 +12,7 @@ using UnityEngine.Events;
 
 namespace Baloon
 {
-    public class BaloonControlPanel : MonoBehaviour
+    public class BaloonControlPanel : Singleton<BaloonControlPanel>
     {
         public const float DragFov = 50f;// 40f;
 

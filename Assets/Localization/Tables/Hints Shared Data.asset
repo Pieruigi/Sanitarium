@@ -63,6 +63,10 @@ MonoBehaviour:
     m_Key: fuel_hint
     m_Metadata:
       m_Items: []
+  - m_Id: 6900102881861632
+    m_Key: shut_down_hint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

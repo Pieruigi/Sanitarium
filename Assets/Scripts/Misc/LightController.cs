@@ -426,5 +426,10 @@ namespace Baloon
             _renderer.SetPropertyBlock(mpb, materialIndex);
         }
 
+        public Vector4 GetBaseColorByIndex(int index)
+        {
+            return data[index].baseColor * data[index].colorIntensity;
+        }
+
     }
 }
