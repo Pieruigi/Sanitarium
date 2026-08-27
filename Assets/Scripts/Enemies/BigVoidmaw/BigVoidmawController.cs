@@ -1,4 +1,7 @@
+using DG.Tweening;
 using NUnit.Framework;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +18,9 @@ namespace Baloon
         [SerializeField]
         Vector3 offset = new Vector3(0, -2.53999996f, -0.519999981f);
 
+        [SerializeField]
+        Transform head;
+
         bool attached = false;
 
         string attachParam = "Attached";
@@ -24,6 +30,8 @@ namespace Baloon
         float lerpSpeed = 50;
 
         float snappedAngle;
+
+        GameObject player;
 
         private void Awake()
         {
@@ -37,7 +45,7 @@ namespace Baloon
             transform.position = pos;
             transform.rotation = rot;
 
-            var player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag("Player");
             var playerFwd = player.transform.forward;
             playerFwd.y = 0;
 
@@ -72,6 +80,8 @@ namespace Baloon
             {
                 anim.SetBool(attachParam, true);
             }
+
+          
         }
 
         // Update is called once per frame
@@ -85,7 +95,15 @@ namespace Baloon
             if (attached)
             {
                 Follow();
+                FollowHead();
             }
+        }
+
+        private void FollowHead()
+        {
+            var target = Camera.main;
+
+            head.LookAt(target.transform);
         }
 
         void Follow()
