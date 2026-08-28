@@ -101,6 +101,9 @@ namespace Baloon
 
             // Play loop
             goreAudioSource.PlayDelayed(.3f);
+
+            // Play jumpscare
+            CameraShake.Instance.PlayJumpscare();
         }
 
         // Update is called once per frame
