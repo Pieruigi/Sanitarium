@@ -40,6 +40,9 @@ namespace Baloon
         [SerializeField]
         AudioSource gruntOutAudioSource;
 
+        [SerializeField]
+        AudioSource metalOutAudioSource;
+
         BaloonControlPanel panel;
 
         FirstPersonController player;
@@ -183,6 +186,7 @@ namespace Baloon
             else
             {
                 gruntOutAudioSource.Play();
+                metalOutAudioSource.Play();
             }
 
 
