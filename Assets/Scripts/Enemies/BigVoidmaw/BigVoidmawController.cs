@@ -33,9 +33,11 @@ namespace Baloon
 
         GameObject player;
 
+        float dragDownSpeed = 2;
+
         private void Awake()
         {
-            balloon = GameObject.FindGameObjectWithTag("Baloon");
+            balloon = BaloonController.Instance.gameObject;// GameObject.FindGameObjectWithTag("Baloon");
             balloonRB = balloon.GetComponent<Rigidbody>();
 
             // Set initial position
@@ -96,7 +98,17 @@ namespace Baloon
             {
                 Follow();
                 FollowHead();
+
+                // Drag down
+                DragDown();
             }
+        }
+
+        private void DragDown()
+        {
+            var vel = dragDownSpeed * Time.deltaTime;
+            balloon.transform.Translate(Vector3.down * vel);
+            
         }
 
         private void FollowHead()

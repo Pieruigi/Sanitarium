@@ -37,6 +37,9 @@ namespace Baloon
         [SerializeField]
         AudioSource goreAudioSource;
 
+        [SerializeField]
+        AudioSource gruntOutAudioSource;
+
         BaloonControlPanel panel;
 
         FirstPersonController player;
@@ -93,7 +96,7 @@ namespace Baloon
             });
 
             // Sound
-            goreHitAudioSource.clip = goreHitAudioClips[Random.Range(0, goreHitAudioClips.Count)];
+            //goreHitAudioSource.clip = goreHitAudioClips[Random.Range(0, goreHitAudioClips.Count)];
             goreHitAudioSource.PlayDelayed(.1f);
 
             // Play loop
@@ -163,18 +166,26 @@ namespace Baloon
 
             CameraShake.Instance.PlayWrenchHit();
 
-            // Gore audio
-            hurtAudioSource.clip = hurtAudioClips[Random.Range(0, hurtAudioClips.Count)];
-            hurtAudioSource.Play();
-
-            // Play audio
-            hitAudioSource.clip = hitAudioClips[Random.Range(0, hitAudioClips.Count)];
-            hitAudioSource.Play();
-
             hitCount--;
             animator.SetTrigger("Hit");
             if (hitCount <= 0)
                 StartCoroutine(Flee());
+
+            // Gore audio
+            if(hitCount > 0)
+            {
+                hurtAudioSource.clip = hurtAudioClips[Random.Range(0, hurtAudioClips.Count)];
+                hurtAudioSource.Play();
+            }
+            else
+            {
+                gruntOutAudioSource.Play();
+            }
+
+
+            // Play audio
+            hitAudioSource.clip = hitAudioClips[Random.Range(0, hitAudioClips.Count)];
+            hitAudioSource.Play();
 
             IEnumerator Flee()
             {
