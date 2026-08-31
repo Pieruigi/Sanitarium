@@ -255,7 +255,7 @@ namespace Baloon
         public bool TryRefuel(float value)
         {
             if (gasLeft == 1) return false;
-
+            
             gasLeft += value;
             if (gasLeft > 1) gasLeft = 1; // Clamp
 

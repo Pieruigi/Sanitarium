@@ -81,7 +81,7 @@ public class BaloonLauncher : MonoBehaviour
     BaloonWaypoint waypoint;
     public BaloonWaypoint Waypoint => waypoint;
 
-    //[SerializeField]
+    [SerializeField]
     bool isDisabled = true;
 
     public bool IsDisabled => isDisabled;

@@ -20,7 +20,8 @@ namespace Baloon
         [SerializeField]
         AudioSource bubblesAudioSource;
 
-        float gasLevel = 0;
+        [SerializeField]
+        float gasLevel = .6f;
 
         bool open = false;
 
@@ -43,11 +44,11 @@ namespace Baloon
 
             var bubbles = false;            
             var boiler = BoilerController.Instance;
-            if (!boiler.IsFull())
+            if (!boiler.IsFull() && gasLevel > 0)
             {
                 if (boiler.TryRefuel(refuelRate * Time.deltaTime))
                 {
-                    UpdateGasLevel();
+                    UpdateGasLevel(refuelRate * Time.deltaTime);
                     bubbles = true;
                 }
                     
@@ -70,9 +71,12 @@ namespace Baloon
             tower.OnEnter -= HandleOnEnter;
         }
 
-        void UpdateGasLevel()
+        void UpdateGasLevel(float usedAmount)
         {
-            gasLevel = 1f - BoilerController.Instance.GasLeft;
+            //gasLevel = 1f - BoilerController.Instance.GasLeft;
+            gasLevel -= usedAmount;
+            if(gasLevel < 0)
+                gasLevel = 0;
 
             var l = Mathf.Lerp(bloodEmpty, bloodFull, gasLevel);
             var pos = blood.transform.localPosition;
@@ -82,7 +86,7 @@ namespace Baloon
 
         private void HandleOnEnter()
         {
-            UpdateGasLevel();
+            UpdateGasLevel(0);
         }
 
         private void HandleOnPushed()
