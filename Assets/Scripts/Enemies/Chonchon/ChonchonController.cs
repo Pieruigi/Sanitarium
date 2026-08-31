@@ -32,6 +32,9 @@ namespace Baloon
 
         Animator animator;
 
+        [SerializeField]
+        Transform attackPivot;
+
         
         
         private void Awake()
@@ -134,7 +137,28 @@ namespace Baloon
                 player.Doomed = true;
                 player.MoveDisabled = true;
 
-                //player.DisableAndLookForSeconds(transform.position, 10f);
+                player.DisableAndLookForSeconds(transform.position, 10f);
+                var camRoot = player.CinemachineCameraTarget;
+                
+                camRoot.transform.forward = -transform.forward;
+                camRoot.transform.position = transform.position + camRoot.transform.up * .25f - camRoot.transform.forward * 3;
+
+                camRoot.transform.parent = attackPivot;
+                camRoot.transform.localPosition = Vector3.zero;
+                camRoot.transform.localRotation = Quaternion.identity;
+
+                animator.speed = 0;
+
+                CameraShake.Instance.PlayJumpscare();
+
+                StartCoroutine(DieDelayed(1.5f));
+            }
+
+            IEnumerator DieDelayed(float delay)
+            {
+                yield return new WaitForSeconds(delay);
+
+                player.Die(PlayerDeadType.CreatureAttack);
             }
         }
 

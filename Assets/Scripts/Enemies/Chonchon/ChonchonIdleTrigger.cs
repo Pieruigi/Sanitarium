@@ -42,9 +42,9 @@ namespace Baloon
             if (!other.CompareTag("Player")) return;
 
             if (!isExit)
-                chonchon.SetIdleState();
+                chonchon?.SetIdleState();
             else
-                chonchon.SetExitState();
+                chonchon?.SetExitState();
 
         }
 
