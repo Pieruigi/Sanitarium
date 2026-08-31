@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 namespace Baloon
 {
@@ -57,6 +58,8 @@ namespace Baloon
 
         private void HandleOnBlooderSelead(BlooderController blooderController)
         {
+            if (blooder != blooderController) return;
+
             foreach (GameObject go in activateList)
                 go.SetActive(true);
             

@@ -3,6 +3,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
@@ -10,6 +11,10 @@ namespace Baloon
     {
         public delegate void SpawnedDelegate(ChonchonController chonchon);
         public static SpawnedDelegate OnSpawned;
+
+        public delegate void StunnedDelegate(bool stunned);
+        public static StunnedDelegate OnStunned;
+
         
         enum State { Idle, Enter, Chasing, Leaving, BringingPlayer, Exit, Stunned }
 
@@ -35,6 +40,9 @@ namespace Baloon
         [SerializeField]
         Transform attackPivot;
 
+        [SerializeField]
+        AudioSource roarAudioSource;
+
         
         
         private void Awake()
@@ -50,6 +58,8 @@ namespace Baloon
             // Set chasing state
             state = State.Enter;
             StartCoroutine(StartChasing());
+
+            //roarAudioSource.Play();
 
             OnSpawned?.Invoke(this);
 
@@ -151,6 +161,8 @@ namespace Baloon
 
                 CameraShake.Instance.PlayJumpscare();
 
+                AudioManager.Instance.PlayJumpscare();
+
                 StartCoroutine(DieDelayed(1.5f));
             }
 
@@ -208,7 +220,9 @@ namespace Baloon
 
             stunnedAudioSource.Play();
 
-            StartCoroutine(SetChasingStateDelayed(4.5f));
+            StartCoroutine(SetChasingStateDelayed(4f)); // 4.5f
+
+            OnStunned?.Invoke(true);
 
             IEnumerator SetChasingStateDelayed(float time)
             {
@@ -216,6 +230,8 @@ namespace Baloon
 
                 state = State.Chasing;
                 animator.SetBool("Stunned", false);
+
+                OnStunned?.Invoke(false);
             }
         }
     }
