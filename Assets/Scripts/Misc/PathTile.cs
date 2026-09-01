@@ -31,20 +31,7 @@ namespace Baloon
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                var rb = GetComponent<Rigidbody>();
-                rb.isKinematic = false;
-                rb.detectCollisions = false;
-                rb.useGravity = false;
-                //rb.AddForce(Random.insideUnitSphere * Random.Range(7, 10) * 3, ForceMode.VelocityChange);
-                //rb.AddTorque(Random.insideUnitSphere * Random.Range(0, 360) * 10);
-                //rb.AddTorque(transform.forward * 10f, ForceMode.VelocityChange);
-                transform.DORotate(Random.insideUnitSphere * 360, 5);
-                GetComponent<Collider>().enabled = false;
-            }
-#endif
+
         }
 
         void Shake()
@@ -65,13 +52,13 @@ namespace Baloon
             IEnumerator DoFall()
             {
                 yield return new WaitForSeconds(Random.Range(.2f, .35f));
+                DOTween.KillAll();
                 var rb = GetComponent<Rigidbody>();
                 rb.isKinematic = false;
                 rb.detectCollisions = false;
                 yield return null;
                 rb.AddForce(Random.insideUnitSphere * Random.Range(7, 10) * 3, ForceMode.VelocityChange);
-                //rb.AddTorque(Random.insideUnitSphere * Random.Range(0, 360) * 10);
-                rb.AddTorque(Vector3.up * 360);
+                rb.AddTorque(Random.insideUnitSphere * Random.Range(0, 360) * 2);
                 GetComponent<Collider>().enabled = false;   
             }
         }
