@@ -591,8 +591,9 @@ namespace StarterAssets
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
 				{
-					_verticalVelocity = -2f;
-				}
+                    _verticalVelocity = -2f;
+                    //_verticalVelocity = 0f;
+                }
 
 				// Jump
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
