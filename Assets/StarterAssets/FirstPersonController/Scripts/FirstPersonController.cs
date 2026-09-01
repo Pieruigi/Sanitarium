@@ -171,6 +171,10 @@ namespace StarterAssets
 
 			onBasketCollider.enabled = false;
 			bloodUI.SetActive(false);
+
+#if UNITY_EDITOR
+			transform.position = new Vector3(240, 30, 605);
+#endif
 		}
 
 		private void Start()
