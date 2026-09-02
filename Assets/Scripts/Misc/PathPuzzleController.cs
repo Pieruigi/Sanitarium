@@ -14,11 +14,18 @@ namespace Baloon
         [SerializeField]
         List<PathTile> tiles;
 
+        [SerializeField]
+        GameObject monsterPrefab;
+
         bool inside = false;
 
         GameObject player;
 
         bool collapsing = false;
+
+        GameObject monster;
+
+        bool dead = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -45,6 +52,24 @@ namespace Baloon
             }
         }
 
+        private void LateUpdate()
+        {
+            if (!monster || dead) return;
+
+            var pos = monster.transform.position;
+            pos.x = player.transform.position.x;
+            pos.z = player.transform.position.z;
+
+            monster.transform.position = pos;
+
+            if (Vector3.Distance(player.transform.position, monster.transform.position) < 1f)
+            {
+                dead = true;
+                player.GetComponent<FirstPersonController>().Die(PlayerDeadType.CreatureAttack);
+            }
+                
+        }
+
         private void CollapseAll()
         {
             if (collapsing) return;
@@ -61,13 +86,16 @@ namespace Baloon
 
             StartCoroutine(DoStopPlayer());
 
+            SpawnMonster();
+
             IEnumerator DoStopPlayer()
             {
+
                 FirstPersonController fpc = player.GetComponent<FirstPersonController>();
                 fpc.Gravity = 64f;
                 
                 //fpc.MoveDisabled = false;
-
+                fpc.Doomed = true;
                 
                 float time = 1f;
                 while (time > 0)
@@ -93,6 +121,14 @@ namespace Baloon
             if (!other.CompareTag("Player")) return;
 
             inside = false;
+        }
+
+        void SpawnMonster()
+        {
+            monster = Instantiate(monsterPrefab);
+            monster.transform.position = player.transform.position;
+            monster.transform.Translate(Vector3.down * 30f);
+            monster.transform.eulerAngles = Vector3.zero;
         }
     }
 }
