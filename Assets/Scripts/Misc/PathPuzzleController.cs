@@ -96,8 +96,10 @@ namespace Baloon
                 
                 //fpc.MoveDisabled = false;
                 fpc.Doomed = true;
-                
-                float time = 1f;
+
+                CameraShake.Instance.PlayJumpscare(.5f);
+
+                float time = .5f;
                 while (time > 0)
                 {
                     time -= Time.deltaTime;
@@ -105,6 +107,18 @@ namespace Baloon
                 }
 
                 fpc.Gravity = -600f;
+
+                yield return new WaitForSeconds(4f);
+
+                if (!dead)
+                {
+                    dead = true;
+                    player.GetComponent<FirstPersonController>().Die(PlayerDeadType.CreatureAttack);
+                }
+                
+                //fpc.GetComponent<CharacterController>().center = Vector3.up * 10000;
+                //fpc.GroundCheckDisabled = true;
+                //FindFirstObjectByType<Terrain>().GetComponent<TerrainCollider>().enabled = false;
             }
 
         }

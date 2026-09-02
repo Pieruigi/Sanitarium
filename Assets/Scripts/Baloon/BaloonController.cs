@@ -103,6 +103,10 @@ namespace Baloon
 #if DEMO
             //maxHorizontalSpeed = 3.5f * 1.4f;
 #endif
+
+#if UNITY_EDITOR
+            transform.position = new Vector3(240, 30, 605);
+#endif
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
