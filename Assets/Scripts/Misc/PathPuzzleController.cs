@@ -107,6 +107,7 @@ namespace Baloon
                 }
 
                 fpc.Gravity = -600f;
+                //fpc.MoveDisabled = true;
 
                 yield return new WaitForSeconds(4f);
 
