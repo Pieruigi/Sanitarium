@@ -17,6 +17,12 @@ namespace Baloon
         [SerializeField]
         GameObject monsterPrefab;
 
+        [SerializeField]
+        AudioSource rumblingAudioSource;
+
+        [SerializeField]
+        AudioSource fallingAudioSource;
+
         bool inside = false;
 
         GameObject player;
@@ -83,6 +89,9 @@ namespace Baloon
                 //rb.mass = 1f;
                 tile.Fall();
             }
+
+            rumblingAudioSource.Stop();
+            fallingAudioSource.Play();
 
             StartCoroutine(DoStopPlayer());
 
