@@ -76,12 +76,12 @@ namespace Baloon
                 switch (range)
                 {
                     case AltitudeRange.Green:
-                        if (Random.Range(0, 6) == 0) // 1/6 heavy wind
+                        if (Random.Range(0, 14) == 0) // new: 1/14; old: 1/6 heavy wind
                             heavy = true;
                         //ShakeLight();
                         break;
                     case AltitudeRange.Yellow:
-                        if(Random.Range(0, 3) == 0) // 1/3 heavy wind
+                        if(Random.Range(0, 7) == 0) // new: 1/7; old: 1/3 heavy wind
                             heavy = true;
                         
                         //CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
