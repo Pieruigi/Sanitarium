@@ -66,8 +66,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 828913306558464
-    m_Localized: "Llega a las estaciones de drenaje y ap\xE1galas.\r\n\r\nLlega a
-      las estaciones de reabastecimiento si es necesario."
+    m_Localized: "Tu objetivo principal.\r\n\r\nEstaci\xF3n de reabastecimiento."
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496

@@ -4,8 +4,8 @@ namespace Baloon.Demo
 {
     public class Demo_EndTrigger : MonoBehaviour
     {
-        [SerializeField]
-        BlooderController blooder1, blooder2;
+        //[SerializeField]
+        //BlooderController blooder1, blooder2;
 
         private void Awake()
         {
@@ -31,7 +31,7 @@ namespace Baloon.Demo
         {
             if (!other.CompareTag("Baloon")) return;
             
-            if (!blooder1.Sealed || !blooder2.Sealed) return;
+            //if (!blooder1.Sealed || !blooder2.Sealed) return;
 
             GameManager.Instance.DemoEnd = true;
 

@@ -75,10 +75,9 @@ namespace Baloon
             base.Awake();
 
 #if DEMO
-            //gasDepleteMaxSpeed = 0.0047f * 2.0f;// 1.4f;//0.00625f;
-            //gasDepleteMinSpeed = 0.00094f * 2.0f;// 1.4f;//0.00125f
-            gasDepleteMaxSpeed *= 1.2f;// 1.4f;//0.00625f;
-            gasDepleteMinSpeed *= 1.2f;// 1.4f;//0.00125f
+        
+            //gasDepleteMaxSpeed *= 1.2f;// 1.4f;//0.00625f;
+            //gasDepleteMinSpeed *= 1.2f;// 1.4f;//0.00125f
 
 #endif
 

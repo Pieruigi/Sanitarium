@@ -28,7 +28,7 @@ namespace Baloon
 
         FirstPersonController player;
 
-        float redTime = 10f;
+        float redTime = 13f;
         float redElapsed = 0;
 
         private void Awake()

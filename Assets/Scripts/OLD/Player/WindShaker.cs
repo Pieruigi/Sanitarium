@@ -76,7 +76,7 @@ namespace Baloon
                 switch (range)
                 {
                     case AltitudeRange.Green:
-                        if (Random.Range(0, 6) == 0) // 1/5 heavy wind
+                        if (Random.Range(0, 6) == 0) // 1/6 heavy wind
                             heavy = true;
                         //ShakeLight();
                         break;
@@ -195,7 +195,7 @@ namespace Baloon
             IEnumerator ApplyDamage()
             {
                 
-                if (Random.Range(0, 2) == 0) yield break; // 50% we take damage
+                if (Random.Range(0, 3) == 0) yield break; // 33% we take damage
 
                 
                 yield return new WaitForSeconds(.5f);

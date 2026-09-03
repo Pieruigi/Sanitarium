@@ -13795,7 +13795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonSpeakerController
   landAndShutDownClip: {fileID: 8300000, guid: ecd40a67e1a959746bdcb1cfac861605, type: 3}
   landAndRefuelClip: {fileID: 8300000, guid: 25248015ed4dd8e468116ab219413ffe, type: 3}
-  noFuelClip: {fileID: 8300000, guid: 4507cd156a5c1cd4c920cf4c5f0530a6, type: 3}
+  noFuelClip: {fileID: 8300000, guid: 5ae3cdf53037306428289de4180f7c78, type: 3}
 --- !u!1 &6398840402162803883
 GameObject:
   m_ObjectHideFlags: 0

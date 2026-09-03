@@ -197,7 +197,7 @@ namespace Baloon
 
             IEnumerator ApplyDamage(float duration)
             {
-                if (Random.Range(0, 10) < -3) yield break; // 70% we take damage
+                if (Random.Range(0, 10) < 3) yield break; // 70% we take damage
 
                 yield return new WaitForSeconds(duration * 1.5f);
 
@@ -205,7 +205,7 @@ namespace Baloon
                 {
                     CameraShake.Instance.PlayJumpscare(1f);
 
-                    if (Random.Range(0, 4) == 0) // 25% we take a second more damage
+                    if (Random.Range(0, 7) == 0) // 10% we take a second more damage
                     {
                         // Double damage
                         yield return new WaitForSeconds(1f);

@@ -72,11 +72,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 828913306558464
-    m_Localized: 'Reach the drainage stations and shut them down.
+    m_Localized: 'Your primary objective.
 
+      
 
-      Reach the
-      refueling stations if needed.'
+      Refuel station.'
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496

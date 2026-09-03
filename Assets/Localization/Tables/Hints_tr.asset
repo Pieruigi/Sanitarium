@@ -62,8 +62,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 828913306558464
-    m_Localized: "Tahliye istasyonlar\u0131na ula\u015F\u0131n ve onlar\u0131 kapat\u0131n.\r\n\r\nGerekirse
-      yak\u0131t ikmal istasyonlar\u0131na ula\u015F\u0131n."
+    m_Localized: "Ana hedefiniz.\r\n\r\nYak\u0131t istasyonu."
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496

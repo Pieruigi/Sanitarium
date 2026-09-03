@@ -59,8 +59,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 828913306558464
-    m_Localized: "Erreiche die Entw\xE4sserungsstationen und schalte sie aus.\r\n\r\nErreiche
-      bei Bedarf die Tankstationen."
+    m_Localized: 'Hauptziel.
+
+      
+
+      Tankstelle.'
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
