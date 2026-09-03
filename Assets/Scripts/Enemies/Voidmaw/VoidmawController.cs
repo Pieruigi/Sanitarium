@@ -1,3 +1,4 @@
+using Baloon.UI;
 using DG.Tweening;
 using StarterAssets;
 using System.Collections;
@@ -135,6 +136,7 @@ namespace Baloon
             Interactor.OnInteractionStarted += HandleOnInteractionStarted;
             Interactor.OnInteractionStopped += HandleOnInteractionStopped;
             RepairToolEventListener.OnHit += HandleOnHit;
+            Interactor.OnHint += HandleOnInteractorHint;
         }
 
         private void OnDisable()
@@ -142,6 +144,21 @@ namespace Baloon
             Interactor.OnInteractionStarted -= HandleOnInteractionStarted;
             Interactor.OnInteractionStopped -= HandleOnInteractionStopped;
             RepairToolEventListener.OnHit -= HandleOnHit;
+            Interactor.OnHint -= HandleOnInteractorHint;
+        }
+
+        private void HandleOnInteractorHint(Interactor interactor, bool interactable)
+        {
+            if (interactor != this.interactor) return;
+
+            if (interactable && grabbing)
+            {
+                FindFirstObjectByType<DotUI>().ShowHold();
+            }
+            else
+            {
+                FindFirstObjectByType<DotUI>().HideHold();
+            }
         }
 
         private void HandleOnHit()
