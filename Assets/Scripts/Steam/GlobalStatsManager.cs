@@ -121,9 +121,11 @@ namespace Baloon
             SteamStatsManager.Instance.DebugStat(demoCompletedStat);
             SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "D1");
             SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "B3");
-            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "A7");
+            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "A3");
+            SteamStatsManager.Instance.DebugStat(waypointReachedStatPrefix + "Z5");
             SteamStatsManager.Instance.DebugStat(blooderStatPrefix + "D1");
-            SteamStatsManager.Instance.DebugStat(blooderStatPrefix + "A7");
+            SteamStatsManager.Instance.DebugStat(blooderStatPrefix + "A3");
+            SteamStatsManager.Instance.DebugStat(blooderStatPrefix + "Z5");
         }
 
         void UpdateGlobalStatsLog(string statName)
