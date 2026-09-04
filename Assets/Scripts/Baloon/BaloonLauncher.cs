@@ -144,7 +144,7 @@ public class BaloonLauncher : MonoBehaviour
     {
         if (!CompareTag("Fuel")) return;
         
-        Debug.Log("TEST - Base platform:" + BasePlatform.CurrentPlatform);
+        //Debug.Log("TEST - Base platform:" + BasePlatform.CurrentPlatform);
         isDisabled = BasePlatform.CurrentPlatform != basePlatform;
 
 

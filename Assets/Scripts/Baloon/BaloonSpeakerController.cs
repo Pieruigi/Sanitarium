@@ -67,7 +67,7 @@ namespace Baloon
             }
             else
             {
-                Debug.Log("TEST - Land and refuel");
+                //Debug.Log("TEST - Land and refuel");
                 GetComponent<BaloonSpeaker>().Play(landAndRefuelClip);
             }
 

@@ -58,7 +58,7 @@ namespace Baloon
         //float hitTime = 1f;
         int hitCount = 3;
 
-     
+        bool isTarget = false;
 
         private void Awake()
         {
@@ -170,6 +170,8 @@ namespace Baloon
         {
             if (interactor != this.interactor || !grabbing || fleeing || !RepairToolController.Instance.Equipped) return;
 
+            isTarget = true;
+
             RepairToolController.Instance.StartRepairAnimation();
 
             //hitting = true;
@@ -179,13 +181,14 @@ namespace Baloon
         private void HandleOnInteractionStopped(Interactor interactor)
         {
             if (interactor != this.interactor) return;
+            isTarget = false;
             RepairToolController.Instance.StopRepairAnimation();
             //hitting = false;
         }
 
         void Hit()
         {
-            if (!grabbing || fleeing) return;
+            if (!grabbing || fleeing || !isTarget) return;
 
             CameraShake.Instance.PlayWrenchHit();
 
