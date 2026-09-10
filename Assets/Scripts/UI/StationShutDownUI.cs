@@ -45,6 +45,10 @@ namespace Baloon.UI
 
         private void HandleOnSealed(BlooderController blooderController)
         {
+#if UNITY_EDITOR
+            return;
+#endif 
+
             StartCoroutine(ShowText());
 
             IEnumerator ShowText()

@@ -48,7 +48,8 @@ namespace Baloon.UI
 
         private void HandleOnHint(Interactor interactor, bool interactable)
         {
-            
+
+
             if (interactor != this.interactor) return;
 
             if (StationReachedUI.Instance.IsVisible)

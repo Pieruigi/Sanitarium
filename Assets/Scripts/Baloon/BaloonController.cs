@@ -105,7 +105,7 @@ namespace Baloon
 #endif
 
 #if UNITY_EDITOR
-            transform.position = new Vector3(440, 20, 805);
+            transform.position = new Vector3(340, 10, 805);
             transform.eulerAngles = Vector3.up * 0;
 #endif
         }
