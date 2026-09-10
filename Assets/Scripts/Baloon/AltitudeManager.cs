@@ -54,7 +54,7 @@ namespace Baloon
             var currentAltitude = BaloonController.Instance.Altitude;
             var middleAltitude = (maxAltitude + minAltitude) / 2f;
             var range = (maxAltitude - minAltitude);
-            var greenAmount = range * .4f;
+            var greenAmount = range * .5f; // old: 0.4f
             var greenMax = middleAltitude + greenAmount / 2f;
             var greenMin = middleAltitude - greenAmount / 2f;
 
