@@ -163,6 +163,8 @@ namespace Baloon
 
         void ShakeLight()
         {
+            if (!running) return;
+
             CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
             //if(_testBalloonShaker)
             BaloonShaker.Instance.ShakeLight();
@@ -178,7 +180,7 @@ namespace Baloon
 
         void ShakeHeavy()
         {
-            
+            if (!running) return;
 
             CameraShake.Instance.PlayWindShakeStrong(() => { ResetShakeTime(); StartCoroutine(ApplyDamage()); }, ResetShakeTime);
             //if (_testBalloonShaker)
@@ -199,6 +201,8 @@ namespace Baloon
 
                 
                 yield return new WaitForSeconds(.5f);
+
+                if (!running) yield break;
 
                 if(BaloonBoilerHealth.Instance.TryTakeSingleDamage())
                     CameraShake.Instance.PlayJumpscare(1f);

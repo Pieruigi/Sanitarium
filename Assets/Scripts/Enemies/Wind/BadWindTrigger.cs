@@ -205,14 +205,14 @@ namespace Baloon
                 {
                     CameraShake.Instance.PlayJumpscare(1f);
 
-                    if (Random.Range(0, 7) == 0) // 10% we take a second more damage
-                    {
-                        // Double damage
-                        yield return new WaitForSeconds(1f);
+                    //if (Random.Range(0, 7) == 0) // 10% we take a second more damage
+                    //{
+                    //    // Double damage
+                    //    yield return new WaitForSeconds(1f);
 
-                        if(BaloonBoilerHealth.Instance.TryTakeSingleDamage())
-                            CameraShake.Instance.PlayJumpscare(1f);
-                    }
+                    //    if(BaloonBoilerHealth.Instance.TryTakeSingleDamage())
+                    //        CameraShake.Instance.PlayJumpscare(1f);
+                    //}
                 }
 
                 
