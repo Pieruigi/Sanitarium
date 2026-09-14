@@ -1,6 +1,5 @@
 using Baloon.UI;
-using System;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Baloon
@@ -9,6 +8,18 @@ namespace Baloon
 
     public class BigVoidmawTentacle : MonoBehaviour
     {
+        [SerializeField]
+        AudioSource hitAudioSource;
+
+        [SerializeField]
+        List<AudioClip> hitAudioClips;
+
+        [SerializeField]
+        AudioSource goreAudioSource;
+
+        [SerializeField]
+        List<AudioClip> goreAudioClips;
+
         Animator animator;
 
         bool hit = false;
@@ -45,6 +56,10 @@ namespace Baloon
                 {
                     hit = false;
                     animator.SetBool("Attached", true);
+
+                    // Play gore
+                    goreAudioSource.clip = goreAudioClips[Random.Range(0, goreAudioClips.Count)];
+                    goreAudioSource.Play();
                 }
             }
         }
@@ -80,6 +95,10 @@ namespace Baloon
             RepairToolController.Instance.StopRepairAnimation();
 
             bigController.ReportTentacleHit();
+
+            // Audio
+            hitAudioSource.clip = hitAudioClips[Random.Range(0, hitAudioClips.Count)];
+            hitAudioSource.Play();
 
         }
 

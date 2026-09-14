@@ -1,18 +1,19 @@
-using DG.Tweening;
-using NUnit.Framework;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Baloon
 {
     public class BigVoidmawController : MonoBehaviour
     {
 
-        //[SerializeField]
-        //List<Animator> tentacles;
+        [SerializeField]
+        AudioSource hitAudioSource;
+
+        [SerializeField]
+        List<AudioClip> hitAudioClips;
+
+        [SerializeField]
+        AudioSource releaseAudioSource;
 
         GameObject balloon;
 
@@ -134,11 +135,17 @@ namespace Baloon
 
         public void ReportTentacleHit()
         {
+            // Audio
+            hitAudioSource.clip = hitAudioClips[Random.Range(0, hitAudioClips.Count)];
+            hitAudioSource.Play();
+
             foreach (var t in tentacles)
                 if (t.IsAttached) return;
 
             attached = false;
             GetComponent<Rigidbody>().isKinematic = false;
+
+            releaseAudioSource.Play();
         }
 
         /// <summary>
@@ -151,6 +158,8 @@ namespace Baloon
 
             attached = false;
             GetComponent<Rigidbody>().isKinematic = false;
+
+            releaseAudioSource.Play();
         }
     }
 }
