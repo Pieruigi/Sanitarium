@@ -4,14 +4,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Baloon
 {
     public class BigVoidmawController : MonoBehaviour
     {
 
-        [SerializeField]
-        List<Animator> tentacles;
+        //[SerializeField]
+        //List<Animator> tentacles;
 
         GameObject balloon;
 
@@ -23,7 +24,7 @@ namespace Baloon
 
         bool attached = false;
 
-        string attachParam = "Attached";
+        //string attachParam = "Attached";
 
         Rigidbody balloonRB;
 
@@ -34,6 +35,9 @@ namespace Baloon
         GameObject player;
 
         float dragDownSpeed = 2;
+
+        [SerializeField]
+        List<BigVoidmawTentacle> tentacles;
 
         private void Awake()
         {
@@ -61,12 +65,12 @@ namespace Baloon
             transform.rotation = rot * Quaternion.Euler(0f, snappedAngle, 0f);
 
 
-            // Animation
-            foreach (var t in tentacles)
-            {
-                t.Play("Attack", 0, .7f);
+            //// Animation
+            //foreach (var t in tentacles)
+            //{
+            //    t.Play("Attack", 0, .7f);
                 
-            }
+            //}
 
             attached = true;
 
@@ -78,10 +82,10 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            foreach (Animator anim in tentacles)
-            {
-                anim.SetBool(attachParam, true);
-            }
+            //foreach (Animator anim in tentacles)
+            //{
+            //    anim.SetBool(attachParam, true);
+            //}
 
           
         }
@@ -91,6 +95,8 @@ namespace Baloon
         {
 
         }
+
+        
 
         private void LateUpdate()
         {
@@ -124,6 +130,27 @@ namespace Baloon
             var rot = balloon.transform.rotation * Quaternion.Euler(0f, snappedAngle, 0f); ;// * Quaternion.Euler(0f, 22.5f, 0f); 
             transform.position = Vector3.Lerp(transform.position, pos, lerpSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, rot, lerpSpeed * Time.deltaTime);   
+        }
+
+        public void ReportTentacleHit()
+        {
+            foreach (var t in tentacles)
+                if (t.IsAttached) return;
+
+            attached = false;
+            GetComponent<Rigidbody>().isKinematic = false;
+        }
+
+        /// <summary>
+        /// Call it if you want to force the creature to release the balloon (for example if you are too close to a station).
+        /// </summary>
+        public void ForceDetach()
+        {
+            foreach (var t in tentacles)
+                t.ForceDetach();
+
+            attached = false;
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 }

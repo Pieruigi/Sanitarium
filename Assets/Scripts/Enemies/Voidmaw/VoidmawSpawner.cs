@@ -27,10 +27,10 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    Instantiate(prefab);
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Instantiate(prefab);
+            }
 #endif
 
             if (!follow) return;

@@ -37,6 +37,8 @@ namespace Baloon
 
         }
 
+       
+
         public void ReportPickedUp()
         {
             equipped = true;
@@ -60,6 +62,6 @@ namespace Baloon
             animator.SetBool("Hit", false);
         }
 
-       
+        
     }
 }

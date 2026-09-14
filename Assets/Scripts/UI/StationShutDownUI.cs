@@ -46,7 +46,7 @@ namespace Baloon.UI
         private void HandleOnSealed(BlooderController blooderController)
         {
 #if UNITY_EDITOR
-            return;
+            //return;
 #endif 
 
             StartCoroutine(ShowText());

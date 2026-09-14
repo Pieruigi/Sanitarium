@@ -46,8 +46,8 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-                ProcessBottomLimit();
+            //if (Input.GetKeyDown(KeyCode.X))
+            //    ProcessBottomLimit();
 #endif
 
         }
