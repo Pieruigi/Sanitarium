@@ -42,9 +42,7 @@ namespace Baloon.UI
 
         private void HandleOnSave()
         {
-#if !UNITY_EDITOR
             group.DOFade(1, .5f).SetLoops(6, LoopType.Yoyo).onComplete += ()=> { group.alpha = 0; };
-#endif
         }
     }
 }

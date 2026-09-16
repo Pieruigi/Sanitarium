@@ -15,7 +15,7 @@ namespace Baloon
         /// 1.286 for 1.8 speed
         /// 1.429 for 2.0 speed
         /// </summary>
-        public const float SpeedMultiplier = 1.43f;
+        public const float SpeedMultiplier = 1.29f;
 
         [SerializeField]
         AudioSource landingAudioSource;
