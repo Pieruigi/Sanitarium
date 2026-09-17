@@ -83,8 +83,11 @@ public class BaloonLauncher : MonoBehaviour
     [SerializeField]
     bool isDisabled = true;
 
+#if UNITY_EDITOR
+    public bool IsDisabled => false;
+#else
     public bool IsDisabled => isDisabled;
-    
+#endif
 
     [SerializeField]
     BlooderController blooder;
@@ -98,6 +101,8 @@ public class BaloonLauncher : MonoBehaviour
     {
         //internalDirections = new int[] { (int)directions.x, (int)directions.y, (int)directions.z, (int)directions.w };
         currentDirection = initialDirection;
+
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

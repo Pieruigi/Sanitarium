@@ -1,3 +1,4 @@
+using Baloon.SaveSystem;
 using System;
 using UnityEngine;
 
@@ -31,10 +32,25 @@ namespace Baloon
         float bloodEmpty = -.205f;
         float bloodFull = 0f;
 
+        [SerializeField]
+        string saveId;
+
+        class Data
+        {
+            public float left;
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            // Load data
+            var rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData);
+                gasLevel = data.left;
+                UpdateGasLevel(0);
+            }
         }
 
         // Update is called once per frame
@@ -62,6 +78,7 @@ namespace Baloon
             lever.OnPushed += HandleOnPushed;
             lever.OnReleased += HandleOnRelease;
             tower.OnEnter += HandleOnEnter;
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
         }
 
         private void OnDisable()
@@ -69,6 +86,14 @@ namespace Baloon
             lever.OnPushed -= HandleOnPushed;
             lever.OnReleased -= HandleOnRelease;
             tower.OnEnter -= HandleOnEnter;
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();
+            data.left = gasLevel;
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         void UpdateGasLevel(float usedAmount)

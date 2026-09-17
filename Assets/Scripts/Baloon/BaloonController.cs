@@ -11,11 +11,11 @@ namespace Baloon
     public class BaloonController : Singleton<BaloonController>
     {
         /// <summary>
-        /// 1.0 for 1.4 speed
+        /// 1.0 for 1.4 speed (real speed: 4.9)
         /// 1.286 for 1.8 speed
-        /// 1.429 for 2.0 speed
+        /// 1.429 for 2.0 speed (real speed: 7)
         /// </summary>
-        public const float SpeedMultiplier = 1.29f;
+        public const float SpeedMultiplier = 1.00f;
 
         [SerializeField]
         AudioSource landingAudioSource;
