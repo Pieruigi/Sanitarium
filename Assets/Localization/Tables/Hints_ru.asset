@@ -98,6 +98,10 @@ MonoBehaviour:
       <sprite=\"blooderF2_32\" index=0>"
     m_Metadata:
       m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: "\u0421\u043B\u0435\u0434\u0443\u0439 \u0437\u0430 \u043A\u0440\u043E\u0432\u044C\u044E."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

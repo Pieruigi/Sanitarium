@@ -74,7 +74,7 @@ MonoBehaviour:
   - m_Id: 828913306558464
     m_Localized: 'Your primary objective.
 
-      
+
 
       Refuel station.'
     m_Metadata:
@@ -93,6 +93,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 6900102881861632
     m_Localized: Land and shut the station down <sprite="blooderF2_32" index=0>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: Follow the blood.
     m_Metadata:
       m_Items: []
   references:

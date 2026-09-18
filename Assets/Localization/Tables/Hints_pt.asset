@@ -89,6 +89,10 @@ MonoBehaviour:
     m_Localized: "Aterra e desliga a esta\xE7\xE3o <sprite=\"blooderF2_32\" index=0>"
     m_Metadata:
       m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: Segue o sangue.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

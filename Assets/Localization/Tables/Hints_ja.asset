@@ -78,6 +78,10 @@ MonoBehaviour:
       index=0> \u3092\u505C\u6B62\u3055\u305B\u3066\u304F\u3060\u3055\u3044"
     m_Metadata:
       m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: "\u8840\u3092\u8FFD\u3048"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

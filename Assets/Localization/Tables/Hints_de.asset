@@ -61,7 +61,7 @@ MonoBehaviour:
   - m_Id: 828913306558464
     m_Localized: 'Hauptziel.
 
-      
+
 
       Tankstelle.'
     m_Metadata:
@@ -80,6 +80,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 6900102881861632
     m_Localized: Lande und schalte die Station <sprite="blooderF2_32" index=0> aus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: Folge dem Blut.
     m_Metadata:
       m_Items: []
   references:

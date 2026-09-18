@@ -83,6 +83,10 @@ MonoBehaviour:
       \uB044\uC138\uC694"
     m_Metadata:
       m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: "\uD53C\uB97C \uCAD3\uC73C\uB77C"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

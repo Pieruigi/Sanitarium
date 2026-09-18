@@ -83,6 +83,10 @@ MonoBehaviour:
     m_Localized: "Aterriza y apaga la estaci\xF3n <sprite=\"blooderF2_32\" index=0>"
     m_Metadata:
       m_Items: []
+  - m_Id: 15329218106716160
+    m_Localized: Sigue la sangre.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

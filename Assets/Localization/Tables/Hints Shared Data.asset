@@ -67,6 +67,10 @@ MonoBehaviour:
     m_Key: shut_down_hint
     m_Metadata:
       m_Items: []
+  - m_Id: 15329218106716160
+    m_Key: follow_the_blood
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
