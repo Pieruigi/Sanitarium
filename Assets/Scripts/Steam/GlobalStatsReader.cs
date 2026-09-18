@@ -74,34 +74,40 @@ public class GlobalStatsReader : MonoBehaviour
             Debug.Log($"Reached D1: {c1}");
         }
 
+        if (SteamUserStats.GetGlobalStat("v2_log_sealed_D1", out long sc1))
+        {
+            Debug.Log($"Sealed D1: {sc1}");
+        }
+
         // Reading a double/float global stat
         if (SteamUserStats.GetGlobalStat("v2_log_reached_B3", out long d1))
         {
             Debug.Log($"Reached B3: {d1}");
         }
 
+        
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("v2_log_reached_B4", out long b4))
+        if (SteamUserStats.GetGlobalStat("v2_log_reached_A3", out long b3))
         {
-            Debug.Log($"Reached B4: {b4}");
+            Debug.Log($"Reached A3: {b3}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("v2_log_reached_A7", out long b3))
+        if (SteamUserStats.GetGlobalStat("v2_blooder_sealed_A3", out long a4))
         {
-            Debug.Log($"Reached A7: {b3}");
+            Debug.Log($"Sealed A3: {a4}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("v2_blooder_sealed_D1", out long a4))
+        if (SteamUserStats.GetGlobalStat("v2_log_reached_Z5", out long z5))
         {
-            Debug.Log($"Sealed D1: {a4}");
+            Debug.Log($"Reached Z5: {z5}");
         }
 
         // Reading a double/float global stat
-        if (SteamUserStats.GetGlobalStat("v2_blooder_sealed_A7", out long a3))
+        if (SteamUserStats.GetGlobalStat("v2_blooder_sealed_Z5", out long a3))
         {
-            Debug.Log($"Sealed A7: {a3}");
+            Debug.Log($"Sealed Z5: {a3}");
         }
 
       
