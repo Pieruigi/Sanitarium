@@ -10,8 +10,8 @@ namespace Baloon
 {
     public class WindLimit : MonoBehaviour
     {
-        [SerializeField]
-        bool topLimit = false; // Is top or bottom limit?
+        //[SerializeField]
+        //bool topLimit = false; // Is top or bottom limit?
 
 
 
@@ -60,9 +60,9 @@ namespace Baloon
 
 
             // Adjust altitude
-            AdjustAltitude();
+            //AdjustAltitude();
 
-            if (!topLimit) return; // We only need one of the trigger
+            //if (!topLimit) return; // We only need one of the trigger
             if (player.Doomed || processing) return;
             if (!BaloonHarbour.NotSafe)
             {
@@ -72,19 +72,22 @@ namespace Baloon
             var curRange = AltitudeManager.Instance.GetCurrentRange();
             if (curRange == AltitudeRange.Red)
             {
+               
                 redElapsed += Time.deltaTime;
-                if (redElapsed > redTime)
+                if (redElapsed > redTime || BaloonController.Instance.Altitude <= 0)
                 {
                     //if (!player.Doomed && !processing)
                     {
                         var middle = (AltitudeManager.Instance.MaxAltitude - AltitudeManager.Instance.MinAltitude) / 2f + AltitudeManager.Instance.MinAltitude;
-                        
 
-                        if (BaloonController.Instance.Altitude >  middle) ProcessBottomLimit();
+
+                        if (BaloonController.Instance.Altitude > middle) ProcessBottomLimit();
                         else ProcessBottomLimit();
                     }
-                    
+
                 }
+               
+                
             }
             else
             {
@@ -127,16 +130,16 @@ namespace Baloon
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Baloon")) return;
+            //if (!other.CompareTag("Baloon")) return;
 
-            inside = true;
+            //inside = true;
 
-            if (player.Doomed) return;
+            //if (player.Doomed) return;
 
-            if (processing) return;
+            //if (processing) return;
 
-            if (topLimit) ProcessBottomLimit();
-            else ProcessBottomLimit();
+            //if (topLimit) ProcessBottomLimit();
+            //else ProcessBottomLimit();
         }
 
         private void OnTriggerExit(Collider other)
@@ -194,25 +197,25 @@ namespace Baloon
             }
         }
 
-        void AdjustAltitude()
-        {
-            var min = AltitudeManager.Instance.MinAltitude;
-            var max = AltitudeManager.Instance.MaxAltitude;
+        //void AdjustAltitude()
+        //{
+        //    var min = AltitudeManager.Instance.MinAltitude;
+        //    var max = AltitudeManager.Instance.MaxAltitude;
 
-            float y = 0;
-            if (topLimit)
-            {
-                y = max + (max - min) + offset;
-            }
-            else
-            {
-                y = min - (max - min) - offset;
-            }
+        //    float y = 0;
+        //    if (topLimit)
+        //    {
+        //        y = max + (max - min) + offset;
+        //    }
+        //    else
+        //    {
+        //        y = min - (max - min) - offset;
+        //    }
 
-            var pos = transform.position;
-            pos.y = y;
-            transform.position = pos;
+        //    var pos = transform.position;
+        //    pos.y = y;
+        //    transform.position = pos;
                 
-        }
+        //}
     }
 }
