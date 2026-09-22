@@ -13,7 +13,7 @@ namespace Baloon
         public delegate void RepairedDelegate(float oldHealth, float newHealth);
         public static RepairedDelegate OnRepaired;
 
-        public static readonly float DamageStep = .2f;// .4f;
+        public static readonly float DamageStep = .3f;// .4f;
 
         [SerializeField]
         [Range(0f,1f)]
