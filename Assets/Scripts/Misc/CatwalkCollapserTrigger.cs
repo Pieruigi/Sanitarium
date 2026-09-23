@@ -1,5 +1,6 @@
 using Baloon;
 using Baloon.SaveSystem;
+using System.Collections;
 using UnityEngine;
 
 public class CatwalkCollapserTrigger : MonoBehaviour
@@ -16,6 +17,9 @@ public class CatwalkCollapserTrigger : MonoBehaviour
     [SerializeField]
     CatwalkCollapser collapser;
 
+    //[SerializeField]
+    AudioSource moaningAudioSource;
+
     Collider _collider;
 
     class Data
@@ -25,6 +29,7 @@ public class CatwalkCollapserTrigger : MonoBehaviour
 
     private void Awake()
     {
+        moaningAudioSource = GetComponent<AudioSource>();
         _collider = GetComponent<Collider>();
         if(!enableOnStart)
             _collider.enabled = false;
@@ -80,6 +85,13 @@ public class CatwalkCollapserTrigger : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         
         _collider.enabled = false;
+        moaningAudioSource.Play();
+        StartCoroutine(PlayCollapserDelayed(1.5f));
+    }
+
+    IEnumerator PlayCollapserDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         collapser.Play();
     }
 }

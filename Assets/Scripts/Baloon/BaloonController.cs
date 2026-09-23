@@ -12,10 +12,11 @@ namespace Baloon
     {
         /// <summary>
         /// 1.0 for 1.4 speed (real speed: 4.9)
+        /// 1.215 (5.95)
         /// 1.286 for 1.8 speed
         /// 1.429 for 2.0 speed (real speed: 7)
         /// </summary>
-        public const float SpeedMultiplier = 1.00f;
+        public const float SpeedMultiplier = 1.0f;
 
         [SerializeField]
         AudioSource landingAudioSource;
@@ -105,7 +106,7 @@ namespace Baloon
 #endif
 
 #if UNITY_EDITOR
-            //transform.position = new Vector3(840, 55, 405);
+            transform.position = new Vector3(640, 50, 305);
             //transform.eulerAngles = Vector3.up * 0;
 #endif
         }
@@ -329,7 +330,7 @@ namespace Baloon
             currentVelocity.x = horizontalVelocity.x;
             currentVelocity.z = horizontalVelocity.z;
 
-            //Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
+            Debug.Log($"TEST - Current speed:{new Vector2(currentVelocity.x, currentVelocity.z).magnitude}");
            
             // 5. Update Transform position (p = v * dt)
             //transform.position += new Vector3(currentVelocity.x, 0f, currentVelocity.z) * Time.deltaTime;

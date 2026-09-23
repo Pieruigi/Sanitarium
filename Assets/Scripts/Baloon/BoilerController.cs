@@ -204,7 +204,7 @@ namespace Baloon
 
         void AdjustPowerByHealth(float health)
         {
-            maxPower = Mathf.Lerp(.4f, 1f, health);
+            maxPower = Mathf.Lerp(.65f, 1f, health);
         }
 
         private void HandleOnPanelControlStarted()
