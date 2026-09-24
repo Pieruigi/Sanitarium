@@ -173,7 +173,7 @@ namespace StarterAssets
 			bloodUI.SetActive(false);
 
 #if UNITY_EDITOR
-			//transform.position = new Vector3(590.984009f, 53.8160019f, 302.673004f);
+			transform.position = new Vector3(840, 50, 405);
 #endif
         }
 
