@@ -27,6 +27,9 @@ namespace Baloon
         float defaultY;
         float pushY;
 
+        [SerializeField]
+        bool stayPushed = false;
+
 
         
         protected virtual void Awake()
@@ -53,6 +56,7 @@ namespace Baloon
         {
             if (this.interactor != interactor) return;
 
+            if (stayPushed) return;
             
 
             transform.DOKill();
@@ -75,6 +79,11 @@ namespace Baloon
             OnPushed?.Invoke();
         }
 
-       
+        public void ForcePushed()
+        {
+            var p = transform.localPosition;
+            p.y -= yOffset;
+            transform.localPosition = p;
+        }
     }
 }
