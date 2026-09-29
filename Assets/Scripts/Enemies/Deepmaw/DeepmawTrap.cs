@@ -57,7 +57,8 @@ namespace Baloon
 
                 // Set creature animation
                 var animator = deepmaw.GetComponentInChildren<Animator>();
-                animator.SetTrigger("Attack");
+                animator.Play("Attack", 0, 1);
+                //animator.SetTrigger("Attack");
 
                 // Set the creature as camera child
                 deepmaw.transform.parent = Camera.main.transform;
@@ -66,7 +67,7 @@ namespace Baloon
                 var targetPos = new Vector3(0.0469999984f, -0.0839999989f, 0.954999983f);//  Vector3.zero;
                 var targetRot = Vector3.up * 180;
 
-                float duration = .1f;
+                //float duration = .1f;
                 deepmaw.transform.localPosition = targetPos;
                 deepmaw.transform.localEulerAngles = targetRot;
                 //deepmaw.transform.DOLocalMove(targetPos, duration);
