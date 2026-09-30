@@ -18,6 +18,9 @@ namespace Baloon
         Collider _collider;
 
         [SerializeField]
+        AudioSource switchAudioSource;
+
+        [SerializeField]
         AudioSource explosionAudioSource;
 
         bool pushed = false;
@@ -90,6 +93,7 @@ namespace Baloon
 
             IEnumerator DoExplosion()
             {
+                switchAudioSource.Play();
 
                 yield return new WaitForSeconds(.5f);
                 CameraShake.Instance.PlayBlooderScream();
