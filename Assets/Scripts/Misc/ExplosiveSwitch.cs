@@ -1,5 +1,6 @@
 using Baloon.SaveSystem;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Baloon
@@ -15,6 +16,9 @@ namespace Baloon
 
         [SerializeField]
         Collider _collider;
+
+        [SerializeField]
+        AudioSource explosionAudioSource;
 
         bool pushed = false;
 
@@ -81,6 +85,16 @@ namespace Baloon
             _collider.enabled = false;
 
             rockGroup.SetActive(false);
+
+            StartCoroutine(DoExplosion());
+
+            IEnumerator DoExplosion()
+            {
+
+                yield return new WaitForSeconds(.5f);
+                CameraShake.Instance.PlayBlooderScream();
+                explosionAudioSource.Play();
+            }
         }
     }
 }
