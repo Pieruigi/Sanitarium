@@ -1,5 +1,7 @@
+using Cinemachine;
 using NUnit.Framework;
 using StarterAssets;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +16,9 @@ namespace Baloon
 
         [SerializeField]
         Animator animator;
+
+        [SerializeField]
+        Transform cameraTarget;
 
         /// <summary>
         /// 0: idle
@@ -133,7 +138,7 @@ namespace Baloon
         {
             var dist = Vector3.Distance(player.transform.position, transform.position);
             
-            return dist < 2f;
+            return dist < 5f;
 
         }
 
@@ -142,6 +147,43 @@ namespace Baloon
             agent.ResetPath();
             agent.isStopped = true;
             state = 2;
+
+            StartCoroutine(DoKill());
+
+            IEnumerator DoKill()
+            {
+                player.Doomed = true;
+                player.JawDisabled = true;
+                player.PitchDisabled = true;
+                player.MoveDisabled = true;
+
+                // Disable flashlight
+                Flashlight.Instance.gameObject.SetActive(false);
+
+                //animator.Play("Attack", 0, 1);
+                animator.SetTrigger("Attack");
+
+                // Set camera parent
+                //Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+                player.CinemachineCameraTarget.transform.parent = cameraTarget;
+                player.CinemachineCameraTarget.transform.localPosition = Vector3.zero;
+                player.CinemachineCameraTarget.transform.localRotation = Quaternion.identity;
+
+                // Jumpscare
+                CameraShake.Instance.PlayJumpscare(1.5f);
+
+                // Play jumspcare audio
+                AudioManager.Instance.PlayJumpscare();
+
+                // Play gore delayed
+                //goreAudioSource.PlayDelayed(1.5f);
+
+                yield return new WaitForSeconds(1.5f);
+
+                player.Die(PlayerDeadType.CreatureAttack);
+
+                yield break;
+            }
         }
     }
 }
