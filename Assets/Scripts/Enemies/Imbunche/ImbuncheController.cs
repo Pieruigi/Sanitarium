@@ -20,6 +20,9 @@ namespace Baloon
         [SerializeField]
         Transform cameraTarget;
 
+        [SerializeField]
+        AudioSource goreAudioSource;
+
         /// <summary>
         /// 0: idle
         /// 1: walk
@@ -176,7 +179,7 @@ namespace Baloon
                 AudioManager.Instance.PlayJumpscare();
 
                 // Play gore delayed
-                //goreAudioSource.PlayDelayed(1.5f);
+                goreAudioSource.PlayDelayed(1.5f);
 
                 yield return new WaitForSeconds(1.5f);
 
