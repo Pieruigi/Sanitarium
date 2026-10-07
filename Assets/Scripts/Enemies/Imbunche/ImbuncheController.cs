@@ -1,6 +1,8 @@
+using Baloon.SaveSystem;
 using Cinemachine;
 using NUnit.Framework;
 using StarterAssets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +44,13 @@ namespace Baloon
 
         FirstPersonController player;
 
+        string saveId = "imbunche";
+
+        class Data
+        {
+            public bool activated;
+        }
+
         private void Awake()
         {
             currentIdleTime = GetNewIdleTime();
@@ -50,7 +59,8 @@ namespace Baloon
             //patrolIndex = 0;
             //transform.position = patrolPoints[patrolIndex].position;
             //transform.rotation = patrolPoints[patrolIndex].rotation;
-            gameObject.SetActive(false);
+            SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+            Debug.Log("TEST - Imbunche awakened");
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -63,6 +73,18 @@ namespace Baloon
             //agent.SetDestination(patrolPoints[patrolIndex].position);
             //// Set animation
             //animator.SetTrigger("Walk");
+            // Save data
+            string rawData = SaveManager.Instance.GetRawJsonData(saveId);
+            var activated = false;
+            if (!string.IsNullOrEmpty(rawData))
+            {
+                var data = JsonUtility.FromJson<Data>(rawData);
+                activated = data.activated;
+                Debug.Log("TEST - Imbunche data:" + activated);
+            }
+
+            
+            gameObject.SetActive(activated);
         }
 
         // Update is called once per frame
@@ -91,6 +113,19 @@ namespace Baloon
             agent.SetDestination(patrolPoints[patrolIndex].position);
             // Set animation
             animator.SetTrigger("Walk");
+        }
+
+        private void OnDestroy()
+        {
+            SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+        }
+
+        private void HandleOnUpdateDataEntry()
+        {
+            var data = new Data();
+            data.activated = gameObject.activeSelf;
+            Debug.Log("TEST - Imbunche save:" + data.activated);
+            SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
         private void UpdateAttackState()
