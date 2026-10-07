@@ -39,6 +39,7 @@ namespace Baloon
 
         int patrolIndex = 0;
 
+
         FirstPersonController player;
 
         private void Awake()
@@ -46,15 +47,22 @@ namespace Baloon
             currentIdleTime = GetNewIdleTime();
             elapsed = 0;
             agent = GetComponent<NavMeshAgent>();
-            patrolIndex = 0;
-            transform.position = patrolPoints[patrolIndex].position;
-            transform.rotation = patrolPoints[patrolIndex].rotation;
+            //patrolIndex = 0;
+            //transform.position = patrolPoints[patrolIndex].position;
+            //transform.rotation = patrolPoints[patrolIndex].rotation;
+            gameObject.SetActive(false);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             player = FindFirstObjectByType<FirstPersonController>();
+
+            //state = 1;
+
+            //agent.SetDestination(patrolPoints[patrolIndex].position);
+            //// Set animation
+            //animator.SetTrigger("Walk");
         }
 
         // Update is called once per frame
@@ -73,6 +81,16 @@ namespace Baloon
                     break;
 
             }
+        }
+
+        private void OnEnable()
+        {
+            
+            state = 1;
+
+            agent.SetDestination(patrolPoints[patrolIndex].position);
+            // Set animation
+            animator.SetTrigger("Walk");
         }
 
         private void UpdateAttackState()
@@ -188,6 +206,11 @@ namespace Baloon
 
                 yield break;
             }
+        }
+
+        public void SetPatroPoint(int index)
+        {
+            patrolIndex = index;
         }
     }
 }
