@@ -30,7 +30,7 @@ namespace Baloon
         /// </summary>
         int state = 0;
 
-        float idleTime = 3f;
+        float idleTime = 1f;
         float currentIdleTime;
 
         float elapsed = 0;
@@ -134,7 +134,8 @@ namespace Baloon
 
         float GetNewIdleTime()
         {
-            return Random.Range(idleTime * .9f, idleTime * 1.1f);
+            //return Random.Range(idleTime * .9f, idleTime * 1.1f);
+            return idleTime;
         }
 
         bool CheckPlayerDistance()
