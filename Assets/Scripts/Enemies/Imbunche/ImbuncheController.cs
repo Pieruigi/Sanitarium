@@ -25,6 +25,9 @@ namespace Baloon
         [SerializeField]
         AudioSource goreAudioSource;
 
+        [SerializeField]
+        AudioSource footstepsAudioSource;
+
         /// <summary>
         /// 0: idle
         /// 1: walk
@@ -113,6 +116,9 @@ namespace Baloon
             agent.SetDestination(patrolPoints[patrolIndex].position);
             // Set animation
             animator.SetTrigger("Walk");
+
+            // Play audio
+            footstepsAudioSource.Play();
         }
 
         private void OnDestroy()
@@ -158,6 +164,9 @@ namespace Baloon
                 // Change state
                 state = 0;
 
+                // Stop audio
+                footstepsAudioSource.Stop();
+
             }
         }
 
@@ -183,6 +192,9 @@ namespace Baloon
 
             // Change state
             state = 1;
+
+            // Play audio
+            footstepsAudioSource.Play();
         }
 
         float GetNewIdleTime()
@@ -219,6 +231,9 @@ namespace Baloon
 
                 //animator.Play("Attack", 0, 1);
                 animator.SetTrigger("Attack");
+
+                // Stop audio
+                footstepsAudioSource.Stop();
 
                 // Set camera parent
                 //Camera.main.GetComponent<CinemachineBrain>().enabled = false;
