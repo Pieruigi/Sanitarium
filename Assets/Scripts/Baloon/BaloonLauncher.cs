@@ -84,7 +84,7 @@ public class BaloonLauncher : MonoBehaviour
     bool isDisabled = true;
 
 #if UNITY_EDITOR
-    public bool IsDisabled => false;
+    public bool IsDisabled => isDisabled;
 #else
     public bool IsDisabled => isDisabled;
 #endif

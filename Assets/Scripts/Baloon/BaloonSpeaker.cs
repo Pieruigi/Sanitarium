@@ -7,7 +7,9 @@ namespace Baloon
     {
         AudioSource audioSource;
 
-        float volumeDefault = 1.0f;
+        float volumeDefault;
+
+        public float VolumeDefault => volumeDefault;
 
         private void Awake()
         {

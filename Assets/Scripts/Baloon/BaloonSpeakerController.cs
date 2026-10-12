@@ -15,6 +15,14 @@ namespace Baloon
         [SerializeField]
         AudioClip noFuelClip;
 
+        [SerializeField]
+        AudioClip gainAltitudeClip;
+
+        [SerializeField]
+        AudioClip reduceAltitudeClip;
+
+        float warningTime = 5f;
+        float warningElapsed = 0;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -28,12 +36,37 @@ namespace Baloon
 
         }
 
+        private void LateUpdate()
+        {
+            if (BaloonPathManager.Instance.HasPath())
+            {
+                if(AltitudeManager.Instance.GetCurrentRange() == AltitudeRange.Red)
+                {
+                    warningElapsed += Time.deltaTime;
+                    if(warningElapsed > warningTime)
+                    {
+                        warningElapsed -= warningTime;
+                        var altitude = BaloonController.Instance.Altitude;
+                        AudioClip clip = gainAltitudeClip;
+                        if (altitude > AltitudeManager.Instance.MaxAltitude)
+                            clip = reduceAltitudeClip;
+                        PlayAltitudeWarning(clip);
+                    }
+                }
+                else
+                {
+                    warningElapsed = 0;
+                }
+            }
+            
+        }
+
         private void OnEnable()
         {
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
             BaloonControlPanel.OnStarted += HandleOnStarted;
             BoilerController.OnGasDepleted += HandleOnGasDepleted;
-            
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
         }
 
         private void OnDisable()
@@ -41,6 +74,12 @@ namespace Baloon
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
             BaloonControlPanel.OnStarted -= HandleOnStarted;
             BoilerController.OnGasDepleted -= HandleOnGasDepleted;
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        }
+
+        private void HandleOnPathSet()
+        {
+            warningElapsed = 0;
         }
 
         private void HandleOnGasDepleted()
@@ -61,14 +100,20 @@ namespace Baloon
             // Get the current launcher
             var launcher = FindObjectsByType<BaloonLauncherController>(FindObjectsSortMode.None).ToList().Find(l => l.Inside);
 
+            // Get the speaker
+            var speaker = GetComponent<BaloonSpeaker>();
+
+            // If it's playing (altitude warning for example) then stop it 
+            if (speaker.IsPlaying()) speaker.Stop();
+
             if (!launcher.GetComponentInParent<BaloonLauncher>().CompareTag("Fuel"))
             {
-                GetComponent<BaloonSpeaker>().Play(landAndShutDownClip);
+                speaker.Play(landAndShutDownClip);
             }
             else
             {
                 //Debug.Log("TEST - Land and refuel");
-                GetComponent<BaloonSpeaker>().Play(landAndRefuelClip);
+                speaker.Play(landAndRefuelClip);
             }
 
         }
@@ -77,6 +122,12 @@ namespace Baloon
         {
             var speaker = GetComponent<BaloonSpeaker>();
             if (!speaker.IsPlaying()) speaker.Play(noFuelClip);
+        }
+
+        void PlayAltitudeWarning(AudioClip clip)
+        {
+            var speaker = GetComponent<BaloonSpeaker>();
+            if (!speaker.IsPlaying()) speaker.Play(clip, speaker.VolumeDefault * 2f);
         }
     }
 }

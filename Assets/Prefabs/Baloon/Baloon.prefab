@@ -13773,11 +13773,11 @@ AudioSource:
   m_GameObject: {fileID: 6359521309032163085}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 967476203333559762, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
+  OutputAudioMixerGroup: {fileID: -6066503320276925646, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 6e092fb0fb347fa4a9017af9f15ed97e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.247
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -13888,6 +13888,8 @@ MonoBehaviour:
   landAndShutDownClip: {fileID: 8300000, guid: ecd40a67e1a959746bdcb1cfac861605, type: 3}
   landAndRefuelClip: {fileID: 8300000, guid: 25248015ed4dd8e468116ab219413ffe, type: 3}
   noFuelClip: {fileID: 8300000, guid: 5ae3cdf53037306428289de4180f7c78, type: 3}
+  gainAltitudeClip: {fileID: 8300000, guid: fd8de9896dd1e6c498a9965c329727ec, type: 3}
+  reduceAltitudeClip: {fileID: 8300000, guid: 25913059b6a8c034fa514ffb185078a9, type: 3}
 --- !u!1 &6398840402162803883
 GameObject:
   m_ObjectHideFlags: 0
