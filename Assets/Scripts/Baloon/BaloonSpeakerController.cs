@@ -1,11 +1,15 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
     public class BaloonSpeakerController : MonoBehaviour
     {
+        public delegate void AltitudeAlertDelegate(bool tooLow);
+        public static AltitudeAlertDelegate OnAltitudeAlert;
+
         [SerializeField]
         AudioClip landAndShutDownClip;
 
@@ -51,6 +55,8 @@ namespace Baloon
                         if (altitude > AltitudeManager.Instance.MaxAltitude)
                             clip = reduceAltitudeClip;
                         PlayAltitudeWarning(clip);
+
+                        OnAltitudeAlert?.Invoke(clip == gainAltitudeClip);
                     }
                 }
                 else

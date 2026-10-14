@@ -13889,7 +13889,7 @@ MonoBehaviour:
   landAndRefuelClip: {fileID: 8300000, guid: 25248015ed4dd8e468116ab219413ffe, type: 3}
   noFuelClip: {fileID: 8300000, guid: 5ae3cdf53037306428289de4180f7c78, type: 3}
   gainAltitudeClip: {fileID: 8300000, guid: fd8de9896dd1e6c498a9965c329727ec, type: 3}
-  reduceAltitudeClip: {fileID: 8300000, guid: 25913059b6a8c034fa514ffb185078a9, type: 3}
+  reduceAltitudeClip: {fileID: 8300000, guid: a3b8ce971fc207445941f24724963e8c, type: 3}
 --- !u!1 &6398840402162803883
 GameObject:
   m_ObjectHideFlags: 0
@@ -15759,7 +15759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2034532113345608237
 Transform:
   m_ObjectHideFlags: 0

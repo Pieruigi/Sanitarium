@@ -67,23 +67,38 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
-    m_Localized: 'Station abgeschlossen <sprite="blooderE2_32" index=0>
+    m_Localized: 'Station abgeschlossen
 
-      Verbleibend:
-      {left} x <sprite="blooderF2_32" index=0>'
+      Verbleibend: {left}'
     m_Metadata:
       m_Items:
       - rid: 6789982753568850020
   - m_Id: 3392004443594752
-    m_Localized: Lande zum Auftanken <sprite="fuel2_32" index=0>
+    m_Localized: Lande zum Auftanken
     m_Metadata:
       m_Items: []
   - m_Id: 6900102881861632
-    m_Localized: Lande und schalte die Station <sprite="blooderF2_32" index=0> aus
+    m_Localized: Lande und schalte die Station  aus
     m_Metadata:
       m_Items: []
   - m_Id: 15329218106716160
     m_Localized: Folge dem Blut.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24648957509464064
+    m_Localized: "H\xF6he gewinnen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24649036421099520
+    m_Localized: "H\xF6he verlieren"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658135066046464
+    m_Localized: Startbereit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658160840044544
+    m_Localized: Start abgebrochen
     m_Metadata:
       m_Items: []
   references:

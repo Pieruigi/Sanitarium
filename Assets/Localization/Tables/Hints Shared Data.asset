@@ -71,6 +71,22 @@ MonoBehaviour:
     m_Key: follow_the_blood
     m_Metadata:
       m_Items: []
+  - m_Id: 24648957509464064
+    m_Key: alert_gain_altitude
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24649036421099520
+    m_Key: alert_lose_altitude
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658135066046464
+    m_Key: launch_ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658160840044544
+    m_Key: launch_aborted
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

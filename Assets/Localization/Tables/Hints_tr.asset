@@ -66,23 +66,36 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
-    m_Localized: "Vana kapat\u0131ld\u0131 <sprite=\"blooderE2_32\" index=0>\r\nKalan:
-      {left} x <sprite=\"blooderF2_32\" index=0>"
+    m_Localized: "Vana kapat\u0131ld\u0131\r\nKalan: {left}"
     m_Metadata:
       m_Items:
       - rid: 6789982753568850030
   - m_Id: 3392004443594752
-    m_Localized: "Yak\u0131t ikmali i\xE7in ini\u015F yap\u0131n <sprite=\"fuel2_32\"
-      index=0>"
+    m_Localized: "Yak\u0131t ikmali i\xE7in ini\u015F yap\u0131n "
     m_Metadata:
       m_Items: []
   - m_Id: 6900102881861632
-    m_Localized: "\u0130ni\u015F yap ve <sprite=\"blooderF2_32\" index=0> istasyonunu
-      kapat"
+    m_Localized: "\u0130ni\u015F yap ve istasyonunu kapat"
     m_Metadata:
       m_Items: []
   - m_Id: 15329218106716160
     m_Localized: "Kan\u0131 takip et."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24648957509464064
+    m_Localized: "\u0130rtifa kazan"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24649036421099520
+    m_Localized: "\u0130rtifa kaybet"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658135066046464
+    m_Localized: "Kalk\u0131\u015Fa haz\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658160840044544
+    m_Localized: "Kalk\u0131\u015F iptal edildi"
     m_Metadata:
       m_Items: []
   references:

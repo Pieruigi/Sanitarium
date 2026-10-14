@@ -80,23 +80,36 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
-    m_Localized: 'Station completed <sprite="blooderE2_32" index=0>
-
-      Remaining:
-      {left} x <sprite="blooderF2_32" index=0>'
+    m_Localized: "Station completed \nRemaining: {left}"
     m_Metadata:
       m_Items:
       - rid: 6789982753568850017
   - m_Id: 3392004443594752
-    m_Localized: Land to refuel <sprite="fuel2_32" index=0>
+    m_Localized: Land to refuel
     m_Metadata:
       m_Items: []
   - m_Id: 6900102881861632
-    m_Localized: Land and shut the station down <sprite="blooderF2_32" index=0>
+    m_Localized: 'Land and shut the station down '
     m_Metadata:
       m_Items: []
   - m_Id: 15329218106716160
     m_Localized: Follow the blood.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24648957509464064
+    m_Localized: Gain altitude
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24649036421099520
+    m_Localized: Lose altitude
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658135066046464
+    m_Localized: Ready to launch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658160840044544
+    m_Localized: Launch aborted
     m_Metadata:
       m_Items: []
   references:

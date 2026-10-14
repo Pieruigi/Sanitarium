@@ -150,5 +150,7 @@ namespace Baloon
             monster.transform.Translate(Vector3.down * 30f);
             monster.transform.eulerAngles = Vector3.zero;
         }
+
+        
     }
 }

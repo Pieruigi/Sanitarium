@@ -1,10 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
     public class BaloonLauncherButtonFx : MonoBehaviour
     {
+        public static UnityAction OnReadyToLaunch;
+        public static UnityAction OnLaunchAborted;
+
         bool playing = false;
 
 
@@ -92,6 +96,8 @@ namespace Baloon
             //speakerAudioSource.clip = readyAudioClip;
             //speakerAudioSource.Play();
             baloonSpeaker.Play(readyAudioClip);
+
+            OnReadyToLaunch?.Invoke();
         }
 
         public void Stop()
@@ -110,6 +116,8 @@ namespace Baloon
             {
                 //speakerAudioSource.clip = abortedAudioClip;
                 baloonSpeaker.Play(abortedAudioClip);
+
+               OnLaunchAborted?.Invoke();
             }
             
 

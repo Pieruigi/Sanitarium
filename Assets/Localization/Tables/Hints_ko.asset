@@ -68,23 +68,36 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3327964178538496
-    m_Localized: "\uBC38\uBE0C \uB2EB\uD798 <sprite=\"blooderE2_32\" index=0>\r\n\uB0A8\uC74C:
-      {left} x <sprite=\"blooderF2_32\" index=0>"
+    m_Localized: "\uBC38\uBE0C \uB2EB\uD798 \r\n\uB0A8\uC74C: {left}"
     m_Metadata:
       m_Items:
       - rid: 6789982753568850023
   - m_Id: 3392004443594752
-    m_Localized: "\uCC29\uB959\uD558\uC5EC \uC5F0\uB8CC\uB97C \uCDA9\uC804\uD558\uC138\uC694
-      <sprite=\"fuel2_32\" index=0>"
+    m_Localized: "\uCC29\uB959\uD558\uC5EC \uC5F0\uB8CC\uB97C \uCDA9\uC804\uD558\uC138\uC694 "
     m_Metadata:
       m_Items: []
   - m_Id: 6900102881861632
-    m_Localized: "\uCC29\uB959\uD558\uC5EC <sprite=\"blooderF2_32\" index=0> \uC815\uAC70\uC7A5\uC744
-      \uB044\uC138\uC694"
+    m_Localized: "\uCC29\uB959\uD558\uC5EC  \uC815\uAC70\uC7A5\uC744 \uB044\uC138\uC694"
     m_Metadata:
       m_Items: []
   - m_Id: 15329218106716160
     m_Localized: "\uD53C\uB97C \uCAD3\uC73C\uB77C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24648957509464064
+    m_Localized: "\uACE0\uB3C4 \uC0C1\uC2B9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24649036421099520
+    m_Localized: "\uACE0\uB3C4 \uD558\uAC15"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658135066046464
+    m_Localized: "\uC774\uB959 \uC900\uBE44 \uC644\uB8CC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24658160840044544
+    m_Localized: "\uC774\uB959 \uC911\uB2E8"
     m_Metadata:
       m_Items: []
   references:

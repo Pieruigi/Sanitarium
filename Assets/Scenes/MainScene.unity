@@ -135990,6 +135990,7 @@ MonoBehaviour:
   interactor: {fileID: 3989703836223265497}
   yOffset: 0.005
   locked: 0
+  stayPushed: 0
 --- !u!223 &1219720009772759580
 Canvas:
   m_ObjectHideFlags: 0
