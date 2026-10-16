@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization.Components;
@@ -36,39 +37,52 @@ namespace Baloon.UI
         private void OnEnable()
         {
             BaloonPathManager.OnPathCleared += HandleOnPathCleared;
-            BaloonControlPanel.OnStopped += HandleOnStopped;
+            //BaloonControlPanel.OnStopped += HandleOnStopped;
         }
 
         private void OnDisable()
         {
             BaloonPathManager.OnPathCleared -= HandleOnPathCleared;
-            BaloonControlPanel.OnStopped -= HandleOnStopped;
+            //BaloonControlPanel.OnStopped -= HandleOnStopped;
         }
 
-        private void HandleOnStopped()
-        {
-            if (!IsVisible) return;
+        //private void HandleOnStopped()
+        //{
+        //    if (!IsVisible) return;
 
-            hintField.SetActive(false);
-        }
+        //    hintField.SetActive(false);
+        //}
 
         private void HandleOnPathCleared()
         {
             if (IsVisible) return;
 
-            string key = "fuel_hint";
+            StartCoroutine(Show());
+            
 
-            // Get the current launcher 
-            var launchCtrl = FindObjectsByType<BaloonLauncherController>(FindObjectsSortMode.None).ToList().Find(l => l.Inside);
-            if (!launchCtrl.GetComponentInParent<BaloonLauncher>().CompareTag("Fuel"))
+            IEnumerator Show()
             {
-                key = "shut_down_hint";
+                string key = "fuel_hint";
+
+                var time = 2.5f;
+
+                // Get the current launcher 
+                var launchCtrl = FindObjectsByType<BaloonLauncherController>(FindObjectsSortMode.None).ToList().Find(l => l.Inside);
+                if (!launchCtrl.GetComponentInParent<BaloonLauncher>().CompareTag("Fuel"))
+                {
+                    key = "shut_down_hint";
+                    time = 3f;
+                }
+
+
+                hintField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = key;
+
+                hintField.SetActive(true);
+
+                yield return new WaitForSeconds(time);
+
+                hintField.SetActive(false);
             }
-
-
-            hintField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = key;
-
-            hintField.SetActive(true);
         }
     }
 }
