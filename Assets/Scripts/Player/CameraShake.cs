@@ -59,6 +59,23 @@ public class CameraShake : Singleton<CameraShake>
         );
     }
 
+    public void PlayRockBridgeCollapseShake(float duration, System.Action onComplete = null, System.Action onKill = null)
+    {
+        float randPos = Random.Range(0.006f * 10f, 0.009f * 10f);
+        float randRot = Random.Range(0.02f * 10f, 0.04f * 10f);
+
+        PlayShake(
+            duration: duration,
+            posStrength: randPos,
+            rotStrength: randRot,
+            vibratoPos: 12,
+            vibratoRot: 12,
+            onComplete,
+            onKill,
+            false
+        );
+    }
+
     public void PlayMoaningShake(float duration, System.Action onComplete = null, System.Action onKill = null)
     {
         float randPos = Random.Range(0.006f * 3f, 0.009f * 3f);
