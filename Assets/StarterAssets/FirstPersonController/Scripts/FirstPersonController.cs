@@ -17,7 +17,7 @@ using UnityEngine.InputSystem.XR;
 namespace StarterAssets
 {
 
-    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing, CreatureAttack }
+    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing, CreatureAttack, RockBridgeFall }
 
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -173,7 +173,7 @@ namespace StarterAssets
 			bloodUI.SetActive(false);
 
 #if UNITY_EDITOR
-			transform.position = new Vector3(540, 118, 628);
+			transform.position = new Vector3(530, 118, 628);
 #endif
         }
 
@@ -721,7 +721,6 @@ namespace StarterAssets
 
 		public void Die(PlayerDeadType deadType)
 		{
-
 			switch (deadType)
 			{
 				case PlayerDeadType.KillerWind:
@@ -737,7 +736,24 @@ namespace StarterAssets
 				case PlayerDeadType.CreatureAttack:
 					StartCoroutine(DoCreatureAttack());
 					break;
+				case PlayerDeadType.RockBridgeFall:
+					StartCoroutine(DoRockBridgeFall());
+					break;
 			}
+
+			IEnumerator DoRockBridgeFall()
+			{
+                dead = true;
+
+                bodyFallAudioSource.Play();
+                bloodAudioSource.Play();
+                bloodUI.SetActive(true);
+
+                OnDead?.Invoke(deadType);
+
+                yield return new WaitForSeconds(3);
+                GameManager.Instance.ReportPlayerDeath();
+            }
 
 			IEnumerator DoCreatureAttack()
 			{
