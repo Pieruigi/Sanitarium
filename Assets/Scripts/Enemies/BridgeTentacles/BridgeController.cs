@@ -24,6 +24,12 @@ namespace Baloon
         [SerializeField]
         List<GameObject> tentacleColliders;
 
+        [SerializeField]
+        List<GameObject> bridgeColliders;
+
+        [SerializeField]
+        List<GameObject> noFallCollisions;
+
         bool triggered = false;
 
         FirstPersonController player;
@@ -51,6 +57,10 @@ namespace Baloon
 
             // Disable death trigger
             deathTrigger.SetActive(false);
+
+            // Deactivate no fall collisions
+            foreach (var coll in noFallCollisions)
+                coll.SetActive(false);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -67,6 +77,10 @@ namespace Baloon
                     // Remove rocks
                     foreach (Rigidbody rb in rigidbodies)
                         Destroy(rb.gameObject);
+
+                    // Activate no fall collisions
+                    foreach (var coll in noFallCollisions)
+                        coll.SetActive(true);
                 }
             }
 
@@ -109,19 +123,24 @@ namespace Baloon
                 // Enable death trigger
                 deathTrigger.SetActive(true);
 
-                // Enable back tentacles
-                tentacles[0].SetActive(true);
+                // Enable tentacles
+                foreach (var tentacle in tentacles)
+                {
+                    tentacle.SetActive(true);
 
-                // Enable back collider
+                    // Rotate pivot
+                    var pivot = tentacle.transform.parent;
+                    pivot.DORotate(Vector3.zero, 1f);
+                }
+                
+                // Enable first tentacle collider (the second is always active)
                 tentacleColliders[0].SetActive(true);
 
-                // Rotate pivot
-                var pivot = tentacles[0].transform.parent;
-                pivot.DORotate(Vector3.zero, 1f);
+                
 
                 yield return new WaitForSeconds(1.5f);
 
-                float shakeTime = 4f;
+                float shakeTime = 5f;
 
                 // Do shake
                 CameraShake.Instance.PlayRockBridgeCollapseShake(shakeTime);
@@ -129,6 +148,10 @@ namespace Baloon
                 yield return new WaitForSeconds(shakeTime);
 
                 var isPlayerOnBridge = IsPlayerOnBridge();
+
+                // Remove bridge colliders
+                foreach (var coll in bridgeColliders)
+                    coll.SetActive(false);
 
                 // Collapse
                 foreach(var rigidbody in rigidbodies)
@@ -151,6 +174,10 @@ namespace Baloon
                     
                     Debug.Log("TEST - Move tentacle");
                 }
+
+                // Activate no fall collisions
+                foreach (var coll in noFallCollisions)
+                    coll.SetActive(true);
 
                 if (isPlayerOnBridge)
                 {
