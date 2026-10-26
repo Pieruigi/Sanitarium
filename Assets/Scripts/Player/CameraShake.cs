@@ -61,15 +61,15 @@ public class CameraShake : Singleton<CameraShake>
 
     public void PlayRockBridgeCollapseShake(float duration, System.Action onComplete = null, System.Action onKill = null)
     {
-        float randPos = Random.Range(0.006f * 10f, 0.009f * 10f);
-        float randRot = Random.Range(0.02f * 10f, 0.04f * 10f);
+        float randPos = Random.Range(0.006f * 16f, 0.009f * 16f);
+        float randRot = Random.Range(0.02f * 16f, 0.04f * 16f);
 
         PlayShake(
             duration: duration,
             posStrength: randPos,
             rotStrength: randRot,
-            vibratoPos: 12,
-            vibratoRot: 12,
+            vibratoPos: 14,
+            vibratoRot: 14,
             onComplete,
             onKill,
             false

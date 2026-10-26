@@ -143,7 +143,8 @@ namespace Baloon
                 float shakeTime = 5f;
 
                 // Do shake
-                CameraShake.Instance.PlayRockBridgeCollapseShake(shakeTime);
+                //CameraShake.Instance.PlayRockBridgeCollapseShake(shakeTime);
+                CameraShake.Instance.PlayCatwalkCollapseShake(shakeTime);
 
                 yield return new WaitForSeconds(shakeTime);
 
@@ -179,6 +180,9 @@ namespace Baloon
                 foreach (var coll in noFallCollisions)
                     coll.SetActive(true);
 
+                // Shake
+                CameraShake.Instance.PlayJumpscare(.5f);
+
                 if (isPlayerOnBridge)
                 {
                     // Player is dead
@@ -207,7 +211,7 @@ namespace Baloon
                 }
                 else
                 {
-                    StartCoroutine(DestroyRocksDelayed(10f));
+                    StartCoroutine(DestroyRocksDelayed(10f)); // We must reload the scene so there's no reason to destroy rocks if you die
                 }
                     
             }
