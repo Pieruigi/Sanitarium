@@ -132,7 +132,10 @@ namespace Baloon
         {
             if (owner) return;
 
+            if (!SteamStatsManager.Instance) return;
+
             //if (PlayerPrefs.HasKey(statName)) return;
+
 
             if (!SteamStatsManager.Instance.TryGetStat(statName, out var value)) return;
 

@@ -1,5 +1,6 @@
 using Baloon.SaveSystem;
 using DG.Tweening;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using StarterAssets;
 using System;
@@ -30,11 +31,26 @@ namespace Baloon
         [SerializeField]
         List<GameObject> noFallCollisions;
 
+        [SerializeField]
+        AudioSource moaningAudioSource;
+
+        [SerializeField]
+        Collider crashTriggerCollider;
+
+        [SerializeField]
+        AudioSource quakeAudioSource;
+
+        [SerializeField]
+        AudioSource explosionAudioSource;
+
         bool triggered = false;
+        public bool Triggered => triggered;
 
         FirstPersonController player;
 
         string saveId;
+
+        bool crashing = false;
 
         public class Data
         {
@@ -81,6 +97,9 @@ namespace Baloon
                     // Activate no fall collisions
                     foreach (var coll in noFallCollisions)
                         coll.SetActive(true);
+
+                    // Disable crash trigger collider
+                    crashTriggerCollider.enabled = false;
                 }
             }
 
@@ -120,6 +139,8 @@ namespace Baloon
 
             IEnumerator DoPlay()
             {
+                float shakeTime = 5f;
+
                 // Enable death trigger
                 deathTrigger.SetActive(true);
 
@@ -131,23 +152,50 @@ namespace Baloon
                     // Rotate pivot
                     var pivot = tentacle.transform.parent;
                     pivot.DORotate(Vector3.zero, 1f);
+
+                    pivot.DOShakePosition(shakeTime, strength: .25f, fadeOut: false).SetDelay(1.5f);
                 }
                 
                 // Enable first tentacle collider (the second is always active)
                 tentacleColliders[0].SetActive(true);
 
-                
+                // Play moaning audio
+                moaningAudioSource.Play();
 
                 yield return new WaitForSeconds(1.5f);
 
-                float shakeTime = 5f;
+                
 
                 // Do shake
                 //CameraShake.Instance.PlayRockBridgeCollapseShake(shakeTime);
                 CameraShake.Instance.PlayCatwalkCollapseShake(shakeTime);
 
+                // Play quake audio source
+                quakeAudioSource.Play();
+
                 yield return new WaitForSeconds(shakeTime);
 
+
+                // Crash all
+                CrashAll();
+
+                  
+            }
+
+
+        }
+
+        public void CrashAll()
+        {
+            if (crashing) return;
+
+            crashing = true;
+
+            StartCoroutine(DoCrashAll());
+
+            IEnumerator DoCrashAll()
+            {
+                
                 var isPlayerOnBridge = IsPlayerOnBridge();
 
                 // Remove bridge colliders
@@ -155,7 +203,7 @@ namespace Baloon
                     coll.SetActive(false);
 
                 // Collapse
-                foreach(var rigidbody in rigidbodies)
+                foreach (var rigidbody in rigidbodies)
                 {
                     rigidbody.GetComponent<MeshCollider>().convex = true;
                     //rigidbody.GetComponent<MeshCollider>().enabled = false;
@@ -163,7 +211,7 @@ namespace Baloon
                 }
 
                 // Move tentacle down
-                foreach(var tentacle in tentacles)
+                foreach (var tentacle in tentacles)
                 {
                     // Start release animation
                     tentacle.GetComponentInChildren<Animator>().SetTrigger("Release");
@@ -172,7 +220,7 @@ namespace Baloon
                     var y = tentacle.transform.position.y - 800f;
 
                     tentacle.transform.DOMoveY(y, 4f).SetEase(Ease.InSine);
-                    
+
                     Debug.Log("TEST - Move tentacle");
                 }
 
@@ -183,6 +231,9 @@ namespace Baloon
                 // Shake
                 CameraShake.Instance.PlayJumpscare(.5f);
 
+                // Play explosion effect
+                explosionAudioSource.Play();
+
                 if (isPlayerOnBridge)
                 {
                     // Player is dead
@@ -190,7 +241,7 @@ namespace Baloon
 
                     // Just wait a little while before player fall
                     var gravity = player.Gravity;
-                    Debug.Log("TEST - Gravity:" +  gravity);    
+                    Debug.Log("TEST - Gravity:" + gravity);
                     player.Gravity = 0;
 
                     // Disable player movement
@@ -207,14 +258,15 @@ namespace Baloon
                     yield return new WaitForSeconds(2f);
 
                     player.Die(PlayerDeadType.RockBridgeFall);
-                    
+
                 }
                 else
                 {
                     StartCoroutine(DestroyRocksDelayed(10f)); // We must reload the scene so there's no reason to destroy rocks if you die
                 }
-                    
+
             }
+
 
             IEnumerator DestroyRocksDelayed(float delay)
             {
@@ -223,6 +275,9 @@ namespace Baloon
                     Destroy(rigidbody.gameObject);
             }
         }
+
+            
+        
 
         bool IsPlayerOnBridge()
         {
