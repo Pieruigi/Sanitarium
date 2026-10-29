@@ -1,3 +1,4 @@
+using StarterAssets;
 using System;
 using System.Collections;
 using TMPro;
@@ -15,12 +16,15 @@ namespace Baloon.UI
         [SerializeField]
         GameObject textRoot;
 
+        FirstPersonController player;
         
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             textRoot.SetActive(false);
+
+            player = FindFirstObjectByType<FirstPersonController>();
         }
 
         // Update is called once per frame
@@ -58,6 +62,12 @@ namespace Baloon.UI
 
             IEnumerator DoShow(bool tooLow)
             {
+                if (player.Doomed)
+                {
+                    textRoot.SetActive(false);
+                    yield break;
+                }
+
                 // Set the right key
                 string key = tooLow ? "alert_gain_altitude" : "alert_lose_altitude";
                 textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = key;
