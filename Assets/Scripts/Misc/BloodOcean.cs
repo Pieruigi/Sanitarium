@@ -1,8 +1,8 @@
 using DG.Tweening;
-using System;
-using System.Linq;
-using UnityEditor;
+using StarterAssets;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Baloon
 {
@@ -13,6 +13,15 @@ namespace Baloon
 
         [SerializeField]
         float maxHeight;
+
+        [SerializeField]
+        AudioSource roarAudioSource;
+
+        [SerializeField]
+        AudioSource coughAudioSource;
+
+        [SerializeField]
+        AudioMixerGroup highFxMixerGroup;
 
 
         float step = 0;
@@ -40,26 +49,27 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X)) 
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                // Increase altitude safe range
-                AltitudeManager.Instance.AlwaysSafe = true;
-                // Stop wind shake
-                FindFirstObjectByType<WindShaker>().Running = false;
+                var pos = transform.position;
+                pos.y = -20f;
+                transform.position = pos;
+                Rise();
             }
-            
+
 #endif
         }
 
-        private void LateUpdate()
-        {
-            if (!rising) return;
+        //private void LateUpdate()
+        //{
+        //    return;
+        //    if (!rising) return;
 
-            riseSpeed += riseAcc * Time.deltaTime;
-            var pos = transform.position;
-            pos.y += riseSpeed * Time.deltaTime;
-            transform.position = pos;
-        }
+        //    riseSpeed += riseAcc * Time.deltaTime;
+        //    var pos = transform.position;
+        //    pos.y += riseSpeed * Time.deltaTime;
+        //    transform.position = pos;
+        //}
 
         private void OnEnable()
         {
@@ -84,7 +94,7 @@ namespace Baloon
                     return;
             }
             // Increase altitude safe range
-            AltitudeManager.Instance.AlwaysSafe = true;
+            //AltitudeManager.Instance.ForceGreen = true;
         }
 
         private void HandleOnBlooderStarted(BlooderController blooderController, bool isSealed)
@@ -125,15 +135,49 @@ namespace Baloon
             }
 
             // Stop wind shake
-            FindFirstObjectByType<WindShaker>().Running = false;
+            //FindFirstObjectByType<WindShaker>().Running = false;
         }
 
         public void Rise()
         {
-            if (rising) return;
+            
+            StartCoroutine(DoRise());
 
-            rising = true;
+            IEnumerator DoRise()
+            {
+                if (rising) yield break;
 
+                var player = FindFirstObjectByType<FirstPersonController>();
+                if (player.Doomed) yield break;
+
+                player.Doomed = true;
+                rising = true;
+
+                // Stop wind
+                FindFirstObjectByType<WindShaker>().Running = false;
+
+                // Play some monster audio clip
+                roarAudioSource.Play();
+
+                // Engine cough
+                var h = coughAudioSource.transform.localPosition.y;
+                coughAudioSource.transform.parent = BaloonController.Instance.transform;
+                coughAudioSource.transform.localPosition = Vector3.up * h;
+                //coughAudioSource.PlayDelayed(2f);
+
+
+                // Shake camera
+                CameraShake.Instance.PlayMoaningShake(7f);
+
+                // Just wait 
+                yield return new WaitForSeconds(5f);
+
+                // Shut down boiler
+                BaloonControlPanel.Instance.EngineStopAudioSource.outputAudioMixerGroup = highFxMixerGroup;
+                BaloonControlPanel.Instance.Die();
+            }
+
+            
             
         }
     }

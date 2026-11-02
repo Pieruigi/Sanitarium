@@ -42,7 +42,7 @@ namespace Baloon
 
         private void LateUpdate()
         {
-            if (BaloonPathManager.Instance.HasPath())
+            if (BaloonPathManager.Instance.HasPath() && BaloonControlPanel.Instance.IsRunning)
             {
                 if(AltitudeManager.Instance.GetCurrentRange() == AltitudeRange.Red)
                 {

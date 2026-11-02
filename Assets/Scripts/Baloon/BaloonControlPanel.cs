@@ -9,6 +9,7 @@ using TMM;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization.SmartFormat.Utilities;
 
 namespace Baloon
 {
@@ -31,6 +32,8 @@ namespace Baloon
         [SerializeField]
         AudioSource startAudioSource, runAudioSource, stopAudioSource, fireAudioSource;
 
+        public AudioSource EngineStopAudioSource => stopAudioSource;
+
         float runAudioPitchMin = 1f, runAudioPitchMax = 1.4f;
       
         GameObject player;
@@ -46,6 +49,8 @@ namespace Baloon
         Interactor starterInteractor;
 
         float oldGasLeft = 0;
+
+        bool dead = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -181,6 +186,8 @@ namespace Baloon
 
         private void HandleStarterOnPushed()
         {
+            if (dead) return;
+
             if (!started)
             {
                 //if(BoilerController.Instance.GasLeft > 0)
@@ -259,6 +266,22 @@ namespace Baloon
                 
             }
 
+        }
+
+        public void Die()
+        {
+            if (dead) return;
+
+            started = false;
+            dead = true;
+
+            // Stop running audio
+            runAudioSource?.Stop();
+            fireAudioSource?.Stop();
+            // Play stopping audio
+            stopAudioSource?.Play();
+
+            OnStopped?.Invoke();
         }
 
         private void HandleStarterOnReleased()

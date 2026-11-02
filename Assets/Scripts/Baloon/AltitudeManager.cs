@@ -17,13 +17,10 @@ namespace Baloon
 
         public float TargetAltitude => (MaxAltitude - MinAltitude) / 2f + MinAltitude;
 
-        bool alwaysSafe = false;
+        
+        public bool ForceGreen = false;
 
-        public bool AlwaysSafe
-        {
-            get { return alwaysSafe; }
-            set { alwaysSafe = value; }
-        }
+        public bool ForceRed = false;
         
 
         // Instead of having a specific time, we set a sort of difficulty level to better handle it
@@ -59,7 +56,8 @@ namespace Baloon
 
         public AltitudeRange GetCurrentRange()
         {
-            if (alwaysSafe) return AltitudeRange.Green;
+            if (ForceRed) return AltitudeRange.Red;
+            if (ForceGreen) return AltitudeRange.Green;
 
             var currentAltitude = BaloonController.Instance.Altitude;
             var middleAltitude = (maxAltitude + minAltitude) / 2f;

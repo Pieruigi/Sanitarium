@@ -147,6 +147,9 @@ namespace Baloon
         {
             activated = false;
 
+            StopFlickering();
+            SetLightOffAll();
+
             ResetAltitudeValueAll();
         }
 
