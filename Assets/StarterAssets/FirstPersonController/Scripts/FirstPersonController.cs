@@ -2,6 +2,8 @@
 using Baloon.SaveSystem;
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -12,12 +14,13 @@ using UnityEngine.Audio;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.UI;
 #endif
 
 namespace StarterAssets
 {
 
-    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing, CreatureAttack, RockBridgeFall }
+    public enum PlayerDeadType { KillerWind, BoilerExplosion, CatwalkCollapsing, CreatureAttack, RockBridgeFall, GameEndingDrown }
 
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -115,6 +118,12 @@ namespace StarterAssets
 		AudioSource bodyFallAudioSource;
 
 		[SerializeField]
+		AudioSource drownAudioSource;
+
+		[SerializeField]
+		AudioSource theEndAudioSource;
+
+		[SerializeField]
 		AudioMixer mixer;
 
 		
@@ -170,6 +179,7 @@ namespace StarterAssets
 			}
 
 			onBasketCollider.enabled = false;
+			bloodUI.GetComponentInChildren<TMP_Text>().enabled = false;
 			bloodUI.SetActive(false);
 
 #if UNITY_EDITOR
@@ -739,7 +749,42 @@ namespace StarterAssets
 				case PlayerDeadType.RockBridgeFall:
 					StartCoroutine(DoRockBridgeFall());
 					break;
+				case PlayerDeadType.GameEndingDrown:
+					StartCoroutine(DoDrown());
+					break;
 			}
+
+			IEnumerator DoDrown()
+			{
+				dead = true;
+
+                bloodUI.SetActive(true);
+
+				// Do blood effect
+				var bloodImage = bloodUI.GetComponentInChildren<Image>();
+				bloodImage.color = Color.darkRed;
+				bloodImage.DOColor(Color.black, 6f);
+
+				// Since we are underwater we remove all the other sounds
+                mixer.SetFloat("AliveVolume", -80f);
+
+                // Play audio
+                drownAudioSource.Play();
+                theEndAudioSource.Play();
+
+                OnDead?.Invoke(deadType);
+
+                yield return new WaitForSeconds(8.5f);
+
+				bloodUI.GetComponentInChildren<TMP_Text>().enabled = true;
+				
+
+                yield return new WaitForSeconds(7f);
+
+                GameManager.Instance.ReportGameCompleted();
+
+				
+            }
 
 			IEnumerator DoRockBridgeFall()
 			{

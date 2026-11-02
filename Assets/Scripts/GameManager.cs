@@ -125,6 +125,20 @@ public class GameManager : SingletonPersistent<GameManager>
         SceneManager.LoadScene(MainSceneIndex);
     }
 
+    public void ReportGameCompleted()
+    {
+        if (deathReported) return;
+        deathReported = true;
+
+        if (SettingsManager.Instance.GameMode == 0)
+        {
+            // Delete save game
+            SaveManager.Instance.Delete();
+        }
+
+        LoadMainScene();
+    }
+
     public void ReportPlayerDeath()
     {
         if (deathReported) return;

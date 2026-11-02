@@ -29,7 +29,8 @@ namespace Baloon
         bool rising = false;
 
         float riseSpeed = 0;
-        float riseAcc = 5f;
+        float riseAcc = .5f;
+        bool dead = false;
 
 
         private void Awake()
@@ -54,22 +55,38 @@ namespace Baloon
                 var pos = transform.position;
                 pos.y = -20f;
                 transform.position = pos;
-                Rise();
+                //Rise();
+
+                FindFirstObjectByType<WindShaker>().Running = false;
             }
 
 #endif
         }
 
-        //private void LateUpdate()
-        //{
-        //    return;
-        //    if (!rising) return;
+        private void LateUpdate()
+        {
+            if (!rising) return;
 
-        //    riseSpeed += riseAcc * Time.deltaTime;
-        //    var pos = transform.position;
-        //    pos.y += riseSpeed * Time.deltaTime;
-        //    transform.position = pos;
-        //}
+            // Rise ocean
+            riseSpeed += riseAcc * Time.deltaTime;
+            var pos = transform.position;
+            pos.y += riseSpeed * Time.deltaTime;
+            transform.position = pos;
+
+            // Check altitude 
+            if (!dead)
+            {
+                var camY = Camera.main.transform.position.y;
+                if (Mathf.Abs(transform.position.y - camY) < 0.05f || camY < transform.position.y)
+                {
+                    dead = true;
+                    var player = FindFirstObjectByType<FirstPersonController>();
+                    player.Die(PlayerDeadType.GameEndingDrown);
+                    
+                }
+            }
+            
+        }
 
         private void OnEnable()
         {
@@ -135,7 +152,7 @@ namespace Baloon
             }
 
             // Stop wind shake
-            //FindFirstObjectByType<WindShaker>().Running = false;
+            FindFirstObjectByType<WindShaker>().Running = false;
         }
 
         public void Rise()
@@ -160,14 +177,14 @@ namespace Baloon
                 roarAudioSource.Play();
 
                 // Engine cough
-                var h = coughAudioSource.transform.localPosition.y;
-                coughAudioSource.transform.parent = BaloonController.Instance.transform;
-                coughAudioSource.transform.localPosition = Vector3.up * h;
+                //var h = coughAudioSource.transform.localPosition.y;
+                //coughAudioSource.transform.parent = BaloonController.Instance.transform;
+                //coughAudioSource.transform.localPosition = Vector3.up * h;
                 //coughAudioSource.PlayDelayed(2f);
 
 
                 // Shake camera
-                CameraShake.Instance.PlayMoaningShake(7f);
+                CameraShake.Instance.PlayMoaningShake(8f);
 
                 // Just wait 
                 yield return new WaitForSeconds(5f);

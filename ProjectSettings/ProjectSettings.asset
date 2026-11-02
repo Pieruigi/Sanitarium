@@ -850,7 +850,7 @@ PlayerSettings:
     PS4: DOTWEEN
     PS5: DOTWEEN
     QNX: DOTWEEN
-    Standalone: DOTWEEN;DEMO;STEAMWORKS_NET
+    Standalone: DOTWEEN;__DEMO;STEAMWORKS_NET
     VisionOS: DOTWEEN
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
