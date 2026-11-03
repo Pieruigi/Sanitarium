@@ -44,6 +44,10 @@ namespace Baloon.UI
             Cursor.lockState = CursorLockMode.Locked;
             gameObject.SetActive(false);
             MenuUI.Instance.Unavailable = false;
+
+            // Voice controller
+            //if(VoiceController.Instance)
+            //    VoiceController.Instance.Talk(0);
         }
     }
 }
