@@ -24,7 +24,7 @@ namespace Baloon
 
         bool hit = false;
 
-        float hitTime = 5f;
+        float hitTime = 7f;
         float hitElapsed = 0f;
 
         bool isTarget = false;

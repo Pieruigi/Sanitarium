@@ -48,7 +48,7 @@ namespace Baloon
 
         FirstPersonController player;
 
-        string saveId;
+        string saveId = "c5_rockbridge";
 
         bool crashing = false;
 

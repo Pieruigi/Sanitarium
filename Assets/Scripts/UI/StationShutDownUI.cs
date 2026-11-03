@@ -56,7 +56,7 @@ namespace Baloon.UI
                 var sr = localizeStringEvent.StringReference;
                 if (sr.TryGetValue("left", out IVariable v))
                 {
-                    var l = FindObjectsByType<BlooderController>(FindObjectsSortMode.None).Count(b => !b.Sealed) + 1; // There are only 9 out of 10 stations at the moment
+                    var l = FindObjectsByType<BlooderController>(FindObjectsSortMode.None).Count(b => !b.Sealed);
                     (v as IntVariable).Value = l;
                 }
 
