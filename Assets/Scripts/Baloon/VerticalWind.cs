@@ -74,6 +74,10 @@ public class VerticalWind : Singleton<VerticalWind>
     private void HandleOnTakeOf(BasePlatform platform)
     {
         running = true;
+
+#if UNITY_EDITOR
+        //running = false;
+#endif
     }
 
 

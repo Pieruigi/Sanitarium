@@ -106,7 +106,7 @@ namespace Baloon
 #endif
 
 #if UNITY_EDITOR
-            transform.position = new Vector3(740, 65, 805);
+            transform.position = new Vector3(440, 20, 805);
             //transform.eulerAngles = Vector3.up * 0;
 #endif
         }
@@ -233,7 +233,8 @@ namespace Baloon
 
             //if (diff > 1.5 && diff < 2.5) diff = 2f;
             //diff = Mathf.Round(diff * 4f) / 4f;
-            if (diff > 1.75f && diff < 2.25f)
+            //if (diff > 1.75f && diff < 2.25f)
+            if (diff > 1.7f && diff < 2.3f)
                 diff = 2f;
 
             float verticalSpeed = currentVelocity.y;

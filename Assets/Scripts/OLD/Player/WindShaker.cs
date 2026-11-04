@@ -197,7 +197,7 @@ namespace Baloon
             IEnumerator ApplyDamage()
             {
                 
-                if (Random.Range(0, 3) == 0) yield break; // 33% we take damage
+                if (Random.Range(0, 4) == 0) yield break; // 25% we take damage (old was 33%)
 
                 
                 yield return new WaitForSeconds(.5f);
