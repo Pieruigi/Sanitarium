@@ -74,7 +74,7 @@ namespace Baloon
 
             time = 0;
 
-            CameraShake.Instance.PlayJumpscare(8f);
+            CameraShake.Instance.PlayJumpscare(12f);
         }
 
     }

@@ -111,6 +111,11 @@ namespace Baloon
 
         private void HandleOnEnter()
         {
+            if(BoilerController.Instance.GasLeft + gasLevel > 1f)
+            {
+                gasLevel = 1f - BoilerController.Instance.GasLeft;
+            }
+
             UpdateGasLevel(0);
         }
 
