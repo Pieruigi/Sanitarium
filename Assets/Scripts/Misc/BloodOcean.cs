@@ -50,15 +50,15 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                var pos = transform.position;
-                pos.y = -20f;
-                transform.position = pos;
-                //Rise();
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    var pos = transform.position;
+            //    pos.y = -20f;
+            //    transform.position = pos;
+            //    //Rise();
 
-                FindFirstObjectByType<WindShaker>().Running = false;
-            }
+            //    FindFirstObjectByType<WindShaker>().Running = false;
+            //}
 
 #endif
         }
