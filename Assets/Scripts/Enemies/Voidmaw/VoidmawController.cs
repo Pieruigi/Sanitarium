@@ -60,6 +60,9 @@ namespace Baloon
 
         bool isTarget = false;
 
+        float time = 8;
+        float timeElapsed = 0;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -118,6 +121,12 @@ namespace Baloon
                 transform.localRotation = Quaternion.identity;
             }
 
+            if (!fleeing)
+            {
+                timeElapsed += Time.deltaTime;
+                if (timeElapsed > time)
+                    StartCoroutine(Flee());
+            }
 
             //if (grabbing && hitting)
             //{
@@ -214,28 +223,30 @@ namespace Baloon
             hitAudioSource.clip = hitAudioClips[Random.Range(0, hitAudioClips.Count)];
             hitAudioSource.Play();
 
-            IEnumerator Flee()
-            {
-                fleeing = true;
-                grabbing = false;
+           
+        }
 
-                yield return new WaitForSeconds(.1f);
+        IEnumerator Flee()
+        {
+            fleeing = true;
+            grabbing = false;
 
-                // Reset parenting
-                transform.parent = null;
+            yield return new WaitForSeconds(.1f);
 
-                // release controller
-                panel.EnableControls();
+            // Reset parenting
+            transform.parent = null;
 
-                // Activate rigidbody
-                rb.isKinematic = false;
-                rb.useGravity = true;
+            // release controller
+            panel.EnableControls();
 
-                // Direction
-                var dir = transform.forward + transform.up * 4f;
-                rb.linearVelocity = BaloonController.Instance.CurrentVelocity;
-                rb.AddForce(dir * 1.5f, ForceMode.VelocityChange);
-            }
+            // Activate rigidbody
+            rb.isKinematic = false;
+            rb.useGravity = true;
+
+            // Direction
+            var dir = transform.forward + transform.up * 4f;
+            rb.linearVelocity = BaloonController.Instance.CurrentVelocity;
+            rb.AddForce(dir * 1.5f, ForceMode.VelocityChange);
         }
     }
 }
