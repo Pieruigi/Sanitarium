@@ -1535006,6 +1535006,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CreepyWormController
   blooder: {fileID: 1470443791}
   wormPrefab: {fileID: 7459581933008136713, guid: 6a55473164a0202408c38c5adbf6f3f2, type: 3}
+  wormClips:
+  - {fileID: 8300000, guid: 4d0423b571b8fff4f9e27ff8bd9b854e, type: 3}
+  - {fileID: 8300000, guid: ed76c34e5d118ac44bce8024c65fbf47, type: 3}
+  - {fileID: 8300000, guid: 8db0ee44992b3d44f8081fc4ee6f6225, type: 3}
+  - {fileID: 8300000, guid: 3700f568fd2d3c440b862a36f5ebf278, type: 3}
+  - {fileID: 8300000, guid: 482016718d754cb49be07cba3c28b9d0, type: 3}
+  crunchyClip: {fileID: 8300000, guid: 2fd5e6130d06c9947bd9be9d2bb78fa8, type: 3}
 --- !u!1 &948056307
 GameObject:
   m_ObjectHideFlags: 0

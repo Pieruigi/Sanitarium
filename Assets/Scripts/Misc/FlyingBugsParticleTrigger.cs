@@ -28,10 +28,10 @@ namespace Baloon
         {
 
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    Spawn();
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Spawn();
+            }
 #endif
         }
 
@@ -74,7 +74,7 @@ namespace Baloon
 
             time = 0;
 
-            CameraShake.Instance.PlayJumpscare(12f);
+            CameraShake.Instance.PlayJumpscare(14f);
         }
 
     }

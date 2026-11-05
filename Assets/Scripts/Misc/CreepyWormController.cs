@@ -1,8 +1,8 @@
 using Baloon.SaveSystem;
-using System;
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using TMM;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Baloon
@@ -15,6 +15,12 @@ namespace Baloon
 
         [SerializeField]
         GameObject wormPrefab;
+
+        [SerializeField]
+        List<AudioClip> wormClips;
+
+        [SerializeField]
+        AudioClip crunchyClip;
 
         /// <summary>
         /// 0: nothing
@@ -66,10 +72,10 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                HandleOnSealed(blooder);
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    HandleOnSealed(blooder);
+            //}
 #endif
 
 
@@ -144,7 +150,27 @@ namespace Baloon
             var dir = blooder.GetComponentInChildren<ActivationTrigger>().transform.position - BaloonController.Instance.transform.position;
             dir.y = 0;
             worm.transform.forward = dir;
+
+            // Play audio
+            StartCoroutine(PlayWormAudio());
+
+            IEnumerator PlayWormAudio()
+            {
+                var audioSource = worm.GetComponentInChildren<AudioSource>();
+                
+                while (state != 30)
+                {
+                    float time = Random.Range(1.8f, 2.2f);
+                    
+                    yield return new WaitForSeconds(time);
+
+                    audioSource.clip = wormClips[Random.Range(0, wormClips.Count)];
+                    audioSource.Play();
+                }
+            }
         }
+
+        
 
         void UpdateFlyingState()
         {
@@ -184,7 +210,22 @@ namespace Baloon
                 state = 30;
 
                 // Activate rigidbody
-                worm.GetComponent<Rigidbody>().isKinematic = false;
+                var rb = worm.GetComponent<Rigidbody>();
+                rb.isKinematic = false;
+                //rb.AddForce(Vector3.down * 15f, ForceMode.VelocityChange);
+
+                // Change animation
+                worm.GetComponentInChildren<Animator>().SetTrigger("Attack");
+
+                // Play audio
+                var audio = worm.GetComponentInChildren<AudioSource>();
+                audio.clip = crunchyClip;
+                audio.volume = 1f;
+                audio.Play();
+
+                // Destroy delayed
+                Destroy(worm, 10f);
+                
             }
         }
         
