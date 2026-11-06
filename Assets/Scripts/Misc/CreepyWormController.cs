@@ -34,11 +34,8 @@ namespace Baloon
 
         GameObject worm;
 
-        float flyingTime = 20;
+        float flyingTime = 30;
         float flyingElapsed = 0;
-
-        float lookTime = 2f;
-        float lookElapsed = 0;
 
         Collider lookCollider;
 

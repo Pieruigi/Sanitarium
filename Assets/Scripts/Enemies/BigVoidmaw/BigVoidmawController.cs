@@ -40,6 +40,9 @@ namespace Baloon
         [SerializeField]
         List<BigVoidmawTentacle> tentacles;
 
+        float releaseTime = 12;
+        float releaseElapsed = 0;
+
         private void Awake()
         {
             balloon = BaloonController.Instance.gameObject;// GameObject.FindGameObjectWithTag("Baloon");
@@ -94,7 +97,12 @@ namespace Baloon
         // Update is called once per frame
         void Update()
         {
-
+            if (attached)
+            {
+                releaseElapsed += Time.deltaTime;
+                if (releaseElapsed > releaseTime)
+                    ForceDetach();
+            }
         }
 
         

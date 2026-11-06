@@ -60,7 +60,7 @@ namespace Baloon
 
         bool isTarget = false;
 
-        float time = 8;
+        float time = 10;
         float timeElapsed = 0;
 
         private void Awake()
