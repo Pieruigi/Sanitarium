@@ -50,15 +50,15 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    var pos = transform.position;
-            //    pos.y = -20f;
-            //    transform.position = pos;
-            //    //Rise();
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                var pos = transform.position;
+                pos.y = -16f;
+                transform.position = pos;
+                Rise();
 
-            //    FindFirstObjectByType<WindShaker>().Running = false;
-            //}
+                //FindFirstObjectByType<WindShaker>().Running = false;
+            }
 
 #endif
         }
@@ -152,7 +152,7 @@ namespace Baloon
             }
 
             // Stop wind shake
-            FindFirstObjectByType<WindShaker>().Running = false;
+            //FindFirstObjectByType<WindShaker>().Running = false;
         }
 
         public void Rise()
@@ -169,6 +169,8 @@ namespace Baloon
 
                 player.Doomed = true;
                 rising = true;
+
+                
 
                 // Stop wind
                 FindFirstObjectByType<WindShaker>().Running = false;
@@ -192,6 +194,23 @@ namespace Baloon
                 // Shut down boiler
                 BaloonControlPanel.Instance.EngineStopAudioSource.outputAudioMixerGroup = highFxMixerGroup;
                 BaloonControlPanel.Instance.Die();
+
+                //// Force balloon horizontal speed
+                //var maxSpeed = BaloonController.Instance.MaxHorizontalSpeed;
+                //var altitude = BaloonController.Instance.Altitude;
+
+                //var refAltitude = AltitudeManager.Instance.TargetAltitude;
+
+                //// Define the linear rate multiplier per meter of altitude change
+                //float altitudeRate = 0.02f;
+
+                //// Calculate the speed factor: baseline is 1 at 30m, decreases going up, increases going down
+                //float altitudeMultiplier = 1f + (refAltitude - altitude) * altitudeRate;
+
+                //// Prevent speed multiplier from dropping below zero
+                //altitudeMultiplier = Mathf.Max(0f, altitudeMultiplier);
+
+                //BaloonController.Instance.ForceMaxHorizontalSpeed(maxSpeed * altitudeMultiplier);
             }
 
             

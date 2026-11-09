@@ -58,6 +58,7 @@ namespace Baloon
         float maxHorizontalSpeed = 3.5f * 1.4f * SpeedMultiplier; 
 #endif
 
+        public float MaxHorizontalSpeed => maxHorizontalSpeed;
 
 
         [SerializeField] float gravity = 9.81f;
@@ -106,7 +107,7 @@ namespace Baloon
 #endif
 
 #if UNITY_EDITOR
-            //transform.position = new Vector3(940, 55, 605);
+            transform.position = new Vector3(940, 15, 1105);
             //transform.eulerAngles = Vector3.up * 0;
 #endif
         }
@@ -384,6 +385,11 @@ namespace Baloon
         {
             currentVelocity.x = currentVelocity.z = 0;
             horizontalVelocityDisabled = true;
+        }
+
+        public void ForceMaxHorizontalSpeed(float newSpeed)
+        {
+            maxHorizontalSpeed = newSpeed;
         }
         
     }

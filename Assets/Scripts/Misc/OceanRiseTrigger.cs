@@ -7,6 +7,9 @@ namespace Baloon
         [SerializeField]
         BloodOcean ocean;
 
+        [SerializeField]
+        BlooderController blooder;
+
         bool triggered = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,7 +26,7 @@ namespace Baloon
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player") || triggered) return;
+            if (!other.CompareTag("Player") || triggered || !blooder.Sealed) return;
 
             triggered = true;
 
