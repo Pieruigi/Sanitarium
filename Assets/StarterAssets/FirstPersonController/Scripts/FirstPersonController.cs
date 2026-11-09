@@ -183,7 +183,7 @@ namespace StarterAssets
 			bloodUI.SetActive(false);
 
 #if UNITY_EDITOR
-			transform.position = new Vector3(940, 55, 605);
+			//transform.position = new Vector3(940, 55, 605);
 #endif
         }
 
@@ -214,7 +214,8 @@ namespace StarterAssets
 				transform.rotation = data.rotation;
 				
 			}
-		}
+
+        }
 
 
 

@@ -29,7 +29,11 @@ namespace Baloon.SaveSystem
     {
         public static UnityAction OnUpdateDataEntry;
 
+#if DEMO
         string fileName = "save.json";
+#else
+        string fileName = "save_final.json";
+#endif
 
         //string cache = "";
 

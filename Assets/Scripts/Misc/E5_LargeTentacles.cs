@@ -14,6 +14,9 @@ namespace Baloon
         [SerializeField]
         BlooderController blooder;
 
+        //[SerializeField]
+        //AudioSource moanAudioSource;
+
         string saveId = "e5_large_tentacles";
 
         public class Data
@@ -122,12 +125,12 @@ namespace Baloon
 
         void PlayAudio()
         {
-
+            
         }
 
         void StopAudio()
         {
-
+            
         }
     }
 }
