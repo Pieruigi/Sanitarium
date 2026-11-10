@@ -14,10 +14,11 @@ namespace Baloon
         [SerializeField]
         BlooderController blooder;
 
-        //[SerializeField]
-        //AudioSource moanAudioSource;
+        [SerializeField]
+        AudioSource audioSource;
 
-        string saveId = "e5_large_tentacles";
+        [SerializeField]
+        string saveId = "";
 
         public class Data
         {
@@ -125,12 +126,12 @@ namespace Baloon
 
         void PlayAudio()
         {
-            
+            if(audioSource) audioSource.Play();
         }
 
         void StopAudio()
         {
-            
+            if(audioSource) audioSource.Stop();
         }
     }
 }
