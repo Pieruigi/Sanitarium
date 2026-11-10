@@ -26,6 +26,8 @@ namespace Baloon
 
         float timeSpeed = 1f;// 1f;
 
+        public bool LightShakeOnly = false;
+
         //public bool _testBalloonShaker = false;
 
         protected override void Awake()
@@ -96,7 +98,8 @@ namespace Baloon
                         break;
                 }
 
-               
+                if (LightShakeOnly)
+                    heavy = false;
 
                 // Shake
                 if (heavy)

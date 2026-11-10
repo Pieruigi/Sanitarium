@@ -294,6 +294,8 @@ namespace Baloon
 
             currentVelocity.y = verticalSpeed;
 
+           // Debug.Log("TEST - Vertical speed:" + )
+
             // 3. MOVIMENTO FINALE
             // Muoviamo il transform direttamente (niente scatti per lo slider!)
             //transform.position += Vector3.up * currentVelocity.y * Time.deltaTime;
