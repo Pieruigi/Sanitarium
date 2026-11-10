@@ -147,6 +147,7 @@ namespace Baloon
         private void HandleOnHint(Interactor interactor, bool interactable)
         {
             if (interactor != this.interactor) return;
+            Debug.Log("TEST - Leak:" + gameObject.name);
             if (interactable)
             {
                 if (damaged && RepairToolController.Instance.Equipped)

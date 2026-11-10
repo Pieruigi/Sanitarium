@@ -1,4 +1,5 @@
 using Baloon.SaveSystem;
+using Baloon.UI;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -43,6 +44,8 @@ namespace Baloon
 
 
         public bool Sealed => completed;
+
+        Interactor interactor;
         
 
         [SerializeField]
@@ -73,6 +76,8 @@ namespace Baloon
                 
             }
 
+            interactor = GetComponentInChildren<Interactor>();
+
             OnStarted?.Invoke(this, completed);
         }
 
@@ -96,6 +101,7 @@ namespace Baloon
                 hurtAudioSource.Play();
                 blood.gameObject.SetActive(false);
                 CameraShake.Instance.PlayBlooderScream();
+                FindFirstObjectByType<DotUI>().HideHold();
                 OnSealed?.Invoke(this);
 
                 SaveManager.Instance.Save();
@@ -118,6 +124,7 @@ namespace Baloon
             blooderLever.OnPushed += HandleOnPushed;
             blooderLever.OnReleased += HandleOnReleased;
             SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
+            Interactor.OnHint += HandleOnHint;
         }
 
         private void OnDisable()
@@ -125,6 +132,21 @@ namespace Baloon
             blooderLever.OnPushed -= HandleOnPushed;
             blooderLever.OnReleased -= HandleOnReleased;
             SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
+            Interactor.OnHint -= HandleOnHint;
+        }
+
+        private void HandleOnHint(Interactor interactor, bool interactable)
+        {
+            
+            if (interactor != this.interactor) return;
+            if (interactable && !Sealed)
+            {
+                FindFirstObjectByType<DotUI>().ShowHold();
+            }
+            else
+            {
+                FindFirstObjectByType<DotUI>().HideHold();
+            }
         }
 
         private void HandleOnUpdateDataEntry()

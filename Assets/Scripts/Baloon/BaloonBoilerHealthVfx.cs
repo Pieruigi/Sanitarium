@@ -35,7 +35,10 @@ namespace Baloon
         // Update is called once per frame
         void Update()
         {
-
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.X))
+                HandleOnDamageTaken(1, 0.7f);
+#endif
         }
 
         private void OnEnable()
