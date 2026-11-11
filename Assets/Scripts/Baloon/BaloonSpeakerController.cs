@@ -38,8 +38,8 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-                GetComponent<BaloonSpeaker>().Play(landAndShutDownClip, 1);
+            //if (Input.GetKeyDown(KeyCode.X))
+            //    GetComponent<BaloonSpeaker>().Play(landAndShutDownClip, 1);
 #endif
         }
 

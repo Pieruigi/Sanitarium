@@ -782,8 +782,8 @@ namespace StarterAssets
                 yield return new WaitForSeconds(8.5f);
 
 				var textField = bloodUI.GetComponentInChildren<TMP_Text>();
-			    textField.enabled = true;
-                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = succeededTextKey;
+			    textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = succeededTextKey;
+                textField.enabled = true;
 
                 yield return new WaitForSeconds(7f);
 

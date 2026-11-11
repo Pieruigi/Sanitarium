@@ -50,15 +50,15 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    var pos = transform.position;
-            //    pos.y = -16f;
-            //    transform.position = pos;
-            //    Rise();
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                var pos = transform.position;
+                pos.y = -16f;
+                transform.position = pos;
+                Rise();
 
-                
-            //}
+
+            }
 
 #endif
         }
@@ -77,7 +77,7 @@ namespace Baloon
             if (!dead)
             {
                 var camY = Camera.main.transform.position.y;
-                if (Mathf.Abs(transform.position.y - camY) < 0.05f || camY < transform.position.y)
+                if (Mathf.Abs(transform.position.y - camY) < 0.5f || camY < transform.position.y)
                 {
                     dead = true;
                     var player = FindFirstObjectByType<FirstPersonController>();
