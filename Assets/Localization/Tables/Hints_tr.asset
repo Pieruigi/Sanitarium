@@ -98,6 +98,14 @@ MonoBehaviour:
     m_Localized: "Kalk\u0131\u015F iptal edildi"
     m_Metadata:
       m_Items: []
+  - m_Id: 34871779959730176
+    m_Localized: "G\xF6revinde ba\u015Far\u0131s\u0131z oldun... zavall\u0131ca!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34872497626116096
+    m_Localized: "Fedakarl\u0131\u011F\u0131n hat\u0131rlanacak... belki!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

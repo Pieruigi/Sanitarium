@@ -101,6 +101,14 @@ MonoBehaviour:
     m_Localized: Start abgebrochen
     m_Metadata:
       m_Items: []
+  - m_Id: 34871779959730176
+    m_Localized: "Du bist bei deiner Mission gescheitert... erb\xE4rmlich!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34872497626116096
+    m_Localized: Dein Opfer wird in Erinnerung bleiben... vielleicht!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

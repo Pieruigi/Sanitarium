@@ -100,6 +100,14 @@ MonoBehaviour:
     m_Localized: "D\xE9collage annul\xE9"
     m_Metadata:
       m_Items: []
+  - m_Id: 34871779959730176
+    m_Localized: "Vous avez \xE9chou\xE9 dans votre mission... path\xE9tique!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34872497626116096
+    m_Localized: "Votre sacrifice sera comm\xE9mor\xE9... ou pas!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

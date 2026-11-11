@@ -87,6 +87,14 @@ MonoBehaviour:
     m_Key: launch_aborted
     m_Metadata:
       m_Items: []
+  - m_Id: 34871779959730176
+    m_Key: mission_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34872497626116096
+    m_Key: mission_succeeded
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

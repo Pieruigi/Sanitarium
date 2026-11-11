@@ -108,6 +108,14 @@ MonoBehaviour:
     m_Localized: "Lan\xE7amento abortado"
     m_Metadata:
       m_Items: []
+  - m_Id: 34871779959730176
+    m_Localized: "Falhaste a tua miss\xE3o... pat\xE9tico!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34872497626116096
+    m_Localized: "O teu sacrif\xEDcio ser\xE1 lembrado... talvez!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

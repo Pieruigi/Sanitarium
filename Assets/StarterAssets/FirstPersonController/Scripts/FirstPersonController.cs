@@ -14,6 +14,7 @@ using UnityEngine.Audio;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 #endif
 
@@ -125,6 +126,9 @@ namespace StarterAssets
 
 		[SerializeField]
 		AudioMixer mixer;
+
+		string failedTextKey = "mission_failed";
+		string succeededTextKey = "mission_succeeded";
 
 		
 		private bool IsCurrentDeviceMouse
@@ -777,8 +781,9 @@ namespace StarterAssets
 
                 yield return new WaitForSeconds(8.5f);
 
-				bloodUI.GetComponentInChildren<TMP_Text>().enabled = true;
-				
+				var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+			    textField.enabled = true;
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = succeededTextKey;
 
                 yield return new WaitForSeconds(7f);
 
@@ -797,7 +802,13 @@ namespace StarterAssets
 
                 OnDead?.Invoke(deadType);
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(2f);
+
+                var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = failedTextKey;
+                textField.enabled = true;
+
+                yield return new WaitForSeconds(4);
                 GameManager.Instance.ReportPlayerDeath();
             }
 
@@ -813,7 +824,13 @@ namespace StarterAssets
 
                 OnDead?.Invoke(deadType);
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(2f);
+
+                var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = failedTextKey;
+                textField.enabled = true;
+
+                yield return new WaitForSeconds(4);
                 GameManager.Instance.ReportPlayerDeath();
             }
 
@@ -848,7 +865,14 @@ namespace StarterAssets
 
                 OnDead?.Invoke(deadType);
 
-                yield return new WaitForSeconds(7f);
+                yield return new WaitForSeconds(9f);
+
+                var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = failedTextKey;
+                textField.enabled = true;
+
+                yield return new WaitForSeconds(4f);
+                //yield return new WaitForSeconds(4);
                 GameManager.Instance.ReportPlayerDeath();
             }
 
@@ -877,8 +901,14 @@ namespace StarterAssets
                 OnDead?.Invoke(deadType);
 
 
-                yield return new WaitForSeconds(7f);
+                yield return new WaitForSeconds(9f);
 
+                var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = failedTextKey;
+                textField.enabled = true;
+
+                yield return new WaitForSeconds(4);
+                //yield return new WaitForSeconds(7f);
                 GameManager.Instance.ReportPlayerDeath();
             }
 
@@ -899,8 +929,14 @@ namespace StarterAssets
 				dead = true;
                 OnDead?.Invoke(deadType);
 
+                yield return new WaitForSeconds(9f);
 
-                yield return new WaitForSeconds(7f);
+                var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = failedTextKey;
+                textField.enabled = true;
+
+                yield return new WaitForSeconds(4);
+                //yield return new WaitForSeconds(7f);
                 GameManager.Instance.ReportPlayerDeath();
 
             }
@@ -941,7 +977,15 @@ namespace StarterAssets
 
 			IEnumerator DoReportDeath(float delay)
 			{
-				yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(2f);
+
+                var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+                textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = failedTextKey;
+                textField.enabled = true;
+
+                yield return new WaitForSeconds(4);
+
+                //yield return new WaitForSeconds(delay);
                 GameManager.Instance.ReportPlayerDeath();
             }
         }

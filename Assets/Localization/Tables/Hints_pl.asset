@@ -96,6 +96,14 @@ MonoBehaviour:
     m_Localized: Start przerwany
     m_Metadata:
       m_Items: []
+  - m_Id: 34871779959730176
+    m_Localized: "Misja zako\u0144czona niepowodzeniem... \u017Ca\u0142osne!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34872497626116096
+    m_Localized: "Twoje po\u015Bwi\u0119cenie zostanie zapami\u0119tane... chyba!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
