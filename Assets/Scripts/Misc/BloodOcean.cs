@@ -21,6 +21,9 @@ namespace Baloon
         AudioSource coughAudioSource;
 
         [SerializeField]
+        AudioSource splashAudioSource;
+
+        [SerializeField]
         AudioMixerGroup highFxMixerGroup;
 
 
@@ -50,15 +53,15 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    var pos = transform.position;
-            //    pos.y = -16f;
-            //    transform.position = pos;
-            //    Rise();
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                var pos = transform.position;
+                pos.y = -16f;
+                transform.position = pos;
+                Rise();
 
 
-            //}
+            }
 
 #endif
         }
@@ -83,6 +86,7 @@ namespace Baloon
                     var player = FindFirstObjectByType<FirstPersonController>();
                     player.Die(PlayerDeadType.GameEndingDrown);
                     
+                    splashAudioSource.Play();
                 }
             }
             

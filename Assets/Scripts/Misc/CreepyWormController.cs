@@ -69,10 +69,10 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                HandleOnSealed(blooder);
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    HandleOnSealed(blooder);
+            //}
 #endif
 
 

@@ -7,6 +7,9 @@ namespace Baloon
         [SerializeField]
         GameObject prefab;
 
+        [SerializeField]
+        AudioSource clangAudioSource;
+
         float lifeTime = 12;
 
         bool triggered = false;
@@ -75,6 +78,8 @@ namespace Baloon
             time = 0;
 
             CameraShake.Instance.PlayJumpscare(14f);
+
+            clangAudioSource.Play();
         }
 
     }
