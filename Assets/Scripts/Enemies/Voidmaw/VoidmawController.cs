@@ -214,8 +214,8 @@ namespace Baloon
             }
             else
             {
-                gruntOutAudioSource.Play();
-                metalOutAudioSource.Play();
+                //gruntOutAudioSource.Play();
+                //metalOutAudioSource.Play();
             }
 
 
@@ -231,7 +231,12 @@ namespace Baloon
             fleeing = true;
             grabbing = false;
 
-            yield return new WaitForSeconds(.1f);
+            gruntOutAudioSource.Play();
+            metalOutAudioSource.Play();
+
+            yield return new WaitForSeconds(.2f);
+
+            CameraShake.Instance.PlayJumpscare(.5f);
 
             // Reset parenting
             transform.parent = null;

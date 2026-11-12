@@ -69,10 +69,10 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    HandleOnSealed(blooder);
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                HandleOnSealed(blooder);
+            }
 #endif
 
 
@@ -214,8 +214,12 @@ namespace Baloon
                 // Change animation
                 worm.GetComponentInChildren<Animator>().SetTrigger("Attack");
 
+                // Play jumpscare
+                CameraShake.Instance.PlayJumpscare(.5f);
+
                 // Play audio
                 var audio = worm.GetComponentInChildren<AudioSource>();
+                if (audio.isPlaying) audio.Stop();
                 audio.clip = crunchyClip;
                 audio.volume = 1f;
                 audio.Play();

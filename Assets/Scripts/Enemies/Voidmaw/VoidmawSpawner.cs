@@ -29,7 +29,8 @@ namespace Baloon
 #if UNITY_EDITOR
             //if (Input.GetKeyDown(KeyCode.X))
             //{
-            //    Instantiate(prefab);
+            //    if(prefab.GetComponent<BigVoidmawController>())
+            //        Instantiate(prefab);
             //}
 #endif
 

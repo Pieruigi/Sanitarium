@@ -23,6 +23,9 @@ namespace Baloon
         [SerializeField]
         Transform head;
 
+        [SerializeField]
+        AudioSource metalOutAudioSource;
+
         bool attached = false;
 
         //string attachParam = "Attached";
@@ -153,6 +156,10 @@ namespace Baloon
             attached = false;
             GetComponent<Rigidbody>().isKinematic = false;
 
+            CameraShake.Instance.PlayJumpscare(.5f);
+
+            metalOutAudioSource.Play();
+
             releaseAudioSource.Play();
         }
 
@@ -166,6 +173,10 @@ namespace Baloon
 
             attached = false;
             GetComponent<Rigidbody>().isKinematic = false;
+
+            CameraShake.Instance.PlayJumpscare(.5f);
+
+            metalOutAudioSource.Play();
 
             releaseAudioSource.Play();
         }
