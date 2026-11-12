@@ -51,6 +51,7 @@ namespace Baloon
 
             // Play noise
             noiseAudioSource.volume = noiseVolumeDefault * volume / volumeDefault;
+            noiseAudioSource.time = Random.Range(0f, noiseAudioSource.clip.length - .1f);
             noiseAudioSource.Play();
         }
 

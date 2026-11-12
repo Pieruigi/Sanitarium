@@ -83,10 +83,11 @@ namespace Baloon
                 if (Mathf.Abs(transform.position.y - camY) < 0.5f || camY < transform.position.y)
                 {
                     dead = true;
+                    splashAudioSource.Play();
                     var player = FindFirstObjectByType<FirstPersonController>();
                     player.Die(PlayerDeadType.GameEndingDrown);
                     
-                    splashAudioSource.Play();
+                    
                 }
             }
             
