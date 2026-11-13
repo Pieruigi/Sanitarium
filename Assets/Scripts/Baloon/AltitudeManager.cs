@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Baloon
@@ -21,12 +23,12 @@ namespace Baloon
         public bool ForceGreen = false;
 
         public bool ForceRed = false;
-        
+
 
         // Instead of having a specific time, we set a sort of difficulty level to better handle it
         //int tolleranceLevel = 0;
 
-
+        bool launching = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -48,10 +50,40 @@ namespace Baloon
         //    }
         //}
 
+        private void OnEnable()
+        {
+            BaloonPathManager.OnPathSet += HandleOnPathSet;
+        }
+
+        private void OnDisable()
+        {
+            BaloonPathManager.OnPathSet -= HandleOnPathSet;
+        }
+
+        private void HandleOnPathSet()
+        {
+            launching = true;
+        }
+
         public void SetAltitude(float minAltitude, float maxAltitude)
         {
-            this.minAltitude = minAltitude;
-            this.maxAltitude = maxAltitude;
+            if(!launching)
+            {
+                this.minAltitude = minAltitude;
+                this.maxAltitude = maxAltitude;
+            }
+            else
+            {
+                StartCoroutine(SetAltitudeDelayed(minAltitude, maxAltitude));
+            }
+
+            IEnumerator SetAltitudeDelayed(float minAltitude, float maxAltitude)
+            {
+                yield return new WaitForSeconds(5f);
+                launching = false;
+                SetAltitude(minAltitude, maxAltitude);
+            }
+            
         }
 
         public AltitudeRange GetCurrentRange()
