@@ -2591,7 +2591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1184379160111396246
 Transform:
   m_ObjectHideFlags: 0
@@ -3411,7 +3411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8248419786014908324
 Transform:
   m_ObjectHideFlags: 0
@@ -14263,7 +14263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbaaf2ce57f45314ca9b8efaecb4c2ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaloonSpeaker
-  noiseAudioSource: {fileID: 4665570544072107949}
+  noiseAudioSource: {fileID: 5643405391868058834}
 --- !u!114 &1505557851782694733
 MonoBehaviour:
   m_ObjectHideFlags: 0

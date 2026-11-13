@@ -168,6 +168,8 @@ namespace Baloon
         /// </summary>
         public void ForceDetach()
         {
+            if (!attached) return;
+
             foreach (var t in tentacles)
                 t.ForceDetach();
 
