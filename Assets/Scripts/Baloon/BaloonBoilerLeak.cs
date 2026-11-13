@@ -66,6 +66,9 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            // Disable interactor
+            //interactor.enabled = false;
+
             var rawData = SaveManager.Instance.GetRawJsonData(saveId);
             if (!string.IsNullOrEmpty(rawData))
             {
@@ -83,7 +86,11 @@ namespace Baloon
                     particle.transform.localPosition = Vector3.zero;
                     particle.transform.localRotation = Quaternion.identity;
                     particle.Stop();
+
+                    // Enable interactor
+                    //interactor.enabled = true;
                 }
+                
             }
         }
 
@@ -105,6 +112,8 @@ namespace Baloon
                         StopLeaking();
                         StartCoroutine(HideHoldDelayed(.5f));
                         //FindFirstObjectByType<DotUI>().HideHold();
+
+                        
                     }
                 }
             }
@@ -146,18 +155,34 @@ namespace Baloon
 
         private void HandleOnHint(Interactor interactor, bool interactable)
         {
-            if (interactor != this.interactor) return;
-            Debug.Log("TEST - Leak:" + gameObject.name);
+            if (interactor != this.interactor)
+            {
+                //Debug.Log("TEST - Leak - not equal:" + gameObject.name);
+                //FindFirstObjectByType<DotUI>().HideHold();
+                return;
+            };
+
+            //Debug.Log("TEST - Leak:" + gameObject.name);
             if (interactable)
             {
-                if (damaged && RepairToolController.Instance.Equipped)
-                    FindFirstObjectByType<DotUI>().ShowHold();
-                else
-                    FindFirstObjectByType<DotUI>().HideHold();
+                Debug.Log("TEST - Leak - interactable:" + gameObject.name);
+                if (damaged)
+                {
+                    if (RepairToolController.Instance.Equipped)
+                        FindFirstObjectByType<DotUI>().ShowHold();
+                    else 
+                        FindFirstObjectByType<DotUI>().HideHold();
+                }
+                //else
+                //{
+                //    FindFirstObjectByType<DotUI>().HideHold();
+                //}
             }
             else
             {
-                FindFirstObjectByType<DotUI>().HideHold();
+                Debug.Log("TEST - Leak - not interactable:" + gameObject.name);
+                if(damaged)
+                    FindFirstObjectByType<DotUI>().HideHold();
             }
         }
 
@@ -251,6 +276,9 @@ namespace Baloon
             // Shake camera
             CameraShake.Instance.PlayJumpscare(.5f);
 
+            // Disable interactor
+            //interactor.enabled = true;
+
         }
 
         void StopLeaking()
@@ -277,6 +305,9 @@ namespace Baloon
 
                 //BaloonBoilerHealth.Instance.Repair(.2f);
                 BaloonBoilerHealth.Instance.SingleRepair();
+
+                // Disable interactor
+                //interactor.enabled = false;
             }
 
             

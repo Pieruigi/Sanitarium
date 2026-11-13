@@ -109,10 +109,10 @@ namespace Baloon
 
 
                     }
-                    //else
-                    //{
-                    //    showMessage = false;
-                    //}
+                    else
+                    {
+                        showMessage = false;
+                    }
 
                 }
                 else
