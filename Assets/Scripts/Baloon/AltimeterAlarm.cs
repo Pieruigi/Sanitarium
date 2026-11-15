@@ -10,6 +10,7 @@ public class AltimeterAlarm : MonoBehaviour
 
     bool started = false;
 
+    AltitudeRange oldRange;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,12 +47,15 @@ public class AltimeterAlarm : MonoBehaviour
                 break;
             case AltitudeRange.Yellow:
                 StopAlarms();
-                //PlayYellowAlarm();
+                if(oldRange == AltitudeRange.Green)// && BaloonPathManager.Instance.HasPath())
+                    PlayYellowAlarm();
                 break;
             case AltitudeRange.Green:
                 StopAlarms();
                 break;
         }
+
+        oldRange = currentRange;
     }
 
     private void OnEnable()

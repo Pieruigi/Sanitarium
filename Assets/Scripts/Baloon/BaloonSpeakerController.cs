@@ -25,6 +25,9 @@ namespace Baloon
         [SerializeField]
         AudioClip reduceAltitudeClip;
 
+        [SerializeField]
+        AudioClip altitudeChangedClip;
+
         float warningTime = 5f;
         float warningElapsed = 0;
 
@@ -76,6 +79,7 @@ namespace Baloon
             BaloonControlPanel.OnStarted += HandleOnStarted;
             BoilerController.OnGasDepleted += HandleOnGasDepleted;
             BaloonPathManager.OnPathSet += HandleOnPathSet;
+            AltitudeManager.OnSafeAltitudeChanged += HandleOnSafeAltitudeChanged;
         }
 
         private void OnDisable()
@@ -84,6 +88,15 @@ namespace Baloon
             BaloonControlPanel.OnStarted -= HandleOnStarted;
             BoilerController.OnGasDepleted -= HandleOnGasDepleted;
             BaloonPathManager.OnPathSet -= HandleOnPathSet;
+            AltitudeManager.OnSafeAltitudeChanged -= HandleOnSafeAltitudeChanged;
+        }
+
+        private void HandleOnSafeAltitudeChanged()
+        {
+            //if (!BaloonPathManager.Instance.HasPath()) return;
+
+            //var speaker = GetComponent<BaloonSpeaker>();
+            //speaker.Play(altitudeChangedClip);
         }
 
         private void HandleOnPathSet()

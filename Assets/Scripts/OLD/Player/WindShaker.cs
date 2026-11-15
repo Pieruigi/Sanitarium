@@ -26,7 +26,7 @@ namespace Baloon
 
         float timeSpeed = 1f;// 1f;
 
-        public bool LightShakeOnly = false;
+        public bool LightShakeOnly { get; set; } = false;
 
         //public bool _testBalloonShaker = false;
 
@@ -80,21 +80,16 @@ namespace Baloon
                     case AltitudeRange.Green:
                         if (Random.Range(0, 14) == 0) // new: 1/14; old: 1/6 heavy wind
                             heavy = true;
-                        //ShakeLight();
+                        
                         break;
                     case AltitudeRange.Yellow:
                         if(Random.Range(0, 7) == 0) // new: 1/7; old: 1/3 heavy wind
                             heavy = true;
                         
-                        //CameraShake.Instance.PlayWindShakeLight(ResetShakeTime, ResetShakeTime);
-                        //BaloonShaker.Instance.ShakeLight();
-                        //WindAudio.Instance.FadeLightVolume(Random.Range(3.2f, 4f));
                         break;
                     case AltitudeRange.Red:
                         heavy = true;
-                        //CameraShake.Instance.PlayWindShakeStrong(ResetShakeTime, ResetShakeTime);
-                        //BaloonShaker.Instance.ShakeHeavy();
-                        //WindAudio.Instance.FadeHeavyVolume(Random.Range(3.2f, 4f));
+                        
                         break;
                 }
 
@@ -200,7 +195,7 @@ namespace Baloon
             IEnumerator ApplyDamage()
             {
                 
-                if (Random.Range(0, 5) == 0) yield break; // 20% we take damage (old was 25%)
+                if (Random.Range(0, 6) == 0) yield break; // 16.6% we take damage (old was 20%)
 
                 
                 yield return new WaitForSeconds(.5f);

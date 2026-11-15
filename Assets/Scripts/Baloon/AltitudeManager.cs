@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
@@ -8,6 +9,8 @@ namespace Baloon
 
     public class AltitudeManager : Singleton<AltitudeManager>
     {
+        public static UnityAction OnSafeAltitudeChanged;
+
 
         [SerializeField]
         float minAltitude = 30;
@@ -71,6 +74,8 @@ namespace Baloon
             {
                 this.minAltitude = minAltitude;
                 this.maxAltitude = maxAltitude;
+
+                OnSafeAltitudeChanged?.Invoke();
             }
             else
             {

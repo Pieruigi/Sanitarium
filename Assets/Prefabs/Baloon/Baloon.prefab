@@ -1518,17 +1518,17 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 967476203333559762, guid: 32d8859fd38ae544cba99b68939eba3b, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 0ae4ce317c5471f4fa858fc85e006af8, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3540bd3fecf28b1458f3725a244e9efa, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.406
+  m_Volume: 0.605
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 2
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -14281,6 +14281,7 @@ MonoBehaviour:
   noFuelClip: {fileID: 8300000, guid: 5ae3cdf53037306428289de4180f7c78, type: 3}
   gainAltitudeClip: {fileID: 8300000, guid: fd8de9896dd1e6c498a9965c329727ec, type: 3}
   reduceAltitudeClip: {fileID: 8300000, guid: a3b8ce971fc207445941f24724963e8c, type: 3}
+  altitudeChangedClip: {fileID: 8300000, guid: 1fd127fac8108964e9effe7bde25d82e, type: 3}
 --- !u!1 &6398840402162803883
 GameObject:
   m_ObjectHideFlags: 0
@@ -15278,7 +15279,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 2
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
