@@ -12,6 +12,7 @@ namespace Baloon
 
         public bool Walkable => walkable;
 
+        
         private void Awake()
         {
             GetComponent<Rigidbody>().isKinematic = true;

@@ -14,7 +14,7 @@ namespace Baloon
 
         [SerializeField]
         bool isOn = false;
-
+        public bool IsOn => isOn;
         
         [SerializeField]
         Vector3 onPosition;
@@ -88,5 +88,7 @@ namespace Baloon
 
             lastPressed = inputAction.action.IsPressed();
         }
+
+       
     }
 }
