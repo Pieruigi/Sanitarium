@@ -78,7 +78,7 @@ namespace Baloon
                 switch (range)
                 {
                     case AltitudeRange.Green:
-                        if (Random.Range(0, 14) == 0) // new: 1/14; old: 1/6 heavy wind
+                        if (Random.Range(0, 49) == 0) // new: 1/14; old: 1/6 heavy wind
                             heavy = true;
                         
                         break;
