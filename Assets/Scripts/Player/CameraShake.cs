@@ -20,6 +20,8 @@ public class CameraShake : Singleton<CameraShake>
     [SerializeField]
     Transform scareTransform;
 
+    public Transform ScareTransform => scareTransform;
+
     [SerializeField]
     Transform verticalWindTransform;
 

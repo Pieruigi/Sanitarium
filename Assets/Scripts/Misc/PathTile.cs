@@ -48,7 +48,9 @@ namespace Baloon
 
         private void HandleOnBlooderStarted(BlooderController blooderController, bool isSealed)
         {
-            if (!blooder.Sealed)
+            if (blooderController != blooder) return;
+
+            if (!isSealed || !walkable)
             {
                 IsShaking = true;
                 Shake();
@@ -98,6 +100,8 @@ namespace Baloon
             transform.DOShakeRotation(.5f, strength: 5f, vibrato:8, fadeOut:false)
             .OnComplete(() => transform.localRotation = Quaternion.identity);
             
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
         }
     }
 }

@@ -53,15 +53,15 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                var pos = transform.position;
-                pos.y = -16f;
-                transform.position = pos;
-                Rise();
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    var pos = transform.position;
+            //    pos.y = -16f;
+            //    transform.position = pos;
+            //    Rise();
 
 
-            }
+            //}
 
 #endif
         }

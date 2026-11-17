@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Baloon
@@ -77,6 +78,7 @@ namespace Baloon
 
             time = 0;
 
+            CameraShake.Instance.ScareTransform.DOKill(); 
             CameraShake.Instance.PlayJumpscare(14f);
 
             clangAudioSource.Play();
