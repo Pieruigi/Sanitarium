@@ -48,8 +48,10 @@ namespace Baloon
                 var tile = hit.collider.GetComponent<PathTile>();
                 if(tile != null)
                 {
-                    if (!tile.Walkable)
+                    if (!tile.Walkable || tile.IsShaking)
                         CollapseAll();
+                    //else
+                    //    tile.StopShaking();
                 }
             }
         }

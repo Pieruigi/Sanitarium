@@ -9,22 +9,16 @@ namespace Baloon
     public class PathTileLightChecker : MonoBehaviour
     {
         
-        float playerDistance = 3f;
+        float playerDistance = 4f;
 
         GameObject player;
 
-        bool isOn = false;
-
-        Renderer _renderer;
-
+        PathTile tile;
                 
 
         private void Awake()
         {
-            _renderer = GetComponent<Renderer>();
-            _renderer.enabled = false;
-
-           
+            tile = GetComponentInParent<PathTile>();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,32 +35,25 @@ namespace Baloon
 
         void LateUpdate()
         {
-            bool isOnOld = isOn;
+            if (!tile.IsShaking) return;
+            
             if (Vector3.Distance(transform.position, player.transform.position) < playerDistance)
             {
                 if (Flashlight.Instance.IsOn)
                 {
-                    isOn = true;
+                    // Raycast
+                    if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 2*playerDistance))
+                    {
+                        if(hit.collider.gameObject == gameObject && tile.Walkable)
+                            tile.StopShaking();
+                    }
                 }
-                else
-                {
-                    isOn = false;
-                }
-
-            }
-            else
-            {
-                isOn = false;
-            }
-
-            if(isOnOld != isOn) // Light on/off
-            {
-                Debug.Log("TEST - Path - Light check:" + isOn);
                 
 
-               
-                _renderer.enabled = isOn;
             }
+            
+
+            
         }
     }
 

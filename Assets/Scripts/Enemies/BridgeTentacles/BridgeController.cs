@@ -221,7 +221,6 @@ namespace Baloon
 
                     tentacle.transform.DOMoveY(y, 4f).SetEase(Ease.InSine);
 
-                    Debug.Log("TEST - Move tentacle");
                 }
 
                 // Activate no fall collisions
@@ -241,7 +240,7 @@ namespace Baloon
 
                     // Just wait a little while before player fall
                     var gravity = player.Gravity;
-                    Debug.Log("TEST - Gravity:" + gravity);
+                   
                     player.Gravity = 0;
 
                     // Disable player movement
@@ -253,8 +252,7 @@ namespace Baloon
                     yield return new WaitForSeconds(.5f);
 
                     player.Gravity = -9.8f;
-                    Debug.Log("TEST - Player.Gravity:" + player.Gravity);
-
+                   
                     yield return new WaitForSeconds(2f);
 
                     player.Die(PlayerDeadType.RockBridgeFall);

@@ -8,9 +8,14 @@ namespace Baloon
     public class PathTile : MonoBehaviour
     {
         [SerializeField]
+        BlooderController blooder;
+
+        [SerializeField]
         bool walkable = false;
 
         public bool Walkable => walkable;
+
+        public bool IsShaking { get; set; } = true;
 
         
         private void Awake()
@@ -21,12 +26,8 @@ namespace Baloon
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            //float min = .5f;
-            //float max = 1f;
-            //transform.DOShakeRotation(1f, Random.Range(min, max), 4, 0f, false)
-            //.SetLoops(-1, LoopType.Yoyo)
-            //.SetEase(Ease.InOutSine);
-            Shake();
+            //if(!blooder.Sealed)
+            //    Shake();
         }
 
         // Update is called once per frame
@@ -35,11 +36,35 @@ namespace Baloon
 
         }
 
+        private void OnEnable()
+        {
+            BlooderController.OnStarted += HandleOnBlooderStarted;
+        }
+
+        private void OnDisable()
+        {
+            BlooderController.OnStarted -= HandleOnBlooderStarted;
+        }
+
+        private void HandleOnBlooderStarted(BlooderController blooderController, bool isSealed)
+        {
+            if (!blooder.Sealed)
+            {
+                IsShaking = true;
+                Shake();
+            }
+            else
+            {
+                IsShaking = false;
+            }
+                
+        }
+
         void Shake()
         {
             float min = .5f;
             float max = 1f;
-            transform.DOShakeRotation(1f, Random.Range(min, max), 4, 0f, false)
+            transform.DOShakeRotation(1f, Random.Range(min, max) * 1.5f, 4, 0f, false)
             .OnComplete(()=>Shake())
             .SetEase(Ease.InOutSine);
         }
@@ -62,6 +87,17 @@ namespace Baloon
                 rb.AddTorque(Random.insideUnitSphere * Random.Range(0, 360) * 2);
                 GetComponent<Collider>().enabled = false;   
             }
+        }
+
+        public void StopShaking()
+        {
+            if (!IsShaking) return;
+            IsShaking = false;
+            transform.DOKill();
+            // Fast shake and stop
+            transform.DOShakeRotation(.5f, strength: 5f, vibrato:8, fadeOut:false)
+            .OnComplete(() => transform.localRotation = Quaternion.identity);
+            
         }
     }
 }

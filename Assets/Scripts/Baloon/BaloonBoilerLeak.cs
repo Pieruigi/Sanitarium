@@ -165,7 +165,6 @@ namespace Baloon
             //Debug.Log("TEST - Leak:" + gameObject.name);
             if (interactable)
             {
-                Debug.Log("TEST - Leak - interactable:" + gameObject.name);
                 if (damaged)
                 {
                     if (RepairToolController.Instance.Equipped)
@@ -180,7 +179,6 @@ namespace Baloon
             }
             else
             {
-                Debug.Log("TEST - Leak - not interactable:" + gameObject.name);
                 if(damaged)
                     FindFirstObjectByType<DotUI>().HideHold();
             }

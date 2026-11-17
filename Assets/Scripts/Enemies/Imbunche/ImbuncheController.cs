@@ -63,7 +63,7 @@ namespace Baloon
             //transform.position = patrolPoints[patrolIndex].position;
             //transform.rotation = patrolPoints[patrolIndex].rotation;
             SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
-            Debug.Log("TEST - Imbunche awakened");
+          
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -83,7 +83,7 @@ namespace Baloon
             {
                 var data = JsonUtility.FromJson<Data>(rawData);
                 activated = data.activated;
-                Debug.Log("TEST - Imbunche data:" + activated);
+               
             }
 
             
@@ -130,7 +130,7 @@ namespace Baloon
         {
             var data = new Data();
             data.activated = gameObject.activeSelf;
-            Debug.Log("TEST - Imbunche save:" + data.activated);
+            
             SaveManager.Instance.CreateOrUpdateDataEntry(saveId, JsonUtility.ToJson(data));
         }
 
