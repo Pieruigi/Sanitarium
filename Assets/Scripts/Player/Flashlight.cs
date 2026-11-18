@@ -26,7 +26,14 @@ namespace Baloon
         [SerializeField]
         Vector3 offEulers;
 
-        
+
+        [SerializeField]
+        AudioSource onAudioSource;
+
+        [SerializeField]
+        AudioSource offAudioSource;
+
+
         Sequence tween;
 
         bool lastPressed = false;
@@ -73,6 +80,8 @@ namespace Baloon
                     tween.Append(root.DOLocalMove(offPosition, .25f));
                     tween.Join(root.DOLocalRotate(offEulers, .25f));
                     tween.OnComplete(() => { root.gameObject.SetActive(false); });
+
+                    offAudioSource.Play();
                 }
                 else
                 {
@@ -83,6 +92,8 @@ namespace Baloon
                     tween.Append(root.DOLocalMove(onPosition, .25f));
                     tween.Join(root.DOLocalRotate(onEulers, .25f));
                     tween.Join(root.DOLocalRotate(onEulers, .25f));
+
+                    onAudioSource.Play();
                 }
             }
 

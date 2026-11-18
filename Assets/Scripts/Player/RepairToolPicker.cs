@@ -11,6 +11,9 @@ namespace Baloon
         [SerializeField]
         GameObject wrench;
 
+        [SerializeField]
+        AudioSource audioSource;
+
         bool picked = false;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,6 +48,8 @@ namespace Baloon
                 wrench.SetActive(false);
                 LeftHand.Instance.IsFree = false;
                 RepairToolController.Instance.ReportPickedUp();
+
+                audioSource.Play();
             }
             else
             {
@@ -52,6 +57,8 @@ namespace Baloon
                 //wrench.SetActive(true);
                 //RepairToolController.Instance.ReportPutBack();
                 PutBack();
+
+
             }
 
         }
@@ -63,6 +70,8 @@ namespace Baloon
             wrench.SetActive(true);
             LeftHand.Instance.IsFree = true;
             RepairToolController.Instance.ReportPutBack();
+
+            audioSource.Play();
         }
     }
 }

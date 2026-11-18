@@ -6,6 +6,9 @@ namespace Baloon.UI
 {
     public class ReviewButton : MonoBehaviour
     {
+        [SerializeField]
+        bool writeReview = false;
+
         private void Awake()
         {
             GetComponent<Button>().onClick.AddListener(OnClick);
@@ -27,7 +30,8 @@ namespace Baloon.UI
 
         private void OnClick()
         {
-            Application.OpenURL("steam://openurl/https://store.steampowered.com/app/4839050/Altitude_Zero/#app_reviews_hash");
+            if(writeReview) 
+                Application.OpenURL("steam://openurl/https://store.steampowered.com/app/4839050/Altitude_Zero/#app_reviews_hash");
 
             GameManager.Instance.ReportGameCompleted();
 

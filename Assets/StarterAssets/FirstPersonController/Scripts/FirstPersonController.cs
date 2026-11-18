@@ -186,7 +186,7 @@ namespace StarterAssets
             bloodUI.SetActive(false);
 
 #if UNITY_EDITOR
-			//transform.position = new Vector3(340, 10, 805);
+			transform.position = new Vector3(240, 30, 605);
 #endif
         }
 
@@ -797,9 +797,9 @@ namespace StarterAssets
 				Cursor.lockState = CursorLockMode.None;
 				Cursor.visible = true;
 
-                yield return new WaitForSeconds(8f);
+                //yield return new WaitForSeconds(8f);
 
-                GameManager.Instance.ReportGameCompleted();
+                //GameManager.Instance.ReportGameCompleted();
 
 				
             }
