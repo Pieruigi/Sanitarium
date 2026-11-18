@@ -107,7 +107,7 @@ namespace Baloon
 #endif
 
 #if UNITY_EDITOR
-            transform.position = new Vector3(240, 30, 605);
+            //transform.position = new Vector3(340, 10, 805);
             //transform.eulerAngles = Vector3.up * 0;
 #endif
         }
@@ -213,8 +213,8 @@ namespace Baloon
                 landingAudioSource.Play();
 
                 // Damage
-                if (power > .75f)
-                    BaloonBoilerHealth.Instance.TryTakeSingleDamage();
+                //if (power > .75f)
+                //    BaloonBoilerHealth.Instance.TryTakeSingleDamage();
             }
             else if (lastVelY == 0 && currentVelocity.y > 0)
             {

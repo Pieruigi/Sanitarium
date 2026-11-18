@@ -1562625,6 +1562625,7 @@ GameObject:
   - component: {fileID: 962864373}
   - component: {fileID: 962864372}
   - component: {fileID: 962864371}
+  - component: {fileID: 962864375}
   m_Layer: 0
   m_Name: T2
   m_TagString: Untagged
@@ -1562740,6 +1562741,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962864369}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &962864375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962864369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f814c9478266a41b85bc9edffe00aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.OneShotJumpscare
+  delay: 0
+  duration: 1
+  saveId: g5_jt_2
 --- !u!1 &962921006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2103765,6 +2103781,7 @@ GameObject:
   - component: {fileID: 1295313212}
   - component: {fileID: 1295313211}
   - component: {fileID: 1295313210}
+  - component: {fileID: 1295313214}
   m_Layer: 0
   m_Name: CreepyTrigger
   m_TagString: Untagged
@@ -2103880,6 +2103897,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295313208}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1295313214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295313208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f814c9478266a41b85bc9edffe00aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.OneShotJumpscare
+  delay: 0
+  duration: 0.5
+  saveId: 
 --- !u!1 &1295420395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005632,6 +3005664,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850686677}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1850784024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1850784025}
+  - component: {fileID: 1850784026}
+  m_Layer: 0
+  m_Name: BalloonAchievements
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1850784025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850784024}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1850784026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850784024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0572ed365a2877f40991333e4e40ed72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.BaloonAchievements
 --- !u!1001 &1850790038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3198421,6 +3198497,7 @@ GameObject:
   - component: {fileID: 1965710237}
   - component: {fileID: 1965710236}
   - component: {fileID: 1965710235}
+  - component: {fileID: 1965710239}
   m_Layer: 0
   m_Name: T1
   m_TagString: Untagged
@@ -3198536,6 +3198613,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965710233}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1965710239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965710233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f814c9478266a41b85bc9edffe00aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Baloon.OneShotJumpscare
+  delay: 0
+  duration: 2
+  saveId: g5_jt_1
 --- !u!1 &1965746512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3496003,3 +3496095,4 @@ SceneRoots:
   - {fileID: 531386106}
   - {fileID: 1917067475}
   - {fileID: 943739766}
+  - {fileID: 1850784025}

@@ -4,12 +4,15 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Baloon
 {
     public class VoidmawController : MonoBehaviour
     {
+        public static UnityAction OnGotRidOf;
+
         [SerializeField]
         Animator animator;
 
@@ -204,7 +207,11 @@ namespace Baloon
             hitCount--;
             animator.SetTrigger("Hit");
             if (hitCount <= 0)
+            {
                 StartCoroutine(Flee());
+                OnGotRidOf?.Invoke();
+            }
+                
 
             // Gore audio
             if(hitCount > 0)

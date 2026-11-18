@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Baloon
 {
     public class BigVoidmawController : MonoBehaviour
     {
+        public static UnityAction OnGotRidOf;
 
         [SerializeField]
         AudioSource hitAudioSource;
@@ -43,7 +45,7 @@ namespace Baloon
         [SerializeField]
         List<BigVoidmawTentacle> tentacles;
 
-        float releaseTime = 12;
+        float releaseTime = 15;
         float releaseElapsed = 0;
 
         private void Awake()
@@ -161,6 +163,8 @@ namespace Baloon
             metalOutAudioSource.Play();
 
             releaseAudioSource.Play();
+
+            OnGotRidOf?.Invoke();
         }
 
         /// <summary>

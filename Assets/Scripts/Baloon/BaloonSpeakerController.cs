@@ -50,7 +50,7 @@ namespace Baloon
         {
             if (BaloonPathManager.Instance.HasPath() && BaloonControlPanel.Instance.IsRunning)
             {
-                if(AltitudeManager.Instance.GetCurrentRange() == AltitudeRange.Red)
+                if(AltitudeManager.Instance.GetCurrentRange() == AltitudeRange.Red || AltitudeManager.Instance.GetCurrentRange() == AltitudeRange.Yellow)
                 {
                     warningElapsed += Time.deltaTime;
                     if(warningElapsed > warningTime)
@@ -58,7 +58,8 @@ namespace Baloon
                         warningElapsed -= warningTime;
                         var altitude = BaloonController.Instance.Altitude;
                         AudioClip clip = gainAltitudeClip;
-                        if (altitude > AltitudeManager.Instance.MaxAltitude)
+                        
+                        if (altitude > AltitudeManager.Instance.TargetAltitude)
                             clip = reduceAltitudeClip;
                         PlayAltitudeWarning(clip);
 

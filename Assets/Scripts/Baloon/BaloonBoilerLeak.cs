@@ -272,7 +272,8 @@ namespace Baloon
             runningAudioSource.Play();
 
             // Shake camera
-            CameraShake.Instance.PlayJumpscare(.5f);
+            //CameraShake.Instance.PlayJumpscare(.5f);
+            CameraShake.Instance.PlayBoilerDamageShake();
 
             // Disable interactor
             //interactor.enabled = true;

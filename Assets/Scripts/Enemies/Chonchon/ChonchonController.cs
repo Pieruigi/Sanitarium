@@ -1,5 +1,6 @@
 using DG.Tweening;
 using StarterAssets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,6 +87,21 @@ namespace Baloon
 #endif
         }
 
+        private void OnEnable()
+        {
+            BaloonControlPanel.OnStarted += HandleOnStarted;
+        }
+
+        private void OnDisable()
+        {
+            BaloonControlPanel.OnStarted -= HandleOnStarted;
+        }
+
+        private void HandleOnStarted()
+        {
+            Destroy(gameObject);
+        }
+
         private void LateUpdate()
         {
             switch (state)
@@ -121,9 +137,9 @@ namespace Baloon
         {
             UpdateIdleState();
 
-            // check distance
-            if(Vector3.ProjectOnPlane(transform.position-idleTarget.position, Vector3.up).magnitude < 13f)
-                GameObject.Destroy(gameObject);
+            //// check distance
+            //if(Vector3.ProjectOnPlane(transform.position-idleTarget.position, Vector3.up).magnitude < 13f)
+            //    GameObject.Destroy(gameObject);
         }
 
         void UpdateChasingState()

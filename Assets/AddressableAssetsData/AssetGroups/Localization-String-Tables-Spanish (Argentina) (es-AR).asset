@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Spanish (Argentina) (es-AR)
   m_GUID: 4736a664e0399b845949052fbe4109cd
   m_SerializeEntries:
+  - m_GUID: 0d8d6002bb1f68c4bbb1eeb1bbd40d22
+    m_Address: Thanks_es-AR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es-AR
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ac0ebb28fbeea44db8ff368cb03cb19
     m_Address: Menu_es-AR
     m_ReadOnly: 1

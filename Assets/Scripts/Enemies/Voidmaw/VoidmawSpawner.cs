@@ -27,11 +27,11 @@ namespace Baloon
         void Update()
         {
 #if UNITY_EDITOR
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    if(prefab.GetComponent<BigVoidmawController>())
-            //        Instantiate(prefab);
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if (prefab.GetComponent<VoidmawController>())
+                    Instantiate(prefab);
+            }
 #endif
 
             if (!follow) return;

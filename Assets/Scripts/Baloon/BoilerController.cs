@@ -8,6 +8,7 @@ namespace Baloon
     public class BoilerController : Singleton<BoilerController>
     {
         public static UnityAction OnGasDepleted;
+        public static UnityAction OnGasRefueled;
 
         [SerializeField]
         [Range(0, 1f)]
@@ -257,6 +258,8 @@ namespace Baloon
             
             gasLeft += value;
             if (gasLeft > 1) gasLeft = 1; // Clamp
+
+            OnGasRefueled?.Invoke();
 
             return true;
         }

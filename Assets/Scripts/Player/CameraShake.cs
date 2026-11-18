@@ -1,7 +1,8 @@
-using UnityEngine;
 using DG.Tweening;
-using StarterAssets;
 using JetBrains.Annotations;
+using StarterAssets;
+using UnityEngine;
+using UnityEngine.Device;
 
 public class CameraShake : Singleton<CameraShake>
 {
@@ -25,6 +26,10 @@ public class CameraShake : Singleton<CameraShake>
     [SerializeField]
     Transform verticalWindTransform;
 
+    [SerializeField]
+    Transform boilerDamage;
+
+
     float windShakeMultiplier = 1f;//1.4f;
 
     protected override void Awake()
@@ -43,6 +48,35 @@ public class CameraShake : Singleton<CameraShake>
         //}
     }
 #endif
+
+    public void PlayBoilerDamageShake()
+    {
+        var posStrength = 0.25f * .4f;
+        var rotStrength= 15f * .4f;
+        var vibratoPos = 30;
+        var vibratoRot = 20;
+
+        boilerDamage.DOShakePosition(
+           .5f,
+           strength: posStrength,
+           vibrato: vibratoPos,
+           randomness: 90,
+           fadeOut: true
+       ).SetUpdate(true)
+        .OnComplete(()=> { transform.localPosition = Vector3.zero; })
+        .OnKill(() => { transform.localPosition = Vector3.zero; });
+
+        // SHAKE ROTATION
+        boilerDamage.DOShakeRotation(
+            .5f,
+            strength: rotStrength,
+            vibrato: vibratoRot,
+            randomness: 90,
+            fadeOut: true
+        ).SetUpdate(true)
+         .OnComplete(() => { transform.localRotation = Quaternion.identity; }).
+         OnKill(() => { transform.localRotation = Quaternion.identity; }); 
+    }
 
     public void PlayCatwalkCollapseShake(float duration, System.Action onComplete = null, System.Action onKill = null)
     {

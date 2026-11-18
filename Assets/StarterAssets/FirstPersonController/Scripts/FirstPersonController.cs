@@ -2,11 +2,8 @@
 using Baloon.SaveSystem;
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.Audio;
 
 
@@ -130,6 +127,7 @@ namespace StarterAssets
 		string failedTextKey = "mission_failed";
 		string succeededTextKey = "mission_succeeded";
 
+
 		
 		private bool IsCurrentDeviceMouse
 		{
@@ -183,11 +181,12 @@ namespace StarterAssets
 			}
 
 			onBasketCollider.enabled = false;
-			bloodUI.GetComponentInChildren<TMP_Text>().enabled = false;
-			bloodUI.SetActive(false);
+			bloodUI.transform.Find("TheEnd").GetComponent<TMP_Text>().enabled = false;
+            bloodUI.transform.Find("Thanks").gameObject.SetActive(false);
+            bloodUI.SetActive(false);
 
 #if UNITY_EDITOR
-			transform.position = new Vector3(240, 30, 605);
+			//transform.position = new Vector3(340, 10, 805);
 #endif
         }
 
@@ -231,6 +230,9 @@ namespace StarterAssets
 #if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.P))
 				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+
+			if (Input.GetKeyDown(KeyCode.X))
+				Die(PlayerDeadType.GameEndingDrown);
 #endif
 
 			if (dead) return;
@@ -781,11 +783,21 @@ namespace StarterAssets
 
                 yield return new WaitForSeconds(8.5f);
 
-				var textField = bloodUI.GetComponentInChildren<TMP_Text>();
+				var textField = bloodUI.transform.Find("TheEnd").GetComponent<TMP_Text>();
 			    textField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = succeededTextKey;
                 textField.enabled = true;
 
                 yield return new WaitForSeconds(7f);
+
+				textField.enabled = false;
+				var thanksField = bloodUI.transform.Find("Thanks").gameObject;
+				thanksField.GetComponent<LocalizeStringEvent>().StringReference.TableEntryReference = "thanks";
+				thanksField.SetActive( true);
+
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+
+                yield return new WaitForSeconds(8f);
 
                 GameManager.Instance.ReportGameCompleted();
 

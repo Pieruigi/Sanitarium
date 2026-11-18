@@ -1,4 +1,5 @@
 using Baloon;
+using Baloon.UI;
 using DG.Tweening;
 using NUnit.Framework;
 using System.Collections;
@@ -6,9 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CarrionFlyController : MonoBehaviour
 {
+    public static UnityAction OnGotRidOf;
+
     [SerializeField]
     List<Transform> patrolPoints;
 
@@ -60,7 +64,7 @@ public class CarrionFlyController : MonoBehaviour
     bool isDead = false;
     public bool IsDead {  get { return isDead; } }
 
-    
+    bool gotRidOf = false;
 
     private void Awake()
     {
@@ -181,6 +185,17 @@ public class CarrionFlyController : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.X))
         //    StartAttacking();
 #endif
+    }
+
+    private void LateUpdate()
+    {
+        if (gotRidOf || !isDead) return;
+
+        if(Vector3.Distance(BaloonController.Instance.transform.position, transform.position) > 5)
+        {
+            gotRidOf = true;
+            OnGotRidOf?.Invoke();
+        }
     }
 
     private void FixedUpdate()
