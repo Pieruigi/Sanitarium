@@ -69,14 +69,14 @@ namespace Baloon
         {
             SaveManager.OnUpdateDataEntry += HandleOnUpdateDataEntry;
             BlooderController.OnSealed += HandleOnBlooderSealed;
-            BaloonControlPanel.OnStopped += HandleOnStopped;
+            //BaloonControlPanel.OnStopped += HandleOnStopped;
         }
 
         private void OnDisable()
         {
             SaveManager.OnUpdateDataEntry -= HandleOnUpdateDataEntry;
             BlooderController.OnSealed -= HandleOnBlooderSealed;
-            BaloonControlPanel.OnStopped -= HandleOnStopped;
+            //BaloonControlPanel.OnStopped -= HandleOnStopped;
 
         }
 
@@ -115,7 +115,18 @@ namespace Baloon
             }
         }
 
-        
+        public void ForceDetach()
+        {
+            if (state == 10)
+            {
+                state = 20; // Completed
+
+                foreach (var t in tentacles)
+                    t.SetActive(false);
+
+                StopAudio();
+            }
+        }
 
         private void HandleOnUpdateDataEntry()
         {

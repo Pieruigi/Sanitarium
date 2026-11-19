@@ -163,7 +163,7 @@ namespace Baloon
         {
             if (interactor != this.interactor) return;
 
-            if (interactable && grabbing)
+            if (interactable && grabbing && RepairToolController.Instance.Equipped)
             {
                 FindFirstObjectByType<DotUI>().ShowHold();
             }

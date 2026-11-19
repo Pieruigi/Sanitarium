@@ -63,8 +63,8 @@ public class CameraShake : Singleton<CameraShake>
            randomness: 90,
            fadeOut: true
        ).SetUpdate(true)
-        .OnComplete(()=> { transform.localPosition = Vector3.zero; })
-        .OnKill(() => { transform.localPosition = Vector3.zero; });
+        .OnComplete(()=> { boilerDamage.localPosition = Vector3.zero; })
+        .OnKill(() => { boilerDamage.localPosition = Vector3.zero; });
 
         // SHAKE ROTATION
         boilerDamage.DOShakeRotation(
@@ -74,8 +74,8 @@ public class CameraShake : Singleton<CameraShake>
             randomness: 90,
             fadeOut: true
         ).SetUpdate(true)
-         .OnComplete(() => { transform.localRotation = Quaternion.identity; }).
-         OnKill(() => { transform.localRotation = Quaternion.identity; }); 
+         .OnComplete(() => { boilerDamage.localRotation = Quaternion.identity; })
+         .OnKill(() => { boilerDamage.localRotation = Quaternion.identity; }); 
     }
 
     public void PlayCatwalkCollapseShake(float duration, System.Action onComplete = null, System.Action onKill = null)

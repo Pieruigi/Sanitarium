@@ -134,9 +134,9 @@ namespace Baloon
             if (interactor != localInteractor) return;
             if (hit) return;
             if (!RepairToolController.Instance.Equipped) return;
-            
 
             FindFirstObjectByType<DotUI>().ShowHold();
+
         }
 
         public void ForceDetach()
