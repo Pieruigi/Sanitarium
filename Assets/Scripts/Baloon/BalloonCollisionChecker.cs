@@ -59,14 +59,14 @@ namespace Baloon
             // Get normal
             var normal = collision.contacts[0].normal;
 
-            float horizontalMagnitude = new Vector2(vel.x, vel.z).magnitude;
+            //float horizontalMagnitude = new Vector2(vel.x, vel.z).magnitude;
 
             // Get the absolute value of the vertical component
-            float verticalMagnitude = Mathf.Abs(vel.y);
+            //float verticalMagnitude = Mathf.Abs(vel.y);
 
             Vector3 bounceVel = Vector3.zero;
 
-            bool isPointingUpMoreThan45 = normal.y > 0.7071f;
+            //bool isPointingUpMoreThan45 = normal.y > 0.7071f;
 
             var hV = new Vector3(vel.x, 0f, vel.z);
             var hN = new Vector3(normal.x, 0f, normal.z);
@@ -113,8 +113,8 @@ namespace Baloon
                 // Stop moving forward
                 //BaloonController.Instance.DisableHorizontalVelocity();
 
-                // Move back
-                var time = 2f;
+            // Move back
+            var time = 2f;
             //vel.y *= -1;
             var bounceTarget = BaloonController.Instance.transform.position + bounceVel * time;
             BaloonController.Instance.transform.DOMove(bounceTarget, time).SetEase(Ease.OutQuad);
@@ -139,7 +139,7 @@ namespace Baloon
 
         }
 
-        private void _OnCollisionEnter(Collision collision)
+        private void __OnCollisionEnter(Collision collision)
         {
             if (BasePlatform.CurrentPlatform || player.Doomed) return;
 
