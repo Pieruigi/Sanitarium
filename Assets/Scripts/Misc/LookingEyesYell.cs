@@ -47,6 +47,8 @@ namespace Baloon
             played = true;
 
             audioSource.Play();
+
+            CameraShake.Instance.PlayJumpscare(.5f);
         }
     }
 }

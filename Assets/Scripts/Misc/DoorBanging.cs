@@ -65,7 +65,7 @@ namespace Baloon
             {
                 doorAudioSource.Play();
 
-                yield return new WaitForSeconds(.5f);
+                yield return new WaitForSeconds(.1f);
 
                 CameraShake.Instance.PlayJumpscare(1);
             }
